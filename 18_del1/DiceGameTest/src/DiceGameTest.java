@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class DiceGameTest {
     public static void main(String[] args) {
         double countTwo = 0;
@@ -55,17 +57,18 @@ public class DiceGameTest {
             }
             countDuplicate = countDuplicate + cup.sameFaceValue();
         }
-        System.out.println("The sum was 2: " + (countTwo / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 3: " + (countThree / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 4: " + (countFour / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 5: " + (countFive / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 6: " + (countSix / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 7: " + (countSeven / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 8: " + (countEight / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 9: " + (countNine / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 10: " + (countTen / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 11: " + (countEleven / 1000) * 100 + " percentage of times");
-        System.out.println("The sum was 12: " + (countTwelve / 1000) * 100 + " percentage of times");
-        System.out.println("The two dice show the same facevalue: " + (countDuplicate / 1000) * 100 + " percentage of times");
+        DecimalFormat fmt1 = new DecimalFormat("#.##%");
+        System.out.println("The sum was 2: " + fmt1.format(countTwo / 1000) + " of times");
+        System.out.println("The sum was 3: " + fmt1.format(countThree / 1000) + " of times");
+        System.out.println("The sum was 4: " + fmt1.format(countFour / 1000) + " of times");
+        System.out.println("The sum was 5: " + fmt1.format(countFive / 1000) + " of times");
+        System.out.println("The sum was 6: " + fmt1.format(countSix / 1000) + " of times");
+        System.out.println("The sum was 7: " + fmt1.format(countSeven / 1000) + " of times");
+        System.out.println("The sum was 8: " + fmt1.format(countEight / 1000) + " of times");
+        System.out.println("The sum was 9: " + fmt1.format(countNine / 1000) + " of times");
+        System.out.println("The sum was 10: " + fmt1.format(countTen / 1000) + " of times");
+        System.out.println("The sum was 11: " + fmt1.format(countEleven / 1000) + " of times");
+        System.out.println("The sum was 12: " + fmt1.format(countTwelve / 1000) + " of times");
+        System.out.println("The two dice show the same facevalue: " + fmt1.format(countDuplicate / 1000) + " of times");
     }
 }
