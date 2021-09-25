@@ -51,6 +51,6 @@ public class DiceGameTest {
         System.out.println("The sum was 10: " + fmt1.format(countTen / 1000) + " of times");
         System.out.println("The sum was 11: " + fmt1.format(countEleven / 1000) + " of times");
         System.out.println("The sum was 12: " + fmt1.format(countTwelve / 1000) + " of times");
-        System.out.println("The two dice show the same facevalue: " + fmt1.format(countDuplicate / 1000) + " of times");
+        System.out.println("The two dice show the same face value: " + fmt1.format(countDuplicate / 1000) + " of times");
     }
 }
