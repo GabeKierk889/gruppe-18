@@ -1,3 +1,7 @@
+package TestCase;
+
+import Game.DiceCup;
+
 import java.text.DecimalFormat;
 
 public class DiceGameTest {

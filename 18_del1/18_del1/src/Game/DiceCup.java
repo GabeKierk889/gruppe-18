@@ -1,3 +1,5 @@
+package Game;
+
 public class DiceCup {
     private Die die1, die2;
 
@@ -25,7 +27,7 @@ public class DiceCup {
     }
 
     public String toString() {
-        String str = "Die 1 rolled: " + die1.getFaceValue() + "\n" + "Die 2 rolled: " + die2.getFaceValue() +
+        String str = "Game.Die 1 rolled: " + die1.getFaceValue() + "\n" + "Game.Die 2 rolled: " + die2.getFaceValue() +
                 "\n" + "Sum: " + (die1.getFaceValue() + die2.getFaceValue());
         return str;
     }
