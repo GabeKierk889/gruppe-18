@@ -6,18 +6,8 @@ import java.text.DecimalFormat;
 
 public class DiceGameTest {
     public static void main(String[] args) {
-        double countTwo = 0;
-        double countThree = 0;
-        double countFour = 0;
-        double countFive = 0;
-        double countSix = 0;
-        double countSeven = 0;
-        double countEight = 0;
-        double countNine = 0;
-        double countTen = 0;
-        double countEleven = 0;
-        double countTwelve = 0;
-        double countDuplicate = 0;
+        double countTwo = 0, countThree = 0, countFour = 0, countFive = 0, countSix = 0, countSeven = 0, countEight = 0;
+        double countNine = 0, countTen = 0, countEleven = 0, countTwelve = 0, countDuplicate = 0;
 
         DiceCup cup = new DiceCup();
 
