@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 
 public class DiceGameTest {
     public static void main(String[] args) {
-        double countTwo = 0, countThree = 0, countFour = 0, countFive = 0, countSix = 0, countSeven = 0, countEight = 0;
-        double countNine = 0, countTen = 0, countEleven = 0, countTwelve = 0, countDuplicate = 0;
+        double countTwo = 0, countThree = 0, countFour = 0, countFive = 0, countSix = 0, countSeven = 0,
+        countEight = 0, countNine = 0, countTen = 0, countEleven = 0, countTwelve = 0, countDuplicate = 0;
 
         DiceCup cup = new DiceCup();
 
@@ -41,6 +41,7 @@ public class DiceGameTest {
         System.out.println("The sum was 10: " + fmt1.format(countTen / 1000) + " of times");
         System.out.println("The sum was 11: " + fmt1.format(countEleven / 1000) + " of times");
         System.out.println("The sum was 12: " + fmt1.format(countTwelve / 1000) + " of times");
-        System.out.println("The two dice show the same face value: " + fmt1.format(countDuplicate / 1000) + " of times");
+        System.out.println("The two dice show the same face value: " + fmt1.format(countDuplicate / 1000) +
+                " of times");
     }
 }
