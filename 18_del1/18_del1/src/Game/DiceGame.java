@@ -29,10 +29,10 @@ public class DiceGame {
                     if (pair1.getSum() == 2) {
                         System.out.println("You threw two 1's - you lost all your points!");}
                     gameRound += pair1.sameFaceValue(); //To skip the next player's turn when you throw two of the same
-                    if ((sum1 >= 40) && pair1.sameFaceValue() == 0)
+                    if ((sum1 >= 40 && lastSum1 < 40) || (sum1 >= 40 && pair1.sameFaceValue()==0))
                         System.out.println("You need to throw a pair of the same to win");
-                    if (pair1.sameFaceValue() == 1 && lastSum1 < 40 )
-                        System.out.println("You threw a pair of the same - you get an extra turn");
+                    if ((pair1.sameFaceValue() == 1 && lastSum1 < 40) || (pair1.sameFaceValue() == 1 && pair1.getSum()==2))
+                        System.out.println("You threw a pair of the same - you get an extra turn"); //prints whenever the player throws two of the same after reaching 40 but does not win
                     break;
                 case 2:
                     lastThrow2 = pair2.getSum();
@@ -47,10 +47,10 @@ public class DiceGame {
                     if (pair2.getSum() == 2) {
                         System.out.println("You threw two 1's - you lost all your points!");}
                     gameRound += pair2.sameFaceValue(); //To skip the next player's turn when you throw two of the same
-                    if ((sum2 >= 40) && pair2.sameFaceValue() == 0)
+                    if ((sum2 >= 40 && lastSum2 < 40) || (sum2 >= 40 && pair2.sameFaceValue()==0))
                         System.out.println("You need to throw a pair of the same to win");
-                    if (pair2.sameFaceValue() == 1 && lastSum2 < 40 )
-                        System.out.println("You threw a pair of the same - you get an extra turn");
+                    if ((pair2.sameFaceValue() == 1 && lastSum2 < 40) || (pair2.sameFaceValue() == 1 && pair2.getSum()==2))
+                        System.out.println("You threw a pair of the same - you get an extra turn"); //prints whenever the player throws two of the same after reaching 40 but does not win
                     break;
             }
             System.out.println();
