@@ -13,26 +13,21 @@ public class DiceGame {
         while (gameOn) {
 
             while (playerOneTurn) {
-                if (playerOneSum >= 40) {
-                    gameOn = false;
-                } else {
-                    System.out.print("Player 1 turn, press enter to roll the dice: ");
-                    turn = scanner.nextLine();
-                    dc.roll();
-                    System.out.println(dc);
-                    playerOneSum += dc.getSum();
-                    System.out.println("The total sum is: " + playerOneSum);
-                    System.out.println();
-                    playerOneTurn = false;
-                }
+                playerOneTurn = false;
+                System.out.print("Player 1 turn, press enter to roll the dice: ");
+                turn = scanner.nextLine();
+                dc.roll();
+                System.out.println(dc);
+                playerOneSum += dc.getSum();
+                System.out.println("The total sum is: " + playerOneSum);
+                System.out.println();
             }
-
-            playerTwoTurn = true;
-
-            while (playerTwoTurn) {
-                if (playerTwoSum >= 40) {
-                    gameOn = false;
-                } else {
+            if (playerOneSum >= 40) {
+                gameOn = false;
+            }
+            if (playerOneSum < 40) {
+                while (playerTwoTurn) {
+                    playerTwoTurn = false;
                     System.out.print("Player 2 turn, press enter to roll the dice");
                     turn = scanner.nextLine();
                     dc.roll();
@@ -40,10 +35,13 @@ public class DiceGame {
                     playerTwoSum += dc.getSum();
                     System.out.println("The total sum is: " + playerTwoSum);
                     System.out.println();
-                    playerTwoTurn = false;
                 }
             }
+            playerTwoTurn = true;
 
+            if (playerTwoSum >= 40) {
+                gameOn = false;
+            }
             playerOneTurn = true;
         }
     }
