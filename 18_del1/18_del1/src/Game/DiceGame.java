@@ -9,6 +9,7 @@ public class DiceGame {
         int winner = 0;
         int sum1 = 0; int sum2 = 0;
         int lastThrow1 = 0; int lastThrow2 = 0;
+        int lastSum1 = 0; int lastSum2 = 0;
         Scanner scan = new Scanner(System.in);
         while (winner==0){
             gameRound++;
@@ -17,6 +18,7 @@ public class DiceGame {
             switch (PlayerTurn(gameRound)) {
                 case 1:
                     lastThrow1 = pair1.getSum();
+                    lastSum1 = sum1;
                     pair1.roll();
                     if (pair1.getSum() == 2)
                         sum1 = 0;
@@ -25,9 +27,12 @@ public class DiceGame {
                     System.out.println("Player 1" + "\t" + pair1);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum1);
                     gameRound += pair1.sameFaceValue(); //To skip the next player's turn when you throw two of the same
+                    if ((sum1 >= 40) && pair1.sameFaceValue() == 0)
+                        System.out.println("You need to throw two of the same face values to win");
                     break;
                 case 2:
                     lastThrow2 = pair2.getSum();
+                    lastSum2 = sum2;
                     pair2.roll();
                     if (pair2.getSum() == 2)
                         sum2 = 0;
@@ -36,16 +41,18 @@ public class DiceGame {
                     System.out.println("Player 2" + "\t" + pair2);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum2);
                     gameRound += pair2.sameFaceValue(); //To skip the next player's turn when you throw two of the same
+                    if ((sum2 >= 40) && pair2.sameFaceValue() == 0)
+                        System.out.println("You need to throw two of the same face values to win");
                     break;
             }
             System.out.println();
-            if (sum1 >= 40)
+            if (lastSum1 >= 40 && pair1.sameFaceValue() == 1)
                 winner =1;
-            if (sum2 >= 40)
+            if (lastSum2 >= 40 && pair2.sameFaceValue() == 1)
                 winner =2;
-            if (lastThrow1+ pair1.getSum() == 24) // if player throws two 6's in a row, player wins
+            if (lastThrow1 + pair1.getSum() == 24) // if player throws two 6's in a row, player wins
                 winner = 1;
-            if (lastThrow2+ pair2.getSum() == 24) // if player throws two 6's in a row, player wins
+            if (lastThrow2 + pair2.getSum() == 24) // if player throws two 6's in a row, player wins
                 winner = 2;
         }
         System.out.printf("Player " + winner + " wins this game");
