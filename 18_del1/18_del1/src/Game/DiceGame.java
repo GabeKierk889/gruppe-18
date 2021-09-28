@@ -22,6 +22,7 @@ public class DiceGame {
                         sum1 += pair1.getSum();
                     System.out.println("Player 1" + "\t" + pair1);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum1);
+                    gameRound += pair1.sameFaceValue();
                     break;
                 case 2:
                     pair2.roll();
@@ -31,6 +32,7 @@ public class DiceGame {
                         sum2 += pair2.getSum();
                     System.out.println("Player 2" + "\t" + pair2);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum2);
+                    gameRound += pair2.sameFaceValue();
                     break;
             }
             System.out.println();
