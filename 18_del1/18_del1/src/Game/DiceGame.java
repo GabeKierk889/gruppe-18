@@ -4,17 +4,17 @@ import java.util.Scanner;
 public class DiceGame {
     public static void main(String[] args) {
         int playerOneSum = 0, playerTwoSum = 0;
-        boolean gameOn = true, playerOneTurn = true, playerTwoTurn = true;
+        boolean gameOn = true, playerOneTurn = true, playerTwoTurn = true, wonGame = true;
         String turn;
 
         DiceCup dc = new DiceCup();
         Scanner scanner = new Scanner(System.in);
 
         while (gameOn) {
-
+            
             while (playerOneTurn) {
                 if (playerOneSum >= 40) {
-                    gameOn = false;
+                    wonGame = false;
                 } else {
                     System.out.print("Player 1 turn, press enter to roll the dice: ");
                     turn = scanner.nextLine();
@@ -31,7 +31,7 @@ public class DiceGame {
 
             while (playerTwoTurn) {
                 if (playerTwoSum >= 40) {
-                    gameOn = false;
+                    wonGame = false;
                 } else {
                     System.out.print("Player 2 turn, press enter to roll the dice");
                     turn = scanner.nextLine();
