@@ -15,17 +15,39 @@ public class DiceGameTest {
             cup.roll();
 
             switch (cup.getSum()) {
-                case 2 -> countTwo++;
-                case 3 -> countThree++;
-                case 4 -> countFour++;
-                case 5 -> countFive++;
-                case 6 -> countSix++;
-                case 7 -> countSeven++;
-                case 8 -> countEight++;
-                case 9 -> countNine++;
-                case 10 -> countTen++;
-                case 11 -> countEleven++;
-                case 12 -> countTwelve++;
+                case 2:
+                    countTwo++;
+                    break;
+                case 3:
+                    countThree++;
+                    break;
+                case 4:
+                    countFour++;
+                    break;
+                case 5:
+                    countFive++;
+                    break;
+                case 6:
+                    countSix++;
+                    break;
+                case 7:
+                    countSeven++;
+                    break;
+                case 8:
+                    countEight++;
+                    break;
+                case 9:
+                    countNine++;
+                    break;
+                case 10:
+                    countTen++;
+                    break;
+                case 11:
+                    countEleven++;
+                    break;
+                case 12:
+                    countTwelve++;
+                    break;
             }
             countDuplicate = countDuplicate + cup.sameFaceValue();
         }
