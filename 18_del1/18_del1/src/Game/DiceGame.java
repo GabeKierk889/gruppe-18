@@ -46,9 +46,9 @@ public class DiceGame {
                     break;
             }
             System.out.println();
-            if (lastSum1 >= 40 && pair1.sameFaceValue() == 1)
+            if (lastSum1 >= 40 && pair1.getSum() != 2 && pair1.sameFaceValue() == 1)
                 winner =1;
-            if (lastSum2 >= 40 && pair2.sameFaceValue() == 1)
+            if (lastSum2 >= 40 && pair2.getSum() != 2 && pair2.sameFaceValue() == 1)
                 winner =2;
             if (lastThrow1 + pair1.getSum() == 24) // if player throws two 6's in a row, player wins
                 winner = 1;
