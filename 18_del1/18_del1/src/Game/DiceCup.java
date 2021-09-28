@@ -27,8 +27,7 @@ public class DiceCup {
     }
 
     public String toString() {
-        String str = "Game.Die 1 rolled: " + die1.getFaceValue() + "\n" + "Game.Die 2 rolled: " + die2.getFaceValue() +
-                "\n" + "Sum: " + (die1.getFaceValue() + die2.getFaceValue());
-        return str;
+        String result = "Die 1: " + die1.getFaceValue() + "\t" + "Die 2: " + die2.getFaceValue() + "\t" + "Sum: " + (die1.getFaceValue()+die2.getFaceValue());
+        return result;
     }
 }
