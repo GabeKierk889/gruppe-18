@@ -16,13 +16,19 @@ public class DiceGame {
             switch (PlayerTurn(gameRound)) {
                 case 1:
                     pair1.roll();
-                    sum1 += pair1.getSum();
+                    if (pair1.getSum() == 2)
+                        sum1 = 0;
+                    else
+                        sum1 += pair1.getSum();
                     System.out.println("Player 1" + "\t" + pair1);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum1);
                     break;
                 case 2:
                     pair2.roll();
-                    sum2 += pair2.getSum();
+                    if (pair2.getSum() == 2)
+                        sum2 = 0;
+                    else
+                        sum2 += pair2.getSum();
                     System.out.println("Player 2" + "\t" + pair2);
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum2);
                     break;
