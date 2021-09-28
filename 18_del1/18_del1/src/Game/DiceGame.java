@@ -1,4 +1,4 @@
-package TestCase;
+package Game;
 
 import Game.DiceCup;
 import java.util.Scanner;
@@ -11,9 +11,10 @@ public class DiceGame {
         int winner = 0;
         int sum1 = 0; int sum2 = 0;
         Scanner scan = new Scanner(System.in);
-        while (scan.hasNextLine() && winner==0){
-            String Str = scan.nextLine();
+        while (winner==0){
             gameRound++;
+            System.out.println("Player " + PlayerTurn(gameRound)+ " turn: Press enter to roll");
+            String Str = scan.nextLine();
             switch (PlayerTurn(gameRound)) {
                 case 1:
                     pair1.roll();
@@ -28,6 +29,7 @@ public class DiceGame {
                     System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum2);
                     break;
             }
+            System.out.println();
             if (sum1 >= 40)
                 winner =1;
             if (sum2 >= 40)
