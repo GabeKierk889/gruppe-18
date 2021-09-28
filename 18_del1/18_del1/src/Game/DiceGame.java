@@ -2,47 +2,45 @@ package Game;
 import java.util.Scanner;
 
 public class DiceGame {
-    public static void main(String[] args) {
-        int playerOneSum = 0, playerTwoSum = 0;
-        boolean gameOn = true, playerOneTurn = true, playerTwoTurn = true;
-        String turn;
-
-        DiceCup dc = new DiceCup();
-        Scanner scanner = new Scanner(System.in);
-
-        while (gameOn) {
-
-            while (playerOneTurn) {
-                playerOneTurn = false;
-                System.out.print("Player 1 turn, press enter to roll the dice: ");
-                turn = scanner.nextLine();
-                dc.roll();
-                System.out.println(dc);
-                playerOneSum += dc.getSum();
-                System.out.println("The total sum is: " + playerOneSum);
-                System.out.println();
+    public static void main(String[]args){
+        DiceCup pair1 = new DiceCup();
+        DiceCup pair2 = new DiceCup();
+        int gameRound = 0;
+        int winner = 0;
+        int sum1 = 0; int sum2 = 0;
+        Scanner scan = new Scanner(System.in);
+        while (winner==0){
+            gameRound++;
+            System.out.println("Player " + PlayerTurn(gameRound)+ " turn: Press enter to roll");
+            String Str = scan.nextLine();
+            switch (PlayerTurn(gameRound)) {
+                case 1:
+                    pair1.roll();
+                    sum1 += pair1.getSum();
+                    System.out.println("Player 1" + "\t" + pair1);
+                    System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum1);
+                    break;
+                case 2:
+                    pair2.roll();
+                    sum2 += pair2.getSum();
+                    System.out.println("Player 2" + "\t" + pair2);
+                    System.out.println("\t" +"\t"+"\t"+"\t" +"\t"+"\t"+"  Running total: " + sum2);
+                    break;
             }
-            if (playerOneSum >= 40) {
-                gameOn = false;
-            }
-            if (playerOneSum < 40) {
-                while (playerTwoTurn) {
-                    playerTwoTurn = false;
-                    System.out.print("Player 2 turn, press enter to roll the dice");
-                    turn = scanner.nextLine();
-                    dc.roll();
-                    System.out.println(dc);
-                    playerTwoSum += dc.getSum();
-                    System.out.println("The total sum is: " + playerTwoSum);
-                    System.out.println();
-                }
-            }
-            playerTwoTurn = true;
-
-            if (playerTwoSum >= 40) {
-                gameOn = false;
-            }
-            playerOneTurn = true;
+            System.out.println();
+            if (sum1 >= 40)
+                winner =1;
+            if (sum2 >= 40)
+                winner =2;
         }
+        System.out.printf("Player " + winner + " wins this game");
+        scan.close();
+    }
+
+    public static int PlayerTurn(int Round) {
+        if (Round % 2 == 0)
+            return 2;
+        else
+            return 1;
     }
 }
