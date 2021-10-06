@@ -1,7 +1,7 @@
 package Game;
 
 public class Field {
-    private static int nextfieldNumber = 0; //for Matador, remember when initializing to make an empty field to let the actual fields start from 1
+    private static int totalnumberOfFields = 0; //for Matador, remember when initializing to make an empty/placeholder field to let the actual fields start from array index 1
     private final int fieldNumber;
     private final String fieldName; //field description for this version of the dice game
     private int fieldEffect;
@@ -9,10 +9,10 @@ public class Field {
 
     public Field(String fieldName, boolean fieldPositiveEffect, int fieldEffect) {
         this.fieldName = fieldName;
-        this.fieldNumber = nextfieldNumber;
+        this.fieldNumber = totalnumberOfFields;
         this.fieldPositiveEffect = fieldPositiveEffect;
         this.fieldEffect = fieldEffect;
-        nextfieldNumber++;
+        totalnumberOfFields++;
     }
     public boolean getFieldType (){ return fieldPositiveEffect; }
     public int getFieldEffect (){ return fieldEffect; }

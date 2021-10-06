@@ -3,7 +3,7 @@ package Game;
 public class DiceGame {
     public static void main(String[] args) {
         Field[] gameField = {
-                new Field(null,false,0),new Field(null,false,0),
+                new Field(null,false,0),new Field(null,false,0), // empty array placeholders to allow array index to match up to 2-12
                 new Field("You climbed an abandoned Tower and found a treasure at the top which you sell for 250", true,250),
                 new Field("You dropped your watch down a deep Crater - it will cost you 100 to replace it",false,100),
                 new Field("You made it to the Palace Gates and receive 100 from the generous king", true,100),
