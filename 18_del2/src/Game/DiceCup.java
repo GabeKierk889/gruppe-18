@@ -18,6 +18,14 @@ public class DiceCup {
         return sum;
     }
 
+    public int getDie1() {
+        return die1.getFaceValue();
+    }
+
+    public int getDie2() {
+        return die2.getFaceValue();
+    }
+
     public int sameFaceValue() {
         int result = 0;
         if (die1.getFaceValue() == die2.getFaceValue()) {
