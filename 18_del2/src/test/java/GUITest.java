@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 public class GUITest {
 
     public static void main(String[] args) {
+        Game game = new Game();
 
         // Setting up fields
         GUI_Field[] fields = new GUI_Field[11];
@@ -20,14 +21,13 @@ public class GUITest {
         for (int i = 0; i < 11; i++) {
             streets[i] = new GUI_Street();
             streets[i].setTitle(""+(i+2));
+            streets[i].setSubText(game.getField(i).getFieldSubtext());
+            streets[i].setDescription(game.getField(i).getFieldDescription());
             streets[i].setBackGroundColor(Color.gray);
             fields[i] = streets[i];
         }
 
         GUI_Board board = new GUI_Board(fields, Color.lightGray); // Setting up fields and background color
-        streets[0].setTitle("Feltets navn");
-        streets[0].setSubText("Dette er en subtext");
-        streets[0].setDescription("Dette er en beskrivelse");
 
         // Setting up cars
         GUI_Car car1 = new GUI_Car();
