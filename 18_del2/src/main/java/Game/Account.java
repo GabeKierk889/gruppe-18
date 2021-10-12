@@ -29,7 +29,7 @@ public class Account {
         this.currentBalance = balance;
     }
 
-\    public String getBalance() {
+    public String getBalance() {
         return "The current balance is: " + currentBalance;
     }
 }
