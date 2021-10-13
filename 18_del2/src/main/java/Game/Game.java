@@ -24,7 +24,7 @@ public class Game {
         };
     }
     public void updateBalance(int playernumber, int fieldnumber) {
-        if (gameFields[fieldnumber-2].getFieldPosiveEffect())
+        if (gameFields[fieldnumber-2].getFieldPosiveEffect()) //because field array number starts at 0 while field number starts at 2
             player[playernumber-1].getAccount().depositMoney(gameFields[fieldnumber-2].getFieldEffect());
         else
             player[playernumber-1].getAccount().withdrawMoney(gameFields[fieldnumber-2].getFieldEffect());
