@@ -1,9 +1,14 @@
 package Game;
 
 public class Game {
+    private Player player[];
     private Field gameFields[];
+    private DiceCup cup;
+
 
     public Game() {
+        cup = new DiceCup();
+        player = new Player[]{new Player("Player 1"), new Player("Player 2")};
         gameFields = new Field[]{
                 new Field("Tower", "You climbed an abandoned Tower and found a treasure at the top which you sell for 250", true,250),
                 new Field("Crater","You dropped your watch down a deep Crater - it will cost you 100 to replace it",false,100),
@@ -18,7 +23,19 @@ public class Game {
                 new Field("Goldmine","You hit the jackpot! You found a Goldmine in the mountains and cash in 650!", true,650),
         };
     }
+    public void updateBalance(int playernumber, int fieldnumber) {
+        if (gameFields[fieldnumber-2].getFieldPosiveEffect())
+            player[playernumber-1].getAccount().depositMoney(gameFields[fieldnumber-2].getFieldEffect());
+        else
+            player[playernumber-1].getAccount().withdrawMoney(gameFields[fieldnumber-2].getFieldEffect());
+    }
     public Field getField(int no) {
         return gameFields[no];
+    }
+    public Player getPlayerObject(int playernumber) {
+        return player[playernumber-1];
+    }
+    public DiceCup getCup() {
+        return cup;
     }
 }

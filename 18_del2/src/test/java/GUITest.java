@@ -38,26 +38,22 @@ public class GUITest {
         car2.setPrimaryColor(Color.BLUE);
         car2.setSecondaryColor(Color.CYAN);
 
-
         // Setting up players
-        GUI_Player player1 = new GUI_Player("Mark", 1000, car1);
-        GUI_Player player2 = new GUI_Player("Mor", 1000, car2);
+        GUI_Player player1 = new GUI_Player(game.getPlayerObject(1).getName(), game.getPlayerObject(1).getAccount().getBalance(), car1);
+        GUI_Player player2 = new GUI_Player(game.getPlayerObject(2).getName(), game.getPlayerObject(2).getAccount().getBalance(), car2);
         board.addPlayer(player2);
         board.addPlayer(player1);
 
-        // Changing player balance
-        player1.setBalance(player1.getBalance()-100);
-
         // Message (can be used for user input with second arg)
-        board.getUserInput("Welcome to Dice Game v2.\n\nClick anywhere to roll the dice");
+        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nClick anywhere to roll the dice");
 
         // Placing cars on fields
         streets[1].setCar(player1,true); // Display player 1 on street 1
         fields[2].setCar(player2,true); // Display player 2 on field 2
 
-        // Setting up dice
-        Die die1 = new Die();
-        Die die2 = new Die();
+        // Referencing the dice to the DiceCup set up by the game
+        Die die1 = game.getCup().getDie1();
+        Die die2 = game.getCup().getDie2();
 
         // User input: dice rolls on mouse click
         MouseInputListener listen = new MouseInputListener() {
@@ -68,8 +64,12 @@ public class GUITest {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                die1.roll();
-                die2.roll();
+                game.getCup().roll();
+                // Testing a roll's effect on player 1's balance
+                game.updateBalance(1,game.getCup().getSum());
+                // Showing updated player balance
+                player1.setBalance(game.getPlayerObject(1).getAccount().getBalance());
+                player2.setBalance(game.getPlayerObject(2).getAccount().getBalance());
             }
 
             @Override
@@ -99,6 +99,7 @@ public class GUITest {
             }
         };
         board.addMouseListener(listen);
+
 
     }
 }

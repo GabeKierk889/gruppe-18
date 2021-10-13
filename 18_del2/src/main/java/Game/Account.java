@@ -1,7 +1,7 @@
 package Game;
 
 public class Account {
-    private double currentBalance;
+    private int currentBalance;
     private static int startingBalance = 1000;
 
     public Account () {
@@ -26,11 +26,11 @@ public class Account {
         }
     }
 
-    public void setCurrentBalance(double balance) {
+    public void setCurrentBalance(int balance) {
         this.currentBalance = balance;
     }
 
-    public String getBalance() {
-        return "The current balance is: " + currentBalance;
+    public int getBalance() {
+        return currentBalance;
     }
 }
