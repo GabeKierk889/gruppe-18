@@ -29,9 +29,7 @@ public class Game {
         else
             player[playernumber-1].getAccount().withdrawMoney(gameFields[fieldnumber-2].getFieldEffect());
     }
-    public Field getField(int no) {
-        return gameFields[no];
-    }
+    public Field getField(int no) { return gameFields[no]; }
     public Player getPlayerObject(int playernumber) {
         return player[playernumber-1];
     }

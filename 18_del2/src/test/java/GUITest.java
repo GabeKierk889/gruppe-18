@@ -45,7 +45,7 @@ public class GUITest {
         board.addPlayer(player1);
 
         // Message (can be used for user input with second arg)
-        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nClick anywhere to roll the dice");
+        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nPlayer 1 turn\nClick anywhere to roll the dice");
 
         // Placing cars on fields
         streets[1].setCar(player1,true); // Display player 1 on street 1
@@ -65,17 +65,19 @@ public class GUITest {
             @Override
             public void mousePressed(MouseEvent e) {
                 game.getCup().roll();
-                // Testing a roll's effect on player 1's balance
-                game.updateBalance(1,game.getCup().getSum());
-                // Showing updated player balance
-                player1.setBalance(game.getPlayerObject(1).getAccount().getBalance());
-                player2.setBalance(game.getPlayerObject(2).getAccount().getBalance());
+                board.setDice((int)(Math.random()*4+2),(int)(Math.random()*9+2),die1.getFaceValue(),(int)(Math.random()*359),
+                        (int)(Math.random()*5+6),(int)(Math.random()*9+2),die2.getFaceValue(),(int)(Math.random()*359));
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                board.setDice((int)(Math.random()*11),(int)(Math.random()*11),die1.getFaceValue(),(int)(Math.random()*359),
-                        (int)(Math.random()*11),(int)(Math.random()*11),die2.getFaceValue(),(int)(Math.random()*359));
+                // Testing a roll's effect on player 1's balance
+                //Work in progress - need to add which player's turn it is
+                board.getUserInput("Player x. "+ game.getField(game.getCup().getSum()-2).getFieldDescription() + "\n\nPlayer x+1"+" turn\nClick anywhere to roll the dice");
+                game.updateBalance(1,game.getCup().getSum());
+                // Showing updated player balance
+                player1.setBalance(game.getPlayerObject(1).getAccount().getBalance());
+                player2.setBalance(game.getPlayerObject(2).getAccount().getBalance());
             }
 
             @Override
