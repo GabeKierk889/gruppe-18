@@ -1,7 +1,7 @@
 package Game;
 
 public class Field {
-    private static int totalnumberOfFields = 0; //for Matador, remember when initializing to make an empty/placeholder field to let the actual fields start from array index 1
+    private static int totalnumberOfFields = 0;
     private final int fieldNumber;
     private final String fieldDescription;
     private final String fieldSubtext;
