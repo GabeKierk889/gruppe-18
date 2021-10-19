@@ -51,11 +51,8 @@ public class GUITest {
         board.addPlayer(player[0]);
 
         // Message (can be used for user input with second arg)
-        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nPlayer 1's turn\nClick anywhere to roll the dice");
-
-        // Placing cars on fields
-//        streets[1].setCar(player1,true); // Display player 1 on street 1
-//        fields[2].setCar(player2,true); // Display player 2 on field 2
+        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. " +
+                "The first to reach 3000 wins.\n\nPlayer 1's turn\nClick anywhere to roll the dice");
 
         // Referencing the dice to the DiceCup set up by the game
         Die die1 = game.getCup().getDie1();
@@ -65,7 +62,6 @@ public class GUITest {
         MouseInputListener listen = new MouseInputListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
             }
 
             @Override
@@ -79,11 +75,11 @@ public class GUITest {
                     game.getCup().roll();
                     board.setDice((int) (Math.random() * 4 + 3), (int) (Math.random() * 5 + 2), die1.getFaceValue(), (int) (Math.random() * 359),
                             (int) (Math.random() * 4 + 7), (int) (Math.random() * 5 + 2), die2.getFaceValue(), (int) (Math.random() * 359));
+                    streets[game.getCup().getSum() - 2].setCar(player[game.getCurrentPlayer() - 1], true);
                     board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
                             + "\n\nPlayer " + game.nextPlayer(game.getCup().getSum() == 10) + "'s" + " turn\nClick anywhere to roll the dice");
+                    // Updating player balance and showing the updated player balances
                     game.updateBalance(game.getCurrentPlayer(), game.getCup().getSum());
-                    streets[game.getCup().getSum() - 2].setCar(player[game.getCurrentPlayer() - 1], true);
-                    // Showing updated player balance
                     player[0].setBalance(game.getPlayerObject(1).getAccount().getBalance());
                     player[1].setBalance(game.getPlayerObject(2).getAccount().getBalance());
                     if (game.isGameOver()) {

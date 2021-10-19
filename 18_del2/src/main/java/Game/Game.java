@@ -4,11 +4,11 @@ public class Game {
     private Player player[];
     private Field gameFields[];
     private DiceCup cup;
-    private static int currentPlayer;
-    private static int nextPlayer;
-    private static int totalPlayers = 2;
-    private static int winner = -1;
-    private static int winningAmount = 3000;
+    private int currentPlayer;
+    private int nextPlayer;
+    private final int totalPlayers = 2;
+    private int winner;
+    private final int winningAmount = 3000;
 
     public Game() {
         currentPlayer = 1;
