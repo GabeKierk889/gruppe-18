@@ -12,6 +12,7 @@ public class Game {
 
     public Game() {
         currentPlayer = 1;
+        nextPlayer = 1;
         cup = new DiceCup();
         player = new Player[]{new Player("Player 1"), new Player("Player 2")};
         gameFields = new Field[]{
