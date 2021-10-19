@@ -39,17 +39,23 @@ public class GUITest {
         car2.setSecondaryColor(Color.CYAN);
 
         // Setting up players
-        GUI_Player player1 = new GUI_Player(game.getPlayerObject(1).getName(), game.getPlayerObject(1).getAccount().getBalance(), car1);
-        GUI_Player player2 = new GUI_Player(game.getPlayerObject(2).getName(), game.getPlayerObject(2).getAccount().getBalance(), car2);
-        board.addPlayer(player2);
-        board.addPlayer(player1);
+        GUI_Player[] player = new GUI_Player[game.getTotalPlayers()];
+        player[0]= new GUI_Player(game.getPlayerObject(1).getName(),
+                game.getPlayerObject(1).getAccount().getBalance(),
+                car1);
+        player[1]= new GUI_Player(game.getPlayerObject(2).getName(),
+                game.getPlayerObject(2).getAccount().getBalance(),
+                car2);
+
+        board.addPlayer(player[1]);
+        board.addPlayer(player[0]);
 
         // Message (can be used for user input with second arg)
         board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nPlayer 1 turn\nClick anywhere to roll the dice");
 
         // Placing cars on fields
-        streets[1].setCar(player1,true); // Display player 1 on street 1
-        fields[2].setCar(player2,true); // Display player 2 on field 2
+//        streets[1].setCar(player1,true); // Display player 1 on street 1
+//        fields[2].setCar(player2,true); // Display player 2 on field 2
 
         // Referencing the dice to the DiceCup set up by the game
         Die die1 = game.getCup().getDie1();
@@ -64,20 +70,24 @@ public class GUITest {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                fields[game.getCup().getSum()-2].removeAllCars();
                 game.getCup().roll();
-                board.setDice((int)(Math.random()*4+2),(int)(Math.random()*9+2),die1.getFaceValue(),(int)(Math.random()*359),
-                        (int)(Math.random()*5+6),(int)(Math.random()*9+2),die2.getFaceValue(),(int)(Math.random()*359));
+                board.setDice((int)(Math.random()*4+3),(int)(Math.random()*5+2),die1.getFaceValue(),(int)(Math.random()*359),
+                        (int)(Math.random()*4+7),(int)(Math.random()*5+2),die2.getFaceValue(),(int)(Math.random()*359));
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 // Testing a roll's effect on player 1's balance
                 //Work in progress - need to add which player's turn it is
-                board.getUserInput("Player x. "+ game.getField(game.getCup().getSum()-2).getFieldDescription() + "\n\nPlayer x+1"+" turn\nClick anywhere to roll the dice");
-                game.updateBalance(1,game.getCup().getSum());
+                board.getUserInput("Player " + game.getCurrentPlayer()+ ": "+ game.getField(game.getCup().getSum()-2).getFieldDescription()
+                        + "\n\nPlayer "+game.nextPlayer(game.getCup().getSum() ==10)+ "'s" +" turn\nClick anywhere to roll the dice");
+                game.updateBalance(game.getCurrentPlayer(),game.getCup().getSum());
+                streets[game.getCup().getSum()-2].setCar(player[game.getCurrentPlayer()-1],true);
                 // Showing updated player balance
-                player1.setBalance(game.getPlayerObject(1).getAccount().getBalance());
-                player2.setBalance(game.getPlayerObject(2).getAccount().getBalance());
+                player[0].setBalance(game.getPlayerObject(1).getAccount().getBalance());
+                player[1].setBalance(game.getPlayerObject(2).getAccount().getBalance());
+                game.switchTurn(game.getCup().getSum() ==10 );
             }
 
             @Override

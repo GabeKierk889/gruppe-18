@@ -4,9 +4,14 @@ public class Game {
     private Player player[];
     private Field gameFields[];
     private DiceCup cup;
-
+    private static int currentPlayer;
+    private static int nextPlayer;
+    private static int totalPlayers = 2;
+    private static int winner = 0;
+    private static int winningAmount = 3000;
 
     public Game() {
+        currentPlayer = 1;
         cup = new DiceCup();
         player = new Player[]{new Player("Player 1"), new Player("Player 2")};
         gameFields = new Field[]{
@@ -29,11 +34,40 @@ public class Game {
         else
             player[playernumber-1].getAccount().withdrawMoney(gameFields[fieldnumber-2].getFieldEffect());
     }
+
+    public int switchTurn(boolean extraTurn) {
+        if (!extraTurn) {
+            if (currentPlayer < totalPlayers)
+                currentPlayer++;
+            else
+                currentPlayer = 1; }
+        return currentPlayer;
+    }
+
+    public int nextPlayer(boolean extraTurn) {
+        if (!extraTurn) {
+            if (currentPlayer < totalPlayers)
+                nextPlayer = currentPlayer+1;
+            else
+                nextPlayer = 1; }
+        return nextPlayer;
+    }
+
+    public int winner(int balance) {
+        if (balance >= winningAmount)
+            winner = currentPlayer;
+        return winner;
+    }
+
     public Field getField(int no) { return gameFields[no]; }
     public Player getPlayerObject(int playernumber) {
         return player[playernumber-1];
     }
+
     public DiceCup getCup() {
         return cup;
     }
+    public int getCurrentPlayer() { return currentPlayer; }
+    public int getTotalPlayers() {return totalPlayers; }
+    public int getNextPlayer () { return nextPlayer;}
 }
