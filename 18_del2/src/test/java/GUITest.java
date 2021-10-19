@@ -51,7 +51,7 @@ public class GUITest {
         board.addPlayer(player[0]);
 
         // Message (can be used for user input with second arg)
-        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nPlayer 1 turn\nClick anywhere to roll the dice");
+        board.getUserInput("Welcome to DiceGame v2! Each player starts with a balance of 1000. The first to reach 3000 wins.\n\nPlayer 1's turn\nClick anywhere to roll the dice");
 
         // Placing cars on fields
 //        streets[1].setCar(player1,true); // Display player 1 on street 1
