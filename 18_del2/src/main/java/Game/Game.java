@@ -7,8 +7,8 @@ public class Game {
     private static int currentPlayer;
     private static int nextPlayer;
     private static int totalPlayers = 2;
-    private static int winner = 0;
-    private static int winningAmount = 3000;
+    private static int winner = -1;
+    private static int winningAmount = 1500;
 
     public Game() {
         currentPlayer = 1;
@@ -53,10 +53,9 @@ public class Game {
         return nextPlayer;
     }
 
-    public int winner(int balance) {
-        if (balance >= winningAmount)
-            winner = currentPlayer;
-        return winner;
+    public boolean isGameOver() {
+        return ( (player[0].getAccount().getBalance() >= winningAmount) ||
+                (player[1].getAccount().getBalance() >= winningAmount) );
     }
 
     public Field getField(int no) { return gameFields[no]; }
@@ -67,7 +66,13 @@ public class Game {
     public DiceCup getCup() {
         return cup;
     }
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }
     public int getCurrentPlayer() { return currentPlayer; }
     public int getTotalPlayers() {return totalPlayers; }
     public int getNextPlayer () { return nextPlayer;}
+    public int getWinner() {
+        return winner;
+    }
 }

@@ -70,24 +70,28 @@ public class GUITest {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                fields[game.getCup().getSum()-2].removeAllCars();
-                game.getCup().roll();
-                board.setDice((int)(Math.random()*4+3),(int)(Math.random()*5+2),die1.getFaceValue(),(int)(Math.random()*359),
-                        (int)(Math.random()*4+7),(int)(Math.random()*5+2),die2.getFaceValue(),(int)(Math.random()*359));
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                // Testing a roll's effect on player 1's balance
-                //Work in progress - need to add which player's turn it is
-                board.getUserInput("Player " + game.getCurrentPlayer()+ ": "+ game.getField(game.getCup().getSum()-2).getFieldDescription()
-                        + "\n\nPlayer "+game.nextPlayer(game.getCup().getSum() ==10)+ "'s" +" turn\nClick anywhere to roll the dice");
-                game.updateBalance(game.getCurrentPlayer(),game.getCup().getSum());
-                streets[game.getCup().getSum()-2].setCar(player[game.getCurrentPlayer()-1],true);
-                // Showing updated player balance
-                player[0].setBalance(game.getPlayerObject(1).getAccount().getBalance());
-                player[1].setBalance(game.getPlayerObject(2).getAccount().getBalance());
-                game.switchTurn(game.getCup().getSum() ==10 );
+                if (!game.isGameOver()) {
+                    fields[game.getCup().getSum() - 2].removeAllCars();
+                    game.getCup().roll();
+                    board.setDice((int) (Math.random() * 4 + 3), (int) (Math.random() * 5 + 2), die1.getFaceValue(), (int) (Math.random() * 359),
+                            (int) (Math.random() * 4 + 7), (int) (Math.random() * 5 + 2), die2.getFaceValue(), (int) (Math.random() * 359));
+                    board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
+                            + "\n\nPlayer " + game.nextPlayer(game.getCup().getSum() == 10) + "'s" + " turn\nClick anywhere to roll the dice");
+                    game.updateBalance(game.getCurrentPlayer(), game.getCup().getSum());
+                    streets[game.getCup().getSum() - 2].setCar(player[game.getCurrentPlayer() - 1], true);
+                    // Showing updated player balance
+                    player[0].setBalance(game.getPlayerObject(1).getAccount().getBalance());
+                    player[1].setBalance(game.getPlayerObject(2).getAccount().getBalance());
+                    if (game.isGameOver()) {
+                        game.setWinner(game.getCurrentPlayer());
+                        board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
+                        +"\n\nPlayer " + game.getWinner()+ " wins" ); }
+                    game.switchTurn(game.getCup().getSum() == 10);
+                }
             }
 
             @Override
