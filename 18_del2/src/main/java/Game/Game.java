@@ -28,6 +28,7 @@ public class Game {
                 new Field("Goldmine","You hit the jackpot! You found a Goldmine in the mountains and cash in 650!", true,650),
         };
     }
+
     public void updateBalance(int playernumber, int fieldnumber) {
         if (gameFields[fieldnumber-2].getFieldPosiveEffect()) //because field array number starts at 0 while field number starts at 2
             player[playernumber-1].getAccount().depositMoney(gameFields[fieldnumber-2].getFieldEffect());
@@ -35,13 +36,12 @@ public class Game {
             player[playernumber-1].getAccount().withdrawMoney(gameFields[fieldnumber-2].getFieldEffect());
     }
 
-    public int switchTurn(boolean extraTurn) {
+    public void switchTurn(boolean extraTurn) {
         if (!extraTurn) {
             if (currentPlayer < totalPlayers)
                 currentPlayer++;
             else
                 currentPlayer = 1; }
-        return currentPlayer;
     }
 
     public int nextPlayer(boolean extraTurn) {
@@ -58,21 +58,15 @@ public class Game {
                 (player[1].getAccount().getBalance() >= winningAmount) );
     }
 
-    public Field getField(int no) { return gameFields[no]; }
-    public Player getPlayerObject(int playernumber) {
-        return player[playernumber-1];
-    }
-
-    public DiceCup getCup() {
-        return cup;
-    }
     public void setWinner(int winner) {
         this.winner = winner;
     }
+
+    public DiceCup getCup() { return cup;  }
+    public Field getField(int no) { return gameFields[no]; }
+    public Player getPlayerObject(int playernumber) { return player[playernumber-1]; }
     public int getCurrentPlayer() { return currentPlayer; }
     public int getTotalPlayers() {return totalPlayers; }
     public int getNextPlayer () { return nextPlayer;}
-    public int getWinner() {
-        return winner;
-    }
+    public int getWinner() { return winner; }
 }

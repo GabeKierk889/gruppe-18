@@ -86,6 +86,7 @@ public class GUITest {
                         game.setWinner(game.getCurrentPlayer());
                         board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
                         +"\n\nPlayer " + game.getWinner()+ " wins this game" ); }
+                    // changes "currentplayer" to the next player (unless current player gets an extra turn)
                     game.switchTurn(game.getCup().getSum() == 10);
                 }
             }
