@@ -58,7 +58,7 @@ public class GUITest {
         Die die1 = game.getCup().getDie1();
         Die die2 = game.getCup().getDie2();
 
-        // User input: dice rolls on mouse click
+        // User input: turn action on mouse released
         MouseInputListener listen = new MouseInputListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -70,23 +70,49 @@ public class GUITest {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                // checking if player balance is lower than 3000
                 if (!game.isGameOver()) {
+
+                    // removes car on the previous field
                     fields[game.getCup().getSum() - 2].removeAllCars();
+
                     game.getCup().roll();
-                    board.setDice((int) (Math.random() * 4 + 3), (int) (Math.random() * 5 + 2), die1.getFaceValue(), (int) (Math.random() * 359),
-                            (int) (Math.random() * 4 + 7), (int) (Math.random() * 5 + 2), die2.getFaceValue(), (int) (Math.random() * 359));
+
+                    // Sets the dice on the board
+                    board.setDice((int) (Math.random() * 4 + 3),
+                            (int) (Math.random() * 5 + 2),
+                            die1.getFaceValue(),
+                            (int) (Math.random() * 359),
+                            (int) (Math.random() * 4 + 7),
+                            (int) (Math.random() * 5 + 2),
+                            die2.getFaceValue(),
+                            (int) (Math.random() * 359));
+
+                    // Sets the players car on the field corresponding to the dice roll
                     streets[game.getCup().getSum() - 2].setCar(player[game.getCurrentPlayer() - 1], true);
-                    board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
-                            + "\n\nPlayer " + game.nextPlayer(game.getCup().getSum() == 10) + "'s" + " turn\nClick anywhere to roll the dice");
+
+                    // Displays player turn and player action
+                    board.getUserInput("Player " + game.getCurrentPlayer() +
+                            ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription() +
+                            "\n\nPlayer " + game.nextPlayer(game.getCup().getSum() == 10) + "'s" +
+                            " turn\nClick anywhere to roll the dice");
+
                     // Updating player balance and showing the updated player balances
                     game.updateBalance(game.getCurrentPlayer(), game.getCup().getSum());
                     player[0].setBalance(game.getPlayerObject(1).getAccount().getBalance());
                     player[1].setBalance(game.getPlayerObject(2).getAccount().getBalance());
+
+                    // Checking if player balance is higher than 3000
                     if (game.isGameOver()) {
                         game.setWinner(game.getCurrentPlayer());
-                        board.getUserInput("Player " + game.getCurrentPlayer() + ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription()
-                        +"\n\nPlayer " + game.getWinner()+ " wins this game" ); }
-                    // changes "currentplayer" to the next player (unless current player gets an extra turn)
+
+                        // Displays winning player
+                        board.getUserInput("Player " + game.getCurrentPlayer() +
+                                ": " + game.getField(game.getCup().getSum() - 2).getFieldDescription() +
+                                "\n\nPlayer " + game.getWinner()+ " wins this game" );
+                    }
+
+                    // Changes "currentplayer" to the next player (unless current player gets an extra turn)
                     game.switchTurn(game.getCup().getSum() == 10);
                 }
             }
