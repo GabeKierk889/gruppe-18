@@ -88,7 +88,7 @@ public class GUITest {
                             die2.getFaceValue(),
                             (int) (Math.random() * 359));
 
-                    // Sets the players car on the field corresponding to the dice roll
+                    // Sets the players car on the street corresponding to the dice roll
                     streets[game.getCup().getSum() - 2].setCar(player[game.getCurrentPlayer() - 1], true);
 
                     // Displays player turn and player action
