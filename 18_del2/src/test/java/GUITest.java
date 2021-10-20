@@ -62,14 +62,6 @@ public class GUITest {
         MouseInputListener listen = new MouseInputListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
                 // checking if player balance is lower than 3000
                 if (!game.isGameOver()) {
 
@@ -115,6 +107,15 @@ public class GUITest {
                     // Changes "currentplayer" to the next player (unless current player gets an extra turn)
                     game.switchTurn(game.getCup().getSum() == 10);
                 }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
             }
 
             @Override
