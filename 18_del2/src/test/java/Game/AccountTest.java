@@ -9,13 +9,26 @@ class AccountTest {
 
     @org.junit.jupiter.api.Test
     void withdrawMoney() {
-        account.withdrawMoney(100);
-        assertEquals(900,account.getBalance());
+
+        for (int i = -10; i <= 10; i++) {
+            if (i >= 0) {
+                account.withdrawMoney(i);
+                assertEquals(account.getBalance(), 1000 - i);
+                account.setCurrentBalance(1000);
+            }
+        }
+
+//        account.withdrawMoney(100);
+//        assertEquals(900,account.getBalance());
+//        account.withdrawMoney(1000);
+//        assertEquals(0,account.getBalance());
     }
 
     @org.junit.jupiter.api.Test
     void depositMoney() {
         account.depositMoney(200);
+        assertEquals(1200,account.getBalance());
+        account.depositMoney(-200);
         assertEquals(1200,account.getBalance());
     }
 

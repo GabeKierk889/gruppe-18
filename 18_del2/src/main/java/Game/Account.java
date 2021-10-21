@@ -10,18 +10,23 @@ public class Account {
 
     // Withdraws money.
     public void withdrawMoney (double withdrawal) {
-        if (withdrawal < 0) {
-            System.out.println("You can't withdraw a negative number.");
-        } else {
-            this.currentBalance -= withdrawal;
+        // Only allows withdrawal if the amount is greater than zero and also the withdrawal amount is greater than
+        // the current balance.
+        if (withdrawal > 0) {
+            if (withdrawal <= currentBalance) {
+                this.currentBalance -= withdrawal;
+            } else {
+                // If the withdrawal amount is greater than the account balance, then the account balance i reset
+                // to zero.
+                this.currentBalance = 0;
+            }
         }
     }
 
     // Deposits money.
     public void depositMoney(double deposit) {
-        if (deposit < 0) {
-            System.out.println("You can't deposit a negative number.");
-        } else {
+        // Only allows depositing a positive amount to the current balance.
+        if (deposit > 0) {
             this.currentBalance += deposit;
         }
     }
