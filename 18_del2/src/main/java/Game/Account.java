@@ -32,7 +32,9 @@ public class Account {
     }
 
     public void setCurrentBalance(int balance) {
-        this.currentBalance = balance;
+        if (balance >= 0) {
+            this.currentBalance = balance;
+        }
     }
 
     public int getBalance() {
