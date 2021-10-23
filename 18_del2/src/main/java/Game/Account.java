@@ -2,10 +2,10 @@ package Game;
 
 public class Account {
     private int currentBalance;
-    private static int startingBalance = 1000;
+    private static final int STARTINGBALANCE = 1000;
 
     public Account () {
-        currentBalance = startingBalance;
+        currentBalance = STARTINGBALANCE;
     }
 
     // Withdraws money.
