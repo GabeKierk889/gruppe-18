@@ -60,6 +60,7 @@ class AccountTest {
         }
     }
 
+    // Test that checks that it's possible to get the current balance.
     @org.junit.jupiter.api.Test
     void getBalance() {
         assertEquals(account.getBalance(),account.getBalance());
