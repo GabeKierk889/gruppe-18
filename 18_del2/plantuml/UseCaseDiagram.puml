@@ -10,7 +10,7 @@ rectangle Game {
     Player1 --> (Start Game)
     Player1 --> (Take Turn)
     Player2 ---> (Take Turn)
-    Player1 ---> (End Game)   
+    Player1 ---> (End Game)
     Player2 ---> (End Game)
     (Take Turn) .> (Roll Dice) : <<include>>
     (Take Turn) ..> (Move To Field) : <<include>>

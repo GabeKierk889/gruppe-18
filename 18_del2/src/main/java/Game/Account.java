@@ -2,32 +2,39 @@ package Game;
 
 public class Account {
     private int currentBalance;
-    private static int startingBalance = 1000;
+    private static final int STARTINGBALANCE = 1000;
 
     public Account () {
-        currentBalance = startingBalance;
+        currentBalance = STARTINGBALANCE;
     }
 
     // Withdraws money.
     public void withdrawMoney (double withdrawal) {
-        if (withdrawal < 0) {
-            System.out.println("You can't withdraw a negative number.");
-        } else {
-            this.currentBalance -= withdrawal;
+        // Only allows withdrawal if the amount is greater than zero and also the withdrawal amount is greater than
+        // the current balance.
+        if (withdrawal > 0) {
+            if (withdrawal <= currentBalance) {
+                this.currentBalance -= withdrawal;
+            } else {
+                // If the withdrawal amount is greater than the account balance, then the account balance i reset
+                // to zero.
+                this.currentBalance = 0;
+            }
         }
     }
 
     // Deposits money.
     public void depositMoney(double deposit) {
-        if (deposit < 0) {
-            System.out.println("You can't deposit a negative number.");
-        } else {
+        // Only allows depositing a positive amount to the current balance.
+        if (deposit > 0) {
             this.currentBalance += deposit;
         }
     }
 
     public void setCurrentBalance(int balance) {
-        this.currentBalance = balance;
+        if (balance >= 0) {
+            this.currentBalance = balance;
+        }
     }
 
     public int getBalance() {
