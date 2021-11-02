@@ -12,6 +12,6 @@ public class Afsender {
     }
 
     public void newMessage() {
-        Besked message = new Besked;
+        Besked message = new Besked();
     }
 }
