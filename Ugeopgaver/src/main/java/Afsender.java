@@ -3,6 +3,12 @@ public class Afsender {
     private String mailadresse;
     private Outbox outbox;
 
+    public Afsender(String navn, String mailadresse) {
+        this.navn = navn;
+        this.mailadresse = mailadresse;
+        outbox = new Outbox();
+    }
+
     public Outbox getOutbox() {
         return outbox;
     }
