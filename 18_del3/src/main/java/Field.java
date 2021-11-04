@@ -1,7 +1,7 @@
 public class Field {
-    private static int totalnumberOfFields = 1;
-    private final int fieldNumber;
-    private final String fieldDescription;
+    protected static int totalnumberOfFields = 1;
+    protected final int fieldNumber;
+    protected final String fieldDescription;
 
     public Field(String fieldDescription) {
         this.fieldDescription = fieldDescription;

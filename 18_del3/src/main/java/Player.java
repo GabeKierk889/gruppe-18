@@ -18,6 +18,12 @@ public class Player {
         else onField = onField + stepsToMove - Field.getTotalnumberOfFields();
         return onField; }
 
+    public void collectStartBonus(int diceThrow) {
+        // only applies to regular turns/ passing START by throwing the dice, not chance card situations
+        if (OnField() < diceThrow)
+        getAccount().depositMoney(Game.STARTBONUS);
+    }
+
     public String getName() {
         return name;
     }
