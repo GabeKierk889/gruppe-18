@@ -12,7 +12,7 @@ public class MonopolyGame {
     public static void main(String[] args) {
         // Calling a support method that takes user input/names and initializes the game with 2-4 players
         initializeGame();
-        
+
         // Referencing the GUI die to the die set up by the game
         Die die1 = game.getDie();
     }
