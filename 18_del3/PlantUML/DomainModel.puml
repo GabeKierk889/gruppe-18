@@ -1,27 +1,72 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+class MonopolyGame {
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Player {
+    name
 }
+
+class Board {
+
+}
+
+class Field {
+    name
+}
+
+class Account {
+    balance
+}
+
+class Die {
+    face value
+}
+
+class ChanceCard {
+    text
+}
+
+class StartField {
+
+}
+
+class AmusementField {
+    owner
+    price
+}
+
+class ChanceField {
+
+}
+
+class Jail {
+
+}
+
+class FreeParking {
+
+}
+
+class VisitJail {
+
+}
+
+MonopolyGame "1" *-- "1" Board
+MonopolyGame "1" *-- "1" Die
+MonopolyGame "1" *-- "2..4" Player
+Player "1" *-- "1" Account
+Board "1" *-- "24" Field
+Field <|--- StartField
+Field <|--- AmusementField
+Field <|--- ChanceField
+Field <|--- Jail
+Field <|--- FreeParking
+Field <|--- VisitJail
+ChanceCard - ChanceField
+
 
 @enduml
