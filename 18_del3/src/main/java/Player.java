@@ -24,6 +24,12 @@ public class Player {
         getAccount().depositMoney(Account.STARTBONUS);
     }
 
+    public void setPlayerOnField(int fieldArrayNumber) {
+        if (fieldArrayNumber <= Field.getTotalnumberOfFields()-1)
+            onField=fieldArrayNumber;
+        else System.out.println("Error - the field number you entered does not exist.");
+    }
+
     public String getName() {
         return name;
     }
