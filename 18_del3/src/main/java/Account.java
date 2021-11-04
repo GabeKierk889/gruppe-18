@@ -1,6 +1,7 @@
 public class Account {
     private int currentBalance;
-    private static final int STARTINGBALANCE = 35;
+    public static final int STARTINGBALANCE = 35;
+    public static final int STARTBONUS = 2;
 
     public Account () {
         currentBalance = STARTINGBALANCE;

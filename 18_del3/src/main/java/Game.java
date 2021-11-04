@@ -8,7 +8,6 @@ public class Game {
     private int nextPlayer;
     private int totalPlayers;
     private int winner;
-    public final static int STARTBONUS = 2;
     private Board board;
 
     public Game(String ... player_names) {
