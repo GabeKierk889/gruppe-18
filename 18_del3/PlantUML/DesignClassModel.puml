@@ -7,43 +7,59 @@ class MonopolyGame {
 }
 
 class Player {
-
+    -name: String
+    -account: Account
+    -field: Field
+    +movePlayer()
+    +collectStartBonus()
 }
 
 class Board {
-
+    -field: Field[]
 }
 
 class Field {
-
+    #name: String
+    +landOnField()
 }
 
 class Account {
-
+    {static}-startingBalance: Int
+    -balance: Int
+    +deposit()
+    +withdraw()
+    +transfer()
 }
 
 class Die {
-
+    -faceValue: Int
+    +roll()
 }
 
 class ChanceCard {
-
+    -text: String
+    +effect()
 }
 
 class StartField {
+    -startBonus: Int
 
 }
 
 class AmusementField {
-
+    -owner: String
+    -price: Int
+    +setOwner()
 }
 
 class ChanceField {
-
+    -chanceCard: ChanceCard[]
+    +drawChanceCard()
 }
 
 class Jail {
-
+    +goToJail()
+    +releaseFromJail()
 }
 
 class FreeParking {
@@ -54,17 +70,17 @@ class VisitJail {
 
 }
 
-MonopolyGame -- Board
-MonopolyGame -- Die
-MonopolyGame -- Player
-Player -- Account
-Board -- Field
-Field <|-- StartField
-Field <|-- AmusementField
-Field <|-- ChanceField
-Field <|-- Jail
-Field <|-- FreeParking
-Field <|-- VisitJail
+MonopolyGame "1" *-- "1" Board
+MonopolyGame "1" *-- "1" Die
+MonopolyGame "1" *-- "2..4" Player
+Player "1" *-- "1" Account
+Board "1" *-- "24" Field
+Field <|--- StartField
+Field <|--- AmusementField
+Field <|--- ChanceField
+Field <|--- Jail
+Field <|--- FreeParking
+Field <|--- VisitJail
 ChanceCard - ChanceField
 
 
