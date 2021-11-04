@@ -9,7 +9,7 @@ rectangle MonopolyJr {
     usecase "Set up board and players" as uc1
 
     usecase "Take turn" as uc2
-    usecase "Rolle die" as uc2.1
+    usecase "Roll die" as uc2.1
     usecase "Move piece" as uc2.2
     usecase "Draw Chance Card" as uc2.3
     usecase "Go to jail" as uc2.4
