@@ -10,4 +10,8 @@ public class AmusementField extends Field {
     public void landOnField() {
         // set up booth or pay money
     }
+
+    public int getPrice() {
+        return price;
+    }
 }
