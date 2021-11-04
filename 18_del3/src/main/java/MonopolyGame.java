@@ -47,7 +47,7 @@ public class MonopolyGame {
         String str = scan.nextLine();
         scan.close();
         String[] strarray = str.split(" ");
-        switch (strarray.length) {
+        switch (strarray.length) { // initializes a new game with the player names entered
             case 2: game = new Game(strarray[0],strarray[1]); break;
             case 3: game = new Game(strarray[0],strarray[1],strarray[2]); break;
             case 4: game = new Game(strarray[0],strarray[1],strarray[2],strarray[3]); break;
@@ -56,20 +56,20 @@ public class MonopolyGame {
     }
 
     private static void formatFields() {
-        for (int i = 0; i < 24; i++) { // sets up all fields
+        for (int i = 0; i < 24; i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
             streets[i].setTitle(game.getBoard().getFieldObject(i).getFieldDescription());
             streets[i].setBackGroundColor(Color.lightGray);
             fields[i] = streets[i]; }
 
-        for (int i = 0; i < 24; i++) { // displays price for the ownable fields
+        for (int i = 0; i < 24; i++) { // displays the price for the ownable fields
             if (i%3 != 0) {
                 String str = "M$";
                 streets[i].setSubText(str + ((AmusementField)game.getBoard().getFieldObject(i)).getPrice());
             }
         }
 
-        // gives the ownable fields the same colors as the real-life game board
+        // gives the ownable fields the same colors as the real-life MonopolyJr game board
         streets[1].setBackGroundColor(new Color(180,140,130));
         streets[2].setBackGroundColor(new Color(180,140,130));
         streets[4].setBackGroundColor(new Color(150,220,250));
@@ -141,8 +141,8 @@ public class MonopolyGame {
 
     private static void addGUIPlayersAndCars() {
         for (int i = game.getTotalPlayers()-1; i >= 0; i--) {
-            player[i]= new GUI_Player(game.getPlayerObject(i+1).getName(),
-                    game.getPlayerObject(i+1).getAccount().getBalance(), car[i]);
+            player[i] = new GUI_Player(game.getPlayerObject(i+1).getName(),
+                    Account.STARTINGBALANCE, car[i]);
             board.addPlayer(player[i]);
             fields[0].setCar(player[i], true); }
     }
