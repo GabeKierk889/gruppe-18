@@ -1,6 +1,6 @@
 public class Jail extends Field {
-    public Jail(String fieldDescription) {
-        super(fieldDescription);
+    public Jail(String fieldName) {
+        super(fieldName);
     }
 
     @Override

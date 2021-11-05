@@ -1,8 +1,8 @@
 public class AmusementField extends Field {
     private int price;
 
-    public AmusementField(String fieldDescription, int price) {
-        super(fieldDescription);
+    public AmusementField(String fieldName, int price) {
+        super(fieldName);
         this.price = price;
     }
 

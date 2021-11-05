@@ -1,10 +1,10 @@
 public class Field {
     protected static int totalnumberOfFields = 1;
     protected final int fieldNumber;
-    protected final String fieldDescription;
+    protected final String fieldName;
 
-    public Field(String fieldDescription) {
-        this.fieldDescription = fieldDescription;
+    public Field(String fieldName) {
+        this.fieldName = fieldName;
         this.fieldNumber = totalnumberOfFields;
         totalnumberOfFields++;
     }
@@ -14,9 +14,9 @@ public class Field {
     //no setters as all attributes are final variables
     public int getFieldNumber (){ return fieldNumber; }
     public static int getTotalnumberOfFields (){ return totalnumberOfFields-1; }
-    public String getFieldDescription (){ return fieldDescription; }
+    public String getFieldDescription (){ return fieldName; }
 
     public String toString() {
-        return "Field " + fieldNumber  + ". " + fieldDescription;
+        return "Field " + fieldNumber  + ". " + fieldName;
     }
 }

@@ -1,6 +1,6 @@
 public class ChanceField extends Field {
-    public ChanceField(String fieldDescription) {
-        super(fieldDescription);
+    public ChanceField(String fieldName) {
+        super(fieldName);
     }
 
     @Override
