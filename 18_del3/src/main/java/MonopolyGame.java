@@ -1,6 +1,8 @@
 import gui_fields.*;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Scanner;
 
 public class MonopolyGame {
@@ -35,10 +37,86 @@ public class MonopolyGame {
         board.getUserInput("Welcome to Monopoly Junior!\n\n" +
                 player[0].getName() + "'s turn\nClick anywhere to roll the dice");
 
-        // Referencing the GUI die to the die set up by the game
-        Die die1 = game.getDie();
+        // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
+        // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
 
+        // User input: the die rolls on mouse click
+        MouseInputListener listen = new MouseInputListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // checking that the game is not yet over (meaning no player has gone bankrupt)
+                if (!game.isGameOver()) {
 
+                    // removes the current player's car from the previous field they stood on
+                    fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
+                            player[game.getCurrentPlayerNumber()-1], false);
+
+                    // rolls the die
+                    game.getDie().roll();
+                    int facevalue = game.getDie().getFaceValue();
+
+                    // sets the player's car on the street corresponding to the dice roll
+                    fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(facevalue)].setCar(
+                            player[game.getCurrentPlayerNumber()-1], true);
+
+                    // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
+                    // (not via chance card situations)
+                    game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(facevalue);
+
+                    // displays message to current player (can be used for user input with second arg)
+                    board.getUserInput("[Current player: insert message ...]" +
+                            "\n\n" + player[game.nextPlayer(false)-1].getName() + "'s" + " turn\nClick anywhere to roll the dice");
+
+                    // updating and showing the updated balances for all players
+                    for (int i = 0; i< game.getTotalPlayers(); i++)
+                        player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+
+                    // sets the die on the board, using one die to cover the other one, so it is not shown
+                    int x = (int) (Math.random() * 2 + 9);
+                    int y = (int) (Math.random() * 11);
+                    board.setDice(
+                            x, y, 1,0, // this die will never be shown
+                            x, y, facevalue, (int) (Math.random() * 359) );
+
+                    // changes to the next player's turn (if the current player does not get an extra turn)
+                    game.switchTurn(false);
+                }
+
+                if (game.isGameOver()) {
+                    game.determineWinner(); // determine the winner based on the game rules
+                    board.getUserInput("The winner is player " + game.getWinner());
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        };
+        board.addMouseListener(listen);
     }
 
     private static void initializeGame() {
@@ -74,8 +152,8 @@ public class MonopolyGame {
         streets[2].setBackGroundColor(new Color(180,140,130));
         streets[4].setBackGroundColor(new Color(150,220,250));
         streets[5].setBackGroundColor(new Color(150,220,250));
-        streets[7].setBackGroundColor(Color.magenta);
-        streets[8].setBackGroundColor(Color.magenta);
+        streets[7].setBackGroundColor(new Color(255,120,250));
+        streets[8].setBackGroundColor(new Color(255,120,250));
         streets[10].setBackGroundColor(Color.orange);
         streets[11].setBackGroundColor(Color.orange);
         streets[13].setBackGroundColor(new Color(250,60,60));
@@ -118,7 +196,7 @@ public class MonopolyGame {
         switch (game.getTotalPlayers()) {// note there is intentional run-through in the switch statement
             case 4: {
                 car[3] = new GUI_Car();
-                car[3].setPrimaryColor(Color.magenta);
+                car[3].setPrimaryColor(new Color(170,60,250));
                 car[3].setSecondaryColor(Color.black);
             }
             case 3: {
