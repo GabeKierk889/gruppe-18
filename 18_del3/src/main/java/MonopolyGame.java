@@ -1,3 +1,4 @@
+import gui_codebehind.GUI_Center;
 import gui_fields.*;
 
 import javax.swing.event.MouseInputListener;
@@ -12,6 +13,7 @@ public class MonopolyGame {
     private static GUI_Car[] car;
     private static GUI_Player[] player;
     private static GUI_Board board;
+    private static GUI_Center center = GUI_Center.getInstance();
 
     public static void main(String[] args) {
         // Calling a support method that takes user input/names and initializes the game with 2-4 players
