@@ -73,7 +73,7 @@ public class MonopolyGame {
 
                     // sets the die on the board, using one die to cover the other one, so it is not shown
                     int x = (int) (Math.random() * 2 + 9);
-                    int y = (int) (Math.random() * 11);
+                    int y = (int) (Math.random() * 10);
                     board.setDice(
                             x, y, 1,0, // this die will never be shown
                             x, y, facevalue, (int) (Math.random() * 359) );
