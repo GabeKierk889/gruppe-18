@@ -106,10 +106,11 @@ public class MonopolyGame {
             streets[i].setBackGroundColor(Color.lightGray);
             fields[i] = streets[i]; }
 
-        for (int i = 0; i < 24; i++) { // displays the price for the ownable fields
+        for (int i = 0; i < 24; i++) { // displays the price and description for the ownable fields
             if (i%3 != 0) {
                 String str = "M$";
                 streets[i].setSubText(str + ((AmusementField)game.getBoard().getFieldObject(i)).getPrice());
+                streets[i].setDescription(game.getBoard().getFieldObject(i).getFieldDescription());
             }
         }
 
