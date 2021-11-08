@@ -40,7 +40,8 @@ public class MonopolyGame {
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
 
-                // rolls the die and displays the dice on the board, using one die to cover the other one, so only one die is shown
+                // displays a message for a player to roll the die. Once a player clicks to roll the die,a support method will roll the die
+                // and display the die on the board, using one die to cover the other one, so only one die is shown
                 roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the dice","Roll"));
 
                 // removes the current player's car from the previous field they stood on
@@ -55,9 +56,9 @@ public class MonopolyGame {
                 // (not via chance card situations)
                 game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
 
-                // displays message to current player (can be used for user input with second arg)
-//                gui.showMessage("[Current player: insert message ...]" +
-//                        "\n\n" + player[game.nextPlayer(false)-1].getName() + "'s" + " turn");
+                // displays message to current player, and indicates who the next player is
+                // gui.showMessage("[Current player: insert message ...]" +
+                //        "\n\n Next is " + player[game.nextPlayer(false)-1].getName() + "'s" + " turn");
 
                 // updating and showing the updated balances for all players
                 for (int i = 0; i< game.getTotalPlayers(); i++)
@@ -73,16 +74,16 @@ public class MonopolyGame {
             }
         }
 
-        private static void roll(String roll) {
-            if (roll.equalsIgnoreCase("Roll")) {
-            game.getDie().roll();
-                int x = (int) (Math.random() * 2 + 9);
-                int y = (int) (Math.random() * 10);
-                gui.setDice(
-                        1,1,x,y, // this die will never be shown
-                        game.getDie().getFaceValue(), (int) (Math.random() * 359),x,y );
-            }
+    private static void roll(String roll) {
+        if (roll.equalsIgnoreCase("Roll")) {
+        game.getDie().roll();
+            int x = (int) (Math.random() * 2 + 9);
+            int y = (int) (Math.random() * 10);
+            gui.setDice(
+                    1,1,x,y, // this die will never be shown
+                    game.getDie().getFaceValue(), (int) (Math.random() * 359),x,y );
         }
+    }
 
     private static void initializeGame() {
         System.out.println("Enter the names of 2-4 players who will be playing today (on 1 line separated by spaces only)");
