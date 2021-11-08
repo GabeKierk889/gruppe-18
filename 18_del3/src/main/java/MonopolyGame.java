@@ -1,9 +1,7 @@
-import gui_codebehind.GUI_Center;
 import gui_fields.*;
+import gui_main.GUI;
 
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.Scanner;
 
 public class MonopolyGame {
@@ -12,8 +10,7 @@ public class MonopolyGame {
     private static GUI_Street[] streets;
     private static GUI_Car[] car;
     private static GUI_Player[] player;
-    private static GUI_Board board;
-    private static GUI_Center center = GUI_Center.getInstance();
+    private static GUI gui;
 
     public static void main(String[] args) {
         // Calling a support method that takes user input/names and initializes the game with 2-4 players
@@ -25,7 +22,7 @@ public class MonopolyGame {
         formatFields();
 
         // Setting up GUI board
-        board = new GUI_Board(fields, new Color(230,230,230));
+        gui = new GUI(fields, new Color(230,230,230));
 
         // Setting up the GUI cars (using a support method)
         car = new GUI_Car[game.getTotalPlayers()];
@@ -35,91 +32,57 @@ public class MonopolyGame {
         player = new GUI_Player[game.getTotalPlayers()];
         addGUIPlayersAndCars();
 
-        // Start up message in GUI (can be used for user input with second arg)
-        board.getUserInput("Welcome to Monopoly Junior!\n\n" +
-                player[0].getName() + "'s turn\nClick anywhere to roll the dice");
+        gui.showMessage("Welcome to Monopoly Junior! " + player[0].getName() + " will start the game\n\n");
 
         // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
         // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
 
-        // User input: the die rolls on mouse click
-        MouseInputListener listen = new MouseInputListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // checking that the game is not yet over (meaning no player has gone bankrupt)
-                if (!game.isGameOver()) {
+        // checking that the game is not yet over (meaning no player has gone bankrupt)
+        while (!game.isGameOver()) {
 
-                    // removes the current player's car from the previous field they stood on
-                    fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
-                            player[game.getCurrentPlayerNumber()-1], false);
+                // rolls the die and displays the dice on the board, using one die to cover the other one, so only one die is shown
+                roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the dice","Roll"));
 
-                    // rolls the die
-                    game.getDie().roll();
-                    int facevalue = game.getDie().getFaceValue();
+                // removes the current player's car from the previous field they stood on
+                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
+                        player[game.getCurrentPlayerNumber()-1], false);
 
-                    // sets the player's car on the street corresponding to the dice roll
-                    fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(facevalue)].setCar(
-                            player[game.getCurrentPlayerNumber()-1], true);
+                // sets the player's car on the street corresponding to the latest dice roll
+                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(game.getDie().getFaceValue())].setCar(
+                        player[game.getCurrentPlayerNumber()-1], true);
 
-                    // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
-                    // (not via chance card situations)
-                    game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(facevalue);
+                // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
+                // (not via chance card situations)
+                game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
 
-                    // displays message to current player (can be used for user input with second arg)
-                    board.getUserInput("[Current player: insert message ...]" +
-                            "\n\n" + player[game.nextPlayer(false)-1].getName() + "'s" + " turn\nClick anywhere to roll the dice");
+                // displays message to current player (can be used for user input with second arg)
+//                gui.showMessage("[Current player: insert message ...]" +
+//                        "\n\n" + player[game.nextPlayer(false)-1].getName() + "'s" + " turn");
 
-                    // updating and showing the updated balances for all players
-                    for (int i = 0; i< game.getTotalPlayers(); i++)
-                        player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+                // updating and showing the updated balances for all players
+                for (int i = 0; i< game.getTotalPlayers(); i++)
+                    player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
 
-                    // sets the die on the board, using one die to cover the other one, so it is not shown
-                    int x = (int) (Math.random() * 2 + 9);
-                    int y = (int) (Math.random() * 10);
-                    board.setDice(
-                            x, y, 1,0, // this die will never be shown
-                            x, y, facevalue, (int) (Math.random() * 359) );
-
-                    // changes to the next player's turn (if the current player does not get an extra turn)
-                    game.switchTurn(false);
-                }
-
-                if (game.isGameOver()) {
-                    game.determineWinner(); // determine the winner based on the game rules
-                    board.getUserInput("The winner is player " + game.getWinner());
-                }
+                // changes to the next player's turn (if the current player does not get an extra turn)
+                game.switchTurn(false);
             }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
+            if (game.isGameOver()) {
+                game.determineWinner(); // determine the winner based on the game rules
+                gui.showMessage("The winner is player " + game.getWinner());
             }
+        }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
+        private static void roll(String roll) {
+            if (roll.equalsIgnoreCase("Roll")) {
+            game.getDie().roll();
+                int x = (int) (Math.random() * 2 + 9);
+                int y = (int) (Math.random() * 10);
+                gui.setDice(
+                        1,1,x,y, // this die will never be shown
+                        game.getDie().getFaceValue(), (int) (Math.random() * 359),x,y );
             }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-            }
-        };
-        board.addMouseListener(listen);
-    }
+        }
 
     private static void initializeGame() {
         System.out.println("Enter the names of 2-4 players who will be playing today (on 1 line separated by spaces only)");
@@ -223,7 +186,7 @@ public class MonopolyGame {
         for (int i = game.getTotalPlayers()-1; i >= 0; i--) {
             player[i] = new GUI_Player(game.getPlayerObject(i+1).getName(),
                     Account.STARTINGBALANCE, car[i]);
-            board.addPlayer(player[i]);
+            gui.addPlayer(player[i]);
             fields[0].setCar(player[i], true); }
     }
 }
