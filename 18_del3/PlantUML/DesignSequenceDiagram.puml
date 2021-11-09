@@ -3,6 +3,18 @@
 
 autonumber
 
+actor   Player
+mainframe Take a turn
 
+Player -> DiceGame: Play()
+DiceGame -> Player: getCurrentPlayer()
+Player -> DiceCup: roll()
+DiceCup -> Die: roll()
+Die -> DiceCup: getFaceValue()
+DiceCup -> DiceGame: getSum()
+DiceGame -> Field: getFieldEffect()
+Field --> DiceGame: done
+DiceGame -> Account: updateBalance()
+Account --> DiceGame: done
 
 @enduml
