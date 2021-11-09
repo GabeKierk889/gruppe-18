@@ -33,16 +33,7 @@ public class MonopolyGame {
         addGUIPlayersAndCars();
 
         // Displays a welcome message and allows the players to view the rules before starting the game
-        if (gui.getUserLeftButtonPressed("Welcome to Monopoly Junior! Press \"Help\" to view the rules, or press \"Start game\" to begin the game.     "
-                + player[0].getName() + " will go first","Help","Start game"))
-            gui.showMessage("Rules: Each player starts with M$35. On a player's turn, if they land on an amusement without a booth, the player must pay the bank to set up a booth. " +
-                    "If there is already a booth owned by another player, the current player must pay the owner of the booth. " +
-                    "If a player lands on Chance, the player must draw a chance card and follow the instructions. " +
-                    "If a player lands on or passes START, the player gets M$2. " +
-                    "If a player lands on “Go to Jail”, the player goes into jail. " +
-                    "To get out of jail, the player may use a \"get out of jail\" chance card, " +
-                    "or pay M$1 to get out of jail on their next turn. " +
-                    "If a player runs out of money, the balances of the remaining players are compared, and the player with the most money wins the game.");
+        showWelcomeMessage();
 
         // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
         // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
@@ -96,7 +87,7 @@ public class MonopolyGame {
     }
 
     private static void initializeGame() {
-        System.out.println("Enter the names of 2-4 players who will be playing today (on 1 line separated by spaces only)");
+        System.out.println("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today");
         Scanner scan = new Scanner(System.in);
         String str = scan.nextLine();
         scan.close();
@@ -107,6 +98,19 @@ public class MonopolyGame {
             case 4: game = new Game(strarray[0],strarray[1],strarray[2],strarray[3]); break;
             default: game = new Game(strarray[0]);
         }
+    }
+
+    private static void showWelcomeMessage() {
+        if (gui.getUserLeftButtonPressed("Welcome to Monopoly Junior! Press \"Help\" to view the rules, or press \"Start game\" to begin the game.     "
+                + player[0].getName() + " will go first","Help","Start game"))
+            gui.showMessage("Rules: Each player starts with M$35. On a player's turn, if they land on an amusement without a booth, the player must pay the bank to set up a booth. " +
+                    "If there is already a booth owned by another player, the current player must pay the owner of the booth. " +
+                    "If a player lands on Chance, the player must draw a chance card and follow the instructions. " +
+                    "If a player lands on or passes START, the player gets M$2. " +
+                    "If a player lands on “Go to Jail”, the player goes into jail. " +
+                    "To get out of jail, the player may use a \"get out of jail\" chance card, " +
+                    "or pay M$1 to get out of jail on their next turn. " +
+                    "If a player runs out of money, the balances of the remaining players are compared, and the player with the most money wins the game.");
     }
 
     private static void formatFields() {
