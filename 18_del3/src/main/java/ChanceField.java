@@ -7,4 +7,8 @@ public class ChanceField extends Field {
     public void landOnField() {
         // NOT UPDATED
     }
+
+    public static void drawChanceCard() {
+
+    }
 }

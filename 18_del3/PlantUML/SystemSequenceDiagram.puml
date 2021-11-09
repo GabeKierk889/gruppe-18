@@ -3,9 +3,16 @@
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor Player
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+System -> Player: Welcome message
+Player -> System: Initialize game
+Player -> System: Play game
+
+loop No winner
+    System --> Player: Die value, field acount, chance card
+end
+
+System -> Player: Output winner
+
 @enduml
