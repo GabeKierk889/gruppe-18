@@ -2,23 +2,24 @@
 'https://plantuml.com/state-diagram
 
 scale 350 width
-[*] --> NotShooting
+[*] --> Login: user logs in
+Login: Login screen shown
 
-state NotShooting {
-  [*] --> Idle
-  Idle --> Configuring : EvConfig
-  Configuring --> Idle : EvConfig
-}
+Login --> Inbox: User opens inbox
+Inbox: Inbox is shown
 
-state Configuring {
-  [*] --> NewValueSelection
-  NewValueSelection --> NewValuePreview : EvNewValue
-  NewValuePreview --> NewValueSelection : EvNewValueRejected
-  NewValuePreview --> NewValueSelection : EvNewValueSaved
+Inbox --> Message: User opens message
+Message: Message is shown
 
-  state NewValuePreview {
-     State1 -> State2
-  }
+Login --> Outbox: User opens outbox
+Outbox: Outbox is shown
 
-}
+Outbox --> NewMessage: User creates new message
+NewMessage: New message window shown
+
+NewMessage --> SentMessage: User sends new message
+SentMessage: Sent message window shown
+
+
+
 @enduml

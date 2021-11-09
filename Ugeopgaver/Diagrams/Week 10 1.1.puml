@@ -2,23 +2,21 @@
 'https://plantuml.com/state-diagram
 
 scale 350 width
-[*] --> NotShooting
+[*] --> Start
+Start: Bondemand, ræv, gås & korn på side 1.
 
-state NotShooting {
-  [*] --> Idle
-  Idle --> Configuring : EvConfig
-  Configuring --> Idle : EvConfig
-}
+Start --> gås: gås flyttes
+gås: Bondemand og gås på side 2. ræv og korn på side 1.
 
-state Configuring {
-  [*] --> NewValueSelection
-  NewValueSelection --> NewValuePreview : EvNewValue
-  NewValuePreview --> NewValueSelection : EvNewValueRejected
-  NewValuePreview --> NewValueSelection : EvNewValueSaved
+gås --> ræv: ræv flyttes
+ræv: ræv, gås og bondemand side 2. Korn side 1.
 
-  state NewValuePreview {
-     State1 -> State2
-  }
+ræv -> gåsTilbage: gås flyttes tilbage
+gåsTilbage: ræv side 2, bondemand, gås og korn side 1.
 
-}
+gåsTilbage -> korn: korn flyttes
+korn: ræv, korn og bondemand side 2, gås side 1.
+
+
+
 @enduml
