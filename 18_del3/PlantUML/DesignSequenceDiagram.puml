@@ -3,9 +3,18 @@
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor   Player
+mainframe Take a turn
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+Player -> DiceGame: Play()
+DiceGame -> Player: getCurrentPlayer()
+Player -> DiceCup: roll()
+DiceCup -> Die: roll()
+Die -> DiceCup: getFaceValue()
+DiceCup -> DiceGame: getSum()
+DiceGame -> Field: getFieldEffect()
+Field --> DiceGame: done
+DiceGame -> Account: updateBalance()
+Account --> DiceGame: done
+
 @enduml
