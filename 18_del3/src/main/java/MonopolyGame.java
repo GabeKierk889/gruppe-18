@@ -57,9 +57,11 @@ public class MonopolyGame {
                 // (not via chance card situations)
                 game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
 
+                // showing/ updating the current player's balance, in case they got a START bonus
+                player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+
                 // displays message to current player, and indicates who the next player is
-                // gui.showMessage("[Current player: insert message ...]" +
-                //        "\n\n Next is " + player[game.nextPlayer(false)-1].getName() + "'s" + " turn");
+                gui.showMessage(playerTurnMessage());
 
                 // updating and showing the updated balances for all players
                 for (int i = 0; i< game.getTotalPlayers(); i++)
@@ -111,6 +113,17 @@ public class MonopolyGame {
                     "To get out of jail, the player may use a \"get out of jail\" chance card, " +
                     "or pay M$1 to get out of jail on their next turn. " +
                     "If a player runs out of money, the balances of the remaining players are compared, and the player with the most money wins the game.");
+    }
+
+    public static String playerTurnMessage() {
+        String str = "";
+        str += player[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
+                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) + ".\n";
+        if (game.getPlayerObject(game.getCurrentPlayerNumber()).OnField() < game.getDie().getFaceValue())
+            str += "You have received $M2 for passing START\n";
+        str += "PLACEHOLDER - FX, you need to pay rent/set up a booth/ draw a chance card";
+        str += "\n\nNext, it is " + player[game.nextPlayer(false)-1].getName() + "'s" + " turn";
+        return str;
     }
 
     private static void formatFields() {
