@@ -1,11 +1,10 @@
 import gui_fields.*;
 import gui_main.GUI;
-
 import java.awt.*;
 import java.util.Scanner;
 
 public class MonopolyGame {
-    static Game game;
+    private static Game game;
     private static GUI_Field[] fields;
     private static GUI_Street[] streets;
     private static GUI_Car[] car;
@@ -34,9 +33,6 @@ public class MonopolyGame {
 
         // Displays a welcome message and allows the players to view the rules before starting the game
         showWelcomeMessage();
-
-        // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
-        // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
 
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
@@ -68,11 +64,15 @@ public class MonopolyGame {
                 gui.showMessage(playerTurnMessage());
 
                 // call landOnField method which will do something if it is an amusement field, jail, or chance field
-                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
+                        landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+
+                // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
+                // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
 
                 // updating and showing the updated balances for all players
-                for (int i = 0; i< game.getTotalPlayers(); i++)
-                    player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+                    for (int i = 0; i< game.getTotalPlayers(); i++)
+                        player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
 
                 // changes to the next player's turn (if the current player does not get an extra turn)
                 game.switchTurn(false);
@@ -95,7 +95,7 @@ public class MonopolyGame {
         }
     }
 
-    static void goToJailMessage() {
+    public static void goToJailMessage() {
         gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
                 "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
     }
