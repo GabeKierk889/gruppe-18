@@ -60,8 +60,11 @@ public class MonopolyGame {
                 // showing/ updating the current player's balance, in case they got a START bonus
                 player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
 
-                // displays message to current player, and indicates who the next player is
+                // displays message to current player about the actions of their turn
                 gui.showMessage(playerTurnMessage());
+
+                // call landOnField method which will do something if it is an amusement field or chance field
+                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).landOnField();
 
                 // updating and showing the updated balances for all players
                 for (int i = 0; i< game.getTotalPlayers(); i++)
@@ -117,12 +120,17 @@ public class MonopolyGame {
 
     public static String playerTurnMessage() {
         String str = "";
+        int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
         str += player[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
-                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) + ".\n";
-        if (game.getPlayerObject(game.getCurrentPlayerNumber()).OnField() < game.getDie().getFaceValue())
+                game.getBoard().getFieldObject(fieldnum) + ".\n";
+        if (fieldnum < game.getDie().getFaceValue())
             str += "You have received $M2 for passing START\n";
-        str += "PLACEHOLDER - FX, you need to pay rent/set up a booth/ draw a chance card";
-        str += "\n\nNext, it is " + player[game.nextPlayer(false)-1].getName() + "'s" + " turn";
+        if (fieldnum == 6)
+            str += "You go on visit to jail\nNext player's turn";
+        else if (fieldnum == 12)
+            str += "Hurrah for free parking!\nNext player's turn";
+        else if (fieldnum%6 != 0 && fieldnum%3 == 0)
+            str += "Pick up a chance card and follow the instructions";
         return str;
     }
 
