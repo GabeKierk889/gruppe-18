@@ -4,8 +4,8 @@ public class Jail extends Field {
     }
 
     @Override
-    public void landOnField() {
-        // NOT UPDATED
-        // enter jail, get out of jail on the next turn by using a chance card or paying
+    public void landOnField(Player currentplayerobject) {
+        currentplayerobject.setIsInJail(true);
+        MonopolyGame.goToJailMessage();
     }
 }

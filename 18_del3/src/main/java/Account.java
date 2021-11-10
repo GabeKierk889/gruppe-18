@@ -2,6 +2,7 @@ public class Account {
     private int currentBalance;
     public static final int STARTINGBALANCE = 35;
     public static final int STARTBONUS = 2;
+    public static final int JAILFEE = 1;
 
     public Account () {
         currentBalance = STARTINGBALANCE;

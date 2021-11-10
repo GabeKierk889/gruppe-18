@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Scanner;
 
 public class MonopolyGame {
-    private static Game game;
+    static Game game;
     private static GUI_Field[] fields;
     private static GUI_Street[] streets;
     private static GUI_Car[] car;
@@ -41,6 +41,10 @@ public class MonopolyGame {
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
 
+                // uses a support method that checks if the current player is in jail
+                // in which case an alternative flow is run first before the main flow
+                inJail();
+
                 // displays a message for a player to roll the die. Once a player clicks to roll the die,a support method will roll the die
                 // and display the die on the board, using one die to cover the other one, so only one die is shown
                 roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the dice","Roll"));
@@ -63,8 +67,8 @@ public class MonopolyGame {
                 // displays message to current player about the actions of their turn
                 gui.showMessage(playerTurnMessage());
 
-                // call landOnField method which will do something if it is an amusement field or chance field
-                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).landOnField();
+                // call landOnField method which will do something if it is an amusement field, jail, or chance field
+                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
 
                 // updating and showing the updated balances for all players
                 for (int i = 0; i< game.getTotalPlayers(); i++)
@@ -88,6 +92,31 @@ public class MonopolyGame {
             gui.setDice(
                     1,1,x,y, // this die will never be shown
                     game.getDie().getFaceValue(), (int) (Math.random() * 359),x,y );
+        }
+    }
+
+    static void goToJailMessage() {
+        gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
+                "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
+    }
+
+    private static void inJail() {
+        // alternate flow if the current player is in jail at the start of the turn
+        if (game.getPlayerObject(game.getCurrentPlayerNumber()).getIsInJail()) {
+
+            // displays a message and withdraws get out of jail fee from the player's balance
+            // WIP ALT OPTION NOT MADE - ALLOW PLAYER TO USE GET OUT OF JAIL CHANCE CARD
+            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn.\nYou are in jail. You need to pay $M"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
+            game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
+
+            // releasing the player from jail
+            game.getPlayerObject(game.getCurrentPlayerNumber()).setIsInJail(false);
+
+            // showing/ updating the current player's balance
+            player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+
+            // shows a message to the player that they have paid the fee, and to take a turn
+            gui.showMessage("You have paid $M"+ Account.JAILFEE +" to be released from jail. You are now a free (wo)man and can take a turn. ");
         }
     }
 
@@ -124,7 +153,7 @@ public class MonopolyGame {
         str += player[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
                 game.getBoard().getFieldObject(fieldnum) + ".\n";
         if (fieldnum < game.getDie().getFaceValue())
-            str += "You have received $M2 for passing START\n";
+            str += "You have received $M"+ Account.STARTBONUS +" for passing START\n";
         if (fieldnum == 6)
             str += "You go on visit to jail\nNext player's turn";
         else if (fieldnum == 12)
@@ -176,9 +205,9 @@ public class MonopolyGame {
 
         // sets up GUI START field
         fields[0] = new GUI_Start();
-        fields[0].setDescription("Collect M$2 when you pass");
+        fields[0].setDescription("Collect M$"+ Account.JAILFEE + " when you pass");
         fields[0].setTitle("START");
-        fields[0].setSubText("Collect M$2");
+        fields[0].setSubText("Collect M$"+ Account.STARTBONUS);
 
         // sets up GUI jail fields
         fields[6] = new GUI_Jail();

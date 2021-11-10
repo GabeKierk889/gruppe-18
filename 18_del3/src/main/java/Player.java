@@ -3,6 +3,7 @@ public class Player {
     private Account account;
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt/ lost all their money
+    private boolean isInJail;
 
     public Player(String name){
         Account acct = new Account();
@@ -10,6 +11,7 @@ public class Player {
         this.name = name;
         onField = 0;
         isBankrupt = false;
+        isInJail = false;
     }
 
     public int movePlayer(int stepsToMove) {
@@ -38,4 +40,6 @@ public class Player {
     }
     public int OnField() {return onField;}
     public void isBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
+    public void setIsInJail (boolean isInJail) { this.isInJail = isInJail; }
+    public boolean getIsInJail () { return isInJail; }
 }

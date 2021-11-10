@@ -9,7 +9,7 @@ public class Field {
         totalnumberOfFields++;
     }
 
-    public void landOnField() {     }
+    public void landOnField(Player currentplayerobject) {     }
 
     //no setters as all attributes are final variables
     public int getFieldNumber (){ return fieldNumber; }

@@ -4,7 +4,7 @@ public class ChanceField extends Field {
     }
 
     @Override
-    public void landOnField() {
+    public void landOnField(Player currentplayerobject) {
         // NOT UPDATED
     }
 

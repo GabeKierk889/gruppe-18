@@ -7,7 +7,7 @@ public class AmusementField extends Field {
     }
 
     @Override
-    public void landOnField() {
+    public void landOnField(Player currentplayerobject) {
         // set up booth or pay money
     }
 
