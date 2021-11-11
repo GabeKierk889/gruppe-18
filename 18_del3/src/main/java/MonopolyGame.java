@@ -43,7 +43,7 @@ public class MonopolyGame {
 
                 // displays a message for a player to roll the die. Once a player clicks to roll the die,a support method will roll the die
                 // and display the die on the board, using one die to cover the other one, so only one die is shown
-                roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the dice","Roll"));
+                roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the die","Roll"));
 
                 // removes the current player's car from the previous field they stood on
                 fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
@@ -155,7 +155,7 @@ public class MonopolyGame {
         if (fieldnum < game.getDie().getFaceValue())
             str += "You have received $M"+ Account.STARTBONUS +" for passing START\n";
         if (fieldnum == 6)
-            str += "You go on visit to jail\nNext player's turn";
+            str += "You go on a visit to jail\nNext player's turn";
         else if (fieldnum == 12)
             str += "Hurrah for free parking!\nNext player's turn";
         else if (fieldnum%6 != 0 && fieldnum%3 == 0)
@@ -211,7 +211,7 @@ public class MonopolyGame {
 
         // sets up GUI jail fields
         fields[6] = new GUI_Jail();
-        fields[6].setDescription("You go on visit to jail");
+        fields[6].setDescription("You go on a visit to jail");
         fields[6].setSubText("On visit to jail");
         fields[18] = new GUI_Jail();
         fields[18].setDescription("You are going into jail");

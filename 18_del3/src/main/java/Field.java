@@ -17,6 +17,6 @@ public class Field {
     public String getFieldDescription (){ return fieldName; }
 
     public String toString() {
-        return "Field " + fieldNumber  + ". " + fieldName;
+        return "field " + fieldNumber  + ": " + fieldName;
     }
 }
