@@ -95,7 +95,7 @@ public class MonopolyGame {
         }
     }
 
-    public static void goToJailMessage() {
+    static void goToJailMessage() {
         gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
                 "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
     }
@@ -106,7 +106,8 @@ public class MonopolyGame {
 
             // displays a message and withdraws get out of jail fee from the player's balance
             // WIP ALT OPTION NOT MADE - ALLOW PLAYER TO USE GET OUT OF JAIL CHANCE CARD
-            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn.\nYou are in jail. You need to pay $M"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
+            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn." +
+            "\nYou are in jail. You need to pay $M"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
             game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
 
             // releasing the player from jail
