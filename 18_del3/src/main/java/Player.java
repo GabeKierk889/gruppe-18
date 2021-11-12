@@ -42,4 +42,6 @@ public class Player {
     public void isBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
     public void setIsInJail (boolean isInJail) { this.isInJail = isInJail; }
     public boolean getIsInJail () { return isInJail; }
+    public boolean getIsBankrupt () { return isBankrupt; }
+
 }

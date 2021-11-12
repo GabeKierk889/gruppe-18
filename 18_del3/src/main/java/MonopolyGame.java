@@ -37,37 +37,33 @@ public class MonopolyGame {
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
 
-                // uses a support method that checks if the current player is in jail
-                // in which case an alternative flow is run first before the main flow
+                // if the current player is in jail, an alternative flow is run first before the main flow
                 inJail();
 
-                // displays a message for a player to roll the die. Once a player clicks to roll the die,a support method will roll the die
-                // and display the die on the board, using one die to cover the other one, so only one die is shown
+                // displays a message for a player to roll the die, then rolls the die
                 roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the die","Roll"));
 
                 // removes the current player's car from the previous field they stood on
                 fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
-                        player[game.getCurrentPlayerNumber()-1], false);
+                player[game.getCurrentPlayerNumber()-1], false);
 
                 // sets the player's car on the street corresponding to the latest dice roll
-                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(game.getDie().getFaceValue())].setCar(
-                        player[game.getCurrentPlayerNumber()-1], true);
+                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(game.getDie().getFaceValue())].
+                setCar(player[game.getCurrentPlayerNumber()-1], true);
 
                 // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
                 // (not via chance card situations)
                 game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
 
-                // showing/ updating the current player's balance, in case they got a START bonus
-                player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+                // showing/ updating the player's balance, in case they got a START bonus
+                updatePlayerBalance();
 
                 // displays message to current player about the actions of their turn
                 gui.showMessage(playerTurnMessage());
 
-                // call landOnField method which will do something if it is an amusement field, jail, or chance field
+                // calls landOnField method which will do something if it is an amusement field, jail, or chance field
                 game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
-                        landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
-
-                updatePlayerBalance();
+                landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
 
                 // changes to the next player's turn (if the current player does not get an extra turn)
                 game.switchTurn(false);
@@ -75,7 +71,8 @@ public class MonopolyGame {
 
             if (game.isGameOver()) {
                 game.determineWinner(); // determine the winner based on the game rules
-                gui.showMessage("The winner is player " + game.getWinner());
+                gui.showMessage("The game is over as "+ game.getBankruptPlayerName()+" has gone bankrupt." +
+                "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
             }
         }
 
@@ -85,7 +82,7 @@ public class MonopolyGame {
             int x = (int) (Math.random() * 2 + 9);
             int y = (int) (Math.random() * 10);
             gui.setDice(
-                    1,1,x,y, // this die will never be shown
+                    1,1,x,y, // this die is never shown as there is only 1 die in this game
                     game.getDie().getFaceValue(), (int) (Math.random() * 359),x,y );
         }
     }
@@ -103,8 +100,8 @@ public class MonopolyGame {
             // releasing the player from jail
             game.getPlayerObject(game.getCurrentPlayerNumber()).setIsInJail(false);
 
-            // showing/ updating the current player's balance
-            player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+            // showing/ updating the player's balance
+            updatePlayerBalance();
 
             // shows a message to the player that they have paid the fee, and to take a turn
             gui.showMessage("You have paid M$"+ Account.JAILFEE +" to be released from jail. You are now a free (wo)man and can take a turn. ");
@@ -138,7 +135,7 @@ public class MonopolyGame {
                     "If a player runs out of money, the balances of the remaining players are compared, and the player with the most money wins the game.");
     }
 
-    public static String playerTurnMessage() {
+    private static String playerTurnMessage() {
         String str = "";
         int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
         str += player[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
@@ -150,7 +147,7 @@ public class MonopolyGame {
         else if (fieldnum == 12)
             str += "Hurrah for free parking!\nNext player's turn";
         else if (fieldnum%6 != 0 && fieldnum%3 == 0)
-            str += "Pick up a chance card and follow the instructions";
+            str += "Take a chance card and follow the instructions";
         return str;
     }
 
@@ -173,14 +170,15 @@ public class MonopolyGame {
         gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth"
                 , "Pay M$" + price);
         updatePlayerBalance();
-        gui.showMessage("You have paid M$" + price);
+        gui.showMessage("You have now paid M$" + price + " to "+ game.getPlayerObject(owner).getName());
     }
 
     static void chanceCardMessage()
     {
         int onfield = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
         gui.setChanceCard(((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().chanceCardText());
-        gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, press the 'Apply' button to apply the instructions of the card","Apply").equalsIgnoreCase("ready");
+        gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, " +
+        "press the 'Apply' button to apply the instructions of the chance card","Apply");
         ((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().effect();
         updatePlayerBalance();
     }

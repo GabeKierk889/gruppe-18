@@ -70,6 +70,15 @@ public class Game {
         }
         winner = playerWithMostMoney;    }
 
+    public String getBankruptPlayerName() {
+        String str = "";
+        for (int i = 0; i < totalPlayers; i++) {
+            if (players[i].getIsBankrupt())
+                str = players[i].getName();
+        }
+        return str;
+    }
+
     public Die getDie() { return die;  }
     public Board getBoard() { return board; }
     public Player getPlayerObject(int playernumber) { return players[playernumber-1]; }
