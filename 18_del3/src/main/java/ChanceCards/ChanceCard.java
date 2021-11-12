@@ -1,3 +1,5 @@
+package ChanceCards;
+
 public class ChanceCard {
     public void effect() {
 
