@@ -1,6 +1,9 @@
-package ChanceCards;
-
 public class ChanceCard {
+    public ChanceCard()
+    {
+
+    }
+
     public void effect() {
 
     }
