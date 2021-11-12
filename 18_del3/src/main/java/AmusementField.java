@@ -7,6 +7,7 @@ public class AmusementField extends Field {
         this.price = price;
         ownerNum = 0;
     }
+
     @Override
     public void landOnField(Player currentplayerobject) {
         // set up booth or pay money
@@ -21,7 +22,7 @@ public class AmusementField extends Field {
     public void setupBooth (Player currentplayerobject) {
         setOwnerNum(MonopolyGame.game.getCurrentPlayerNumber());
         currentplayerobject.getAccount().withdrawMoney(price);
-        // Make a GUI message for setup booth later
+        MonopolyGame.setupBoothMessage();
     }
 
     public void setOwnerNum (int playerNum) {

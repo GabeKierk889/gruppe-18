@@ -95,11 +95,6 @@ public class MonopolyGame {
         }
     }
 
-    static void goToJailMessage() {
-        gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
-                "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
-    }
-
     private static void inJail() {
         // alternate flow if the current player is in jail at the start of the turn
         if (game.getPlayerObject(game.getCurrentPlayerNumber()).getIsInJail()) {
@@ -164,6 +159,23 @@ public class MonopolyGame {
         return str;
     }
 
+    static void goToJailMessage() {
+        gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
+                "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
+    }
+
+    static void setupBoothMessage() {
+        gui.getUserButtonPressed("Press the button to setup a booth on this field", "Setup booth");
+        updatePlayerBalance();
+        gui.showMessage("You have now paid $M" +
+                ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice() +
+                " to setup a booth");
+    }
+
+    static void updatePlayerBalance () {
+        // showing/ updating the current player's balance
+        player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+    }
     private static void formatFields() {
         for (int i = 0; i < 24; i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
