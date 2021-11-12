@@ -16,6 +16,7 @@ public class AmusementField extends Field {
         }
         if (ownerNum != MonopolyGame.game.getCurrentPlayerNumber()) {
             currentplayerobject.getAccount().transferMoney(price,ownerNum);
+            MonopolyGame.payBoothPriceMessage();
         }
     }
 
@@ -23,6 +24,10 @@ public class AmusementField extends Field {
         setOwnerNum(MonopolyGame.game.getCurrentPlayerNumber());
         currentplayerobject.getAccount().withdrawMoney(price);
         MonopolyGame.setupBoothMessage();
+    }
+
+    public int getOwnerNum() {
+        return ownerNum;
     }
 
     public void setOwnerNum (int playerNum) {

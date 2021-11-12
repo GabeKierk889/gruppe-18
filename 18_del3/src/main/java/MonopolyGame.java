@@ -67,12 +67,7 @@ public class MonopolyGame {
                 game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
                         landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
 
-                // NB-casting to the child class may be required to access certain methods of Amusement,Jail etc.,
-                // ( (AmusementField) game.getBoard().getFieldObject(22) ).getPrice();
-
-                // updating and showing the updated balances for all players
-                    for (int i = 0; i< game.getTotalPlayers(); i++)
-                        player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+                updatePlayerBalance();
 
                 // changes to the next player's turn (if the current player does not get an extra turn)
                 game.switchTurn(false);
@@ -172,10 +167,21 @@ public class MonopolyGame {
                 " to setup a booth");
     }
 
-    static void updatePlayerBalance () {
-        // showing/ updating the current player's balance
-        player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
+    static void payBoothPriceMessage() {
+        int owner = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getOwnerNum();
+        int price = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice();
+        gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth"
+                , "Pay M$" + price);
+        updatePlayerBalance();
+        gui.showMessage("You have paid M$" + price);
     }
+
+    static void updatePlayerBalance () {
+        // updating and showing the updated balances for all players
+        for (int i = 0; i< game.getTotalPlayers(); i++)
+            player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+    }
+
     private static void formatFields() {
         for (int i = 0; i < 24; i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
