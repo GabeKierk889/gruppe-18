@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Scanner;
 
 public class MonopolyGame {
-    private static Game game;
+    static Game game;
     private static GUI_Field[] fields;
     private static GUI_Street[] streets;
     private static GUI_Car[] car;

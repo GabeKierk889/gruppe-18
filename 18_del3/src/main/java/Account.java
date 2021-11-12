@@ -31,6 +31,11 @@ public class Account {
         }
     }
 
+    public void transferMoney(double amount, int recipientPlayerNum) {
+        withdrawMoney(amount);
+        MonopolyGame.game.getPlayerObject(recipientPlayerNum).getAccount().depositMoney(amount);
+    }
+
     public void setCurrentBalance(int balance) {
         if (balance >= 0) {
             this.currentBalance = balance;
