@@ -4,6 +4,7 @@ public class Player {
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt/ lost all their money
     private boolean isInJail;
+    private ChanceCard releaseFromJailCard, releaseFromJailCard2; // each can have max 2 release from jail cards
 
     public Player(String name){
         Account acct = new Account();
@@ -44,4 +45,29 @@ public class Player {
     public boolean getIsInJail () { return isInJail; }
     public boolean getIsBankrupt () { return isBankrupt; }
 
+    public void giveReleaseFromJailCard (ChanceCard card) {
+        // if player is given a release from jail card, they get to keep it (max 2 cards)
+        if (releaseFromJailCard == null)
+            releaseFromJailCard = card;
+        else
+            releaseFromJailCard2 = card; }
+
+    public ChanceCard returnReleaseFromJailCard () {
+        // if a jail card is taken away from a player, the 2nd one is taken first (if they have 2)
+        if (releaseFromJailCard2 != null) {
+            ChanceCard temp = releaseFromJailCard2;
+            releaseFromJailCard2 = null;
+            return temp;
+        }
+        else {
+            ChanceCard temp = releaseFromJailCard;
+            releaseFromJailCard = null;
+            return temp; }
+        }
+
+    public boolean hasAReleaseFromJailCard () {
+        if (releaseFromJailCard != null)
+            return true;
+        else return false;
+    }
 }

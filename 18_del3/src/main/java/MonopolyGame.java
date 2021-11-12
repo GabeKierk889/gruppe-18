@@ -71,6 +71,7 @@ public class MonopolyGame {
 
             if (game.isGameOver()) {
                 game.determineWinner(); // determine the winner based on the game rules
+                updatePlayerBalance();
                 gui.showMessage("The game is over as "+ game.getBankruptPlayerName()+" has gone bankrupt." +
                 "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
             }
@@ -91,9 +92,29 @@ public class MonopolyGame {
         // alternate flow if the current player is in jail at the start of the turn
         if (game.getPlayerObject(game.getCurrentPlayerNumber()).getIsInJail()) {
 
+            // if player owns a release from jail card
+            if (game.getPlayerObject(game.getCurrentPlayerNumber()).hasAReleaseFromJailCard() )
+            {
+                if (gui.getUserLeftButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ": You are in jail. Do you want to use your " +
+                "\"Get out of jail for free\" card now? You can only use the card once.","Yes","No"))
+                {
+                    // removing their ownership of the card and returning the card to the deck of chance cards
+                    ChanceField.putBackChanceCard(game.getPlayerObject(game.getCurrentPlayerNumber()).returnReleaseFromJailCard());
+
+                    // releasing the player from jail
+                    game.getPlayerObject(game.getCurrentPlayerNumber()).setIsInJail(false);
+
+                    // shows a message to the player that they been released, and to take a turn
+                    gui.showMessage("You have used your chance card to be released from jail at no cost. " +
+                    "You are now a free (wo)man and can take a turn. ");
+
+                    // return to main flow
+                    return;
+                }
+            }
+
             // displays a message and withdraws get out of jail fee from the player's balance
-            // WIP ALT OPTION NOT MADE - ALLOW PLAYER TO USE GET OUT OF JAIL CHANCE CARD
-            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn." +
+            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ":" +
             "\nYou are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
             game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
 
@@ -175,11 +196,10 @@ public class MonopolyGame {
 
     static void chanceCardMessage()
     {
-        int onfield = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
-        gui.setChanceCard(((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().chanceCardText());
+        gui.setChanceCard(ChanceField.getCurrentCard().chanceCardText());
         gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, " +
         "press the 'Apply' button to apply the instructions of the chance card","Apply");
-        ((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().effect();
+        gui.setChanceCard(""); // otherwise the text will not be removed
         updatePlayerBalance();
     }
 

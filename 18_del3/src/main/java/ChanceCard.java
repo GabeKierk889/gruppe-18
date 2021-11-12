@@ -2,7 +2,7 @@ public abstract class ChanceCard {
 
     public abstract String chanceCardText();
 
-    public abstract void effect();
+    public abstract void effect(Player currentplayerobject);
 
     // Giv dette kort til BILEN og tag et chancekort mere. BIL på din næste tur skal du drøne frem til et hvilket som
     // helst ledigt felt og købe det. Hvis der ikke er nogen ledie felter, skal du købe en fra en anden spiller!
@@ -11,7 +11,7 @@ public abstract class ChanceCard {
     }
 
     // Ryk frem til START Modtage M2.
-    public void recieveM2() {
+    public void moveToSTART() {
 
     }
 
@@ -28,7 +28,7 @@ public abstract class ChanceCard {
 
     // GRATIS FELT! Ryk frem til et lyseblåt felt. Hvis det er ledigt, ƒår du det GRATIS! Ellers skal du BETALE leje
     // til ejeren.
-    public void moveToFieldLightBlue() {
+    public void moveToFreeFieldLightBlue() {
 
     }
 
@@ -38,7 +38,7 @@ public abstract class ChanceCard {
     }
 
     // Ryk frem til Strandpromenaden.
-    public void moveToSeaFront() {
+    public void moveToTheBeachWalk() {
 
     }
 
@@ -62,7 +62,7 @@ public abstract class ChanceCard {
 
     // GRATIS FELT! Ryk frem til et pink eller mørkeblåt felt. Hvis det er ledigt, får du det GRATIS! Ellers skal du
     // BETALE leje til ejeren.
-    public void moveToFieldBlueOrPink() {
+    public void moveToFreeFieldBlueOrPink() {
 
     }
 }
