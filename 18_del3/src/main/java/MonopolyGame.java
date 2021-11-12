@@ -102,7 +102,7 @@ public class MonopolyGame {
             // displays a message and withdraws get out of jail fee from the player's balance
             // WIP ALT OPTION NOT MADE - ALLOW PLAYER TO USE GET OUT OF JAIL CHANCE CARD
             if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn." +
-            "\nYou are in jail. You need to pay $M"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
+            "\nYou are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
             game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
 
             // releasing the player from jail
@@ -112,7 +112,7 @@ public class MonopolyGame {
             player[game.getCurrentPlayerNumber()-1].setBalance(game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().getBalance());
 
             // shows a message to the player that they have paid the fee, and to take a turn
-            gui.showMessage("You have paid $M"+ Account.JAILFEE +" to be released from jail. You are now a free (wo)man and can take a turn. ");
+            gui.showMessage("You have paid M$"+ Account.JAILFEE +" to be released from jail. You are now a free (wo)man and can take a turn. ");
         }
     }
 
@@ -149,7 +149,7 @@ public class MonopolyGame {
         str += player[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
                 game.getBoard().getFieldObject(fieldnum) + ".\n";
         if (fieldnum < game.getDie().getFaceValue())
-            str += "You have received $M"+ Account.STARTBONUS +" for passing START\n";
+            str += "You have received M$"+ Account.STARTBONUS +" for passing START\n";
         if (fieldnum == 6)
             str += "You go on a visit to jail\nNext player's turn";
         else if (fieldnum == 12)
@@ -161,13 +161,13 @@ public class MonopolyGame {
 
     static void goToJailMessage() {
         gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
-                "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay $M"+ Account.JAILFEE +" to get out.");
+                "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay M$"+ Account.JAILFEE +" to get out.");
     }
 
     static void setupBoothMessage() {
         gui.getUserButtonPressed("Press the button to setup a booth on this field", "Setup booth");
         updatePlayerBalance();
-        gui.showMessage("You have now paid $M" +
+        gui.showMessage("You have now paid M$" +
                 ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice() +
                 " to setup a booth");
     }
