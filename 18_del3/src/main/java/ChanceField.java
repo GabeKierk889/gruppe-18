@@ -19,7 +19,6 @@ public class ChanceField extends Field {
     public ChanceCard drawChanceCard()
     {
         ChanceCard tmpCard = chanceCard[0];
-        tmpCard.effect();
         return tmpCard;
     }
 

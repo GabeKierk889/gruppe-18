@@ -179,8 +179,9 @@ public class MonopolyGame {
     static void chanceCardMessage()
     {
         int onfield = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
-        if(gui.getUserButtonPressed("Press the green square to view your chance card and then press the button when you are ready to end your turn","Ready").equalsIgnoreCase("ready"))
-            gui.setChanceCard(((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().chanceCardText());
+        gui.setChanceCard(((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().chanceCardText());
+        gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, press the 'Apply' button to apply the instructions of the card","Apply").equalsIgnoreCase("ready");
+        ((ChanceField) game.getBoard().getFieldObject(onfield)).getCurrentCard().effect();
         updatePlayerBalance();
     }
 
