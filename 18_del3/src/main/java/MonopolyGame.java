@@ -178,7 +178,7 @@ public class MonopolyGame {
 
     static void chanceCardMessage()
     {
-        gui.displayChanceCard(((ChanceField) game.getBoard().getFieldObject(3)).drawChanceCard().chanceCardText());
+        gui.displayChanceCard(((ChanceField) game.getBoard().getFieldObject(3)).getCurrentCard().chanceCardText());
         updatePlayerBalance();
     }
 

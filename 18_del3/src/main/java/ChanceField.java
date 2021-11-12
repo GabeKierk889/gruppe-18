@@ -1,4 +1,6 @@
 public class ChanceField extends Field {
+    private ChanceCard currentCard;
+
     private ChanceCard[] chanceCard =
             {
                     new ItsYourBirthday()
@@ -10,7 +12,7 @@ public class ChanceField extends Field {
 
     @Override
     public void landOnField(Player currentplayerobject) {
-        drawChanceCard();
+        currentCard = drawChanceCard();
         MonopolyGame.chanceCardMessage();
     }
 
@@ -19,5 +21,9 @@ public class ChanceField extends Field {
         ChanceCard tmpCard = chanceCard[0];
         tmpCard.effect();
         return tmpCard;
+    }
+
+    public ChanceCard getCurrentCard() {
+        return currentCard;
     }
 }
