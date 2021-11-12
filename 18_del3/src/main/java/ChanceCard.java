@@ -2,9 +2,7 @@ public abstract class ChanceCard {
 
     public abstract String chanceCardText();
 
-    public void effect() {
-
-    }
+    public abstract void effect();
 
     // Giv dette kort til BILEN og tag et chancekort mere. BIL på din næste tur skal du drøne frem til et hvilket som
     // helst ledigt felt og købe det. Hvis der ikke er nogen ledie felter, skal du købe en fra en anden spiller!

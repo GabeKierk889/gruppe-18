@@ -1,7 +1,8 @@
 public class ItsYourBirthday extends ChanceCard
 {
     // Det er din fødselsdag! Alle giver dig M1 TILLYKKE MED FØDSELSDAGEN!
-    public void receiveBirthdayMoney()
+    @Override
+    public void effect()
     {
         int currentPlayer = MonopolyGame.game.getCurrentPlayerNumber();
         final int GIFTAMOUNT = 1;
