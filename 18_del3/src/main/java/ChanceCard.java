@@ -1,8 +1,6 @@
-public class ChanceCard {
-    public ChanceCard()
-    {
+public abstract class ChanceCard {
 
-    }
+    public abstract String chanceCardText();
 
     public void effect() {
 

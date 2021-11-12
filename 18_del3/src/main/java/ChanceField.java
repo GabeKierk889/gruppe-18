@@ -1,14 +1,22 @@
 public class ChanceField extends Field {
+    private ChanceCard[] chanceCard =
+            {
+                    new ItsYourBirthday()
+            };
+
     public ChanceField(String fieldName) {
         super(fieldName);
     }
 
     @Override
     public void landOnField(Player currentplayerobject) {
-        // NOT UPDATED
+        drawChanceCard();
+        MonopolyGame.chanceCardMessage();
     }
 
-    public static void drawChanceCard() {
-
+    public ChanceCard drawChanceCard()
+    {
+        ChanceCard tmpCard = chanceCard[0];
+        return tmpCard;
     }
 }

@@ -176,6 +176,12 @@ public class MonopolyGame {
         gui.showMessage("You have paid M$" + price);
     }
 
+    static void chanceCardMessage()
+    {
+        gui.displayChanceCard(((ChanceField) game.getBoard().getFieldObject(3)).drawChanceCard().chanceCardText());
+        updatePlayerBalance();
+    }
+
     static void updatePlayerBalance () {
         // updating and showing the updated balances for all players
         for (int i = 0; i< game.getTotalPlayers(); i++)

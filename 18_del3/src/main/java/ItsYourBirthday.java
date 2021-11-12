@@ -15,4 +15,10 @@ public class ItsYourBirthday extends ChanceCard
         }
 
     }
+
+    @Override
+    public String chanceCardText()
+    {
+        return "It's your birthday! All the other players give you M$1 HAPPY BIRTHDAY!";
+    }
 }
