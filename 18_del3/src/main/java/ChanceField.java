@@ -1,6 +1,8 @@
 public class ChanceField extends Field {
     private static ChanceCard currentCard;
+
     private static ChanceCard[] chanceCard = {
+
             // added an extra jail card for now - need minimum 3 cards to test drawCard method
             new ItsYourBirthday(), new ReleaseFromJailCard(), new ReleaseFromJailCard()
         };
@@ -57,7 +59,8 @@ public class ChanceField extends Field {
     }
 
     private static void putAllNullCardsinTheBottomOfDeck() {
-        // gets rid of gaps / empty slots in the array and puts them all in the bottom / close to 0
+        // private support method to put empty slots in the bottom of the card array
+        // gets rid of gaps / empty slots in the array and puts all null cards in the bottom / close to index 0
         // this code can accommodate maximum two empty slots
         int nulls = 0;
         for (int i = chanceCard.length - 1; i > nulls-1; i--) {
