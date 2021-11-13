@@ -54,8 +54,10 @@ public class ChanceField extends Field {
 
     public static void putBackChanceCard(ChanceCard card) {
         // inserts a chance card back into the bottom of the pile of cards (but before any other null values)
+        if (card != null) {
         chanceCard[0] = card;
         putAllNullCardsinTheBottomOfDeck();
+        }
     }
 
     private static void putAllNullCardsinTheBottomOfDeck() {

@@ -34,48 +34,63 @@ public class MonopolyGame {
         // Displays a welcome message and allows the players to view the rules before starting the game
         showWelcomeMessage();
 
+        // Play the main game loop (as long as the game has not ended according to the rules), and ends the game
+        gameLoop();
+        }
+
+    private static void gameLoop() {
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
 
-                // if the current player is in jail, an alternative flow is run first before the main flow
-                inJail();
+            // if the current player is in jail, an alternative flow is run first before the main flow
+            inJail();
 
-                // displays a message for a player to roll the die, then rolls the die
-                roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the die","Roll"));
+            // displays a message for a player to roll the die, then rolls the die
+            roll(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + "'s" + " turn. Press to roll the die","Roll"));
 
-                // removes the current player's car from the previous field they stood on
-                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
-                player[game.getCurrentPlayerNumber()-1], false);
+            // removes the current player's car from the previous field they stood on
+            fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
+                    player[game.getCurrentPlayerNumber()-1], false);
 
-                // sets the player's car on the street corresponding to the latest dice roll
-                fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(game.getDie().getFaceValue())].
-                setCar(player[game.getCurrentPlayerNumber()-1], true);
+            // sets the player's car on the street corresponding to the latest dice roll
+            fields[game.getPlayerObject(game.getCurrentPlayerNumber()).movePlayer(game.getDie().getFaceValue())].
+                    setCar(player[game.getCurrentPlayerNumber()-1], true);
 
-                // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
-                // (not via chance card situations)
-                game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
+            // the player gets a START bonus if they land on/ pass START via a regular move after a dice-throw
+            // (not via chance card situations)
+            game.getPlayerObject(game.getCurrentPlayerNumber()).collectStartBonus(game.getDie().getFaceValue());
 
-                // showing/ updating the player's balance, in case they got a START bonus
-                updatePlayerBalance();
+            // showing/ updating the player's balance, in case they got a START bonus
+            updatePlayerBalance();
 
-                // displays message to current player about the actions of their turn
-                gui.showMessage(playerTurnMessage());
+            // displays message to current player about the actions of their turn
+            gui.showMessage(playerTurnMessage());
 
-                // calls landOnField method which will do something if it is an amusement field, jail, or chance field
-                game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
-                landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+            // calls landOnField method which will do something if it is an amusement field, jail, or chance field
+            game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
+                    landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
 
-                // changes to the next player's turn (if the current player does not get an extra turn)
-                game.switchTurn(false);
-            }
+            // changes to the next player's turn (if the current player does not get an extra turn)
+            game.switchTurn(false);
+        }
 
-            if (game.isGameOver()) {
-                game.determineWinner(); // determine the winner based on the game rules
-                updatePlayerBalance();
-                gui.showMessage("The game is over as "+ game.getBankruptPlayerName()+" has gone bankrupt." +
-                "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
+        // Checks whether the game needs to end, finds the winner and asks if they want to play again
+        endGame();
+    }
+
+    private static void endGame() {
+        if (game.isGameOver()) {
+            game.determineWinner(); // determine the winner based on the game rules
+            updatePlayerBalance();
+            gui.showMessage("The game is over as "+ game.getBankruptPlayerName()+" has gone bankrupt." +
+                    "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
+            // asks if they want to play again. If yes, resets the game and starts a new game
+            if(gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
+                resetGame();
+                gameLoop();
             }
         }
+    }
 
     private static void roll(String roll) {
         if (roll.equalsIgnoreCase("Roll")) {
@@ -115,8 +130,8 @@ public class MonopolyGame {
 
             // displays a message and withdraws get out of jail fee from the player's balance
             if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ": " +
-            "You are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
-            game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
+            "You are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"))
+                game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
 
             // releasing the player from jail
             game.getPlayerObject(game.getCurrentPlayerNumber()).setIsInJail(false);
@@ -229,13 +244,13 @@ public class MonopolyGame {
     }
 
     private static void formatFields() {
-        for (int i = 0; i < 24; i++) { // sets up all GUI fields/streets
+        for (int i = 0; i < Field.getTotalnumberOfFields(); i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
             streets[i].setTitle(game.getBoard().getFieldObject(i).getFieldDescription());
             streets[i].setBackGroundColor(Color.lightGray);
             fields[i] = streets[i]; }
 
-        for (int i = 0; i < 24; i++) { // displays the price and description for the ownable fields
+        for (int i = 0; i < Field.getTotalnumberOfFields(); i++) { // displays the price and description for the ownable fields
             if (i%3 != 0) {
                 String str = "M$";
                 streets[i].setSubText(str + ((AmusementField)game.getBoard().getFieldObject(i)).getPrice());
@@ -319,5 +334,28 @@ public class MonopolyGame {
                     Account.STARTINGBALANCE, car[i]);
             gui.addPlayer(player[i]);
             fields[0].setCar(player[i], true); }
+    }
+
+    private static void resetGame() {
+        gui.close(); // close current gui board and set up a new one
+        formatFields();
+        gui = new GUI(fields, new Color(230,230,230));
+        // sets all the cars on START and resets players' accounts
+        addGUIPlayersAndCars();
+        for (int i = 0; i < Field.getTotalnumberOfFields(); i++)
+            if (i%3 != 0) {
+            ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0);} // removes owner from all fields
+        // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards
+        for (int i = 0; i< game.getTotalPlayers(); i++) {
+            game.getPlayerObject(i + 1).getAccount().setCurrentBalance(Account.STARTINGBALANCE);
+            game.getPlayerObject(i + 1).setPlayerOnField(0);
+            game.getPlayerObject(i + 1).isBankrupt(false);
+            game.getPlayerObject(i + 1).setIsInJail(false);
+            ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
+            // a player may have a 2nd card
+            ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
+        }
+        game.resetGameStats();
+        ChanceField.shuffleCards(); // shuffles the deck of chance cards
     }
 }

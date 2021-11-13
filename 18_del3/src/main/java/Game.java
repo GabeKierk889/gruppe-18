@@ -86,4 +86,9 @@ public class Game {
     public int getTotalPlayers() {return totalPlayers; }
     public int getNextPlayerNumber() { return nextPlayer;}
     public int getWinner() { return winner; }
+    public void resetGameStats() {
+        currentPlayer = 1;
+        nextPlayer = 1; // this will be changed through the nextplayer method
+        winner = 0;
+    }
 }
