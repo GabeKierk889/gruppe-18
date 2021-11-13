@@ -168,7 +168,7 @@ public class MonopolyGame {
         else if (fieldnum == 12)
             str += "Hurrah for free parking!\nNext player's turn";
         else if (fieldnum%6 != 0 && fieldnum%3 == 0)
-            str += "Take a chance card and follow the instructions";
+            str += "Click OK to draw a chance card";
         return str;
     }
 
