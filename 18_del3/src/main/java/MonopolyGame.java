@@ -82,8 +82,15 @@ public class MonopolyGame {
         if (game.isGameOver()) {
             game.determineWinner(); // determine the winner based on the game rules
             updatePlayerBalance();
+            // if there is one winner
+            if (game.determineWinner() == game.determineWinner2())
             gui.showMessage("The game is over as " + game.getBankruptPlayerName() + " has gone bankrupt." +
                     "\nThe winner of this game is " + game.getPlayerObject(game.determineWinner()).getName());
+            // if there are two winners
+            if (game.determineWinner() != game.determineWinner2())
+                gui.showMessage("The game is over as " + game.getBankruptPlayerName() + " has gone bankrupt." +
+                        "\nThe winners of this game are " + game.getPlayerObject(game.determineWinner()).getName() +
+                        " and " + game.getPlayerObject(game.determineWinner2()).getName());
             // asks if they want to play again. If yes, resets the game and starts a new game
             if (gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
                 resetGame();

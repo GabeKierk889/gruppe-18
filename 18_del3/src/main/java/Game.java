@@ -58,6 +58,18 @@ public class Game {
         }
         return playerWithMostMoney;    }
 
+    // checks if there are two winners with the same balance
+    public int determineWinner2() {
+        int mostMoneyAmount = 0;
+        int playerWithMostMoney = 0;
+        for (int i = 0; i < totalPlayers; i++) {
+            if (players[i].getAccount().getBalance() >= mostMoneyAmount) {
+                mostMoneyAmount = players[i].getAccount().getBalance();
+                playerWithMostMoney = i + 1; // player number is 1 greater than player-array-position
+            }
+        }
+        return playerWithMostMoney;    }
+
     public String getBankruptPlayerName() {
         String str = "";
         for (int i = 0; i < totalPlayers; i++) {
