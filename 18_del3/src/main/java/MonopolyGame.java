@@ -31,14 +31,14 @@ public class MonopolyGame {
         player = new GUI_Player[game.getTotalPlayers()];
         addGUIPlayersAndCars();
 
-        // Displays a welcome message and allows the players to view the rules before starting the game
-        showWelcomeMessage();
-
-        // Play the main game loop (as long as the game has not ended according to the rules), and ends the game
+        // Play the main game loop
         gameLoop();
         }
 
     private static void gameLoop() {
+        // Displays a welcome message and allows the players to view the rules before starting the game
+        showWelcomeMessage();
+
         // checking that the game is not yet over (meaning no player has gone bankrupt)
         while (!game.isGameOver()) {
 
@@ -82,13 +82,16 @@ public class MonopolyGame {
         if (game.isGameOver()) {
             game.determineWinner(); // determine the winner based on the game rules
             updatePlayerBalance();
-            gui.showMessage("The game is over as "+ game.getBankruptPlayerName()+" has gone bankrupt." +
+            gui.showMessage("The game is over as " + game.getBankruptPlayerName() + " has gone bankrupt." +
                     "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
             // asks if they want to play again. If yes, resets the game and starts a new game
-            if(gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
+            if (gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
                 resetGame();
                 gameLoop();
-            }
+            } else {
+                gui.showMessage("Thank you for playing today! Goodbye!");
+                gui.close();
+        }
         }
     }
 
