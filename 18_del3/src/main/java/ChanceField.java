@@ -15,7 +15,7 @@ public class ChanceField extends Field {
     @Override
     public void landOnField(Player currentplayerobject) {
         currentCard = drawChanceCard();
-        MonopolyGame.chanceCardMessage();
+        MonopolyGame.showChanceCardMessage();
         currentCard.effect(currentplayerobject);
     }
 

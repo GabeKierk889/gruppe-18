@@ -14,7 +14,7 @@ public class ItsYourBirthday extends ChanceCard
                 MonopolyGame.game.getPlayerObject(i + 1).getAccount().transferMoney(GIFTAMOUNT, currentPlayer);
             }
         }
-
+        MonopolyGame.updatePlayerBalance();
     }
 
     @Override

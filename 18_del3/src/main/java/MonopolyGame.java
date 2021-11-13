@@ -114,8 +114,8 @@ public class MonopolyGame {
             }
 
             // displays a message and withdraws get out of jail fee from the player's balance
-            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ":" +
-            "\nYou are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
+            if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ": " +
+            "You are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"));
             game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
 
             // releasing the player from jail
@@ -194,13 +194,12 @@ public class MonopolyGame {
         gui.showMessage("You have now paid M$" + price + " to "+ game.getPlayerObject(owner).getName());
     }
 
-    static void chanceCardMessage()
+    static void showChanceCardMessage()
     {
         gui.setChanceCard(ChanceField.getCurrentCard().chanceCardText());
         gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, " +
         "press the 'Apply' button to apply the instructions of the chance card","Apply");
-        gui.setChanceCard(""); // otherwise the text will not be removed
-        updatePlayerBalance();
+        gui.setChanceCard(""); // removes the text after the player has read it
     }
 
     static void updatePlayerBalance () {
