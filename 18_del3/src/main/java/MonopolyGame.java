@@ -83,7 +83,7 @@ public class MonopolyGame {
             game.determineWinner(); // determine the winner based on the game rules
             updatePlayerBalance();
             gui.showMessage("The game is over as " + game.getBankruptPlayerName() + " has gone bankrupt." +
-                    "\nThe winner of this game is " + game.getPlayerObject(game.getWinner()).getName());
+                    "\nThe winner of this game is " + game.getPlayerObject(game.determineWinner()).getName());
             // asks if they want to play again. If yes, resets the game and starts a new game
             if (gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
                 resetGame();
@@ -354,11 +354,12 @@ public class MonopolyGame {
             game.getPlayerObject(i + 1).setPlayerOnField(0);
             game.getPlayerObject(i + 1).isBankrupt(false);
             game.getPlayerObject(i + 1).setIsInJail(false);
+            // return a player's get out of jail chance cards to the deck of chance cards
             ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
-            // a player may have a 2nd card
+            // called twice as a player may own up to two chance card
             ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
         }
-        game.resetGameStats();
+        game.setCurrentPlayer(1); // set the active player to player 1
         ChanceField.shuffleCards(); // shuffles the deck of chance cards
     }
 }

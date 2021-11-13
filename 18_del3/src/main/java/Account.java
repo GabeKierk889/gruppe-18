@@ -10,17 +10,21 @@ public class Account {
 
     // Withdraws money.
     public void withdrawMoney (double withdrawal) {
+        // currently allowing a negative balance
+        if (withdrawal > 0) {
+        this.currentBalance -= withdrawal; }
+
         // Only allows withdrawal if the amount is greater than zero and also the withdrawal amount is greater than
         // the current balance.
-        if (withdrawal > 0) { // currently allowing a negative balance
+//        if (withdrawal > 0) {
 //            if (withdrawal <= currentBalance) {
-                this.currentBalance -= withdrawal;
+//                this.currentBalance -= withdrawal;
 //            } else {
 //                // If the withdrawal amount is greater than the account balance, then the account balance i reset
 //                // to zero.
 //                this.currentBalance = 0;
 //            }
-        }
+//        }
     }
 
     // Deposits money.

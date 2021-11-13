@@ -5,9 +5,7 @@ public class Game {
     private Player[] players;
     private Die die;
     private int currentPlayer;
-    private int nextPlayer;
     private int totalPlayers;
-    private int winner;
     private Board board;
 
     public Game(String ... player_names) {
@@ -24,7 +22,6 @@ public class Game {
             die = new Die();
             board = new Board();
             currentPlayer = 1;
-            nextPlayer = 1; // this will be changed through the nextplayer method
         }
     }
 
@@ -34,15 +31,6 @@ public class Game {
                 currentPlayer++;
             else
                 currentPlayer = 1; }
-    }
-
-    public int nextPlayer(boolean extraTurn) {
-        if (!extraTurn) {
-            if (currentPlayer < totalPlayers)
-                nextPlayer = currentPlayer+1;
-            else
-                nextPlayer = 1; }
-        return nextPlayer;
     }
 
     public boolean checkIsAnyoneBankrupt() {
@@ -59,7 +47,7 @@ public class Game {
         return checkIsAnyoneBankrupt(); // game ends if a player goes bankrupt
     }
 
-    public void determineWinner() {
+    public int determineWinner() {
         int mostMoneyAmount = 0;
         int playerWithMostMoney = 0;
         for (int i = 0; i < totalPlayers; i++) {
@@ -68,7 +56,7 @@ public class Game {
                 playerWithMostMoney = i + 1; // player number is 1 greater than player-array-position
             }
         }
-        winner = playerWithMostMoney;    }
+        return playerWithMostMoney;    }
 
     public String getBankruptPlayerName() {
         String str = "";
@@ -84,11 +72,5 @@ public class Game {
     public Player getPlayerObject(int playernumber) { return players[playernumber-1]; }
     public int getCurrentPlayerNumber() { return currentPlayer; }
     public int getTotalPlayers() {return totalPlayers; }
-    public int getNextPlayerNumber() { return nextPlayer;}
-    public int getWinner() { return winner; }
-    public void resetGameStats() {
-        currentPlayer = 1;
-        nextPlayer = 1; // this will be changed through the nextplayer method
-        winner = 0;
-    }
+    public void setCurrentPlayer(int playernumber) { currentPlayer = playernumber; }
 }
