@@ -4,7 +4,7 @@ public class Player {
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt/ lost all their money
     private boolean isInJail;
-    private ChanceCard releaseFromJailCard, releaseFromJailCard2; // each can have max 2 release from jail cards
+    private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
 
     public Player(String name){
         Account acct = new Account();
