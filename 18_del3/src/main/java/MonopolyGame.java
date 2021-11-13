@@ -180,6 +180,7 @@ public class MonopolyGame {
     static void setupBoothMessage() {
         gui.getUserButtonPressed("Press the button to setup a booth on this field", "Setup booth");
         updatePlayerBalance();
+        formatBooth();
         gui.showMessage("You have now paid M$" +
                 ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice() +
                 " to setup a booth");
@@ -206,6 +207,25 @@ public class MonopolyGame {
         // updating and showing the updated balances for all players
         for (int i = 0; i< game.getTotalPlayers(); i++)
             player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
+    }
+
+    private static void formatBooth() {
+        int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
+        switch (game.getCurrentPlayerNumber()) {
+            case 1: {
+                streets[fieldnum].setBorder(Color.red);
+                break; }
+            case 2: {
+                streets[fieldnum].setBorder(Color.blue);
+                break; }
+            case 3: {
+                streets[fieldnum].setBorder(Color.GREEN);
+                break; }
+            case 4: {
+                streets[fieldnum].setBorder(new Color(170,60,250));
+                break; }
+            default: break;
+            }
     }
 
     private static void formatFields() {
