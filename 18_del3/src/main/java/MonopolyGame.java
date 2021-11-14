@@ -202,32 +202,28 @@ public class MonopolyGame {
                 "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay M$"+ Account.JAILFEE +" to get out.");
     }
 
-    static void setupBoothMessage() {
+    static void setupBoothMessage(int fieldArrayNum, int price) {
         gui.getUserButtonPressed("Press the button to setup a booth on this field", "Setup booth");
         updatePlayerBalance();
-        formatBooth();
-        gui.showMessage("You have now paid M$" +
-                ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice() +
-                " to setup a booth");
+        formatFieldBorder(fieldArrayNum);
+        updateGUIRentAndOwnerInfoAllFieldsOfSameColor(fieldArrayNum);
+        String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+        String str = "You have paid M$" + price + " to setup a booth.";
+        if (Board.onePlayerOwnsAllFieldsofSameColor(fieldArrayNum))
+            str += "\nAs you now own a booth on all the "+ color +" fields, from now on the price that other players have to pay you will be doubled.";
+        gui.showMessage(str);
     }
 
-    static void payBoothPriceMessage() {
-        int owner = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getOwnerNum();
-        int price = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice();
-        gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth"
-                , "Pay M$" + price);
+    static void payBoothPriceMessage(int fieldArrayNum, int owner, int rent) {
+        String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+        if (!Board.onePlayerOwnsAllFieldsofSameColor(fieldArrayNum))
+            gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth"
+                , "Pay M$" + rent);
+        else gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth. As "+ game.getPlayerObject(owner).getName() +
+                        " owns a booth on all the "+ color +" fields, you have to pay double the price."
+                , "Pay M$" + rent);
         updatePlayerBalance();
-        gui.showMessage("You have now paid M$" + price + " to "+ game.getPlayerObject(owner).getName());
-    }
-
-    static void payDoubleBoothPriceMessage() {
-        int owner = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getOwnerNum();
-        int price = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice();
-        gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth. As "+ game.getPlayerObject(owner).getName() +
-                " owns a booth on all the fields of this color, you have to pay double the price."
-                , "Pay M$" + 2*price);
-        updatePlayerBalance();
-        gui.showMessage("You have now paid M$" + 2*price + " to "+ game.getPlayerObject(owner).getName());
+        gui.showMessage("You have now paid M$" + rent + " to "+ game.getPlayerObject(owner).getName());
     }
 
     static void showChanceCardMessage()
@@ -244,25 +240,42 @@ public class MonopolyGame {
             player[i].setBalance(game.getPlayerObject(i+1).getAccount().getBalance());
     }
 
-    private static void formatBooth() {
-        int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
-        int price = ( (AmusementField) game.getBoard().getFieldObject(fieldnum) ).getPrice();
-        streets[fieldnum].setRentLabel("The rent is: ");
-        streets[fieldnum].setRent("M$"+ price);
-        streets[fieldnum].setOwnableLabel("The field is owned by: ");
-        streets[fieldnum].setOwnerName(game.getPlayerObject(game.getCurrentPlayerNumber()).getName());
-        switch (game.getCurrentPlayerNumber()) {
+    private static void updateGUIRentAndOwnerOneField (int fieldArrayNum) {
+        int rent = ( (AmusementField) game.getBoard().getFieldObject(fieldArrayNum) ).getRent();
+        int ownernumber = ((AmusementField)game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum();
+        streets[fieldArrayNum].setRentLabel("The rent is: ");
+        streets[fieldArrayNum].setRent("M$"+ rent);
+        streets[fieldArrayNum].setOwnableLabel("The field is owned by: ");
+        streets[fieldArrayNum].setOwnerName(game.getPlayerObject(ownernumber).getName());
+    }
+
+    private static void updateGUIRentAndOwnerInfoAllFieldsOfSameColor(int fieldArrayNum) {
+        if (Board.onePlayerOwnsAllFieldsofSameColor(fieldArrayNum)) {
+            String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+            String fieldtype = game.getBoard().getFieldObject(fieldArrayNum).getClassName();
+            for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
+                if (game.getBoard().getFieldObject(i).getClassName().equalsIgnoreCase(fieldtype)) {
+                    if (color.equalsIgnoreCase(((AmusementField) game.getBoard().getFieldObject(i)).getFieldColor()))
+                        updateGUIRentAndOwnerOneField(i);
+                }
+            }
+        }
+        else updateGUIRentAndOwnerOneField(fieldArrayNum);
+    }
+
+    private static void formatFieldBorder(int fieldArrayNum) {
+        switch (((AmusementField)game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum()) {
             case 1: {
-                streets[fieldnum].setBorder(Color.red);
+                streets[fieldArrayNum].setBorder(Color.red);
                 break; }
             case 2: {
-                streets[fieldnum].setBorder(Color.blue);
+                streets[fieldArrayNum].setBorder(Color.blue);
                 break; }
             case 3: {
-                streets[fieldnum].setBorder(Color.GREEN);
+                streets[fieldArrayNum].setBorder(Color.GREEN);
                 break; }
             case 4: {
-                streets[fieldnum].setBorder(new Color(170,60,250));
+                streets[fieldArrayNum].setBorder(new Color(170,60,250));
                 break; }
             default: break;
             }

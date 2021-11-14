@@ -3,18 +3,18 @@ public class Board {
 
     public Board() {
         fields = new Field[]{
-                new Field("Start"), new AmusementField("Brown","The Burger Joint",1),
-                new AmusementField("Brown","The Pizza House",1), new ChanceField("Chance"),
-                new AmusementField("Light blue","The Candy Shop",1), new AmusementField("Light blue","The Ice Cream Parlor",1),
-                new Field("Visit to Jail"), new AmusementField("Pink","The Museum",2),
-                new AmusementField("Pink","The Library",2), new ChanceField("Chance"),
-                new AmusementField("Orange","The Skate Park",2), new AmusementField("Orange","Swimming Pool",2),
-                new Field("Free Parking"), new AmusementField("Red","The Video Game Arcade",3),
-                new AmusementField("Red","The Cinema",3), new ChanceField("Chance"),
-                new AmusementField("Yellow","The Toy Store",3), new AmusementField("Yellow","The Pet Store",3),
-                new Jail("Go to Jail"), new AmusementField("Green","The Bowling Alley",4),
-                new AmusementField("Green","The Zoo",4), new ChanceField("Chance"),
-                new AmusementField("Blue","The Water Park",5), new AmusementField("Blue","The Beach Walk",5)
+                new Field("Start"), new AmusementField("brown","The Burger Joint",1),
+                new AmusementField("brown","The Pizza House",1), new ChanceField("Chance"),
+                new AmusementField("light blue","The Candy Shop",1), new AmusementField("light blue","The Ice Cream Parlor",1),
+                new Field("Visit to Jail"), new AmusementField("pink","The Museum",2),
+                new AmusementField("pink","The Library",2), new ChanceField("Chance"),
+                new AmusementField("orange","The Skate Park",2), new AmusementField("orange","Swimming Pool",2),
+                new Field("Free Parking"), new AmusementField("red","The Video Game Arcade",3),
+                new AmusementField("red","The Cinema",3), new ChanceField("Chance"),
+                new AmusementField("yellow","The Toy Store",3), new AmusementField("yellow","The Pet Store",3),
+                new Jail("Go to Jail"), new AmusementField("green","The Bowling Alley",4),
+                new AmusementField("green","The Zoo",4), new ChanceField("Chance"),
+                new AmusementField("dark blue","The Water Park",5), new AmusementField("dark blue","The Beach Walk",5)
         };
     }
 
@@ -30,13 +30,13 @@ public class Board {
         return str;
     }
 
-    public static boolean onePlayerOwnsAllFieldsofSameColor(int fieldnumber) {
+    public static boolean onePlayerOwnsAllFieldsofSameColor(int fieldArrayNum) {
         boolean test = false;
-        String color = ((AmusementField) fields[fieldnumber-1]).getFieldColor();
-        int ownernum = ((AmusementField) fields[fieldnumber-1]).getOwnerNum();
-        String fieldtype = fields[fieldnumber-1].getClassName();
+        String color = ((AmusementField) fields[fieldArrayNum]).getFieldColor();
+        int ownernum = ((AmusementField) fields[fieldArrayNum]).getOwnerNum();
+        String fieldtype = fields[fieldArrayNum].getClassName();
         for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
-            if (fields[i].getClassName().equalsIgnoreCase(fieldtype) && i != fieldnumber-1) {
+            if (fields[i].getClassName().equalsIgnoreCase(fieldtype) && i != fieldArrayNum) {
                 if (color.equalsIgnoreCase(((AmusementField) fields[i]).getFieldColor())) {
                     if (((AmusementField) fields[i]).getOwnerNum() == ownernum)
                         test = true;
@@ -45,5 +45,20 @@ public class Board {
             }
         }
         return test;
+    }
+
+    public static void updateRentForAllFieldsOfSameColor(int fieldArrayNum) {
+        if (onePlayerOwnsAllFieldsofSameColor(fieldArrayNum)) {
+            String color = ((AmusementField) fields[fieldArrayNum]).getFieldColor();
+            String fieldtype = fields[fieldArrayNum].getClassName();
+            for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
+                if (fields[i].getClassName().equalsIgnoreCase(fieldtype)) {
+                    if (color.equalsIgnoreCase(((AmusementField) fields[i]).getFieldColor())) {
+                        ((AmusementField) fields[i]).updateRent();
+                    }
+                }
+            }
+        }
+        else ((AmusementField) fields[fieldArrayNum]).updateRent();
     }
 }

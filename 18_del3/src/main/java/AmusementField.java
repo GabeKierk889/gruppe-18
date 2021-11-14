@@ -1,5 +1,5 @@
 public class AmusementField extends Field {
-    private int price;
+    private int price, rent;
     private int ownerNum;
     private String fieldColor;
 
@@ -8,6 +8,7 @@ public class AmusementField extends Field {
         this.fieldColor = fieldColor;
         this.price = price;
         ownerNum = 0;
+        rent = price;
     }
 
     @Override
@@ -17,19 +18,16 @@ public class AmusementField extends Field {
             setupBooth(currentplayerobject);
         }
         if (ownerNum != MonopolyGame.game.getCurrentPlayerNumber()) {
-            if (! Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber)) {
-                currentplayerobject.getAccount().transferMoney(price,ownerNum);
-                MonopolyGame.payBoothPriceMessage(); }
-            else if (Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber)) {
-                currentplayerobject.getAccount().transferMoney(2*price,ownerNum);
-                MonopolyGame.payDoubleBoothPriceMessage(); }
+            currentplayerobject.getAccount().transferMoney(rent,ownerNum);
+            MonopolyGame.payBoothPriceMessage(fieldNumber-1, ownerNum, rent);
         }
     }
 
     public void setupBooth (Player currentplayerobject) {
         setOwnerNum(MonopolyGame.game.getCurrentPlayerNumber());
         currentplayerobject.getAccount().withdrawMoney(price);
-        MonopolyGame.setupBoothMessage();
+        Board.updateRentForAllFieldsOfSameColor(fieldNumber-1);
+        MonopolyGame.setupBoothMessage(fieldNumber-1, price);
     }
 
     public int getOwnerNum() {
@@ -44,6 +42,15 @@ public class AmusementField extends Field {
         return price;
     }
 
+    public int getRent() {
+        return rent;
+    }
+
     public String getFieldColor() { return fieldColor; }
+
+    public void updateRent() {
+        if (Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber-1))
+            rent = 2*price;
+    }
 
 }
