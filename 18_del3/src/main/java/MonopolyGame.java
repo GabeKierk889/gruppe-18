@@ -92,13 +92,12 @@ public class MonopolyGame {
                         "\nThe winners of this game are " + game.getPlayerObject(game.determineWinner()).getName() +
                         " and " + game.getPlayerObject(game.determineWinner2()).getName());
             // asks if they want to play again. If yes, resets the game and starts a new game
-            if (gui.getUserLeftButtonPressed("Do you want to play again", "Yes", "No")) {
+            if (gui.getUserLeftButtonPressed("Do you want to play again?", "Yes", "No")) {
                 resetGame();
                 gameLoop();
             } else {
                 gui.showMessage("Thank you for playing today! Goodbye!");
-                gui.close();
-        }
+                gui.close(); }
         }
     }
 
@@ -122,7 +121,7 @@ public class MonopolyGame {
             {
                 if (gui.getUserLeftButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ": You are in jail. Do you want to use your " +
                 "\"Get out of jail for free\" card now? You can only use the card once.","Yes","No"))
-                {
+                {  // if player chooses to use their card to get out, otherwise skips this section (until return;)
                     // removing their ownership of the card and returning the card to the deck of chance cards
                     ChanceField.putBackChanceCard(game.getPlayerObject(game.getCurrentPlayerNumber()).returnReleaseFromJailCard());
 
@@ -138,7 +137,7 @@ public class MonopolyGame {
                 }
             }
 
-            // displays a message and withdraws get out of jail fee from the player's balance
+            // displays a message for player to pay; withdraws get out of jail fee from the player's balance
             if(gui.getUserButtonPressed(player[game.getCurrentPlayerNumber()-1].getName() + ": " +
             "You are in jail. You need to pay M$"+ Account.JAILFEE + " to be released from jail", "Pay").equalsIgnoreCase("pay"))
                 game.getPlayerObject(game.getCurrentPlayerNumber()).getAccount().withdrawMoney(Account.JAILFEE);
@@ -210,7 +209,8 @@ public class MonopolyGame {
         String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
         String str = "You have paid M$" + price + " to setup a booth.";
         if (Board.onePlayerOwnsAllFieldsofSameColor(fieldArrayNum))
-            str += "\nAs you now own a booth on all the "+ color +" fields, from now on the price that other players have to pay you will be doubled.";
+            str += "\nAs you now own a booth on all the "+ color +" fields, from now on the price that other players " +
+                    "have to pay you when they land on these fields will be doubled.";
         gui.showMessage(str);
     }
 
@@ -249,6 +249,7 @@ public class MonopolyGame {
         streets[fieldArrayNum].setOwnerName(game.getPlayerObject(ownernumber).getName());
     }
 
+    // checks if a player owns all the fields of one color, and updates the GUI info shown in the middle for all those fields
     private static void updateGUIRentAndOwnerInfoAllFieldsOfSameColor(int fieldArrayNum) {
         if (Board.onePlayerOwnsAllFieldsofSameColor(fieldArrayNum)) {
             String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
@@ -263,6 +264,7 @@ public class MonopolyGame {
         else updateGUIRentAndOwnerOneField(fieldArrayNum);
     }
 
+    // sets a border around a field owned by a player, corresponding to the color of their car
     private static void formatFieldBorder(int fieldArrayNum) {
         switch (((AmusementField)game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum()) {
             case 1: {
@@ -281,6 +283,7 @@ public class MonopolyGame {
             }
     }
 
+    // formats the game board with the same layout and colors as the real life game board
     private static void formatFields() {
         for (int i = 0; i < Field.getTotalnumberOfFields(); i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
@@ -341,6 +344,7 @@ public class MonopolyGame {
         fields[12].setBackGroundColor(Color.white);
     }
 
+    // creates the GUI cars for each player
     private static void setupGUICars() {
         switch (game.getTotalPlayers()) {// note there is intentional run-through in the switch statement
             case 4: {
@@ -366,6 +370,7 @@ public class MonopolyGame {
         }
     }
 
+    // adds the GUI players and cars to the board
     private static void addGUIPlayersAndCars() {
         for (int i = game.getTotalPlayers()-1; i >= 0; i--) {
             player[i] = new GUI_Player(game.getPlayerObject(i+1).getName(),
@@ -374,27 +379,29 @@ public class MonopolyGame {
             fields[0].setCar(player[i], true); }
     }
 
+    // resets the game after one game has ended, if the players choose to play again
     private static void resetGame() {
-        gui.close(); // close current gui board and set up a new one
+        gui.close(); // closes current gui board and sets up a new one
         formatFields();
         gui = new GUI(fields, new Color(230,230,230));
         // sets all the cars on START and resets players' accounts
         addGUIPlayersAndCars();
         for (int i = 0; i < Field.getTotalnumberOfFields(); i++)
             if (i%3 != 0) {
-            ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0);} // removes owner from all fields
+            ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0); // removes owner from all fields
+            ((AmusementField)game.getBoard().getFieldObject(i)).resetRenttoDefault();} // resets rents/prices to default level
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards
         for (int i = 0; i< game.getTotalPlayers(); i++) {
             game.getPlayerObject(i + 1).getAccount().setCurrentBalance(Account.STARTINGBALANCE);
             game.getPlayerObject(i + 1).setPlayerOnField(0);
             game.getPlayerObject(i + 1).isBankrupt(false);
             game.getPlayerObject(i + 1).setIsInJail(false);
-            // return a player's get out of jail chance cards to the deck of chance cards
+            // returns a player's get out of jail chance cards to the deck of chance cards
             ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
             // called twice as a player may own up to two chance card
             ChanceField.putBackChanceCard(game.getPlayerObject(i + 1).returnReleaseFromJailCard());
         }
-        game.setCurrentPlayer(1); // set the active player to player 1
+        game.setCurrentPlayer(1); // sets the active player to player 1
         ChanceField.shuffleCards(); // shuffles the deck of chance cards
     }
 }

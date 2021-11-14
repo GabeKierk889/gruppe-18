@@ -51,6 +51,9 @@ public class AmusementField extends Field {
     public void updateRent() {
         if (Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber-1))
             rent = 2*price;
-    }
+        else
+            rent = price; }
+
+    public void resetRenttoDefault() { rent = price; }
 
 }

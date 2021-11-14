@@ -38,7 +38,7 @@ public class Board {
         for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
             if (fields[i].getClassName().equalsIgnoreCase(fieldtype) && i != fieldArrayNum) {
                 if (color.equalsIgnoreCase(((AmusementField) fields[i]).getFieldColor())) {
-                    if (((AmusementField) fields[i]).getOwnerNum() == ownernum)
+                    if (((AmusementField) fields[i]).getOwnerNum() == ownernum && ownernum != 0)
                         test = true;
                     else
                         return false; }
