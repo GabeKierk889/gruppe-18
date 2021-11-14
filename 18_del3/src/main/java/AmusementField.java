@@ -1,9 +1,11 @@
 public class AmusementField extends Field {
     private int price;
     private int ownerNum;
+    private String fieldColor;
 
-    public AmusementField(String fieldName, int price) {
+    public AmusementField(String fieldColor, String fieldName, int price) {
         super(fieldName);
+        this.fieldColor = fieldColor;
         this.price = price;
         ownerNum = 0;
     }
@@ -15,8 +17,12 @@ public class AmusementField extends Field {
             setupBooth(currentplayerobject);
         }
         if (ownerNum != MonopolyGame.game.getCurrentPlayerNumber()) {
-            currentplayerobject.getAccount().transferMoney(price,ownerNum);
-            MonopolyGame.payBoothPriceMessage();
+            if (! Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber)) {
+                currentplayerobject.getAccount().transferMoney(price,ownerNum);
+                MonopolyGame.payBoothPriceMessage(); }
+            else if (Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber)) {
+                currentplayerobject.getAccount().transferMoney(2*price,ownerNum);
+                MonopolyGame.payDoubleBoothPriceMessage(); }
         }
     }
 
@@ -37,4 +43,7 @@ public class AmusementField extends Field {
     public int getPrice() {
         return price;
     }
+
+    public String getFieldColor() { return fieldColor; }
+
 }

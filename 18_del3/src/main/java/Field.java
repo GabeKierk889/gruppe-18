@@ -19,4 +19,7 @@ public class Field {
     public String toString() {
         return "field " + fieldNumber  + ": " + fieldName;
     }
+
+    public String getClassName() { return getClass().toString().substring(7); }
+
 }

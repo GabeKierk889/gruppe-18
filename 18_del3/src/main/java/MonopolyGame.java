@@ -220,6 +220,16 @@ public class MonopolyGame {
         gui.showMessage("You have now paid M$" + price + " to "+ game.getPlayerObject(owner).getName());
     }
 
+    static void payDoubleBoothPriceMessage() {
+        int owner = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getOwnerNum();
+        int price = ( (AmusementField) game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) ).getPrice();
+        gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth. As "+ game.getPlayerObject(owner).getName() +
+                " owns a booth on all the fields of this color, you have to pay double the price."
+                , "Pay M$" + 2*price);
+        updatePlayerBalance();
+        gui.showMessage("You have now paid M$" + 2*price + " to "+ game.getPlayerObject(owner).getName());
+    }
+
     static void showChanceCardMessage()
     {
         gui.setChanceCard(ChanceField.getCurrentCard().chanceCardText());
