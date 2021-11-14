@@ -236,6 +236,11 @@ public class MonopolyGame {
 
     private static void formatBooth() {
         int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
+        int price = ( (AmusementField) game.getBoard().getFieldObject(fieldnum) ).getPrice();
+        streets[fieldnum].setRentLabel("The rent is: ");
+        streets[fieldnum].setRent("M$"+ price);
+        streets[fieldnum].setOwnableLabel("The field is owned by: ");
+        streets[fieldnum].setOwnerName(game.getPlayerObject(game.getCurrentPlayerNumber()).getName());
         switch (game.getCurrentPlayerNumber()) {
             case 1: {
                 streets[fieldnum].setBorder(Color.red);
