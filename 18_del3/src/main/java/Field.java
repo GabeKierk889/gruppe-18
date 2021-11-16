@@ -1,19 +1,19 @@
 public class Field {
-    protected static int totalnumberOfFields = 1;
+    protected static int nextFieldNumber = 1;
     protected final int fieldNumber;
     protected final String fieldName;
 
     public Field(String fieldName) {
         this.fieldName = fieldName;
-        this.fieldNumber = totalnumberOfFields;
-        totalnumberOfFields++;
+        this.fieldNumber = nextFieldNumber;
+        nextFieldNumber++;
     }
 
     public void landOnField(Player currentplayerobject) {     }
 
     //no setters as all attributes are final variables
     public int getFieldNumber (){ return fieldNumber; }
-    public static int getTotalnumberOfFields (){ return totalnumberOfFields-1; }
+
     public String getFieldName(){ return fieldName; }
 
     public String toString() {

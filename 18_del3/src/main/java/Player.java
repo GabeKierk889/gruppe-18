@@ -7,18 +7,17 @@ public class Player {
     private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
 
     public Player(String name){
-        Account acct = new Account();
-        account = acct;
+        account = new Account();
         this.name = name;
         onField = 0;
         isBankrupt = false;
         isInJail = false;
     }
 
-    public int movePlayer(int stepsToMove) {
-        if (onField + stepsToMove < Field.getTotalnumberOfFields())
+    public int movePlayerSteps(int stepsToMove) {
+        if (onField + stepsToMove < Board.getTotalNumberOfFields())
             onField += stepsToMove;
-        else onField = onField + stepsToMove - Field.getTotalnumberOfFields();
+        else onField = onField + stepsToMove - Board.getTotalNumberOfFields();
         return onField; }
 
     public void collectStartBonus(int diceThrow) {
@@ -28,14 +27,15 @@ public class Player {
     }
 
     public void movePlayertoField(int fieldArrayNumber) {
-        if (fieldArrayNumber <= Field.getTotalnumberOfFields()-1)
+        if (fieldArrayNumber < Board.getTotalNumberOfFields())
             onField=fieldArrayNumber;
         else System.out.println("Error - the field number you entered does not exist.");
     }
 
+    // method overloading
     public void movePlayertoField(String fieldName) {
         int fieldArrayNumber = Board.getFieldArrayNumber(fieldName);
-        if (fieldArrayNumber != -1 && fieldArrayNumber <= Field.getTotalnumberOfFields()-1)
+        if (fieldArrayNumber != -1 && fieldArrayNumber < Board.getTotalNumberOfFields())
             onField=fieldArrayNumber;
         else System.out.println("Error - the field number you entered does not exist.");
     }
@@ -47,7 +47,7 @@ public class Player {
         return account;
     }
     public int OnField() {return onField;}
-    public void isBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
+    public void setIsBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
     public void setIsInJail (boolean isInJail) { this.isInJail = isInJail; }
     public boolean getIsInJail () { return isInJail; }
     public boolean getIsBankrupt () { return isBankrupt; }
@@ -61,16 +61,17 @@ public class Player {
 
     public ChanceCard returnReleaseFromJailCard () {
         // if a jail card is taken away from a player, the 2nd one is taken first (if they have 2)
+        ChanceCard temp;
         if (releaseFromJailCard2 != null) {
-            ChanceCard temp = releaseFromJailCard2;
+            temp = releaseFromJailCard2;
             releaseFromJailCard2 = null;
-            return temp;
         }
         else {
-            ChanceCard temp = releaseFromJailCard;
+            temp = releaseFromJailCard;
             releaseFromJailCard = null;
-            return temp; }
         }
+        return temp;
+    }
 
     public boolean hasAReleaseFromJailCard () {
         return releaseFromJailCard != null;

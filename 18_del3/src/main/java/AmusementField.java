@@ -49,11 +49,11 @@ public class AmusementField extends Field {
     public String getFieldColor() { return fieldColor; }
 
     public void updateRent() {
-        if (Board.onePlayerOwnsAllFieldsofSameColor(fieldNumber-1))
+        if (Board.onePlayerOwnsAllFieldsOfSameColor(fieldNumber-1))
             rent = 2*price;
         else
             rent = price; }
 
-    public void resetRenttoDefault() { rent = price; }
+    public void resetRentToDefault() { rent = price; }
 
 }

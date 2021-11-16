@@ -3,19 +3,20 @@ public class ChanceField extends Field {
 
     private static ChanceCard[] chanceCard = {
 
-            // need minimum 3 cards to test drawCard method
-            new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"), new MoveToFieldCard("START")
+            // need minimum 3 cards to use drawCard/ sort cards method
+            new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"),
+            new MoveToFieldCard("START")
         };
 
     public ChanceField(String fieldName) {
         super(fieldName);
-        shuffleCards();
+        shuffleCards(); // shuffles the deck of cards when the field is instantiated
     }
 
     @Override
     public void landOnField(Player currentplayerobject) {
         currentCard = drawChanceCard();
-        MonopolyGame.showChanceCardMessage();
+        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
         currentCard.effect(currentplayerobject);
     }
 
@@ -24,7 +25,7 @@ public class ChanceField extends Field {
 //        change the number according to your chance card index num in the array
 //        and comment out the rest of this method
 
-//        return chanceCard[3];
+//        return chanceCard[4];
 
         // draws the highest indexed card from the stack/array of cards, and puts it back in the bottom
         // unless it is a releasefromJail card, which does not get put back

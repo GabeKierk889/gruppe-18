@@ -37,7 +37,7 @@ public class Game {
         boolean anyoneBankrupt = false;
         for (int i = 0; i < totalPlayers; i++) {
             if (players[i].getAccount().getBalance() <= 0) {
-                players[i].isBankrupt(true);
+                players[i].setIsBankrupt(true);
                 anyoneBankrupt = true;
             }
         }        return anyoneBankrupt;

@@ -24,19 +24,20 @@ public class Board {
 
     public String toString() {
         String str = "";
-        for (int t=0; t< Field.getTotalnumberOfFields();t++) {
+        for (int t = 0; t< getTotalNumberOfFields(); t++) {
             str += fields[t].toString()+"\n";
         }
         return str;
     }
 
-    public static boolean onePlayerOwnsAllFieldsofSameColor(int fieldArrayNum) {
+    public static boolean onePlayerOwnsAllFieldsOfSameColor(int fieldArrayNum) {
         boolean test = false;
         String color = ((AmusementField) fields[fieldArrayNum]).getFieldColor();
         int ownernum = ((AmusementField) fields[fieldArrayNum]).getOwnerNum();
-        String fieldtype = fields[fieldArrayNum].getClassName();
-        for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
-            if (fields[i].getClassName().equalsIgnoreCase(fieldtype) && i != fieldArrayNum) {
+        String fieldClassName = fields[fieldArrayNum].getClassName();
+        for (int i = 0; i< getTotalNumberOfFields(); i++) {
+            // checks other fields of the same class name, if they are of the same color, and have the same owner
+            if (fields[i].getClassName().equalsIgnoreCase(fieldClassName) && i != fieldArrayNum) {
                 if (color.equalsIgnoreCase(((AmusementField) fields[i]).getFieldColor())) {
                     if (((AmusementField) fields[i]).getOwnerNum() == ownernum && ownernum != 0)
                         test = true;
@@ -48,10 +49,12 @@ public class Board {
     }
 
     public static void updateRentForAllFieldsOfSameColor(int fieldArrayNum) {
-        if (onePlayerOwnsAllFieldsofSameColor(fieldArrayNum)) {
+        // updates rent for the field itself and all other fields of the same color
+        if (onePlayerOwnsAllFieldsOfSameColor(fieldArrayNum)) {
             String color = ((AmusementField) fields[fieldArrayNum]).getFieldColor();
             String fieldtype = fields[fieldArrayNum].getClassName();
-            for (int i = 0; i< Field.getTotalnumberOfFields(); i++) {
+            for (int i = 0; i< getTotalNumberOfFields(); i++) {
+                // updates rent for all fields of the same type and same color
                 if (fields[i].getClassName().equalsIgnoreCase(fieldtype)) {
                     if (color.equalsIgnoreCase(((AmusementField) fields[i]).getFieldColor())) {
                         ((AmusementField) fields[i]).updateRent();
@@ -70,4 +73,6 @@ public class Board {
         }
         return number;
     }
+
+    public static int getTotalNumberOfFields(){ return fields.length; }
 }
