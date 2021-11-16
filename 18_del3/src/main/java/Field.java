@@ -14,7 +14,7 @@ public class Field {
     //no setters as all attributes are final variables
     public int getFieldNumber (){ return fieldNumber; }
     public static int getTotalnumberOfFields (){ return totalnumberOfFields-1; }
-    public String getFieldDescription (){ return fieldName; }
+    public String getFieldName(){ return fieldName; }
 
     public String toString() {
         return "field " + fieldNumber  + ": " + fieldName;

@@ -61,4 +61,13 @@ public class Board {
         }
         else ((AmusementField) fields[fieldArrayNum]).updateRent();
     }
+
+    public static int getFieldArrayNumber(String fieldName) {
+        int number = -1; // return -1 if the field cannot be found
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i].getFieldName().equalsIgnoreCase(fieldName))
+                number = i;
+        }
+        return number;
+    }
 }

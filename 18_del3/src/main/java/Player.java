@@ -1,6 +1,6 @@
 public class Player {
-    private String name;
-    private Account account;
+    private final String name;
+    private final Account account;
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt/ lost all their money
     private boolean isInJail;
@@ -27,8 +27,15 @@ public class Player {
         getAccount().depositMoney(Account.STARTBONUS);
     }
 
-    public void setPlayerOnField(int fieldArrayNumber) {
+    public void movePlayertoField(int fieldArrayNumber) {
         if (fieldArrayNumber <= Field.getTotalnumberOfFields()-1)
+            onField=fieldArrayNumber;
+        else System.out.println("Error - the field number you entered does not exist.");
+    }
+
+    public void movePlayertoField(String fieldName) {
+        int fieldArrayNumber = Board.getFieldArrayNumber(fieldName);
+        if (fieldArrayNumber != -1 && fieldArrayNumber <= Field.getTotalnumberOfFields()-1)
             onField=fieldArrayNumber;
         else System.out.println("Error - the field number you entered does not exist.");
     }
@@ -66,8 +73,6 @@ public class Player {
         }
 
     public boolean hasAReleaseFromJailCard () {
-        if (releaseFromJailCard != null)
-            return true;
-        else return false;
+        return releaseFromJailCard != null;
     }
 }

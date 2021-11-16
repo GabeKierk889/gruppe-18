@@ -67,8 +67,16 @@ public class MonopolyGame {
             gui.showMessage(playerTurnMessage());
 
             // calls landOnField method which will do something if it is an amusement field, jail, or chance field
-            game.getBoard().getFieldObject(game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()).
+            int playerOnFieldNumber = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
+            game.getBoard().getFieldObject(playerOnFieldNumber).
                     landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+
+            // alternate flow that calls landOnField method in case player has landed on another field via chance cards
+            while(playerOnFieldNumber != game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) {
+                playerOnFieldNumber = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
+                game.getBoard().getFieldObject(playerOnFieldNumber).
+                        landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+            }
 
             // changes to the next player's turn (if the current player does not get an extra turn)
             game.switchTurn(false);
@@ -99,6 +107,15 @@ public class MonopolyGame {
                 gui.showMessage("Thank you for playing today! Goodbye!");
                 gui.close(); }
         }
+    }
+
+    static void moveCar(int destinationFieldArrayNum) {
+        // removes the current player's car from the previous field they stood on
+        fields[game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()].setCar(
+                player[game.getCurrentPlayerNumber()-1], false);
+
+        // sets the player's car on the destination
+        fields[destinationFieldArrayNum].setCar(player[game.getCurrentPlayerNumber()-1], true);
     }
 
     private static void roll(String roll) {
@@ -234,6 +251,10 @@ public class MonopolyGame {
         gui.setChanceCard(""); // removes the text after the player has read it
     }
 
+    static void showStartBonusMessage() {
+        gui.showMessage("You have received M$"+ Account.STARTBONUS +" for passing START");
+    }
+
     static void updatePlayerBalance () {
         // updating and showing the updated balances for all players
         for (int i = 0; i< game.getTotalPlayers(); i++)
@@ -287,7 +308,7 @@ public class MonopolyGame {
     private static void formatFields() {
         for (int i = 0; i < Field.getTotalnumberOfFields(); i++) { // sets up all GUI fields/streets
             streets[i] = new GUI_Street();
-            streets[i].setTitle(game.getBoard().getFieldObject(i).getFieldDescription());
+            streets[i].setTitle(game.getBoard().getFieldObject(i).getFieldName());
             streets[i].setBackGroundColor(Color.lightGray);
             fields[i] = streets[i]; }
 
@@ -295,7 +316,7 @@ public class MonopolyGame {
             if (i%3 != 0) {
                 String str = "M$";
                 streets[i].setSubText(str + ((AmusementField)game.getBoard().getFieldObject(i)).getPrice());
-                streets[i].setDescription(game.getBoard().getFieldObject(i).getFieldDescription());
+                streets[i].setDescription(game.getBoard().getFieldObject(i).getFieldName());
             }
         }
 
@@ -393,7 +414,7 @@ public class MonopolyGame {
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards
         for (int i = 0; i< game.getTotalPlayers(); i++) {
             game.getPlayerObject(i + 1).getAccount().setCurrentBalance(Account.STARTINGBALANCE);
-            game.getPlayerObject(i + 1).setPlayerOnField(0);
+            game.getPlayerObject(i + 1).movePlayertoField(0);
             game.getPlayerObject(i + 1).isBankrupt(false);
             game.getPlayerObject(i + 1).setIsInJail(false);
             // returns a player's get out of jail chance cards to the deck of chance cards

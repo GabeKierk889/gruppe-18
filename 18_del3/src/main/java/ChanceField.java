@@ -3,8 +3,9 @@ public class ChanceField extends Field {
 
     private static ChanceCard[] chanceCard = {
 
-            // added an extra jail card for now - need minimum 3 cards to test drawCard method
-            new ItsYourBirthday(), new ReleaseFromJailCard(), new ReleaseFromJailCard()
+            // need minimum 3 cards to test drawCard method
+            new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard()
+            , new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard()
         };
 
     public ChanceField(String fieldName) {
