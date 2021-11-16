@@ -410,7 +410,7 @@ public class MonopolyGame {
         // sets all the cars on START and resets players' accounts
         addGUIPlayersAndCars();
         for (int i = 0; i < Board.getTotalNumberOfFields(); i++)
-            if (i%3 != 0) {
+            if ("AmusementField".equalsIgnoreCase(game.getBoard().getFieldObject(i).getClassName())) {
             ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0); // removes owner from all fields
             ((AmusementField)game.getBoard().getFieldObject(i)).resetRentToDefault();} // resets rents/prices to default level
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards

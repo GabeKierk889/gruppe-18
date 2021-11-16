@@ -20,6 +20,6 @@ public class Field {
         return "field " + fieldNumber  + ": " + fieldName;
     }
 
-    public String getClassName() { return getClass().toString().substring(7); }
+    public String getClassName() { return getClass().toString().substring(6); }
 
 }
