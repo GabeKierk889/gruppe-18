@@ -3,7 +3,7 @@ public class Board {
 
     public Board() {
         fields = new Field[]{
-                new Field("Start"), new AmusementField("brown","The Burger Joint",1),
+                new Field("START"), new AmusementField("brown","The Burger Joint",1),
                 new AmusementField("brown","The Pizza House",1), new ChanceField("Chance"),
                 new AmusementField("light blue","The Candy Shop",1), new AmusementField("light blue","The Ice Cream Parlor",1),
                 new Field("Visit to Jail"), new AmusementField("pink","The Museum",2),

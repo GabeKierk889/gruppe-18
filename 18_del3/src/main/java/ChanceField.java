@@ -4,8 +4,7 @@ public class ChanceField extends Field {
     private static ChanceCard[] chanceCard = {
 
             // need minimum 3 cards to test drawCard method
-            new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard()
-            , new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard(), new MoveToTheBeachWalkCard()
+            new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"), new MoveToFieldCard("START")
         };
 
     public ChanceField(String fieldName) {
