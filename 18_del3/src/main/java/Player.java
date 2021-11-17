@@ -26,14 +26,14 @@ public class Player {
         getAccount().depositMoney(Account.STARTBONUS);
     }
 
-    public void movePlayertoField(int fieldArrayNumber) {
+    public void movePlayerToField(int fieldArrayNumber) {
         if (fieldArrayNumber < Board.getTotalNumberOfFields())
             onField=fieldArrayNumber;
         else System.out.println("Error - the field number you entered does not exist.");
     }
 
     // method overloading
-    public void movePlayertoField(String fieldName) {
+    public void movePlayerToField(String fieldName) {
         int fieldArrayNumber = Board.getFieldArrayNumber(fieldName);
         if (fieldArrayNumber != -1 && fieldArrayNumber < Board.getTotalNumberOfFields())
             onField=fieldArrayNumber;

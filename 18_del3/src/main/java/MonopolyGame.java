@@ -117,6 +117,11 @@ public class MonopolyGame {
         guiFields[destinationFieldArrayNum].setCar(guiPlayers[game.getCurrentPlayerNumber()-1], true);
     }
 
+    static int pickZeroToFive() {
+        int moveForward = gui.getUserInteger("Please select a number between 0 and 5 to move the corresponding number of fields.",0,5);
+        return moveForward;
+    }
+
     private static void roll(String roll) {
         if (roll.equalsIgnoreCase("Roll")) {
         game.getDie().roll();
@@ -416,7 +421,7 @@ public class MonopolyGame {
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards
         for (int i = 0; i< game.getTotalPlayers(); i++) {
             game.getPlayerObject(i + 1).getAccount().setCurrentBalance(Account.STARTINGBALANCE);
-            game.getPlayerObject(i + 1).movePlayertoField(0);
+            game.getPlayerObject(i + 1).movePlayerToField(0);
             game.getPlayerObject(i + 1).setIsBankrupt(false);
             game.getPlayerObject(i + 1).setIsInJail(false);
             // returns a player's get out of jail chance cards to the deck of chance cards

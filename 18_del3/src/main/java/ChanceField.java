@@ -4,12 +4,12 @@ public class ChanceField extends Field {
     private static ChanceCard[] chanceCard = {
 
             new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"),
-            new MoveToFieldCard("START")
+            new MoveToFieldCard("START"), new moveUpToFiveFieldsCard()
         };
 
     public ChanceField(String fieldName) {
         super(fieldName);
-        shuffleCards(); // shuffles the deck of cards when the field is instantiated
+//        shuffleCards(); // shuffles the deck of cards when the field is instantiated
     }
 
     @Override
@@ -24,20 +24,20 @@ public class ChanceField extends Field {
 //        change the number according to your chance card index num in the array
 //        and comment out the rest of this method
 
-//        return chanceCard[4];
+        return chanceCard[4];
 
         // draws the highest indexed card from the stack/array of cards, and puts it back in the bottom
         // unless it is a releasefromJail card, which does not get put back
-        ChanceCard drawn = chanceCard[chanceCard.length-1];
-        for (int i = chanceCard.length-1; i > 0; i--) {
-            chanceCard[i] = chanceCard[i-1];
-        }
-        if (drawn instanceof ReleaseFromJailCard)
-            chanceCard[0] = null;
-        else
-            chanceCard[0] = drawn;
-        putAllNullCardsinTheBottomOfDeck();
-        return drawn;
+//        ChanceCard drawn = chanceCard[chanceCard.length-1];
+//        for (int i = chanceCard.length-1; i > 0; i--) {
+//            chanceCard[i] = chanceCard[i-1];
+//        }
+//        if (drawn instanceof ReleaseFromJailCard)
+//            chanceCard[0] = null;
+//        else
+//            chanceCard[0] = drawn;
+//        putAllNullCardsinTheBottomOfDeck();
+//        return drawn;
     }
 
     public static void shuffleCards(){

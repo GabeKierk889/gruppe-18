@@ -25,6 +25,6 @@ public class MoveToFieldCard extends ChanceCard {
             MonopolyGame.showStartBonusMessage();
         }
         // sets the onField variable to the new field
-        currentplayerobject.movePlayertoField(moveToFieldName);
+        currentplayerobject.movePlayerToField(moveToFieldName);
     }
 }
