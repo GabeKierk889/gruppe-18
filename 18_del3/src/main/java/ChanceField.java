@@ -4,7 +4,9 @@ public class ChanceField extends Field {
     private static ChanceCard[] chanceCard = {
 
             new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"),
-            new MoveToFieldCard("START"), new moveUpToFiveFieldsCard()
+            new MoveToFieldCard("START"), new MoveUpToFiveFieldsCard(),
+            new PaytoTheBankCard("You've eaten too much candy",2),
+            new ReceiveFromTheBankCard("You've completed all your homework",2)
         };
 
     public ChanceField(String fieldName) {

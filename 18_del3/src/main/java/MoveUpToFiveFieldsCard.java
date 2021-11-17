@@ -1,7 +1,6 @@
-public class moveUpToFiveFieldsCard extends ChanceCard{
-    private int moveForward;
+public class MoveUpToFiveFieldsCard extends ChanceCard{
 
-    public moveUpToFiveFieldsCard() {
+    public MoveUpToFiveFieldsCard() {
 
     }
 
