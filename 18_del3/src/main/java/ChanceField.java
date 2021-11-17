@@ -3,7 +3,6 @@ public class ChanceField extends Field {
 
     private static ChanceCard[] chanceCard = {
 
-            // need minimum 3 cards to use drawCard/ sort cards method
             new ItsYourBirthday(), new ReleaseFromJailCard(), new MoveToFieldCard("The Beach Walk"),
             new MoveToFieldCard("START")
         };
@@ -62,23 +61,28 @@ public class ChanceField extends Field {
     }
 
     private static void putAllNullCardsinTheBottomOfDeck() {
-        // private support method to put empty slots in the bottom of the card array
-        // gets rid of gaps / empty slots in the array and puts all null cards in the bottom / close to index 0
-        // this code can accommodate maximum two empty slots
-        int nulls = 0;
+        // gets rid of gaps / empty slots in the array and puts them all in the bottom / toward index 0
+        int nulls = 0; int nullsInARow;
         for (int i = chanceCard.length - 1; i > nulls-1; i--) {
             if (chanceCard[i] == null) {
                 nulls++;
-                if (i>0 && chanceCard[i-1] != null)
-                    for (int j = i; j > 0; j--) {
-                        chanceCard[j] = chanceCard[j - 1]; }
-                else if (i>1 && chanceCard[i-1] == null){
+                int k = i;
+                nullsInARow = 1;
+                int nullsBeforeLoop = nulls;
+                // counts the number of nulls in a row
+                while (k> nullsBeforeLoop-1 && chanceCard[k-1]== null) {
                     nulls++;
-                    for (int j = i; j > 1; j--) {
-                        chanceCard[j] = chanceCard[j - 2]; } } } }
+                    nullsInARow++;
+                    k--;
+                }
+                // gets rid of the current gap in the stack of cards / currently found null cards(s)
+                for (int j = i; j > nullsInARow-1; j--)
+                    chanceCard[j] = chanceCard[j - nullsInARow];
+            }
+        }
         // puts all the found null values in the bottom of the array
-        for (int i = 0; i< nulls; i++) {
-            chanceCard[i] = null; }
+        for (int i = 0; i< nulls; i++)
+            chanceCard[i] = null;
     }
 
     public static ChanceCard getCurrentCard() {
