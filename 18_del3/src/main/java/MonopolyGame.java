@@ -104,7 +104,8 @@ public class MonopolyGame {
                 gameLoop();
             } else {
                 gui.showMessage("Thank you for playing today! Goodbye!");
-                gui.close(); }
+                gui.close();
+                System.exit(0); }
         }
     }
 
@@ -118,8 +119,7 @@ public class MonopolyGame {
     }
 
     static int pickZeroToFive() {
-        int moveForward = gui.getUserInteger("Please select a number between 0 and 5 to move the corresponding number of fields.",0,5);
-        return moveForward;
+        return gui.getUserInteger("Please select a number between 0 and 5 to move the corresponding number of fields.",0,5);
     }
 
     private static void roll(String roll) {
