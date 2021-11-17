@@ -114,7 +114,7 @@ public class MonopolyGame {
                 guiPlayers[game.getCurrentPlayerNumber()-1], false);
 
         // sets the player's car on the destination field
-        guiFields[destinationFieldArrayNum].setCar(guiPlayers[game.getCurrentPlayerNumber()-1], true);
+        guiFields[(destinationFieldArrayNum)%Board.getTotalNumberOfFields()].setCar(guiPlayers[game.getCurrentPlayerNumber()-1], true);
     }
 
     static int pickZeroToFive() {

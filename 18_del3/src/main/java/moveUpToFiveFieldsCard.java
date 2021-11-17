@@ -16,7 +16,7 @@ public class moveUpToFiveFieldsCard extends ChanceCard{
         int moveForward = MonopolyGame.pickZeroToFive();
 
         // calls a method that moves the GUI car
-        MonopolyGame.moveCarToFieldArrayNum((currentplayerobject.OnField() + moveForward) % Board.getTotalNumberOfFields());
+        MonopolyGame.moveCarToFieldArrayNum(currentplayerobject.OnField() + moveForward);
         // checks whether the player would pass START moving there and thus get a START bonus
         if( (currentplayerobject.OnField() + moveForward) % Board.getTotalNumberOfFields() < currentplayerobject.OnField()) {
             currentplayerobject.getAccount().depositMoney(Account.STARTBONUS);
