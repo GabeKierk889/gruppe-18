@@ -18,7 +18,7 @@ public class ChanceField extends Field {
 
     @Override
     public void landOnField(Player currentplayerobject) {
-        currentCard = drawChanceCard();
+        drawChanceCard();
         MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
         currentCard.effect(currentplayerobject);
     }
@@ -41,6 +41,7 @@ public class ChanceField extends Field {
         else
             chanceCard[0] = drawn;
         putAllNullCardsinTheBottomOfDeck();
+        currentCard = drawn;
         return drawn;
     }
 
@@ -64,7 +65,7 @@ public class ChanceField extends Field {
         }
     }
 
-    private static void putAllNullCardsinTheBottomOfDeck() {
+    public static void putAllNullCardsinTheBottomOfDeck() {
         // gets rid of gaps / empty slots in the array and puts them all in the bottom / toward index 0
         int nulls = 0; int nullsInARow;
         for (int i = chanceCard.length - 1; i > nulls-1; i--) {
@@ -91,5 +92,11 @@ public class ChanceField extends Field {
 
     public static ChanceCard getCurrentCard() {
         return currentCard;
+    }
+
+    public static ChanceCard getCard(int arrayindex) { return chanceCard[arrayindex];  }
+
+    public static int getTotalNumberOfChanceCards() {
+        return chanceCard.length;
     }
 }

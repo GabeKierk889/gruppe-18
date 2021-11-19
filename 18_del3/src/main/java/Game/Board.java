@@ -8,13 +8,13 @@ public class Board {
                 new Field("START"), new AmusementField("brown","The Burger Joint",1),
                 new AmusementField("brown","The Pizza House",1), new ChanceField("Chance"),
                 new AmusementField("light blue","The Candy Shop",1), new AmusementField("light blue","The Ice Cream Parlor",1),
-                new Field("Visit to Game.Jail"), new AmusementField("pink","The Museum",2),
+                new Field("Visit to Jail"), new AmusementField("pink","The Museum",2),
                 new AmusementField("pink","The Library",2), new ChanceField("Chance"),
                 new AmusementField("orange","The Skate Park",2), new AmusementField("orange","Swimming Pool",2),
-                new Field("Free Parking"), new AmusementField("red","The Video Game.Game Arcade",3),
+                new Field("Free Parking"), new AmusementField("red","The Video Game Arcade",3),
                 new AmusementField("red","The Cinema",3), new ChanceField("Chance"),
                 new AmusementField("yellow","The Toy Store",3), new AmusementField("yellow","The Pet Store",3),
-                new Jail("Go to Game.Jail"), new AmusementField("green","The Bowling Alley",4),
+                new Jail("Go to Jail"), new AmusementField("green","The Bowling Alley",4),
                 new AmusementField("green","The Zoo",4), new ChanceField("Chance"),
                 new AmusementField("dark blue","The Water Park",5), new AmusementField("dark blue","The Beach Walk",5)
         };
