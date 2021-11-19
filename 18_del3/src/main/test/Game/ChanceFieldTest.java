@@ -48,7 +48,7 @@ class ChanceFieldTest { // tested by Xiao 19 Nov 21
         ChanceCard jailCard = null;
         for (int i = ChanceField.getTotalNumberOfChanceCards()-1; i>0; i--)
             ChanceField.drawChanceCard();
-        
+
         // shuffles the deck 1000 times and checks that the null card is always put at the bottom
         for (int i = 0 ; i< 1000; i++) {
             ChanceField.shuffleCards();
