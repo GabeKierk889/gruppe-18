@@ -1,3 +1,5 @@
+package Game;
+
 public class Account {
     private int currentBalance;
     public static final int STARTINGBALANCE = 35;

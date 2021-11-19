@@ -1,3 +1,5 @@
+package Game;
+
 public class PaytoTheBankCard extends ChanceCard {
     private final String description;
     private final int paymentAmount;

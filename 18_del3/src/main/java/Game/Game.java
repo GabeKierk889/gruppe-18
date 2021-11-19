@@ -1,3 +1,5 @@
+package Game;
+
 public class Game {
     public final int MAXPLAYERS = 4;
     public final int MINPLAYERS = 2;

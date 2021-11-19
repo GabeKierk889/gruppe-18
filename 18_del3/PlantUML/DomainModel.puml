@@ -2,31 +2,31 @@
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
 
-class MonopolyGame {
+class Game.MonopolyGame {
 
 }
 
-class Player {
+class Game.Player {
     name
 }
 
-class Board {
+class Game.Board {
 
 }
 
-class Field {
+class Game.Field {
     name
 }
 
-class Account {
+class Game.Account {
     balance
 }
 
-class Die {
+class Game.Die {
     face value
 }
 
-class ChanceCard {
+class Game.ChanceCard {
     text
 }
 
@@ -34,16 +34,16 @@ class StartField {
 
 }
 
-class AmusementField {
+class Game.AmusementField {
     owner
     price
 }
 
-class ChanceField {
+class Game.ChanceField {
 
 }
 
-class Jail {
+class Game.Jail {
 
 }
 
@@ -55,18 +55,18 @@ class VisitJail {
 
 }
 
-MonopolyGame "1" *-- "1" Board
-MonopolyGame "1" *-- "1" Die
-MonopolyGame "1" *-- "2..4" Player
-Player "1" *-- "1" Account
-Board "1" *-- "24" Field
-Field <|--- StartField
-Field <|--- AmusementField
-Field <|--- ChanceField
-Field <|--- Jail
-Field <|--- FreeParking
-Field <|--- VisitJail
-ChanceCard - ChanceField
+Game.MonopolyGame "1" *-- "1" Game.Board
+Game.MonopolyGame "1" *-- "1" Game.Die
+Game.MonopolyGame "1" *-- "2..4" Game.Player
+Game.Player "1" *-- "1" Game.Account
+Game.Board "1" *-- "24" Game.Field
+Game.Field <|--- StartField
+Game.Field <|--- Game.AmusementField
+Game.Field <|--- Game.ChanceField
+Game.Field <|--- Game.Jail
+Game.Field <|--- FreeParking
+Game.Field <|--- VisitJail
+Game.ChanceCard - Game.ChanceField
 
 
 @enduml

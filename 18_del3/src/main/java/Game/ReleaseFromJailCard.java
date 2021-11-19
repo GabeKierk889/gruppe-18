@@ -1,3 +1,5 @@
+package Game;
+
 public class ReleaseFromJailCard extends ChanceCard {
 
     // Du løslades uden omkostninger. Behold dette kort, indtil du får brug for det.

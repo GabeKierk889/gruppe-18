@@ -1,3 +1,5 @@
+package Game;
+
 public class Die {
     private int faceValue;
     private final int MAX = 6;

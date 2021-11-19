@@ -1,3 +1,5 @@
+package Game;
+
 public class MoveUpToFiveFieldsCard extends ChanceCard{
 
     public MoveUpToFiveFieldsCard() {

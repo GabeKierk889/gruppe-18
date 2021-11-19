@@ -1,3 +1,5 @@
+package Game;
+
 public class Player {
     private final String name;
     private final Account account;

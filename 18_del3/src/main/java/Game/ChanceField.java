@@ -1,3 +1,5 @@
+package Game;
+
 public class ChanceField extends Field {
     private static ChanceCard currentCard;
 

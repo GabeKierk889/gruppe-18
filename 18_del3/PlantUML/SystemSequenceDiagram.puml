@@ -3,16 +3,16 @@
 
 autonumber
 
-actor Player
+actor Game.Player
 
-System -> Player: Welcome message
-Player -> System: Initialize game
-Player -> System: Play game
+System -> Game.Player: Welcome message
+Game.Player -> System: Initialize game
+Game.Player -> System: Play game
 
 loop No winner
-    System --> Player: Die value, field acount, chance card
+    System --> Game.Player: Game.Die value, field acount, chance card
 end
 
-System -> Player: Output winner
+System -> Game.Player: Output winner
 
 @enduml

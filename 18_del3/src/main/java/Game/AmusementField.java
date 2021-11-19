@@ -1,3 +1,5 @@
+package Game;
+
 public class AmusementField extends Field {
     private int price, rent;
     private int ownerNum;

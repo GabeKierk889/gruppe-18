@@ -1,3 +1,5 @@
+package Game;
+
 import gui_fields.*;
 import gui_main.GUI;
 import java.awt.*;
@@ -195,7 +197,7 @@ public class MonopolyGame {
                     "If there is already a booth owned by another player, the current player must pay the owner (double, if the owner also owns the other fields of the same color). " +
                     "If a player lands on Chance, the player must draw a chance card and follow the instructions. " +
                     "If a player lands on or passes START, the player gets M$2. " +
-                    "If a player lands on “Go to Jail”, the player goes into jail. " +
+                    "If a player lands on “Go to Game.Jail”, the player goes into jail. " +
                     "To get out of jail, the player may use a \"get out of jail\" chance card, " +
                     "or pay M$1 to get out of jail on their next turn. " +
                     "If a player runs out of money, the players' balances are compared, and the player with the most money wins the game.");
@@ -219,7 +221,7 @@ public class MonopolyGame {
     }
 
     static void goToJailMessage() {
-        gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Jail\" chance card, " +
+        gui.showMessage("Oh no! You are going into jail. On your next turn, you may use a \"Get out of Game.Jail\" chance card, " +
                 "if you have one, to get out of jail. Otherwise, on your next turn, you need to pay M$"+ Account.JAILFEE +" to get out.");
     }
 
@@ -415,7 +417,7 @@ public class MonopolyGame {
         // sets all the cars on START and resets players' accounts
         addGUIPlayersAndCars();
         for (int i = 0; i < Board.getTotalNumberOfFields(); i++)
-            if ("AmusementField".equalsIgnoreCase(game.getBoard().getFieldObject(i).getClassName())) {
+            if ("Game.AmusementField".equalsIgnoreCase(game.getBoard().getFieldObject(i).getClassName())) {
             ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0); // removes owner from all fields
             ((AmusementField)game.getBoard().getFieldObject(i)).resetRentToDefault();} // resets rents/prices to default level
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards

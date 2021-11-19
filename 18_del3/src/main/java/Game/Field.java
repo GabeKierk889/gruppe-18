@@ -1,3 +1,5 @@
+package Game;
+
 public class Field {
     protected static int nextFieldNumber = 1;
     protected final int fieldNumber;

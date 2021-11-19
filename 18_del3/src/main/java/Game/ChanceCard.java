@@ -1,3 +1,5 @@
+package Game;
+
 public abstract class ChanceCard {
 
     public abstract String chanceCardText();
