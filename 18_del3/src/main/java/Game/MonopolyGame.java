@@ -178,7 +178,7 @@ public class MonopolyGame {
 
     private static void initializeGame() {
         System.out.println("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today. \n" +
-                "Note that the game will open in a new window.");
+                "Note that the game will then open in a new window.");
         Scanner scan = new Scanner(System.in);
         String str = scan.nextLine();
         scan.close();
