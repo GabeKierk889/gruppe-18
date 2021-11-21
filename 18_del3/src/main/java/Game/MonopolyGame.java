@@ -198,7 +198,7 @@ public class MonopolyGame {
                     "If there is already a booth owned by another player, the current player must pay the owner (double, if the owner also owns the other fields of the same color). " +
                     "If a player lands on Chance, the player must draw a chance card and follow the instructions. " +
                     "If a player lands on or passes START, the player gets M$2. " +
-                    "If a player lands on “Go to Game.Jail”, the player goes into jail. " +
+                    "If a player lands on “Go to Jail”, the player goes into jail. " +
                     "To get out of jail, the player may use a \"get out of jail\" chance card, " +
                     "or pay M$1 to get out of jail on their next turn. " +
                     "If a player runs out of money, the players' balances are compared, and the player with the most money wins the game.");
