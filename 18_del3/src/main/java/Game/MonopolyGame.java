@@ -177,7 +177,8 @@ public class MonopolyGame {
     }
 
     private static void initializeGame() {
-        System.out.println("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today");
+        System.out.println("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today. \n" +
+                "Note that the game will open in a new window.");
         Scanner scan = new Scanner(System.in);
         String str = scan.nextLine();
         scan.close();
@@ -253,8 +254,8 @@ public class MonopolyGame {
     static void showChanceCardMessage()
     {
         gui.setChanceCard(ChanceField.getCurrentCard().chanceCardText());
-        gui.getUserButtonPressed("Press the green square to view your chance card. When you are done reading, " +
-        "press the 'Apply' button to apply the instructions of the chance card","Apply");
+        gui.getUserButtonPressed("Press the green square in the middle to view your chance card. Keep hovering your cursor over the card while you're reading it. " +
+                "When you are done reading, press the 'Apply' button to apply the instructions of the chance card","Apply");
         gui.setChanceCard(""); // removes the text after the player has read it
     }
 
