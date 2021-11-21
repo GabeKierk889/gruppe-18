@@ -3,7 +3,6 @@ package Game;
 import gui_fields.*;
 import gui_main.GUI;
 import java.awt.*;
-import java.util.Scanner;
 
 public class MonopolyGame {
     static Game game;
@@ -14,9 +13,6 @@ public class MonopolyGame {
     private static GUI gui;
 
     public static void main(String[] args) {
-        // Calling a support method that takes user input/names and initializes the game with 2-4 players
-        initializeGame();
-
         // Setting up and formatting GUI fields and streets (using a support method)
         guiFields = new GUI_Field[Board.getTotalNumberOfFields()];
         guiStreets = new GUI_Street[Board.getTotalNumberOfFields()];
@@ -24,6 +20,9 @@ public class MonopolyGame {
 
         // Setting up GUI board
         gui = new GUI(guiFields, new Color(230,230,230));
+
+        // Calling a support method that takes user input/names and initializes the game with 2-4 players
+        initializeGame();
 
         // Setting up the GUI cars (using a support method)
         guiCars = new GUI_Car[game.getTotalPlayers()];
@@ -70,13 +69,13 @@ public class MonopolyGame {
 
             // calls landOnField method which will do something if it is an amusement field, jail, or chance field
             int playerOnFieldNumber = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
-            game.getBoard().getFieldObject(playerOnFieldNumber).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+            Game.getBoard().getFieldObject(playerOnFieldNumber).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
 
             // alternate flow that calls landOnField method again in case player has landed on another field via chance cards
             while(playerOnFieldNumber != game.getPlayerObject(game.getCurrentPlayerNumber()).OnField()) {
                 // stores the fieldnumber the player is on before landonfield is called, and compares after the turn
                 playerOnFieldNumber = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
-                game.getBoard().getFieldObject(playerOnFieldNumber).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
+                Game.getBoard().getFieldObject(playerOnFieldNumber).landOnField(game.getPlayerObject(game.getCurrentPlayerNumber()));
             }
 
             // changes to the next player's turn (if the current player does not get an extra turn)
@@ -177,19 +176,41 @@ public class MonopolyGame {
     }
 
     private static void initializeGame() {
-        System.out.println("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today. \n" +
-                "Note that the game will then open in a new window.");
-        Scanner scan = new Scanner(System.in);
-        String str = scan.nextLine();
-        scan.close();
+        String str = gui.getUserString("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today");
         String[] strarray = str.split(" ");
+        boolean duplicateNames = false;
+        for (int i = 0; i < strarray.length; i++) {
+            for (int j = 0; j < strarray.length; j++)
+                if (j != i && strarray[j].equals(strarray[i])) {
+                    duplicateNames = true;
+                    break;}
+        }
+        if (duplicateNames) {
+            gui.showMessage("Error, two players cannot have exactly the same name. Please try again.");
+            initializeGame();
+        }
+        else if (strarray.length > Game.MAXPLAYERS || strarray.length < Game.MINPLAYERS ) {
+            gui.showMessage("Error  - the game cannot be started. There must be " +
+            Game.MINPLAYERS + "-"+ Game.MAXPLAYERS + " players in the game.");
+            initializeGame(); }
+        else {
+            String names = "";
+            for (int i = 0; i < strarray.length; i++) {
+                if (i != strarray.length - 1)
+                    names += "Player  " + (i+1) + ": " + strarray[i] +",   ";
+                else
+                    names += "Player  " + (i+1) + ": " + strarray[i] ;
+            }
+        if ("Yes, begin game".equalsIgnoreCase(gui.getUserButtonPressed("These are the players that will be set up: \n" + names+"\n\n\t\t\tIs this correct?", "Yes, begin game", "No, reset names"))) {
         switch (strarray.length) { // initializes a new game with the player names entered
             case 2: game = new Game(strarray[0],strarray[1]); break;
             case 3: game = new Game(strarray[0],strarray[1],strarray[2]); break;
             case 4: game = new Game(strarray[0],strarray[1],strarray[2],strarray[3]); break;
             default: game = new Game(strarray[0]);
-        }
-    }
+        } }
+        else
+            initializeGame();
+    } }
 
     private static void showWelcomeMessage() {
         if (gui.getUserLeftButtonPressed("Welcome to Monopoly Junior! Press \"Help\" to view the rules, or press \"Start game\" to begin the game.     "
@@ -209,7 +230,7 @@ public class MonopolyGame {
         String str = "";
         int fieldnum = game.getPlayerObject(game.getCurrentPlayerNumber()).OnField();
         str += guiPlayers[game.getCurrentPlayerNumber()-1].getName() +", you landed on " +
-                game.getBoard().getFieldObject(fieldnum) + ".\n";
+                Game.getBoard().getFieldObject(fieldnum) + ".\n";
         if (fieldnum < game.getDie().getFaceValue())
             str += "You have received M$"+ Account.STARTBONUS +" for passing START\n";
         if (fieldnum == 6)
@@ -231,7 +252,7 @@ public class MonopolyGame {
         updatePlayerBalance();
         formatFieldBorder(fieldArrayNum);
         updateGUIRentAndOwnerInfoAllFieldsOfSameColor(fieldArrayNum);
-        String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+        String color = ((AmusementField) Game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
         String str = "You have paid M$" + price + " to setup a booth.";
         if (Board.onePlayerOwnsAllFieldsOfSameColor(fieldArrayNum))
             str += "\nAs you now own a booth on all the "+ color +" fields, from now on the price that other players " +
@@ -240,7 +261,7 @@ public class MonopolyGame {
     }
 
     static void payBoothPriceMessage(int fieldArrayNum, int owner, int rent) {
-        String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+        String color = ((AmusementField) Game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
         if (!Board.onePlayerOwnsAllFieldsOfSameColor(fieldArrayNum))
             gui.getUserButtonPressed("You have landed on " + game.getPlayerObject(owner).getName() + "'s booth"
                 , "Pay M$" + rent);
@@ -273,11 +294,11 @@ public class MonopolyGame {
     // checks if a player owns all the fields of one color, and updates the GUI info for all those fields
     private static void updateGUIRentAndOwnerInfoAllFieldsOfSameColor(int fieldArrayNum) {
         if (Board.onePlayerOwnsAllFieldsOfSameColor(fieldArrayNum)) {
-            String color = ((AmusementField) game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
-            String fieldClassName = game.getBoard().getFieldObject(fieldArrayNum).getClassName();
+            String color = ((AmusementField) Game.getBoard().getFieldObject(fieldArrayNum)).getFieldColor();
+            String fieldClassName = Game.getBoard().getFieldObject(fieldArrayNum).getClassName();
             for (int i = 0; i< Board.getTotalNumberOfFields(); i++) {
-                if (game.getBoard().getFieldObject(i).getClassName().equalsIgnoreCase(fieldClassName)) {
-                    if (color.equalsIgnoreCase(((AmusementField) game.getBoard().getFieldObject(i)).getFieldColor()))
+                if (Game.getBoard().getFieldObject(i).getClassName().equalsIgnoreCase(fieldClassName)) {
+                    if (color.equalsIgnoreCase(((AmusementField) Game.getBoard().getFieldObject(i)).getFieldColor()))
                         updateGUIRentAndOwnerOneField(i);
                 }
             }
@@ -287,8 +308,8 @@ public class MonopolyGame {
 
     private static void updateGUIRentAndOwnerOneField (int fieldArrayNum) {
         // updates rent and owner info in the GUI center field for the given field
-        int rent = ( (AmusementField) game.getBoard().getFieldObject(fieldArrayNum) ).getRent();
-        int ownernumber = ((AmusementField)game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum();
+        int rent = ( (AmusementField) Game.getBoard().getFieldObject(fieldArrayNum) ).getRent();
+        int ownernumber = ((AmusementField)Game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum();
         guiStreets[fieldArrayNum].setRentLabel("The rent is: ");
         guiStreets[fieldArrayNum].setRent("M$"+ rent);
         guiStreets[fieldArrayNum].setOwnableLabel("The field is owned by: ");
@@ -297,7 +318,7 @@ public class MonopolyGame {
 
     // sets a border around a field owned by a player, corresponding to the color of their car
     private static void formatFieldBorder(int fieldArrayNum) {
-        switch (((AmusementField)game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum()) {
+        switch (((AmusementField)Game.getBoard().getFieldObject(fieldArrayNum)).getOwnerNum()) {
             case 1: {
                 guiStreets[fieldArrayNum].setBorder(Color.red);
                 break; }
@@ -318,15 +339,15 @@ public class MonopolyGame {
     private static void formatFields() {
         for (int i = 0; i < Board.getTotalNumberOfFields(); i++) { // sets up all GUI fields/streets
             guiStreets[i] = new GUI_Street();
-            guiStreets[i].setTitle(game.getBoard().getFieldObject(i).getFieldName());
+            guiStreets[i].setTitle(Game.getBoard().getFieldObject(i).getFieldName());
             guiStreets[i].setBackGroundColor(Color.lightGray);
             guiFields[i] = guiStreets[i]; }
 
         for (int i = 0; i < Board.getTotalNumberOfFields(); i++) { // displays the price and description for the ownable fields
             if (i%3 != 0) {
                 String str = "M$";
-                guiStreets[i].setSubText(str + ((AmusementField)game.getBoard().getFieldObject(i)).getPrice());
-                guiStreets[i].setDescription(game.getBoard().getFieldObject(i).getFieldName());
+                guiStreets[i].setSubText(str + ((AmusementField)Game.getBoard().getFieldObject(i)).getPrice());
+                guiStreets[i].setDescription(Game.getBoard().getFieldObject(i).getFieldName());
             }
         }
 
@@ -418,9 +439,9 @@ public class MonopolyGame {
         // sets all the cars on START and resets players' accounts
         addGUIPlayersAndCars();
         for (int i = 0; i < Board.getTotalNumberOfFields(); i++)
-            if ("Game.AmusementField".equalsIgnoreCase(game.getBoard().getFieldObject(i).getClassName())) {
-            ((AmusementField)game.getBoard().getFieldObject(i)).setOwnerNum(0); // removes owner from all fields
-            ((AmusementField)game.getBoard().getFieldObject(i)).resetRentToDefault();} // resets rents/prices to default level
+            if ("Game.AmusementField".equalsIgnoreCase(Game.getBoard().getFieldObject(i).getClassName())) {
+            ((AmusementField)Game.getBoard().getFieldObject(i)).setOwnerNum(0); // removes owner from all fields
+            ((AmusementField)Game.getBoard().getFieldObject(i)).resetRentToDefault();} // resets rents/prices to default level
         // sets players' accounts to the starting balance, sets player attributes to initial values, returns chance cards
         for (int i = 0; i< game.getTotalPlayers(); i++) {
             game.getPlayerObject(i + 1).getAccount().setCurrentBalance(Account.STARTINGBALANCE);

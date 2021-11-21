@@ -1,10 +1,7 @@
 package Game;
 
 public class Board {
-    private static Field[] fields;
-
-    public Board() {
-        fields = new Field[]{
+    private static Field[] fields = {
                 new Field("START"), new AmusementField("brown","The Burger Joint",1),
                 new AmusementField("brown","The Pizza House",1), new ChanceField("Chance"),
                 new AmusementField("light blue","The Candy Shop",1), new AmusementField("light blue","The Ice Cream Parlor",1),
@@ -17,8 +14,7 @@ public class Board {
                 new Jail("Go to Jail"), new AmusementField("green","The Bowling Alley",4),
                 new AmusementField("green","The Zoo",4), new ChanceField("Chance"),
                 new AmusementField("dark blue","The Water Park",5), new AmusementField("dark blue","The Beach Walk",5)
-        };
-    }
+    };
 
     public Field getFieldObject(int arrayindex) {
         return fields[arrayindex];
@@ -27,7 +23,7 @@ public class Board {
     public String toString() {
         String str = "";
         for (int t = 0; t< getTotalNumberOfFields(); t++) {
-            str += fields[t].toString()+"\n";
+            str += fields[t] +"\n";
         }
         return str;
     }
