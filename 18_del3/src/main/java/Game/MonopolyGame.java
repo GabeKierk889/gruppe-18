@@ -201,7 +201,7 @@ public class MonopolyGame {
                 else
                     names += "Player  " + (i+1) + ": " + strarray[i] ;
             }
-        if ("Yes, begin game".equalsIgnoreCase(gui.getUserButtonPressed("These are the players that will be set up: \n" + names+"\n\n\t\t\tIs this correct?", "Yes, begin game", "No, reset names"))) {
+        if ("Yes, begin game".equalsIgnoreCase(gui.getUserButtonPressed("Here are the names that you entered, and the order of the players' turns: \n" + names+"\n\n\t\t\tDo you want to start the game?", "Yes, begin game", "No, reset names"))) {
         switch (strarray.length) { // initializes a new game with the player names entered
             case 2: game = new Game(strarray[0],strarray[1]); break;
             case 3: game = new Game(strarray[0],strarray[1],strarray[2]); break;
@@ -213,8 +213,8 @@ public class MonopolyGame {
     } }
 
     private static void showWelcomeMessage() {
-        if (gui.getUserLeftButtonPressed("Welcome to Monopoly Junior! Press \"Help\" to view the rules, or press \"Start game\" to begin the game.     "
-                + guiPlayers[0].getName() + " will go first","Help","Start game"))
+        if (gui.getUserLeftButtonPressed("Welcome to Monopoly Jr! Press \"Game rules\" to view the rules, or press \"Start game\" to begin the game. "
+                + guiPlayers[0].getName() + " will go first","Game rules","Start game"))
             gui.showMessage("Rules: Each player starts with M$35. On a player's turn, if they land on an amusement without a booth, the player must pay the bank to set up a booth. " +
                     "If there is already a booth owned by another player, the current player must pay the owner (double, if the owner also owns the other fields of the same color). " +
                     "If a player lands on Chance, the player must draw a chance card and follow the instructions. " +
