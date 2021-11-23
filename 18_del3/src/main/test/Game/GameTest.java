@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
-    Game game1 = new Game("Gabriel", "Mark");
+    Game game = new Game("Gabriel", "Mark");
 
     // tested by Mark 2021-11-23
     @Test
@@ -13,21 +13,25 @@ class GameTest {
         // testing else branch
         boolean extraTurn = true;
 
-        game1.switchTurn(extraTurn);
-        assertEquals(1,game1.getCurrentPlayerNumber());
+        game.switchTurn(extraTurn);
+        assertEquals(1,game.getCurrentPlayerNumber());
 
         // testing nested if branch
         extraTurn = false;
-        game1.switchTurn(extraTurn);
-        assertEquals(2,game1.getCurrentPlayerNumber());
+        game.switchTurn(extraTurn);
+        assertEquals(2,game.getCurrentPlayerNumber());
     }
 
     @Test
     void checkIsAnyoneBankrupt() {
     }
 
+    // tested by Mark 2021-11-23
     @Test
     void isGameOver() {
+        game.getPlayerObject(1).getAccount().setCurrentBalance(0);
+
+        assertEquals(true,game.checkIsAnyoneBankrupt());
     }
 
     @Test
