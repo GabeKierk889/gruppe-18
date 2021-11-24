@@ -3,18 +3,17 @@
 
 autonumber
 
-actor   Game.Player
+actor   Player
 mainframe Take a turn
 
-Game.Player -> DiceGame: Play()
-DiceGame -> Game.Player: getCurrentPlayer()
-Game.Player -> DiceCup: roll()
-DiceCup -> Game.Die: roll()
-Game.Die -> DiceCup: getFaceValue()
-DiceCup -> DiceGame: getSum()
-DiceGame -> Game.Field: getFieldEffect()
-Game.Field --> DiceGame: done
-DiceGame -> Game.Account: updateBalance()
-Game.Account --> DiceGame: done
+Player -> DiceGame: Play()
+DiceGame -> Player: getCurrentPlayer()
+Player -> Die: roll()
+DiceGame -> Die: getFaceValue()
+DiceGame -> Field: landOnField()
+
+Field --> DiceGame: done
+DiceGame -> Account: updateBalance()
+Account --> DiceGame: done
 
 @enduml
