@@ -1,22 +1,30 @@
 @startuml
 'https://plantuml.com/use-case-diagram
 
-:Main Admin: as Admin
-(Use the application) as (Use)
+left to right direction
 
-User -> (Start)
-User --> (Use)
+actor player
 
-Admin ---> (Use)
+rectangle Matador {
+    usecase "Setup game" as uc1
 
-note right of Admin : This is an example.
+    usecase "Take turn" as uc2
+    usecase "Mortgage field" as uc2.1
+    usecase "Pay/ collect rent" as uc2.2
+    usecase "Draw Chance card" as uc2.3
+    usecase "Go to jail" as uc2.4
+    usecase "Buy/ sell property" as uc2.5
 
-note right of (Use)
-A note can also
-be on several lines
-end note
+}
 
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
+player --> uc1
+
+player --> uc2
+uc2 <.. uc2.1 : extend
+uc2 <.. uc2.2 : extend
+uc2 <.. uc2.3 : extend
+uc2 <.. uc2.4 : extend
+uc2 <.. uc2.5 : extend
+
+
 @enduml
