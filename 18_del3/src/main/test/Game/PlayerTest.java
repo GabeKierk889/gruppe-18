@@ -40,6 +40,7 @@ class PlayerTest {
         int startBonus = Account.STARTBONUS;
         assertEquals(balance + startBonus,player.getAccount().getBalance());
     }
+
     @Test
     void collectStartBonusNotEligibleForBonus() {
 

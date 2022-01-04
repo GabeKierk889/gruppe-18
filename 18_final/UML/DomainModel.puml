@@ -87,7 +87,7 @@ Player "1" *-- "1" Account
 Board "1" *-- "40" Field
 Field <|--- "1" StartField
 OwnableField <|--- "22" StreetField
-Field <|--- "6" ChanceField
+Field <|-- "6" ChanceField
 Field <|--- "1" JailField
 Field <|--- "1" ParkingField
 Field <|--- "1" VisitJailField
