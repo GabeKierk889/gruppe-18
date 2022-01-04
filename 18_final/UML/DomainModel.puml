@@ -36,7 +36,7 @@ class ChanceCard {
     text
 }
 
-abstract class OwneableFields {
+abstract class OwnableField {
         owner
         price
         rent
@@ -86,16 +86,16 @@ Matador "1" *-- "3..6" Player
 Player "1" *-- "1" Account
 Board "1" *-- "40" Field
 Field <|--- "1" StartField
-OwneableFields <|--- "22" StreetField
+OwnableField <|--- "22" StreetField
 Field <|--- "6" ChanceField
 Field <|--- "1" JailField
 Field <|--- "1" ParkingField
 Field <|--- "1" VisitJailField
 ChanceCard - ChanceField
 DiceCup "1" *-- "2" Die
-Field <|-- "28" OwneableFields
-OwneableFields <|-- "2" BreweryField
-OwneableFields <|-- "4" ShippingField
+Field <|-- "28" OwnableField
+OwnableField <|-- "2" BreweryField
+OwnableField <|-- "4" ShippingField
 Field <|-- "2" TaxField
 
 
