@@ -43,10 +43,6 @@ abstract class OwnableField {
         isMortgaged
 }
 
-class StartField {
-
-}
-
 class StreetField {
     numOfHouses
     hotel
@@ -68,14 +64,6 @@ class JailField {
 
 }
 
-class ParkingField {
-
-}
-
-class VisitJailField {
-
-}
-
 class TaxField {
     taxAmount
 }
@@ -85,12 +73,9 @@ Matador "1" *-- "1" DiceCup
 Matador "1" *-- "3..6" Player
 Player "1" *-- "1" Account
 Board "1" *-- "40" Field
-Field <|--- "1" StartField
 OwnableField <|--- "22" StreetField
 Field <|-- "6" ChanceField
 Field <|--- "1" JailField
-Field <|--- "1" ParkingField
-Field <|--- "1" VisitJailField
 ChanceCard - ChanceField
 DiceCup "1" *-- "2" Die
 Field <|-- "28" OwnableField
