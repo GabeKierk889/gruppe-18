@@ -8,23 +8,14 @@ actor player
 rectangle Matador {
     usecase "Setup game" as uc1
 
-    usecase "Take turn" as uc2
-    usecase "Mortgage field" as uc2.1
-    usecase "Pay/ collect rent" as uc2.2
-    usecase "Draw Chance card" as uc2.3
-    usecase "Go to jail" as uc2.4
-    usecase "Buy/ sell property" as uc2.5
+    usecase "Play game" as uc2
 
 }
 
 player --> uc1
 
 player --> uc2
-uc2 <.. uc2.1 : extend
-uc2 <.. uc2.2 : extend
-uc2 <.. uc2.3 : extend
-uc2 <.. uc2.4 : extend
-uc2 <.. uc2.5 : extend
+
 
 
 @enduml
