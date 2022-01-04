@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Player
+
+System -> Player: welcomeMessage
+Player -> System: setupGame(playerNames)
+Player -> System: playGame
+
+loop No winner
+    Player -> System: rollDice
+    System --> Player: facevalue
+    System -> Player: moveCar
+    System -> Player: landOnFieldEffect
+    Player -> System: playerAction
+    System --> Player: resolve player action
+
+end
+
+System -> Player: OutputWinner
+
+@enduml
