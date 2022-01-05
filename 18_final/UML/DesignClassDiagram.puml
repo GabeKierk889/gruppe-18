@@ -156,23 +156,23 @@ class IncomeTaxField {
 
 }
 
-GameController "1" *--- "1" Board
-GameController "1" *--- "1" DiceCup
-GameController "1" *--- "3..6" Player
-Player "1" *-- "1" Account
-Board "1" *-- "40" Field
-OwnableField <|-- "22" StreetField
-Field <|-- "6" ChanceField
-Field <|-- "1" JailField
-ChanceField "*" o- "1" ChanceCard
-ChanceCard "1" <|-- "1" ChanceCardType
-DiceCup "1" *-- "2" Die
-Field <|-- "28" OwnableField
-OwnableField <|-- "2" BreweryField
-OwnableField <|-- "4" ShippingField
-Field <|-- "2" TaxField
-TaxField <|-- "1" StateTaxField
-TaxField <|-- "1" IncomeTaxField
+GameController *--- Board
+GameController *--- DiceCup
+GameController *--- "3..6" Player
+Player *-- Account
+Board *-- "40" Field
+OwnableField <|-- StreetField
+Field <|-- ChanceField
+Field <|-- JailField
+ChanceField o- ChanceCard
+ChanceCard <|-- ChanceCardType
+DiceCup *-- "2" Die
+Field <|-- OwnableField
+OwnableField <|-- BreweryField
+OwnableField <|-- ShippingField
+Field <|-- TaxField
+TaxField <|-- StateTaxField
+TaxField <|-- IncomeTaxField
 
 
 @enduml
