@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-// extracts raw data regarding fields from an external .csv file into separate arrays
-// assumes that the list is already ordered/ sorted by field position
+// extracts raw data regarding fields from an external .csv file and puts the data into separate arrays
+// assumes that the external file/ list is already ordered/ sorted by field position
 // assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1, rent 2 etc. ...
 
 public class FieldsDataReader {

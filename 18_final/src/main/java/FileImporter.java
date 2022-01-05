@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileReader;
 
-    // reads an external file and stores data in each line as strings
+    // reads an external file and stores each line as strings in a String array
     public class FileImporter {
         private BufferedReader reader;
 
