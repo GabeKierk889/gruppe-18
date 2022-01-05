@@ -36,52 +36,14 @@ class ChanceCard {
     text
 }
 
-abstract class OwnableField {
-        owner
-        price
-        rent
-        isMortgaged
-}
+Matador "1" -- "1" Board
+Matador "1" -- "1" DiceCup
+Matador "1" -- "3..6" Player
+Player "1" -- "1" Account
+Board "1" -- "40" Field
+ChanceCard "*" - "1" Matador
+DiceCup "1" -- "2" Die
 
-class StreetField {
-    numOfHouses
-    hotel
-}
-
-class BreweryField {
-
-}
-
-class ShippingField {
-
-}
-
-class ChanceField {
-
-}
-
-class JailField {
-
-}
-
-class TaxField {
-    taxAmount
-}
-
-Matador "1" *-- "1" Board
-Matador "1" *-- "1" DiceCup
-Matador "1" *-- "3..6" Player
-Player "1" *-- "1" Account
-Board "1" *-- "40" Field
-OwnableField <|-- "22" StreetField
-Field <|-- "6" ChanceField
-Field <|-- "1" JailField
-ChanceCard - ChanceField
-DiceCup "1" *-- "2" Die
-Field <|-- "28" OwnableField
-OwnableField <|-- "2" BreweryField
-OwnableField <|-- "4" ShippingField
-Field <|-- "2" TaxField
 
 
 @enduml
