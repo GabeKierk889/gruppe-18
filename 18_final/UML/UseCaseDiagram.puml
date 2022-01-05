@@ -8,7 +8,7 @@ actor player
 rectangle Matador {
     usecase "Setup game" as uc1
 
-    usecase "Play game" as uc2
+    usecase "Take turn" as uc2
 
 }
 
