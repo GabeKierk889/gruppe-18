@@ -2,37 +2,37 @@
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
 
-class Matador {
+object Matador {
 
 }
 
-class Player {
+object Player {
     name
     isBankrupt
 }
 
-class Board {
+object Board {
 
 }
 
-class Field {
+object Field {
     name
 }
 
-class Account {
+object Account {
     balance
 }
 
-class DiceCup {
+object DiceCup {
 
 }
 
-class Die {
+object Die {
     facevalue
 
 }
 
-class ChanceCard {
+object ChanceCard {
     text
 }
 
