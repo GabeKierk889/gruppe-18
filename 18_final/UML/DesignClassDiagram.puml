@@ -70,10 +70,18 @@ abstract class ChanceCard {
 }
 
 abstract class OwnableField {
-        owner
-        price
-        rent
-        isMortgaged
+        #ownerNum: int
+        #PRICE: int
+        #currentRent: int
+        #rentArray: int[]
+        #isMortgaged: boolean
+        #mortgageValue: int
+
+        +buyField(currentPlayerObject : Player) : void
+        +auctionField() : void
+        +mortgageField() : void
+        +tradeField() : void
+        +updateRent() : void
 }
 
 class StreetField {
@@ -90,7 +98,13 @@ class ShippingField {
 }
 
 class ChanceField {
+    {static}-chanceCards: ChanceCard[]
+    {static}-currentCard: ChanceCard
 
+    {static}+drawChanceCard() : ChanceCard
+    {static}+shuffleChanceCards() : void
+    {static}+putBackChanceCard(jailCard : ChanceCard) : void
+    {static}-putAllNullCardsInBottom() : void
 }
 
 class JailField {
