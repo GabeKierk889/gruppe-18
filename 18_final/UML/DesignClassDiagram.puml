@@ -30,7 +30,7 @@ class Board {
 class Field {
     #fieldName: String
 
-    +landOnField(currentPlayer : Player)
+    +landOnField(currentPlayerObject : Player)
 }
 
 class Account {
@@ -64,8 +64,9 @@ class ChanceCardType {
 }
 
 abstract class ChanceCard {
-    -text: String
+    #text: String
 
+    {abstract}+effect(currentPlayerObject : Player) : void
 }
 
 abstract class OwnableField {
@@ -108,7 +109,7 @@ Board "1" *-- "40" Field
 OwnableField <|-- "22" StreetField
 Field <|-- "6" ChanceField
 Field <|-- "1" JailField
-ChanceCard "*" - "1" ChanceField
+ChanceCard "*" -o "1" ChanceField
 ChanceCard "1" <|-- "1" ChanceCardType
 DiceCup "1" *-- "2" Die
 Field <|-- "28" OwnableField
