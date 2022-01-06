@@ -18,8 +18,8 @@ public class ChanceField extends Field{
     @Override
     public void landOnField(Player currentplayerobject) {
         drawChanceCard();
-        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
-        currentCard.effect(currentplayerobject);
+//        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
+//        currentCard.effect(currentplayerobject);
     }
 
     public static ChanceCard drawChanceCard() {
@@ -35,10 +35,10 @@ public class ChanceField extends Field{
         for (int i = chanceCards.length-1; i > 0; i--) {
             chanceCards[i] = chanceCards[i-1];
         }
-        if (drawn instanceof ReleaseFromJailCard)
-            chanceCards[0] = null;
-        else
-            chanceCards[0] = drawn;
+//        if (drawn instanceof ReleaseFromJailCard)
+//            chanceCards[0] = null;
+//        else
+//            chanceCards[0] = drawn;
         putAllNullCardsinBottom();
         currentCard = drawn;
         return drawn;

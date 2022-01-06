@@ -3,7 +3,6 @@ package Models;
 //This code has been modified from previous assignment CDIO 2 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 29. October 2021
 
 public class DiceCup {
-
     private Die die1, die2;
 
     public DiceCup() {
@@ -17,8 +16,7 @@ public class DiceCup {
     }
 
     public int getSum() {
-        int sum = die1.getFaceValue() + die2.getFaceValue();
-        return sum;
+        return die1.getFaceValue() + die2.getFaceValue();
     }
 
     public int getDie1Value() {
@@ -40,8 +38,7 @@ public class DiceCup {
     }
 
     public String toString() {
-        String result = "Die 1: " + die1.getFaceValue() + "\t" + "Die 2: " + die2.getFaceValue() + "\t" + "Sum: " + (die1.getFaceValue()+die2.getFaceValue());
-        return result;
+        return "Die 1: " + die1.getFaceValue() + "\t" + "Die 2: " + die2.getFaceValue() + "\t" + "Sum: " + (die1.getFaceValue()+die2.getFaceValue());
     }
 
 }

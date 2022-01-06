@@ -7,6 +7,15 @@ public class StreetField extends OwnableField {
     private boolean hasHotel;
     private final int MAXNUMOFHOUSES = 4;
 
+    public StreetField(String fieldName, int price, int housePrice, int[] rentArray, String streetColor) {
+        super(fieldName, price, rentArray);
+        STREETCOLOR = streetColor;
+        currentRent = rentArray[0];
+        numOfHouses = 0;
+        hasHotel = false;
+        HOUSEPRICE = housePrice;
+    }
+
     @Override
     public void updateRent() {
     }

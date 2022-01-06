@@ -108,7 +108,7 @@ class ChanceCardType {
 }
 
 abstract class ChanceCard {
-    {abstract}returnChanceCardText() : String
+    {abstract}+returnChanceCardText() : String
     {abstract}+effect(currentPlayerObject : Player) : void
 }
 
@@ -161,6 +161,7 @@ abstract class TaxField {
     #FIXEDTAX: int
 
     {abstract}+calculateTax(currentPlayerObject : Player) : int
+    -PayTax(currentPlayerObject : Player) : void
 }
 
 class StateTaxField {

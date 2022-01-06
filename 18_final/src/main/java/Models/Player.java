@@ -19,7 +19,7 @@ public class Player {
     }
 
     public int movePlayerSteps(int stepsToMove) {
-        onField = (onField+stepsToMove) % Board.getTotalNumberOfFields();
+//        onField = (onField+stepsToMove) % Board.getTotalNumberOfFields();
         return onField; }
 
     public void collectStartBonus(int diceThrow) {
@@ -28,17 +28,9 @@ public class Player {
             getAccount().depositMoney(GameSettings.STARTBONUS);
     }
 
-    public void movePlayerToField(int fieldArrayNumber) {
-        onField = fieldArrayNumber % Board.getTotalNumberOfFields();
-    }
-
-    // method overloading
-    public void movePlayerToField(String fieldName) {
-        int fieldArrayNumber = Board.getFieldArrayNumber(fieldName);
-        if (fieldArrayNumber != -1 && fieldArrayNumber < Board.getTotalNumberOfFields())
-            onField=fieldArrayNumber;
-        else System.out.println("Error - the field number you entered does not exist.");
-    }
+//    public void movePlayerToField(int fieldArrayNumber) {
+//        onField = fieldArrayNumber % Board.getTotalNumberOfFields();
+//    }
 
     public String getName() {
         return name;

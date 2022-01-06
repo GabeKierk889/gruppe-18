@@ -7,12 +7,15 @@ public abstract class OwnableField extends Field {
     protected int currentRent;
     protected final int[] RENTARRAY;
     protected final int MORTGAGEVALUE;
+    private final double MORTGAGE_PRICE_RATIO = 0.5;
 
-    public OwnableField(String fieldName) {
+    public OwnableField(String fieldName, int price, int[] rentArray) {
         super(fieldName);
+        this.PRICE = price;
         ownerNum = 0;
         isMortgaged = false;
-        // need to initialize PRICE, rentarray, mortgagevalue etc.
+        this.RENTARRAY = rentArray;
+        MORTGAGEVALUE = (int) (PRICE * MORTGAGE_PRICE_RATIO);
     }
 
     @Override
@@ -21,6 +24,7 @@ public abstract class OwnableField extends Field {
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
+        // placeholder
         }
 
     public void buyField(Player currentplayerobject) {

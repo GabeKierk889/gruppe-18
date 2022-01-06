@@ -13,7 +13,7 @@ public class FieldsDataReader {
     private int[] fieldPriceArray;
     private int[] housePriceArray;
     private int[][] rentArrayArray;
-    private String[] fieldColorsArray;
+    private String[] streetColorsArray;
 
     public FieldsDataReader(String filename) {
         FileImporter reader = new FileImporter();
@@ -24,7 +24,7 @@ public class FieldsDataReader {
         int rentLevels = 6;
         Scanner lineScan;
         fieldNamesArray = new String[rawStringsData.length - 1];
-        fieldColorsArray = new String[rawStringsData.length - 1];
+        streetColorsArray = new String[rawStringsData.length - 1];
         fieldTypeArray = new String[rawStringsData.length - 1];
         fieldPriceArray = new int[rawStringsData.length - 1];
         housePriceArray = new int[rawStringsData.length - 1];
@@ -50,7 +50,7 @@ public class FieldsDataReader {
                 if (counter < rentLevels && !next.equals(""))
                     rentArrayArray[i][counter] = Integer.parseInt(next);
                 if (counter >= rentLevels)
-                    fieldColorsArray[i] = next; // reads last column - field colors
+                    streetColorsArray[i] = next; // reads last column - field colors
             }
         }
     }
@@ -75,8 +75,8 @@ public class FieldsDataReader {
         return rentArrayArray;
     }
 
-    public String[] getFieldColorsArray() {
-        return fieldColorsArray;
+    public String[] getStreetColorsArray() {
+        return streetColorsArray;
     }
 
     public String[] getFieldTypeArray() {

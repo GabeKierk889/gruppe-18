@@ -10,7 +10,6 @@ public class Field {
     public void landOnField(Player currentplayerobject) {
     }
 
-    //no setters as all attributes are final variables
     public String getFieldName() {
         return fieldName;
     }

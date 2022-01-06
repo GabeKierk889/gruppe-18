@@ -4,14 +4,14 @@ package Models;
 
 public class Die {
     private int faceValue;
-    private final int MAX = 6;
+    private final int NUMOFSIDES = 6;
 
     public Die() {
         faceValue = 1;
     }
 
     public int roll() {
-        faceValue = (int) (Math.random() * MAX) + 1;
+        faceValue = (int) (Math.random() * NUMOFSIDES) + 1;
         return faceValue;
     }
 
@@ -20,7 +20,6 @@ public class Die {
     }
 
     public String toString () {
-        String str = Integer.toString(faceValue);
-        return str;
+        return Integer.toString(faceValue);
     }
 }
