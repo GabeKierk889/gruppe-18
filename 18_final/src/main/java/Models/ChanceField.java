@@ -2,16 +2,16 @@ package Models;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
+import Services.ChanceCardsCreator;
+
 public class ChanceField extends Field{
-
     private static ChanceCard currentCard;
-
-    private static ChanceCard[] chanceCards = {
-
-    };
+    private static ChanceCard[] chanceCards;
 
     public ChanceField(String fieldName) {
         super(fieldName);
+        ChanceCardsCreator service = new ChanceCardsCreator();
+        chanceCards = service.createChanceCardsDeck();
         shuffleChanceCards(); // shuffles the deck of cards when the field is instantiated
     }
 
@@ -19,26 +19,20 @@ public class ChanceField extends Field{
     public void landOnField(Player currentplayerobject) {
         drawChanceCard();
 //        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
-//        currentCard.effect(currentplayerobject);
+        currentCard.effect(currentplayerobject);
     }
 
     public static ChanceCard drawChanceCard() {
-//        USE THE LINE BELOW IF YOU NEED TO TEST YOU CHANCE CARD -
-//        change the number according to your chance card index num in the array
-//        and comment out the rest of this method
-
-//        return chanceCard[4];
-
         // draws the highest indexed card from the stack/array of cards, and puts it back in the bottom
         // unless it is a releasefromJail card, which does not get put back
         ChanceCard drawn = chanceCards[chanceCards.length-1];
         for (int i = chanceCards.length-1; i > 0; i--) {
             chanceCards[i] = chanceCards[i-1];
         }
-//        if (drawn instanceof ReleaseFromJailCard)
-//            chanceCards[0] = null;
-//        else
-//            chanceCards[0] = drawn;
+        if (drawn instanceof JailReleaseCard)
+            chanceCards[0] = null;
+        else
+            chanceCards[0] = drawn;
         putAllNullCardsinBottom();
         currentCard = drawn;
         return drawn;

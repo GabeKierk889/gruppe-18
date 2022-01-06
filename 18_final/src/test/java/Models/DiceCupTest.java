@@ -1,8 +1,10 @@
-import Models.DiceCup;
+package Models;
+
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-public class DiceCupTest {
+public class DiceCupTest { // tested by Xiao 6 Jan 22
 
     @Test
     public void getSum() {

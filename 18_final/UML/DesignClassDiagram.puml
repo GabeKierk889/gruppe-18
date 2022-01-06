@@ -103,12 +103,12 @@ class Die {
     +roll() : void
 }
 
-class ChanceCardType {
-    -DESCRIPTION: String
+class ChanceCardSubType {
 }
 
 abstract class ChanceCard {
-    {abstract}+returnChanceCardText() : String
+    #TEXT: String
+    +getChanceCardText() : String
     {abstract}+effect(currentPlayerObject : Player) : void
 }
 
@@ -187,7 +187,7 @@ OwnableField <|-- StreetField
 Field <|-- ChanceField
 Field <|-- JailField
 ChanceField o- ChanceCard
-ChanceCard <|-- ChanceCardType
+ChanceCard <|-- ChanceCardSubType
 DiceCup *-- "2" Die
 Field <|-- OwnableField
 OwnableField <|-- BreweryField
