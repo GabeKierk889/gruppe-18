@@ -7,7 +7,7 @@ public class Account {
     private int balance;
 
     public Account () {
-        balance = STARTINGBALANCE;
+        balance = GameSettings.STARTINGBALANCE;
     }
 
     // Withdraws money.

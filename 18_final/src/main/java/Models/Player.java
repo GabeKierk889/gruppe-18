@@ -25,7 +25,7 @@ public class Player {
     public void collectStartBonus(int diceThrow) {
         // only applies to regular turns/ passing START by throwing the dice, not chance card situations
         if (onField < diceThrow)
-            getAccount().depositMoney(Account.STARTBONUS);
+            getAccount().depositMoney(GameSettings.STARTBONUS);
     }
 
     public void movePlayerToField(int fieldArrayNumber) {

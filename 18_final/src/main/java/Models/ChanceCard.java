@@ -4,7 +4,6 @@ package Models;
 
 public abstract class ChanceCard {
 
-
     public abstract String returnChanceCardText();
 
     public abstract void effect(Player currentplayerobject);
