@@ -11,7 +11,7 @@ class GameController {
 
 }
 
-class PlayerController {
+class GameSetupController {
 
 }
 
@@ -23,6 +23,16 @@ class ViewController {
 
 package models {
 
+class GameSettings {
+    {static}+MINNUMOFPLAYERS: int
+    {static}+MAXNUMOFPLAYERS: int
+    {static}+STARTINGBALANCE: int
+    {static}+STARTBONUS: int
+    {static}+JAILFEE: int
+    {static}+STATETAXAMOUNT: int
+    {static}+INCOMETAXAMOUNT: int
+}
+
 class Player {
     -name: String
     -isBankrupt: Boolean
@@ -32,8 +42,8 @@ class Player {
     -jailCard1: ChanceCard
     -jailCard2: ChanceCard
 
-    +movePlayerToField(fieldNum : int) : int
-    +movePlayerSteps(steps : int) : void
+    +moveToField(fieldNum : int) : int
+    +moveSteps(steps : int) : void
     +hasAJailCard() : Boolean
     +giveJailCard(jailCard : ChanceCard) : void
     +returnJailCard() : ChanceCard
@@ -60,9 +70,6 @@ class Field {
 }
 
 class Account {
-    {static} -STARTINGBALANCE: int
-    {static} -STARTBONUS: int
-    {static} -JAILFEE: int
     -balance: int
 
     +deposit(amount : int) : void
@@ -156,9 +163,12 @@ class IncomeTaxField {
 
 }
 
+MatadorMain *-- GameController
+ViewController --* GameController
+GameController - GameSettings
 GameController *--- Board
 GameController *--- DiceCup
-GameController *--- "3..6" Player
+GameController *--- Player
 Player *-- Account
 Board *-- "40" Field
 OwnableField <|-- StreetField
