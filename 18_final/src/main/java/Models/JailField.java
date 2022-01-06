@@ -1,0 +1,13 @@
+package Models;
+
+public class JailField extends Field {
+    public Jail(String fieldName) {
+        super(fieldName);
+    }
+
+    @Override
+    public void landOnField(Player currentplayerobject) {
+        currentplayerobject.setIsInJail(true);
+        // placeholder - print out message to GUI
+    }
+}
