@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 // extracts raw data regarding fields from an external .csv file and puts the data into separate arrays
 // assumes that the external file/ list is already ordered/ sorted by field position
-// assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1, rent 2 etc. with field color as last column.
+// assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1 etc. with field color as last column.
 
 public class FieldsDataReader {
     private String[] rawStringsData;
     private String[] fieldNamesArray;
+    private String[] fieldTypeArray;
     private int[] fieldPriceArray;
     private int[] housePriceArray;
     private int[][] rentArrayArray;
@@ -24,6 +25,7 @@ public class FieldsDataReader {
         Scanner lineScan;
         fieldNamesArray = new String[rawStringsData.length - 1];
         fieldColorsArray = new String[rawStringsData.length - 1];
+        fieldTypeArray = new String[rawStringsData.length - 1];
         fieldPriceArray = new int[rawStringsData.length - 1];
         housePriceArray = new int[rawStringsData.length - 1];
         rentArrayArray = new int[rawStringsData.length - 1][rentLevels];
@@ -33,7 +35,8 @@ public class FieldsDataReader {
             lineScan = new Scanner(rawStringsData[i + 1]);
             lineScan.useDelimiter(","); // csv file delimited by comma
             fieldNamesArray[i] = lineScan.next(); // reads first column - field names
-            lineScan.next(); lineScan.next();
+            lineScan.next();
+            fieldTypeArray[i] = lineScan.next();
             String next = lineScan.next();
             if (!next.equals(""))
                 fieldPriceArray[i] = Integer.parseInt(next); // reads field prices
@@ -75,4 +78,9 @@ public class FieldsDataReader {
     public String[] getFieldColorsArray() {
         return fieldColorsArray;
     }
+
+    public String[] getFieldTypeArray() {
+        return fieldTypeArray;
+    }
 }
+
