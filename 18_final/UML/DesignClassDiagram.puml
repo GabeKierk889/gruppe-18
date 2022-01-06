@@ -102,12 +102,11 @@ class Die {
 }
 
 class ChanceCardType {
-
+    -DESCRIPTION: String
 }
 
 abstract class ChanceCard {
-    #text: String
-
+    {abstract}returnChanceCardText() : String
     {abstract}+effect(currentPlayerObject : Player) : void
 }
 
@@ -115,9 +114,9 @@ abstract class OwnableField {
         #ownerNum: int
         #PRICE: int
         #currentRent: int
-        #rentArray: int[]
+        #RENTARRAY: int[]
         #isMortgaged: boolean
-        #mortgageValue: int
+        #MORTGAGEVALUE: int
 
         +buyField(currentPlayerObject : Player) : void
         +updateRent() : void
