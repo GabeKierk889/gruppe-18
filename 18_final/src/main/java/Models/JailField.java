@@ -1,7 +1,8 @@
 package Models;
 
 public class JailField extends Field {
-    public Jail(String fieldName) {
+
+    public JailField(String fieldName) {
         super(fieldName);
     }
 

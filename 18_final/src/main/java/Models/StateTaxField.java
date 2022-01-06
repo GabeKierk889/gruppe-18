@@ -1,13 +1,12 @@
 package Models;
 
-public class IncomeTaxField extends TaxField {
-
-    public IncomeTaxField(String fieldName, int taxAmount) {
+public class StateTaxField extends TaxField {
+    public StateTaxField(String fieldName, int taxAmount) {
         super(fieldName, taxAmount);
     }
 
     @Override
     public int calculateTax(Player currentplayerobject) {
-        return 0;
+        return FIXEDTAX;
     }
 }
