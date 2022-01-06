@@ -17,12 +17,14 @@ class MatadorMain {
 }
 
 class GameController {
-
+    -players: Player[]
+    -board: Board
+    -diceCup: DiceCup
 }
 
-class GameSetupController {
-
-}
+'class GameSetupController {
+'
+'}
 
 class ViewController {
 

@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+'autonumber
+
+create MatadorMain
+create GameController
+
+MatadorMain --> GameController : «create»
+MatadorMain -> GameController : initializeGame()
+
+create ViewController
+
+GameController --> ViewController : «create»
+
+GameController -> ViewController : setupGUIBoard()
+GameController -> ViewController : getPlayerNames()
+ViewController --> GameController : playerNames
+'GameController ->
+
+@enduml
