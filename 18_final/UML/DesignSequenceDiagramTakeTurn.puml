@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+GameController -> DiceCup : roll()
+GameController -> DiceCup : getDie1Value
+DiceCup --> GameController : die1Value
+GameController -> DiceCup : getDie2Value
+DiceCup --> GameController : die2Value
+GameController -> ViewController : showDice(die1Value, die2Value)
+GameController -> ViewController : movePlayerCar()
+
+alt playerPassStart
+    GameController -> Player : collectStartBonus()
+    GameController -> ViewController : updateGUIBalance()
+end
+
+    GameController -> Player : getPlayerOnField()
+    Player --> GameController : onFieldNum
+    GameController -> Field : landOnField(currentPlayerObject)
+
+loop onFieldNum != newFieldNum
+    GameController -> Field : landOnField((currentPlayerObject)
+end
+
+@enduml
