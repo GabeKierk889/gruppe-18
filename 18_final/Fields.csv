@@ -1,41 +1,41 @@
-Name,Position,Type,Price,HousePrice,Rent 0,Rent 1,Rent 2,Rent 3,Rent 4,Rent 5
-Start,0,Field,,,,,,,,
-Roedovrevej,1,StreetField,1200,1000,50,250,750,2250,4000,6000
-Chance,2,ChanceField,,,,,,,,
-Hvidovrevej,3,StreetField,1200,1000,50,250,400,750,2250,6000
-Indkomstskat,4,TaxField,4000,,,,,,,
-Helsingoer - Helsingborg,5,ShippingField,4000,,500,1000,2000,4000,,
-Roskildevej,6,StreetField,2000,1000,100,600,1800,5400,8000,11000
-Chance,7,ChanceField,,,,,,,,
-Valby Langgade,8,StreetField,2000,1000,100,600,1800,5400,8000,11000
-Allegade,9,StreetField,2400,1000,150,800,2000,6000,9000,12000
-Besoeg i faengsel,10,Field,,,,,,,,
-Frederiksberg Alle,11,StreetField,2800,2000,200,1000,3000,9000,12500,15000
-Tuborg Squash,12,BreweryField,3000,,100,200,,,,
-Bulowsvej,13,StreetField,2800,2000,200,1000,3000,9000,12500,15000
-Gl. Kongevej,14,StreetField,3200,2000,250,1250,3750,10000,14000,18000
-Mols-Linien,15,ShippingField,4000,,500,1000,2000,4000,,
-Bernstorffsvej,16,StreetField,3600,2000,300,1400,4000,11000,15000,19000
-Chance,17,ChanceField,,,,,,,,
-Hellerupvej,18,StreetField,3600,2000,300,1400,4000,11000,15000,19000
-Strandvejen,19,StreetField,4000,2000,350,1600,4400,12000,16000,20000
-Parkering,20,Field,,,,,,,,
-Trianglen,21,StreetField,4400,3000,350,1800,5000,14000,17500,21000
-Chance,22,ChanceField,,,,,,,,
-Vesterbrogade,23,StreetField,4400,3000,350,1800,5000,14000,17500,21000
-Groenningen,24,StreetField,4800,3000,400,2000,6000,15000,18500,22000
-Gedser - Rostock,25,ShippingField,4000,,500,1000,2000,4000,,
-Bredgade,26,StreetField,5200,3000,450,2200,6600,16000,19500,23000
-Kgs. Nytorv,27,StreetField,5200,3000,450,2200,6600,16000,19500,23000
-Coca Cola,28,BreweryField,3000,,100,200,,,,
-Oestergade,29,StreetField,5600,3000,500,2400,7200,17000,20500,24000
-Gaa i faengsel,30,JailField,,,,,,,,
-Amagertorv,31,StreetField,6000,4000,550,2600,7800,18000,22000,25000
-Vimmelskaftet,32,StreetField,6000,4000,550,2600,7800,18000,22000,25000
-Chance,33,ChanceField,,,,,,,,
-Nygade,34,StreetField,6400,4000,600,3000,9000,20000,24000,28000
-Roedby - Puttgarden,35,ShippingField,4000,,500,1000,2000,4000,,
-Chance,36,ChanceField,,,,,,,,
-Frederiksberggade,37,StreetField,7000,4000,700,3500,10000,22000,26000,30000
-Statsskat,38,TaxField,2000,,,,,,,
-Raadhuspladsen,39,StreetField,8000,4000,1000,4000,12000,28000,34000,40000
+Name,Position,Type,Price,HousePrice,Rent 0,Rent 1,Rent 2,Rent 3,Rent 4,Rent 5,Color
+Start,0,Field,,,,,,,,,
+Roedovrevej,1,StreetField,1200,1000,50,250,750,2250,4000,6000,Blue
+Chance,2,ChanceField,,,,,,,,,
+Hvidovrevej,3,StreetField,1200,1000,50,250,400,750,2250,6000,Blue
+Indkomstskat,4,TaxField,4000,,,,,,,,
+Helsingoer - Helsingborg,5,ShippingField,4000,,500,1000,2000,4000,,,
+Roskildevej,6,StreetField,2000,1000,100,600,1800,5400,8000,11000,Orange
+Chance,7,ChanceField,,,,,,,,,
+Valby Langgade,8,StreetField,2000,1000,100,600,1800,5400,8000,11000,Orange
+Allegade,9,StreetField,2400,1000,150,800,2000,6000,9000,12000,Orange
+Besoeg i faengsel,10,Field,,,,,,,,,
+Frederiksberg Alle,11,StreetField,2800,2000,200,1000,3000,9000,12500,15000,Green
+Tuborg Squash,12,BreweryField,3000,,100,200,,,,,
+Bulowsvej,13,StreetField,2800,2000,200,1000,3000,9000,12500,15000,Green
+Gl. Kongevej,14,StreetField,3200,2000,250,1250,3750,10000,14000,18000,Green
+Mols-Linien,15,ShippingField,4000,,500,1000,2000,4000,,,
+Bernstorffsvej,16,StreetField,3600,2000,300,1400,4000,11000,15000,19000,Grey
+Chance,17,ChanceField,,,,,,,,,
+Hellerupvej,18,StreetField,3600,2000,300,1400,4000,11000,15000,19000,Grey
+Strandvejen,19,StreetField,4000,2000,350,1600,4400,12000,16000,20000,Grey
+Parkering,20,Field,,,,,,,,,
+Trianglen,21,StreetField,4400,3000,350,1800,5000,14000,17500,21000,Red
+Chance,22,ChanceField,,,,,,,,,
+Vesterbrogade,23,StreetField,4400,3000,350,1800,5000,14000,17500,21000,Red
+Groenningen,24,StreetField,4800,3000,400,2000,6000,15000,18500,22000,Red
+Gedser - Rostock,25,ShippingField,4000,,500,1000,2000,4000,,,
+Bredgade,26,StreetField,5200,3000,450,2200,6600,16000,19500,23000,White
+Kgs. Nytorv,27,StreetField,5200,3000,450,2200,6600,16000,19500,23000,White
+Coca Cola,28,BreweryField,3000,,100,200,,,,,
+Oestergade,29,StreetField,5600,3000,500,2400,7200,17000,20500,24000,White
+Gaa i faengsel,30,JailField,,,,,,,,,
+Amagertorv,31,StreetField,6000,4000,550,2600,7800,18000,22000,25000,Yellow
+Vimmelskaftet,32,StreetField,6000,4000,550,2600,7800,18000,22000,25000,Yellow
+Chance,33,ChanceField,,,,,,,,,
+Nygade,34,StreetField,6400,4000,600,3000,9000,20000,24000,28000,Yellow
+Roedby - Puttgarden,35,ShippingField,4000,,500,1000,2000,4000,,,
+Chance,36,ChanceField,,,,,,,,,
+Frederiksberggade,37,StreetField,7000,4000,700,3500,10000,22000,26000,30000,Purple
+Statsskat,38,TaxField,2000,,,,,,,,
+Raadhuspladsen,39,StreetField,8000,4000,1000,4000,12000,28000,34000,40000,Purple

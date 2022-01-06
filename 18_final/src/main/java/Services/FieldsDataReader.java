@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 // extracts raw data regarding fields from an external .csv file and puts the data into separate arrays
 // assumes that the external file/ list is already ordered/ sorted by field position
-// assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1, rent 2 etc. ...
+// assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1, rent 2 etc. with field color as last column.
 
 public class FieldsDataReader {
     private String[] rawStringsData;
@@ -12,6 +12,7 @@ public class FieldsDataReader {
     private int[] fieldPriceArray;
     private int[] housePriceArray;
     private int[][] rentArrayArray;
+    private String[] fieldColorsArray;
 
     public FieldsDataReader(String filename) {
         FileImporter reader = new FileImporter();
@@ -19,11 +20,13 @@ public class FieldsDataReader {
     }
 
     private void readData() {
+        int rentLevels = 6;
         Scanner lineScan;
         fieldNamesArray = new String[rawStringsData.length - 1];
+        fieldColorsArray = new String[rawStringsData.length - 1];
         fieldPriceArray = new int[rawStringsData.length - 1];
         housePriceArray = new int[rawStringsData.length - 1];
-        rentArrayArray = new int[rawStringsData.length - 1][6];
+        rentArrayArray = new int[rawStringsData.length - 1][rentLevels];
 
         for (int i = 0; i < fieldNamesArray.length; i++) {
             // scanner reads through all the lines, one line at a time
@@ -40,9 +43,11 @@ public class FieldsDataReader {
             int counter = 0;
             while (lineScan.hasNext()) { // reads rent levels and stores this data in a 2D array of rents
                 next = lineScan.next();
-                if (!next.equals(""))
-                    rentArrayArray[i][counter] = Integer.parseInt(next);
                 counter++;
+                if (counter < rentLevels && !next.equals(""))
+                    rentArrayArray[i][counter] = Integer.parseInt(next);
+                if (counter >= rentLevels)
+                    fieldColorsArray[i] = next; // reads last column - field colors
             }
         }
     }
@@ -65,5 +70,9 @@ public class FieldsDataReader {
     public int[][] getRentArrayArray() {
         readData();
         return rentArrayArray;
+    }
+
+    public String[] getFieldColorsArray() {
+        return fieldColorsArray;
     }
 }
