@@ -1,6 +1,15 @@
 @startuml
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
+
+package services {
+
+class FileImporter {
+
+}
+
+}
+
 package controllers {
 
 class MatadorMain {
@@ -164,8 +173,9 @@ class IncomeTaxField {
 }
 
 MatadorMain *-- GameController
+ViewController --> FileImporter
 ViewController --* GameController
-GameController - GameSettings
+GameController --> GameSettings
 GameController *--- Board
 GameController *--- DiceCup
 GameController *--- Player
