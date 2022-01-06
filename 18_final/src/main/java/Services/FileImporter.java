@@ -1,46 +1,43 @@
 package Services;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileReader;
+import java.io.*;
+import java.util.Scanner;
 
-    // reads an external file and stores each line as strings in a String array
-    public class FileImporter {
-        private BufferedReader reader;
+// reads an external file and stores each line as strings in a String array
+public class FileImporter {
+    private BufferedReader reader;
 
-        public String[] readAllLinesInFile(String file) {
-            String[] array = null;
+    public String[] readAllLinesInFile(String file) {
+        String[] array = null;
+        try {
+            int linesInFile = getLinesInFile(file);
+            reader = new BufferedReader(new FileReader(file));
+            array = new String[linesInFile];
+            for (int i = 0; i < linesInFile; i++)
+                array[i] = reader.readLine();
+        }
+        catch (FileNotFoundException i) {
+            System.out.println("The file cannot be found");
+        } catch (IOException e) {
+            System.out.println("Error in reading file"); }
+        finally {
             try {
-                reader = new BufferedReader(new FileReader(file));
-                int linesInFile = getLinesInFile();
-                reader = new BufferedReader(new FileReader(file));
-                array = new String[linesInFile];
-                for (int i = 0; i < linesInFile; i++)
-                    array[i] = reader.readLine();
-            }
-            catch (FileNotFoundException i) {
-                System.out.println("The file cannot be found");
+                if (reader != null)
+                    reader.close();
             } catch (IOException e) {
-                System.out.println("Error in reading file"); }
-            finally {
-                try {
-                    if (reader != null)
-                        reader.close();
-                } catch (IOException e) {
-                    System.out.println("Error in closing file");
-                }
+                System.out.println("Error in closing file");
             }
-            return array;
         }
+        return array;
+    }
 
-        private int getLinesInFile() throws IOException {
-            int lines = 0;
-            String currentLine = reader.readLine(); // read one line
-            while (currentLine != null) {
-                currentLine = reader.readLine();
-                lines++;
-            }
-            return lines;
+    private int getLinesInFile(String filename) throws IOException {
+        int lines = 0;
+        Scanner filescan = new Scanner(new File(filename));
+        while (filescan.hasNext()) {
+            filescan.nextLine();
+            lines++;
         }
+        return lines;
+    }
 }

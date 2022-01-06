@@ -18,6 +18,7 @@ public class FieldsDataReader {
     public FieldsDataReader(String filename) {
         FileImporter reader = new FileImporter();
         rawStringsData = reader.readAllLinesInFile(filename);
+        readData();
     }
 
     private void readData() {
@@ -56,22 +57,18 @@ public class FieldsDataReader {
     }
 
     public String[] getFieldNamesArray() {
-        readData();
         return fieldNamesArray;
     }
 
     public int[] getFieldPriceArray() {
-        readData();
         return fieldPriceArray;
     }
 
     public int[] getHousePriceArray() {
-        readData();
         return housePriceArray;
     }
 
     public int[][] getRentArrayArray() {
-        readData();
         return rentArrayArray;
     }
 
