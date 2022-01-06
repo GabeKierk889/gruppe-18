@@ -128,8 +128,8 @@ abstract class OwnableField {
 class StreetField {
     -numOfHouses: int
     -hasHotel: boolean
-    -housePrice: int
-    -streetColor: String
+    -HOUSEPRICE: int
+    -STREETCOLOR: String
 
 }
 
