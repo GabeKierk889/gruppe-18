@@ -35,12 +35,8 @@ public class DiceCup {
         return die2;
     }
 
-    public int sameFaceValue() {
-        int result = 0;
-        if (die1.getFaceValue() == die2.getFaceValue()) {
-            result = 1;
-        }
-        return result;
+    public boolean sameFaceValue() {
+        return die1.getFaceValue() == die2.getFaceValue();
     }
 
     public String toString() {
