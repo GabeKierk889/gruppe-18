@@ -18,4 +18,8 @@ public class Field {
         return false;
     }
 
+    public boolean isStreetField() {
+        return false;
+    }
+
 }

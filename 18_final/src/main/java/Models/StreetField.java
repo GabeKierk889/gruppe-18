@@ -44,4 +44,9 @@ public class StreetField extends OwnableField {
     public int getHOUSEPRICE() {
         return HOUSEPRICE;
     }
+
+    @Override
+    public boolean isStreetField() {
+        return true;
+    }
 }
