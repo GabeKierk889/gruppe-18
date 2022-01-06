@@ -16,6 +16,27 @@ GameController --> ViewController : «create»
 GameController -> ViewController : setupGUIBoard()
 GameController -> ViewController : getPlayerNames()
 ViewController --> GameController : playerNames
-'GameController ->
+
+create Player
+
+GameController --> Player : «create»
+
+create Account
+
+Player --> Account : «create»
+
+create Board
+
+GameController --> Board : «create»
+
+create DiceCup
+
+GameController --> DiceCup : «create»
+
+GameController -> ViewController : putPlayersOnBoard()
+
+GameController -> GameController : determinePlayerTurn()
+
+GameController -> GameController : playerTurn()
 
 @enduml
