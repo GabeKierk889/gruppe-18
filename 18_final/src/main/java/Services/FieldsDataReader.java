@@ -1,3 +1,5 @@
+package Services;
+
 import java.util.Scanner;
 
 // extracts raw data regarding fields from an external .csv file and puts the data into separate arrays
