@@ -13,10 +13,11 @@ public class ChanceCardsTextReader {
         readData();
     }
 
-    //
+    // reads and extracts any integers within the chance card text
+    // can read/store up to 2 separate numbers within 1 chance card's text
     private void readData() {
         String[] temp = new String[rawStringsData.length];
-        numArray = new int[rawStringsData.length][2]; // can read/store up to 2 numbers within 1 chance card
+        numArray = new int[rawStringsData.length][2];
         Scanner lineScan;
         for (int i = 0; i < rawStringsData.length; i++) {
             // gets rid of all characters except numbers or " "
