@@ -57,7 +57,7 @@ public class GameController {
 
         diceCup = new DiceCup();
 
-        viewController.putPlayersOnBoard();
+//        viewController.putPlayersOnBoard();
     }
 
     public void gameLoop(){
@@ -107,20 +107,20 @@ public class GameController {
 
     // a basic player turn
     private void takeTurn(){
-        diceCup.roll();
-        players[playerArrayNum].movePlayerSteps(diceCup.getSum()); // moves the player according to the throw
-        players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
-        viewController.updateGUIBalance();
-        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]); // field effect happens
+//        diceCup.roll();
+//        players[playerArrayNum].movePlayerSteps(diceCup.getSum()); // moves the player according to the throw
+//        players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
+//        viewController.updateGUIBalance();
+//        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]); // field effect happens
     }
 
     // releases the player from jail
     private void releaseFromOfJail(){
-        if(players[playerArrayNum].hasAReleaseFromJailCard()){
-            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
-        } else {
-            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
-        }
+//        if(players[playerArrayNum].hasAReleaseFromJailCard()){
+//            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+//        } else {
+//            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
+//        }
     }
 
     public static Board getBoard() { return board; }
