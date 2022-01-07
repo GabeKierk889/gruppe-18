@@ -16,17 +16,19 @@ class MatadorMain {
 
 }
 
-class GameController {
+class GameController <<Singleton>>{
     -players: Player[]
     -board: Board
     -diceCup: DiceCup
+
+    +initializeGame() : void
 }
 
 'class GameSetupController {
 '
 '}
 
-class ViewController {
+class ViewController <<Singleton>>{
 
 }
 
