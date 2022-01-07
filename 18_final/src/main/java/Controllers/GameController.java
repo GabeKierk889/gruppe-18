@@ -14,6 +14,7 @@ public class GameController {
     private Player[] players;
     private int totalPlayers;
     private int currentPlayer;
+    private int playerArrayNum = currentPlayer - 1;
 
     private GameController() {
 
@@ -40,19 +41,53 @@ public class GameController {
                 currentPlayer++;
             else
                 currentPlayer = 1; }
+        playerArrayNum = currentPlayer - 1;
     }
 
     public void initializeGame(){
         board = new Board();
-        viewController = new ViewController();
+        viewController = ViewController.getInstance();
         viewController.setupGUIBoard();
         String playerNames = viewController.getPlayerNames();
         setupPlayers(playerNames);
         currentPlayer = 1;
+        playerArrayNum = 0;
 
         diceCup = new DiceCup();
 
         viewController.putPlayersOnBoard();
+    }
+
+    public void gameLoop(){
+        boolean extraTurn = false;
+        if(!players[playerArrayNum].getIsBankrupt() && !players[playerArrayNum].getIsInJail()){
+            takeTurn();
+        }
+        if(players[playerArrayNum].getIsInJail()){
+            getOutOfJail();
+        }
+        if(diceCup.sameFaceValue()) {
+            extraTurn = true;
+        }
+        switchTurn(extraTurn);
+    }
+
+    private void takeTurn(){
+        diceCup.roll();
+        players[playerArrayNum].movePlayerSteps(diceCup.getSum());
+        players[playerArrayNum].collectStartBonus(diceCup.getSum());
+        viewController.updateGUIBalance();
+        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]);
+    }
+
+    private void getOutOfJail(){
+        if(players[playerArrayNum].hasAReleaseFromJailCard()){
+            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard());
+            takeTurn();
+        }
+        if(){
+
+        }
     }
 
     public static Board getBoard() { return board; }
