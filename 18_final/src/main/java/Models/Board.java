@@ -29,4 +29,15 @@ public class Board {
         return fields[arrayindex];
     }
 
+
+    public int getFieldArrayNumber(String fieldName) {
+        // returns the field array number of the specified field name
+        // returns -1 if the field cannot be found;
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i].getFieldName().equalsIgnoreCase(fieldName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

@@ -9,5 +9,7 @@ public class GameSettings {
     public static final int JAILFEE = 1000;
     public static final int STATETAXAMOUNT = 2000;
     public static final int INCOMETAXAMOUNT = 4000;
+    public static final double MORTGAGE_INTEREST_MULTIPLIER = 0.1;
+    public static final int MORTGAGE_INTEREST_ROUNDING = 100; // rounds interest to nearest 100
 
 }
