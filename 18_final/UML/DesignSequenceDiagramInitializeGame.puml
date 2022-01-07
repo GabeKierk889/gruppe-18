@@ -4,12 +4,12 @@
 'autonumber
 
 create MatadorMain
-create GameController
+create GameController <<Singleton>>
 
 MatadorMain --> GameController : «create»
 MatadorMain -> GameController : initializeGame()
 
-create ViewController
+create ViewController <<Singleton>>
 
 GameController --> ViewController : «create»
 
@@ -34,8 +34,6 @@ create DiceCup
 GameController --> DiceCup : «create»
 
 GameController -> ViewController : putPlayersOnBoard()
-
-GameController -> GameController : determinePlayerTurn()
 
 GameController -> GameController : playerTurn()
 

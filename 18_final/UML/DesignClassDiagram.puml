@@ -16,17 +16,19 @@ class MatadorMain {
 
 }
 
-class GameController {
+class GameController <<Singleton>>{
     -players: Player[]
     -board: Board
     -diceCup: DiceCup
+
+    +initializeGame() : void
 }
 
 'class GameSetupController {
 '
 '}
 
-class ViewController {
+class ViewController <<Singleton>>{
 
 }
 
@@ -42,6 +44,7 @@ class GameSettings {
     {static}+JAILFEE: int
     {static}+STATETAXAMOUNT: int
     {static}+INCOMETAXAMOUNT: int
+    {static}+MORTGAGE_INTEREST: double
 }
 
 class Player {
@@ -64,8 +67,8 @@ class Player {
 class Board {
     -fields: Field[]
 
-    +ownsAllOfSameType(fieldNum : int) : boolean
-    +updateRentForAllOfSameType(fieldNum : int) : void
+    +ownsAllFieldsOfSameType(fieldNum : int) : boolean
+    +updateRentForAllFieldsOfSameType(fieldNum : int) : void
     +numOfShippingFieldsOwned(playerNum : int) : int
     +getTotalNumOfFields() : int
     +buildHouse() : void
