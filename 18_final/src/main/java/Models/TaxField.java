@@ -16,8 +16,10 @@ public abstract class TaxField extends Field {
 
     public abstract int calculateTax (Player currentplayerobject);
 
-    private void payTax (Player currentplayerobject) {
-        // placeholder
+    private void payTax(Player currentplayerobject) {
+        int taxToPay = calculateTax(currentplayerobject);
+        currentplayerobject.getAccount().withdrawMoney(taxToPay);
+        // write message to gui that X amount has been paid
     }
 
 }

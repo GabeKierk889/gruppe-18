@@ -42,6 +42,7 @@ class GameSettings {
     {static}+JAILFEE: int
     {static}+STATETAXAMOUNT: int
     {static}+INCOMETAXAMOUNT: int
+    {static}+MORTGAGE_INTEREST: double
 }
 
 class Player {
