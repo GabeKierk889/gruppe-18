@@ -1,6 +1,9 @@
-package Models;
+package Models.ChanceCardSubType;
 
-public class JailReleaseCard extends ChanceCard{
+import Models.ChanceCard;
+import Models.Player;
+
+public class JailReleaseCard extends ChanceCard {
     public JailReleaseCard(String text) {
         super(text);
     }
