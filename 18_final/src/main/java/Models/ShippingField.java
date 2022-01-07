@@ -1,5 +1,7 @@
 package Models;
 
+import Controllers.GameController;
+
 public class ShippingField extends OwnableField {
 
     public ShippingField(String fieldName, int price, int[] rentArray) {
@@ -9,7 +11,7 @@ public class ShippingField extends OwnableField {
 
     @Override
     public void updateRent() {
-        int fieldsOwned = GameController.getInstance.getBoard.numOfShippingFieldsOwned(ownerNum);
+        int fieldsOwned = GameController.getInstance().getBoard().numOfShippingFieldsOwned(ownerNum);
         if (fieldsOwned > 0 && fieldsOwned < RENTARRAY.length)
             currentRent = RENTARRAY[fieldsOwned-1];
     }

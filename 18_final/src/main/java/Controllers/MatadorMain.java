@@ -4,10 +4,11 @@ public class MatadorMain {
 
     public static void main(String[] args) {
 
-        GameController gameController = new GameController();
+        GameController gameController = GameController.getInstance();
 
-        initializeGame();
+        gameController.initializeGame();
 
+        ViewController viewController = ViewController.getInstance();
     }
 
 }

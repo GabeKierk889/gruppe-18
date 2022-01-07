@@ -1,5 +1,7 @@
 package Models;
 
+import Controllers.GameController;
+
 public class StreetField extends OwnableField {
     private final String STREETCOLOR;
     private final int HOUSEPRICE;
@@ -22,9 +24,9 @@ public class StreetField extends OwnableField {
         // if not, rent is determined by numHouses. if there is, rent is the last index in the array
         currentRent = (!hasHotel) ? RENTARRAY[numOfHouses] : RENTARRAY[RENTARRAY.length-1];
         // double rent if the street is unbuilt and player owns all street of same color
-        Board board = GameController.getInstance.getBoard;
+        Board board = GameController.getInstance().getBoard();
         int fieldArrayNum = board.getFieldArrayNumber(fieldName);
-        if (numOfHouses == 0 && !hasHotel && board.ownsAllOfSameType(fieldArrayNum))
+        if (numOfHouses == 0 && !hasHotel && board.ownsAllFieldsOfSameType(fieldArrayNum))
             currentRent = 2*RENTARRAY[0];
     }
 
