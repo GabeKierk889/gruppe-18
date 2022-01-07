@@ -1,5 +1,7 @@
 package Models;
 
+import Controllers.GameController;
+
 public abstract class OwnableField extends Field {
     protected final int PRICE;
     protected int ownerNum;
@@ -18,44 +20,44 @@ public abstract class OwnableField extends Field {
         MORTGAGEVALUE = (int) (PRICE * MORTGAGE_PRICE_RATIO);
     }
 
-//    @Override
-//    public void landOnField(Player currentplayerobject) {
-//        int currentPlayerNum = GameController.getInstance.getCurrentPlayerNum;
-//        Player ownerPlayerObject = GameController.getInstance.getPlayerObject(ownerNum);
-//        // buy field or pay money
-//        if (ownerNum == 0) {
-//            buyField(currentplayerobject);
-//        }
-//        else if (ownerNum != currentPlayerNum
-//                && !ownerPlayerObject.getIsInJail()
-//                && !isMortgaged) {
-//            updateRent();
-//            currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
-////             write message to gui that a rent has been paid;
-//        }
-//        else if (ownerNum != currentPlayerNum
-//                && ownerPlayerObject.getIsInJail())
-//            ;
-////             write message to gui that owner is in jail so no rent needs to be paid
-//        else if (ownerNum != currentPlayerNum && isMortgaged)
-//            ;
-////         write message to gui that field is mortgaged so no rent needs to be paid
-//        }
+    @Override
+    public void landOnField(Player currentplayerobject) {
+        int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
+        Player ownerPlayerObject = GameController.getInstance().getPlayerObject(ownerNum);
+        // buy field or pay money
+        if (ownerNum == 0) {
+            buyField(currentplayerobject);
+        }
+        else if (ownerNum != currentPlayerNum
+                && !ownerPlayerObject.getIsInJail()
+                && !isMortgaged) {
+            updateRent();
+            currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
+//             write message to gui that a rent has been paid;
+        }
+        else if (ownerNum != currentPlayerNum
+                && ownerPlayerObject.getIsInJail())
+            ;
+//             write message to gui that owner is in jail so no rent needs to be paid
+        else if (ownerNum != currentPlayerNum && isMortgaged)
+            ;
+//         write message to gui that field is mortgaged so no rent needs to be paid
+        }
 
-//    public void buyField(Player currentplayerobject) {
-//        boolean playerWantsToBuyField; // send a message to gui and get a boolean result
-//        Board board = GameController.getInstance.getBoard;
-//        int currentPlayerNum = GameController.getInstance.getCurrentPlayerNum;
-//        int fieldArrayNum = board.getFieldArrayNumber(fieldName);
-//        if (playerWantsToBuyField) {
-//            setOwnerNum(currentPlayerNum);
-//            currentplayerobject.getAccount().withdrawMoney(PRICE);
-//            board.updateRentForAllFieldsOfSameType(fieldArrayNum);
-//            // show message in GUI that a field has been bought
-//        }
-//        else
-//            auctionField();
-//    }
+    public void buyField(Player currentplayerobject) {
+        boolean playerWantsToBuyField; // send a message to gui and get a boolean result
+        Board board = GameController.getInstance().getBoard();
+        int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
+        int fieldArrayNum = board.getFieldArrayNumber(fieldName);
+        if (true) { // use gui to get user input on whether a player wants to buy a field
+            setOwnerNum(currentPlayerNum);
+            currentplayerobject.getAccount().withdrawMoney(PRICE);
+            board.updateRentForAllFieldsOfSameType(fieldArrayNum);
+            // show message in GUI that a field has been bought
+        }
+        else
+            auctionField();
+    }
 
     private void auctionField() { }
 
