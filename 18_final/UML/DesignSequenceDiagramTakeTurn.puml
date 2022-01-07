@@ -1,6 +1,9 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+Participant GameController <<Singleton>>
+Participant DiceCup
+Participant ViewController <<Singleton>>
 
 GameController -> DiceCup : roll()
 GameController -> DiceCup : getDie1Value
