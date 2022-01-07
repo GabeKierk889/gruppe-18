@@ -13,4 +13,9 @@ public class ShippingField extends OwnableField {
         if (fieldsOwned > 0 && fieldsOwned < RENTARRAY.length)
             currentRent = RENTARRAY[fieldsOwned-1];
     }
+
+    @Override
+    public boolean isShippingField() {
+        return true;
+    }
 }

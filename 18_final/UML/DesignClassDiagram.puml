@@ -67,8 +67,8 @@ class Player {
 class Board {
     -fields: Field[]
 
-    +ownsAllOfSameType(fieldNum : int) : boolean
-    +updateRentForAllOfSameType(fieldNum : int) : void
+    +ownsAllFieldsOfSameType(fieldNum : int) : boolean
+    +updateRentForAllFieldsOfSameType(fieldNum : int) : void
     +numOfShippingFieldsOwned(playerNum : int) : int
     +getTotalNumOfFields() : int
     +buildHouse() : void

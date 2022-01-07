@@ -17,7 +17,9 @@ public class Field {
     public boolean isOwnableField() {
         return false;
     }
-
+    public boolean isShippingField() {
+        return false;
+    }
     public boolean isStreetField() {
         return false;
     }
