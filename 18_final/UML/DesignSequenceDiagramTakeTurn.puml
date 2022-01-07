@@ -23,7 +23,7 @@ end
     GameController -> Field : landOnField(currentPlayerObject)
 
 loop onFieldNum != newFieldNum
-    GameController -> Field : landOnField((currentPlayerObject)
+    GameController -> Field : landOnField(currentPlayerObject)
 end
 
 GameController -> GameController : switchTurn()

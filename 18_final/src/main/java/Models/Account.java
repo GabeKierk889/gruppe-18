@@ -11,7 +11,7 @@ public class Account {
     }
 
     // Withdraws money.
-    public void withdrawMoney (double withdrawal) {
+    public void withdrawMoney (int withdrawal) {
         // currently allowing a negative balance
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
@@ -30,14 +30,14 @@ public class Account {
     }
 
     // Deposits money.
-    public void depositMoney(double deposit) {
+    public void depositMoney(int deposit) {
         // Only allows depositing a positive amount to the current balance.
         if (deposit > 0) {
             this.balance += deposit;
         }
     }
 
-    public void transferMoney(double amount, int recipientPlayerNum) {
+    public void transferMoney(int amount, int recipientPlayerNum) {
         withdrawMoney(amount);
 //        MonopolyGame.game.getPlayerObject(recipientPlayerNum).getAccount().depositMoney(amount);
     }

@@ -50,7 +50,7 @@ public abstract class OwnableField extends Field {
         if (playerWantsToBuyField) {
             setOwnerNum(currentPlayerNum);
             currentplayerobject.getAccount().withdrawMoney(PRICE);
-            board.updateRentForAllOfTheSameType(fieldArrayNum);
+            board.updateRentForAllFieldsOfSameType(fieldArrayNum);
             // show message in GUI that a field has been bought
         }
         else

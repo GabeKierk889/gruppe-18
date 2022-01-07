@@ -11,7 +11,7 @@ public class BreweryField extends OwnableField {
         int diceSum = GameController.getInstance.getDiceCup.getSum();
         Board board = GameController.getInstance.getBoard;
         int fieldArrayNum = board.getFieldArrayNumber(fieldName);
-        if (board.ownsAllOfSameType(fieldArrayNum))
+        if (board.ownsAllFieldsOfSameType(fieldArrayNum))
             currentRent = RENTARRAY[1] * diceSum;
         else
             currentRent = RENTARRAY[0] * diceSum;
