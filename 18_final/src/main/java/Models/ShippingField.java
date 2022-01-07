@@ -9,5 +9,8 @@ public class ShippingField extends OwnableField {
 
     @Override
     public void updateRent() {
+        int fieldsOwned = GameController.getInstance.getBoard.numOfShippingFieldsOwned(ownerNum);
+        if (fieldsOwned > 0 && fieldsOwned < RENTARRAY.length)
+            currentRent = RENTARRAY[fieldsOwned-1];
     }
 }
