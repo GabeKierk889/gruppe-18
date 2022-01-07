@@ -6,7 +6,6 @@ import Models.*;
 public class GameController {
 
     private ViewController viewController;
-    private Player player;
     private static Board board;
     private DiceCup diceCup;
     private static GameController single_instance;
@@ -28,12 +27,11 @@ public class GameController {
     }
 
     // sets up player names and player array
-    private void setupPlayers(String ... player_names){
-        playerNames = player_names;
+    private void setupPlayers(){
         totalPlayers = playerNames.length;
         players = new Player[totalPlayers];
         for (int i = 0; i < totalPlayers; i++) {
-            players[i] = new Player(player_names[i]);
+            players[i] = new Player(playerNames[i]);
         }
     }
 
@@ -52,8 +50,8 @@ public class GameController {
         board = new Board();
         viewController = ViewController.getInstance();
         viewController.setupGUIBoard();
-        String playerNames = viewController.getPlayerNames();
-        setupPlayers(playerNames);
+        playerNames = viewController.getPlayerNames();
+        setupPlayers();
         currentPlayerNum = 1;
         playerArrayNum = 0;
 
@@ -126,6 +124,7 @@ public class GameController {
     }
 
     public static Board getBoard() { return board; }
+
     public DiceCup getDiceCup() {
         return diceCup;
     }
@@ -138,5 +137,5 @@ public class GameController {
     public void setCurrentPlayerNum(int currentPlayerNum) {
         this.currentPlayerNum = currentPlayerNum;
     }
-    public Player getPlayerObject(int playerNum) { return players[playerArrayNum]; }
+    public Player getPlayerObject(int playerNum) { return players[playerNum - 1]; }
 }
