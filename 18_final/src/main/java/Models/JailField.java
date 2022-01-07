@@ -11,4 +11,10 @@ public class JailField extends Field {
         currentplayerobject.setIsInJail(true);
         // placeholder - print out message to GUI
     }
+
+    @Override
+    public boolean isJailField() {
+        return true;
+    }
+
 }

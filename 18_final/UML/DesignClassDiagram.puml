@@ -70,6 +70,7 @@ class Board {
     +ownsAllFieldsOfSameType(fieldNum : int) : boolean
     +updateRentForAllFieldsOfSameType(fieldNum : int) : void
     +numOfShippingFieldsOwned(playerNum : int) : int
+    +numBuildingsOwnedByCurrentPlayer() : int[]
     +getTotalNumOfFields() : int
     +buildHouse() : void
     +buildHotel() : void

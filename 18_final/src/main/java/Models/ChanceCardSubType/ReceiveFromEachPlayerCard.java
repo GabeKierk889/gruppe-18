@@ -4,12 +4,14 @@ import Controllers.GameController;
 import Models.ChanceCard;
 import Models.Player;
 
-public class ReceiveFromEachPlayerCard extends ChanceCard {
-    private final int receiveAmount;
+//This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
-    public ReceiveFromEachPlayerCard(String text, int receiveAmount) {
+public class ReceiveFromEachPlayerCard extends ChanceCard {
+    private final int AMOUNT;
+
+    public ReceiveFromEachPlayerCard(String text, int[] amount) {
         super(text);
-        this.receiveAmount = receiveAmount;
+        AMOUNT = amount[0];
     }
 
     @Override
@@ -19,7 +21,7 @@ public class ReceiveFromEachPlayerCard extends ChanceCard {
         {
             if(currentPlayerNum != i + 1 && !GameController.getInstance().getPlayerObject(i + 1).getIsBankrupt())
             {
-                GameController.getInstance().getPlayerObject(i + 1).getAccount().transferMoney(receiveAmount, currentPlayerNum);
+                GameController.getInstance().getPlayerObject(i + 1).getAccount().transferMoney(AMOUNT, currentPlayerNum);
             }
         }
         // update gui bank balance

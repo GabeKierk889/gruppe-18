@@ -23,5 +23,8 @@ public class Field {
     public boolean isStreetField() {
         return false;
     }
+    public boolean isJailField() {
+        return false;
+    }
 
 }

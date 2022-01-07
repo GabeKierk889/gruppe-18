@@ -2,11 +2,13 @@ package Models;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
+import Controllers.GameController;
+
 public class Player {
     private final String name;
     private final Account account;
     private int onField;
-    private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt/ lost all their money
+    private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt
     private boolean isInJail;
     private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
 
@@ -19,7 +21,7 @@ public class Player {
     }
 
     public int movePlayerSteps(int stepsToMove) {
-//        onField = (onField+stepsToMove) % Board.getTotalNumberOfFields();
+        onField = (onField+stepsToMove) % GameController.getBoard().getTotalNumOfFields();
         return onField; }
 
     public void collectStartBonus(int diceThrow) {
@@ -28,9 +30,10 @@ public class Player {
             getAccount().depositMoney(GameSettings.STARTBONUS);
     }
 
-//    public void movePlayerToField(int fieldArrayNumber) {
-//        onField = fieldArrayNumber % Board.getTotalNumberOfFields();
-//    }
+    public void movePlayerToField(int fieldArrayNumber) {
+        if(fieldArrayNumber >= 0)
+            onField = fieldArrayNumber % GameController.getBoard().getTotalNumOfFields();
+    }
 
     public String getName() {
         return name;
