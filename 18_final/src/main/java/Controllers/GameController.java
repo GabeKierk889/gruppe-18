@@ -13,19 +13,21 @@ public class GameController {
     private String[] playerNames;
     private Player[] players;
     private int totalPlayers;
-    private int currentPlayer;
-    private int playerArrayNum = currentPlayer - 1;
+    private int currentPlayerNum;
+    private int playerArrayNum = currentPlayerNum - 1;
 
     private GameController() {
 
     }
 
+    // makes this class a singleton
     public static GameController getInstance() {
         if (single_instance == null)
             single_instance = new GameController();
         return single_instance;
     }
 
+    // sets up player names and player array
     private void setupPlayers(String ... player_names){
         playerNames = player_names;
         totalPlayers = playerNames.length;
@@ -35,22 +37,24 @@ public class GameController {
         }
     }
 
+    // switches turn if there is no extra turn
     public void switchTurn(boolean extraTurn) {
         if (!extraTurn) {
-            if (currentPlayer < totalPlayers)
-                currentPlayer++;
+            if (currentPlayerNum < totalPlayers)
+                currentPlayerNum++;
             else
-                currentPlayer = 1; }
-        playerArrayNum = currentPlayer - 1;
+                currentPlayerNum = 1; }
+        playerArrayNum = currentPlayerNum - 1;
     }
 
+    // setups up the game board, players and dice
     public void initializeGame(){
         board = new Board();
         viewController = ViewController.getInstance();
         viewController.setupGUIBoard();
         String playerNames = viewController.getPlayerNames();
         setupPlayers(playerNames);
-        currentPlayer = 1;
+        currentPlayerNum = 1;
         playerArrayNum = 0;
 
         diceCup = new DiceCup();
@@ -64,29 +68,60 @@ public class GameController {
             takeTurn();
         }
         if(players[playerArrayNum].getIsInJail()){
-            getOutOfJail();
+            releaseFromOfJail();
+            takeTurn();
         }
         if(diceCup.sameFaceValue()) {
             extraTurn = true;
         }
         switchTurn(extraTurn);
+        checkForWinner();
+        determineWinner();
+
     }
 
+    // finds a winner if all other than one player is bankrupt
+    private boolean checkForWinner(){
+        boolean winner = false;
+        int bankruptCounter = 0;
+        for(int i = 0; i < players.length; i++){
+            if(players[i].getIsBankrupt()){
+                bankruptCounter++;
+            }
+            if (bankruptCounter == players.length - 1) {
+                winner = true;
+            }
+        }
+        return winner;
+    }
+
+    // the winner is the only player who is not bankrupt
+    private int determineWinner(){
+        if(checkForWinner()) {
+            for (int i = 0; i < players.length; i++) {
+                if (!players[i].getIsBankrupt()) {
+                    return i + 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    // a basic player turn
     private void takeTurn(){
         diceCup.roll();
-        players[playerArrayNum].movePlayerSteps(diceCup.getSum());
-        players[playerArrayNum].collectStartBonus(diceCup.getSum());
+        players[playerArrayNum].movePlayerSteps(diceCup.getSum()); // moves the player according to the throw
+        players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
         viewController.updateGUIBalance();
-        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]);
+        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]); // field effect happens
     }
 
-    private void getOutOfJail(){
+    // releases the player from jail
+    private void releaseFromOfJail(){
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
-            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard());
-            takeTurn();
-        }
-        if(){
-
+            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+        } else {
+            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
         }
     }
 
@@ -94,13 +129,14 @@ public class GameController {
     public DiceCup getDiceCup() {
         return diceCup;
     }
-    public int getCurrentPlayer() {
-        return currentPlayer;
+    public int getCurrentPlayerNum() {
+        return currentPlayerNum;
     }
     public int getTotalPlayers() {
         return totalPlayers;
     }
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setCurrentPlayerNum(int currentPlayerNum) {
+        this.currentPlayerNum = currentPlayerNum;
     }
+    public Player getPlayerObject(int playerNum) { return players[playerArrayNum]; }
 }
