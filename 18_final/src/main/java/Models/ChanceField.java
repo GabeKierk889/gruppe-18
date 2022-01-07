@@ -11,12 +11,12 @@ public class ChanceField extends Field{
 
     public ChanceField(String fieldName) {
         super(fieldName);
-        if(chanceCards == null) {
-            // creates and shuffles the deck of cards when the first chancefield is instantiated
-        ChanceCardsCreator service = new ChanceCardsCreator();
-        chanceCards = service.createChanceCardsDeck();
-        shuffleChanceCards();
-        }
+//        if(chanceCards == null) {
+//            // creates and shuffles the deck of cards when the first chancefield is instantiated
+//        ChanceCardsCreator service = new ChanceCardsCreator();
+//        chanceCards = service.createChanceCardsDeck();
+//        shuffleChanceCards();
+//        }
     }
 
     @Override
