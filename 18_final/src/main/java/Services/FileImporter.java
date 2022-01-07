@@ -17,15 +17,15 @@ public class FileImporter {
                 array[i] = reader.readLine();
         }
         catch (FileNotFoundException i) {
-            System.out.println("The file cannot be found");
+            System.out.println("System error - the file cannot be found");
         } catch (IOException e) {
-            System.out.println("Error in reading file"); }
+            System.out.println("System error - cannot read file"); }
         finally {
             try {
                 if (reader != null)
                     reader.close();
             } catch (IOException e) {
-                System.out.println("Error in closing file");
+                System.out.println("System error - cannot close file");
             }
         }
         return array;

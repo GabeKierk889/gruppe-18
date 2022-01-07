@@ -7,37 +7,32 @@ import java.util.Scanner;
 // assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1 etc. with field color as last column.
 
 public class FieldsDataReader {
-    private String[] rawStringsData;
-    private String[] fieldNamesArray;
-    private String[] fieldTypeArray;
-    private int[] fieldPriceArray;
-    private int[] housePriceArray;
+    private String[] rawStringsData, fieldNamesArray, fieldTypeArray, streetColorsArray;
+    private int[] fieldPriceArray, housePriceArray;
     private int[][] rentArrayArray;
-    private String[] streetColorsArray;
+    private int rentLevels = 6;
 
     public FieldsDataReader(String filename) {
         FileImporter reader = new FileImporter();
         rawStringsData = reader.readAllLinesInFile(filename);
-        readData();
-    }
-
-    private void readData() {
-        int rentLevels = 6;
-        Scanner lineScan;
         fieldNamesArray = new String[rawStringsData.length - 1];
         streetColorsArray = new String[rawStringsData.length - 1];
         fieldTypeArray = new String[rawStringsData.length - 1];
         fieldPriceArray = new int[rawStringsData.length - 1];
         housePriceArray = new int[rawStringsData.length - 1];
         rentArrayArray = new int[rawStringsData.length - 1][rentLevels];
+        readData();
+    }
 
+    private void readData() {
+        Scanner lineScan;
         for (int i = 0; i < fieldNamesArray.length; i++) {
             // scanner reads through all the lines, one line at a time
             lineScan = new Scanner(rawStringsData[i + 1]);
             lineScan.useDelimiter(","); // csv file delimited by comma
             fieldNamesArray[i] = lineScan.next(); // reads first column - field names
             lineScan.next();
-            fieldTypeArray[i] = lineScan.next();
+            fieldTypeArray[i] = lineScan.next(); // reads 3rd column - field types
             String next = lineScan.next();
             if (!next.equals(""))
                 fieldPriceArray[i] = Integer.parseInt(next); // reads field prices

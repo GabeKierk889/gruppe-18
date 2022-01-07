@@ -21,7 +21,7 @@ public class ChanceCardsTextReader {
         Scanner lineScan;
         for (int i = 0; i < rawStringsData.length; i++) {
             // gets rid of all characters except numbers or " "
-            temp[i] = rawStringsData[i].replaceAll("[^0-9\\ ]","");
+            temp[i] = rawStringsData[i].replaceAll("[^0-9 ]","");
             lineScan = new Scanner(temp[i]); // uses scanner delimited by " " to pick out numbers
             int counter = 0;
             String next;
