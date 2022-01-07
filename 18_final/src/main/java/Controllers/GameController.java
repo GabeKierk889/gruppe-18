@@ -13,8 +13,8 @@ public class GameController {
     private String[] playerNames;
     private Player[] players;
     private int totalPlayers;
-    private int currentPlayer;
-    private int playerArrayNum = currentPlayer - 1;
+    private int currentPlayerNum;
+    private int playerArrayNum = currentPlayerNum - 1;
 
     private GameController() {
 
@@ -37,11 +37,11 @@ public class GameController {
 
     public void switchTurn(boolean extraTurn) {
         if (!extraTurn) {
-            if (currentPlayer < totalPlayers)
-                currentPlayer++;
+            if (currentPlayerNum < totalPlayers)
+                currentPlayerNum++;
             else
-                currentPlayer = 1; }
-        playerArrayNum = currentPlayer - 1;
+                currentPlayerNum = 1; }
+        playerArrayNum = currentPlayerNum - 1;
     }
 
     public void initializeGame(){
@@ -50,7 +50,7 @@ public class GameController {
         viewController.setupGUIBoard();
         String playerNames = viewController.getPlayerNames();
         setupPlayers(playerNames);
-        currentPlayer = 1;
+        currentPlayerNum = 1;
         playerArrayNum = 0;
 
         diceCup = new DiceCup();
@@ -70,6 +70,34 @@ public class GameController {
             extraTurn = true;
         }
         switchTurn(extraTurn);
+        checkForWinner();
+        determineWinner();
+
+    }
+
+    private boolean checkForWinner(){
+        boolean winner = false;
+        int bankruptCounter = 0;
+        for(int i = 0; i < players.length; i++){
+            if(players[i].getIsBankrupt()){
+                bankruptCounter++;
+            }
+            if (bankruptCounter == players.length - 1) {
+                winner = true;
+            }
+        }
+        return winner;
+    }
+
+    private int determineWinner(){
+        if(checkForWinner()) {
+            for (int i = 0; i < players.length; i++) {
+                if (!players[i].getIsBankrupt()) {
+                    return i + 1;
+                }
+            }
+        }
+        return 0;
     }
 
     private void takeTurn(){
@@ -94,13 +122,13 @@ public class GameController {
     public DiceCup getDiceCup() {
         return diceCup;
     }
-    public int getCurrentPlayer() {
-        return currentPlayer;
+    public int getCurrentPlayerNum() {
+        return currentPlayerNum;
     }
     public int getTotalPlayers() {
         return totalPlayers;
     }
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setCurrentPlayerNum(int currentPlayerNum) {
+        this.currentPlayerNum = currentPlayerNum;
     }
 }
