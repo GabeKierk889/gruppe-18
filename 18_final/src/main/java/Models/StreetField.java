@@ -18,6 +18,14 @@ public class StreetField extends OwnableField {
 
     @Override
     public void updateRent() {
+        // conditional operator checks if there is a hotel or not
+        // if not, rent is determined by numHouses. if there is, rent is the last index in the array
+        currentRent = (!hasHotel) ? RENTARRAY[numOfHouses] : RENTARRAY[RENTARRAY.length-1];
+        // double rent if the street is unbuilt and player owns all street of same color
+        Board board = GameController.getInstance.getBoard;
+        int fieldArrayNum = board.getFieldArrayNumber(fieldName);
+        if (numOfHouses == 0 && !hasHotel && board.ownsAllOfSameType(fieldArrayNum))
+            currentRent = 2*RENTARRAY[0];
     }
 
     public int getNumOfHouses() {

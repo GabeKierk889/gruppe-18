@@ -8,6 +8,13 @@ public class IncomeTaxField extends TaxField {
 
     @Override
     public int calculateTax(Player currentplayerobject) {
-        return 0;
+        // placeholder - use gui to ask player if they want to pay 10% or the fixed tax amount
+        if(false) {
+            // calculate 10% of assets
+            int tenPercent;
+            tenPercent = 0;
+            return tenPercent;
+        }
+        else return FIXEDTAX;
     }
 }
