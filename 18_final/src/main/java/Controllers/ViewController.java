@@ -14,15 +14,28 @@ public class ViewController {
     private GUI_Car guiCars;
     private GUI_Player[] guiPlayers;
     private GUI gui;
+    private static ViewController single_instance;
+    int numbOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
+
+    private ViewController() {
+
+    }
+
+    public static ViewController getInstance() {
+        if (single_instance == null)
+            single_instance = new ViewController();
+        return single_instance;
+    }
+
 
     public void setupGUIBoard() {
-        guiFields = new GUI_Field[40];
-        guiStreets = new GUI_Street[40];
+        guiFields = new GUI_Field[numbOfFields];
+        guiStreets = new GUI_Street[numbOfFields];
         gui = new GUI(guiFields, new Color(230,230,230));
 
     }
 
-    public void getPlayerNames() {
+    public String getPlayerNames() {
 
     }
 
