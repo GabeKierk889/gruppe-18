@@ -1,5 +1,7 @@
 package Models;
 
+import Controllers.GameController;
+
 public class BreweryField extends OwnableField {
 
     public BreweryField(String fieldName, int price, int[] rentArray) {
@@ -8,8 +10,8 @@ public class BreweryField extends OwnableField {
 
     @Override
     public void updateRent() {
-        int diceSum = GameController.getInstance.getDiceCup.getSum();
-        Board board = GameController.getInstance.getBoard;
+        int diceSum = GameController.getInstance().getDiceCup().getSum();
+        Board board = GameController.getInstance().getBoard();
         int fieldArrayNum = board.getFieldArrayNumber(fieldName);
         if (board.ownsAllFieldsOfSameType(fieldArrayNum))
             currentRent = RENTARRAY[1] * diceSum;

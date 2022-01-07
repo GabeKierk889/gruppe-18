@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Board;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -31,23 +32,24 @@ public class ViewController {
     public void setupGUIBoard() {
         guiFields = new GUI_Field[numbOfFields];
         guiStreets = new GUI_Street[numbOfFields];
+
+        Board board = GameController.getInstance().getBoard();
+
+        for (int i = 0; i < board.getTotalNumOfFields(); i++) { // sets up all GUI fields/streets
+            guiStreets[i] = new GUI_Street();
+            guiStreets[i].setTitle(board.getFieldObject(i).getFieldName());
+            guiStreets[i].setBackGroundColor(Color.lightGray);
+            guiFields[i] = guiStreets[i];
+        }
+
         gui = new GUI(guiFields, new Color(230,230,230));
-
     }
 
-    public String getPlayerNames() {
-
-    }
+//    public String getPlayerNames() {
+//
+//    }
 
     public void putPlayersOnBoard() {
 
-    }
-}
-
-class Main {
-    public static void main(String[] args) {
-        ViewController viewController = new ViewController();
-
-        viewController.setupGUIBoard();
     }
 }
