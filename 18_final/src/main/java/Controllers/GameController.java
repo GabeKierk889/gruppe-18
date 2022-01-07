@@ -64,7 +64,8 @@ public class GameController {
             takeTurn();
         }
         if(players[playerArrayNum].getIsInJail()){
-            getOutOfJail();
+            releaseFromOfJail();
+            takeTurn();
         }
         if(diceCup.sameFaceValue()) {
             extraTurn = true;
@@ -108,13 +109,11 @@ public class GameController {
         board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]);
     }
 
-    private void getOutOfJail(){
+    private void releaseFromOfJail(){
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
             ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard());
-            takeTurn();
-        }
-        if(){
-
+        } else {
+            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE);
         }
     }
 
@@ -131,4 +130,5 @@ public class GameController {
     public void setCurrentPlayerNum(int currentPlayerNum) {
         this.currentPlayerNum = currentPlayerNum;
     }
+    public Player getPlayerObject(int playerNum) { return players[playerArrayNum]; }
 }
