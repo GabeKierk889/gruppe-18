@@ -20,12 +20,14 @@ public class GameController {
 
     }
 
+    // makes this class a singleton
     public static GameController getInstance() {
         if (single_instance == null)
             single_instance = new GameController();
         return single_instance;
     }
 
+    // sets up player names and player array
     private void setupPlayers(String ... player_names){
         playerNames = player_names;
         totalPlayers = playerNames.length;
@@ -35,6 +37,7 @@ public class GameController {
         }
     }
 
+    // switches turn if there is no extra turn
     public void switchTurn(boolean extraTurn) {
         if (!extraTurn) {
             if (currentPlayerNum < totalPlayers)
@@ -44,6 +47,7 @@ public class GameController {
         playerArrayNum = currentPlayerNum - 1;
     }
 
+    // setups up the game board, players and dice
     public void initializeGame(){
         board = new Board();
         viewController = ViewController.getInstance();
@@ -76,6 +80,7 @@ public class GameController {
 
     }
 
+    // finds a winner if all other than one player is bankrupt
     private boolean checkForWinner(){
         boolean winner = false;
         int bankruptCounter = 0;
@@ -90,6 +95,7 @@ public class GameController {
         return winner;
     }
 
+    // the winner is the only player who is not bankrupt
     private int determineWinner(){
         if(checkForWinner()) {
             for (int i = 0; i < players.length; i++) {
@@ -101,19 +107,21 @@ public class GameController {
         return 0;
     }
 
+    // a basic player turn
     private void takeTurn(){
         diceCup.roll();
-        players[playerArrayNum].movePlayerSteps(diceCup.getSum());
-        players[playerArrayNum].collectStartBonus(diceCup.getSum());
+        players[playerArrayNum].movePlayerSteps(diceCup.getSum()); // moves the player according to the throw
+        players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
         viewController.updateGUIBalance();
-        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]);
+        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]); // field effect happens
     }
 
+    // releases the player from jail
     private void releaseFromOfJail(){
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
-            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard());
+            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
         } else {
-            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE);
+            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
         }
     }
 
