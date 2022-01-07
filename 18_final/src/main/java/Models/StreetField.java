@@ -39,11 +39,11 @@ public class StreetField extends OwnableField {
             this.numOfHouses = numOfHouses;
     }
 
-    public boolean getHotelStatus() {
+    public boolean hasHotel() {
         return hasHotel;
     }
 
-    public void setHotelStatus (boolean hasHotel) {
+    public void setHasHotel(boolean hasHotel) {
         this.hasHotel = hasHotel;
     }
 
