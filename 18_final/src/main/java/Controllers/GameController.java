@@ -65,7 +65,7 @@ public class GameController {
         if(!players[playerArrayNum].getIsBankrupt() && !players[playerArrayNum].getIsInJail()){
             takeTurn();
         }
-        if(players[playerArrayNum].getIsInJail()){
+        if(playerIsInJail){
             releaseFromOfJail();
             takeTurn();
         }
@@ -102,6 +102,25 @@ public class GameController {
                 }
             }
         }
+        return 0;
+    }
+
+    private int goBankrupt(){
+        int paymentAmount;
+        int assetsValue;
+
+        for(int i = 0; i < players.length; i++) {
+            if(paymentAmount > assetsValue){
+                players[i].getAccount().withdrawMoney(players[i].getAccount().getBalance());
+                players[i].getIsBankrupt();
+            }
+
+        }
+
+        return 0;
+    }
+
+    private int calculateAssets(){
         return 0;
     }
 
