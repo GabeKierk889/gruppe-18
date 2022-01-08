@@ -46,7 +46,7 @@ public class ViewController {
         gui = new GUI(guiFields, new Color(230, 230, 230));
     }
 
-    public String getPlayerNames() {
+    public String[] getPlayerNames() {
         String str = gui.getUserString("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today");
         String[] strarray = str.split(" ");
         boolean duplicateNames = false;
@@ -59,10 +59,8 @@ public class ViewController {
         }
         if (duplicateNames) {
             gui.showMessage("Error, two players cannot have exactly the same name. Please try again.");
-            getPlayerNames();
         } else if (strarray.length > GameSettings.MAXNUMOFPLAYERS || strarray.length < GameSettings.MINNUMOFPLAYERS) {
 //            gui.showMessage();
-            getPlayerNames();
         } else {
             String names = "";
             for (int i = 0; i < strarray.length; i++) {
@@ -71,17 +69,13 @@ public class ViewController {
                 else
                     names += "Player  " + (i + 1) + ": " + strarray[i];
             }
-
-            if ("Yes, begin game".equalsIgnoreCase(gui.getUserButtonPressed("Here are the names that you entered," +
+            if (gui.getUserLeftButtonPressed("Here are the names that you entered," +
                             "and the order of the players' turns: \n" + names + "\n\n\t\t\tDo you want to start the game?",
-                    "Yes, begin game", "No, reset names"))) {
-                return str;
-            } else {
-                getPlayerNames();
+                    "Yes", "No, reset names")) {
+                return strarray;
             }
         }
-
-        return "";
+        return getPlayerNames();
     }
 
 //    public void putPlayersOnBoard() {
