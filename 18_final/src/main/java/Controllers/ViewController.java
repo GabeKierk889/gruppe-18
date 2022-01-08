@@ -88,7 +88,7 @@ public class ViewController {
         int totalPlayers = GameController.getInstance().getTotalPlayers();
 
         for (int i = totalPlayers; i >= 0; i--) {
-            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(),)
+            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(), )
         }
     }
 
