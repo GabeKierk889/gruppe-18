@@ -44,6 +44,8 @@ public class ViewController {
         }
 
         gui = new GUI(guiFields, new Color(230, 230, 230));
+
+        formatStreets();
     }
 
     public String[] getPlayerNames() {
@@ -78,7 +80,40 @@ public class ViewController {
         return getPlayerNames();
     }
 
-//    public void putPlayersOnBoard() {
-//
-//    }
+    public void putPlayersOnBoard() {
+        int[] players = GameController.getInstance().
+        for ()
+    }
+
+    public void formatStreets() {
+        guiStreets[1].setBackGroundColor(new Color(0,0,255));
+    }
+
+    public void rollMessage() {
+        String name = getCurrentPlayerName();
+        gui.getUserButtonPressed(name+guiMessage[0],guiMessage[1]);
+    }
+
+    private int currentPlayerNum() {
+        return GameController.getInstance().getCurrentPlayerNum();
+    }
+
+    private String getCurrentPlayerName() {
+        return GameController.getInstance().getPlayerObject(currentPlayerNum()).getName();
+    }
+
+    private String getPlayerName(int playerNum) {
+        return GameController.getInstance().getPlayerObject(playerNum).getName();
+    }
+
+    public void updateGUIDice(int die1,int die2) {
+        gui.setDice((int) (Math.random() * 4 + 3),
+                (int) (Math.random() * 5 + 2),
+                die1,
+                (int) (Math.random() * 359),
+                (int) (Math.random() * 4 + 7),
+                (int) (Math.random() * 5 + 2),
+                die2,
+                (int) (Math.random() * 359));
+    }
 }
