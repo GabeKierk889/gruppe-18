@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Account;
 import Models.Board;
 import Models.GameSettings;
 import gui_fields.GUI_Car;
@@ -81,8 +82,11 @@ public class ViewController {
     }
 
     public void putPlayersOnBoard() {
-        int[] players = GameController.getInstance().
-        for ()
+        int totalPlayers = GameController.getInstance().getTotalPlayers();
+
+        for (int i = totalPlayers; i >= 0; i--) {
+            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(),)
+        }
     }
 
     public void formatStreets() {
