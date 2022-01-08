@@ -124,24 +124,17 @@ public class ViewController {
         guiPlayers = new GUI_Player[totalPlayers];
 
         for (int i = totalPlayers - 1; i >= 0; i--) {
-            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(),
+            guiPlayers[i] = new GUI_Player(getPlayerName(i+1),
                     GameSettings.STARTINGBALANCE, guiCars[i]);
             gui.addPlayer(guiPlayers[i]);
             guiFields[0].setCar(guiPlayers[i], true);
         }
     }
 
-    public void moveGUICar() {
-        GUI_Field previousGUIField = guiFields[GameController.getInstance().getPlayerObject(GameController.getInstance()
-                        .getCurrentPlayerNum()).OnField()];
-        GUI_Field newGUIField = guiFields[GameController.getInstance().getPlayerObject(GameController.getInstance()
-                .getCurrentPlayerNum()).movePlayerSteps(GameController.getInstance().getDiceCup().getSum())];
-
-        GUI_Player currentGUIPlayer = guiPlayers[GameController.getInstance().getCurrentPlayerNum() - 1];
-
-        previousGUIField.setCar(currentGUIPlayer, false);
-
-        newGUIField.setCar(currentGUIPlayer, true);
+    public void moveGUICar(int moveFrom, int moveTo, int currentPlayerNum) {
+        GUI_Player currentGUIPlayer = guiPlayers[currentPlayerNum - 1];
+        guiFields[moveFrom].setCar(currentGUIPlayer, false);
+        guiFields[moveTo].setCar(currentGUIPlayer, true);
     }
 
     // TODO: Format fields.
@@ -167,13 +160,11 @@ public class ViewController {
     }
 
     public void updateGUIDice(int die1,int die2) {
-        gui.setDice((int) (Math.random() * 4 + 3),
-                (int) (Math.random() * 5 + 2),
-                die1,
+        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 4 + 3),
+                (int) (Math.random() * 5 + 2), die2,
                 (int) (Math.random() * 359),
                 (int) (Math.random() * 4 + 7),
-                (int) (Math.random() * 5 + 2),
-                die2,
-                (int) (Math.random() * 359));
+                (int) (Math.random() * 5 + 2)
+                );
     }
 }
