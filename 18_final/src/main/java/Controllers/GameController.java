@@ -169,7 +169,7 @@ public class GameController {
             diceCup.roll();
             players[playerArrayNum].movePlayerSteps(diceCup.getSum());
             viewController.moveGUICar();
-            switchTurn(false);
+//            switchTurn(false);
         }
     }
 }
