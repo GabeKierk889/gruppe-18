@@ -13,7 +13,7 @@ public class GameController {
     private Player[] players;
     private int totalPlayers;
     private int currentPlayerNum;
-    private int playerArrayNum = currentPlayerNum - 1;
+    private int playerArrayNum;
 
     private GameController() {
 
@@ -41,8 +41,11 @@ public class GameController {
             if (currentPlayerNum < totalPlayers)
                 currentPlayerNum++;
             else
-                currentPlayerNum = 1; }
-        playerArrayNum = currentPlayerNum - 1;
+                currentPlayerNum = 1;
+            playerArrayNum = currentPlayerNum - 1;
+            if (players[playerArrayNum].getIsBankrupt()) // skips any bankrupt players
+                switchTurn(false);
+        }
     }
 
     // setups up the game board, players and dice
