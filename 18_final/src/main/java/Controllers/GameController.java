@@ -65,7 +65,9 @@ public class GameController {
 
     public void gameLoop(){
         boolean extraTurn = false;
-        if(!players[playerArrayNum].getIsBankrupt() && !players[playerArrayNum].getIsInJail()){
+        boolean playerIsInJail = players[playerArrayNum].getIsInJail();
+
+        if(!playerIsInJail){
             takeTurn();
         }
         if(playerIsInJail){
