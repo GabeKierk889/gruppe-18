@@ -1,5 +1,8 @@
 package Services;
 
+import Models.StreetField;
+import com.sun.source.doctree.SeeTree;
+
 import java.util.Scanner;
 
 // extracts raw data regarding fields from an external .csv file and puts the data into separate arrays
@@ -10,7 +13,7 @@ public class FieldsDataReader {
     private String[] rawStringsData, fieldNamesArray, fieldTypeArray, streetColorsArray;
     private int[] fieldPriceArray, housePriceArray;
     private int[][] rentArrayArray;
-    private int rentLevels = 6;
+    private int rentLevels = StreetField.MAXNUMOFHOUSES + 2; // 1 rent level for each house + noHouse + hotel
 
     public FieldsDataReader(String filename) {
         FileImporter reader = new FileImporter();

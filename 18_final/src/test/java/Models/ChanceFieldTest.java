@@ -6,11 +6,12 @@ import Models.ChanceCardSubType.JailReleaseCard;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ChanceFieldTest { // tested by Xiao 19 Nov 21
+class ChanceFieldTest { // tested by Xiao 7 Jan 22
     //This code is from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
     @Test
     void drawChanceCardFromTop() {
+        ChanceField field = new ChanceField("");
         ChanceCard drawn = ChanceField.drawChanceCard();
         // checks that the card drawn is put back in the bottom of the stack (but not jail cards)
         if (drawn instanceof JailReleaseCard)
@@ -26,6 +27,8 @@ class ChanceFieldTest { // tested by Xiao 19 Nov 21
 
     @Test
     void shuffleCards() {
+        ChanceField field = new ChanceField("");
+
         boolean isStackDifferent = false;
 
         // copies the current array of cards
@@ -48,6 +51,8 @@ class ChanceFieldTest { // tested by Xiao 19 Nov 21
 
     @Test
     void putAllNullCardsinTheBottomOfDeck() {
+        ChanceField field = new ChanceField("");
+
         // draws all the chance cards to ensure we draw the jail card
         ChanceCard jailCard = null;
         for (int i = ChanceField.getTotalNumberOfChanceCards()-1; i>0; i--)
@@ -75,6 +80,8 @@ class ChanceFieldTest { // tested by Xiao 19 Nov 21
 
     @Test
     void putBackChanceCard() {
+        ChanceField field = new ChanceField("");
+
         ChanceCard jailCard = null;
         // draws all the chance cards to ensure we draw the jail card
         for (int i = ChanceField.getTotalNumberOfChanceCards()-1; i>0; i--) {
@@ -92,6 +99,8 @@ class ChanceFieldTest { // tested by Xiao 19 Nov 21
 
     @Test
     void getCurrentCard() {
+        ChanceField field = new ChanceField("");
+
         // checks that the card that was drawn last is returned via getCurrentCard
         ChanceCard drawn = ChanceField.drawChanceCard();
         Assertions.assertEquals(drawn,ChanceField.getCurrentCard());

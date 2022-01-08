@@ -7,7 +7,7 @@ public class StreetField extends OwnableField {
     private final int HOUSEPRICE;
     private int numOfHouses; // 0 to 4
     private boolean hasHotel;
-    private final int MAXNUMOFHOUSES = 4;
+    public static final int MAXNUMOFHOUSES = 4;
 
     public StreetField(String fieldName, int price, int housePrice, int[] rentArray, String streetColor) {
         super(fieldName, price, rentArray);

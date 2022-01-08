@@ -11,8 +11,8 @@ public class ChanceField extends Field{
 
     public ChanceField(String fieldName) {
         super(fieldName);
-        if(chanceCards == null) {
-            // creates and shuffles the deck of cards when the first chancefield is instantiated
+        if(chanceCards == null || chanceCards[0] == null) {
+        // creates and shuffles a new deck of cards if the cards array is null, or if the deck of cards is incomplete
         ChanceCardsCreator service = new ChanceCardsCreator();
         chanceCards = service.createChanceCardsDeck();
         shuffleChanceCards();
