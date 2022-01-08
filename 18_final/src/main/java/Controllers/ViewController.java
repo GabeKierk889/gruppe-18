@@ -1,7 +1,9 @@
 package Controllers;
 
+import Models.Account;
 import Models.Board;
 import Models.GameSettings;
+import Services.FileImporter;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -18,9 +20,11 @@ public class ViewController {
     private GUI gui;
     private static ViewController single_instance;
     int numbOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
+    private String[] guiMessage;
 
     private ViewController() {
-
+        FileImporter reader = new FileImporter();
+        guiMessage = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
     }
 
     public static ViewController getInstance() {
@@ -44,6 +48,8 @@ public class ViewController {
         }
 
         gui = new GUI(guiFields, new Color(230, 230, 230));
+
+        formatStreets();
     }
 
     public String[] getPlayerNames() {
@@ -78,7 +84,43 @@ public class ViewController {
         return getPlayerNames();
     }
 
-//    public void putPlayersOnBoard() {
-//
-//    }
+    public void putPlayersOnBoard() {
+        int totalPlayers = GameController.getInstance().getTotalPlayers();
+
+        for (int i = totalPlayers; i >= 0; i--) {
+            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(), )
+        }
+    }
+
+    public void formatStreets() {
+        guiStreets[1].setBackGroundColor(new Color(0,0,255));
+    }
+
+    public void rollMessage() {
+        String name = getCurrentPlayerName();
+        gui.getUserButtonPressed(name+guiMessage[0],guiMessage[1]);
+    }
+
+    private int currentPlayerNum() {
+        return GameController.getInstance().getCurrentPlayerNum();
+    }
+
+    private String getCurrentPlayerName() {
+        return GameController.getInstance().getPlayerObject(currentPlayerNum()).getName();
+    }
+
+    private String getPlayerName(int playerNum) {
+        return GameController.getInstance().getPlayerObject(playerNum).getName();
+    }
+
+    public void updateGUIDice(int die1,int die2) {
+        gui.setDice((int) (Math.random() * 4 + 3),
+                (int) (Math.random() * 5 + 2),
+                die1,
+                (int) (Math.random() * 359),
+                (int) (Math.random() * 4 + 7),
+                (int) (Math.random() * 5 + 2),
+                die2,
+                (int) (Math.random() * 359));
+    }
 }
