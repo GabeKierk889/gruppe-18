@@ -123,7 +123,7 @@ public class ViewController {
         int totalPlayers = GameController.getInstance().getTotalPlayers();
         guiPlayers = new GUI_Player[totalPlayers];
 
-        for (int i = totalPlayers; i >= 0; i--) {
+        for (int i = totalPlayers - 1; i >= 0; i--) {
             guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(),
                     GameSettings.STARTINGBALANCE, guiCars[i]);
             gui.addPlayer(guiPlayers[i]);
@@ -131,6 +131,20 @@ public class ViewController {
         }
     }
 
+    public void moveGUICar() {
+        GUI_Field previousGUIField = guiFields[GameController.getInstance().getPlayerObject(GameController.getInstance()
+                        .getCurrentPlayerNum()).OnField()];
+        GUI_Field newGUIField = guiFields[GameController.getInstance().getPlayerObject(GameController.getInstance()
+                .getCurrentPlayerNum()).movePlayerSteps(GameController.getInstance().getDiceCup().getSum())];
+
+        GUI_Player currentGUIPlayer = guiPlayers[GameController.getInstance().getCurrentPlayerNum() - 1];
+
+        previousGUIField.setCar(currentGUIPlayer, false);
+
+        newGUIField.setCar(currentGUIPlayer, true);
+    }
+
+    // TODO: Format fields.
     public void formatStreets() {
         guiStreets[1].setBackGroundColor(new Color(0,0,255));
     }

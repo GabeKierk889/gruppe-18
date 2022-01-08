@@ -60,7 +60,7 @@ public class GameController {
 
         diceCup = new DiceCup();
 
-//        viewController.putPlayersOnBoard();
+        viewController.putPlayersOnBoard();
     }
 
     public void gameLoop(){
@@ -162,4 +162,14 @@ public class GameController {
         this.currentPlayerNum = currentPlayerNum;
     }
     public Player getPlayerObject(int playerNum) { return players[playerNum - 1]; }
+
+    public void testMethod() {
+        while (true) {
+            viewController.rollMessage();
+            diceCup.roll();
+            players[playerArrayNum].movePlayerSteps(diceCup.getSum());
+            viewController.moveGUICar();
+            switchTurn(false);
+        }
+    }
 }

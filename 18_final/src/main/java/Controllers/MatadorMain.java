@@ -9,6 +9,9 @@ public class MatadorMain {
         gameController.initializeGame();
 
         ViewController viewController = ViewController.getInstance();
+
+        GameController.getInstance().testMethod();
+
     }
 
 }
