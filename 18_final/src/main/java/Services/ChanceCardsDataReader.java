@@ -3,11 +3,11 @@ package Services;
 import java.util.Scanner;
 
 // has methods to return raw chance card text, and to parse out and return any integers within the text
-public class ChanceCardsTextReader {
+public class ChanceCardsDataReader {
     private String[] rawStringsData;
     private int[][] numArray;
 
-    public ChanceCardsTextReader(String filename) {
+    public ChanceCardsDataReader(String filename) {
         FileImporter reader = new FileImporter();
         rawStringsData = reader.readAllLinesInFile(filename);
         readData();

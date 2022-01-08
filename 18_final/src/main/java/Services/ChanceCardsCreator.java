@@ -7,7 +7,7 @@ import Models.ChanceCardSubType.*;
     // has a method that creates and returns a deck of chance cards
 public class ChanceCardsCreator {
     public ChanceCard[] createChanceCardsDeck() {
-        ChanceCardsTextReader read = new ChanceCardsTextReader("Chancecards_text.txt");
+        ChanceCardsDataReader read = new ChanceCardsDataReader("Chancecards_text.txt");
         String[] text = read.getChanceCardsTextArray();
         int[][] numbersInChanceCardText = read.getNumbersFromChanceCardsText();
 

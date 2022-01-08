@@ -5,7 +5,14 @@ skinparam classAttributeIconSize 0
 package services {
 
 class FileImporter {
-
+}
+class FieldsDataReader {
+}
+class FieldsCreator {
+}
+class ChanceCardsDataReader {
+}
+class ChanceCardsCreator {
 }
 
 }
@@ -179,7 +186,12 @@ class IncomeTaxField {
 }
 
 MatadorMain *-- GameController
-ViewController --> FileImporter
+FieldsDataReader --> FileImporter
+ChanceCardsDataReader --> FileImporter
+FieldsCreator --> FieldsDataReader
+ChanceCardsCreator --> ChanceCardsDataReader
+ChanceField --> ChanceCardsCreator
+Board --> FieldsCreator
 ViewController --* GameController
 GameController --> GameSettings
 GameController *--- Board
