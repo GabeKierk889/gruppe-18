@@ -24,7 +24,8 @@ public class ChanceCardsCreator {
                 new PayMoneyCard(text[7],numbersInChanceCardText[7]),
                 new PayMoneyCard(text[8],numbersInChanceCardText[8]),
                 new PayMoneyCard(text[9],numbersInChanceCardText[9]),
-
+                new PayMoneyForBuildingsCard(text[10],numbersInChanceCardText[10]),
+                new PayMoneyForBuildingsCard(text[11],numbersInChanceCardText[11]),
                 new JailReleaseCard(text[43]),
                 new JailReleaseCard(text[44])
         };
