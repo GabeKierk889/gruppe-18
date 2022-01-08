@@ -3,6 +3,7 @@ package Controllers;
 import Models.Account;
 import Models.Board;
 import Models.GameSettings;
+import Services.FileImporter;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -19,9 +20,11 @@ public class ViewController {
     private GUI gui;
     private static ViewController single_instance;
     int numbOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
+    private String[] guiMessage;
 
     private ViewController() {
-
+        FileImporter reader = new FileImporter();
+        guiMessage = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
     }
 
     public static ViewController getInstance() {
