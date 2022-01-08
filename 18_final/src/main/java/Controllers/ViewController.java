@@ -4,18 +4,14 @@ import Models.Account;
 import Models.Board;
 import Models.GameSettings;
 import Services.FileImporter;
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
+import gui_fields.*;
 import gui_main.GUI;
-
 import java.awt.Color;
 
 public class ViewController {
     private GUI_Field[] guiFields;
     private GUI_Street[] guiStreets;
-    private GUI_Car guiCars;
+    private GUI_Car[] guiCars;
     private GUI_Player[] guiPlayers;
     private GUI gui;
     private static ViewController single_instance;
@@ -37,7 +33,6 @@ public class ViewController {
     public void setupGUIBoard() {
         guiFields = new GUI_Field[numbOfFields];
         guiStreets = new GUI_Street[numbOfFields];
-
         Board board = GameController.getInstance().getBoard();
 
         for (int i = 0; i < board.getTotalNumOfFields(); i++) { // sets up all GUI fields/streets
@@ -85,10 +80,54 @@ public class ViewController {
     }
 
     public void putPlayersOnBoard() {
+        setupGUICars();
+        setupGUIPlayers();
+    }
+
+    private void setupGUICars() {
         int totalPlayers = GameController.getInstance().getTotalPlayers();
+        guiCars = new GUI_Car[totalPlayers];
+
+        switch (totalPlayers) {
+            case 6:
+                guiCars[5] = new GUI_Car();
+                guiCars[5].setPrimaryColor(Color.CYAN);
+                guiCars[5].setSecondaryColor(Color.MAGENTA);
+            case 5:
+                guiCars[4] = new GUI_Car();
+                guiCars[4].setPrimaryColor(Color.BLUE);
+                guiCars[4].setSecondaryColor(Color.MAGENTA);
+            case 4:
+                guiCars[3] = new GUI_Car();
+                guiCars[3].setPrimaryColor(Color.GREEN);
+                guiCars[3].setSecondaryColor(Color.MAGENTA);
+            case 3:
+                guiCars[2] = new GUI_Car();
+                guiCars[2].setPrimaryColor(Color.PINK);
+                guiCars[2].setSecondaryColor(Color.MAGENTA);
+
+                guiCars[1] = new GUI_Car();
+                guiCars[1].setPrimaryColor(Color.BLACK);
+                guiCars[1].setSecondaryColor(Color.MAGENTA);
+
+                guiCars[0] = new GUI_Car();
+                guiCars[0].setPrimaryColor(Color.RED);
+                guiCars[0].setSecondaryColor(Color.MAGENTA);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setupGUIPlayers() {
+        int totalPlayers = GameController.getInstance().getTotalPlayers();
+        guiPlayers = new GUI_Player[totalPlayers];
 
         for (int i = totalPlayers; i >= 0; i--) {
-            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(), )
+            guiPlayers[i] = new GUI_Player(GameController.getInstance().getPlayerObject(i + 1).getName(),
+                    GameSettings.STARTINGBALANCE, guiCars[i]);
+            gui.addPlayer(guiPlayers[i]);
+            guiFields[0].setCar(guiPlayers[i], true);
         }
     }
 
