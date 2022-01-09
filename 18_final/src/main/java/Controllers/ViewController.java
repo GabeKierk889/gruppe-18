@@ -198,10 +198,18 @@ public class ViewController {
         );
     }
 
-    // TODO: Uncomment later
-    public void jailMessage(){
+    //Take turn messages
+    public void diceThrow(){
+        gui.showMessage(takeTurnGUIMessages[1]);
+    }
+
+    public void okButton(){
+        gui.showMessage(takeTurnGUIMessages[2]);
+    }
+
+    public void sameFaceValueMessage() {
         String name = getCurrentPlayerName();
-        gui.showMessage(name+takeTurnGUIMessages[6]);
+        gui.showMessage(takeTurnGUIMessages[3]);
     }
 
     public void startBonusMessage(){
@@ -210,9 +218,35 @@ public class ViewController {
         gui.showMessage(String.format(takeTurnGUIMessages[4], bonusStart));
     }
 
-    public void sameFaceValueMessage(){
-        String name = getCurrentPlayerName();
-        gui.showMessage(takeTurnGUIMessages[4]);
-
+    public void greenSquare(){
+        gui.showMessage(takeTurnGUIMessages[5]);
     }
+
+    public void jailMessage(){
+        String name = getCurrentPlayerName();
+        gui.showMessage(name+takeTurnGUIMessages[6]);
+    }
+
+    public void useChanceCard(){
+        gui.showMessage(takeTurnGUIMessages[7]);
+    }
+
+    //Game setup messages
+    public void clickRules() {
+        gui.showMessage(setupGameGUIMessages[9]);
+    }
+
+    public void rules() {
+        gui.showMessage(setupGameGUIMessages[10]);
+    }
+
+    public void startGame() {
+        gui.showMessage(setupGameGUIMessages[11]);
+    }
+
+    public void gameRules() {
+        gui.showMessage(setupGameGUIMessages[12]);
+    }
+
+
 }
