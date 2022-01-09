@@ -57,9 +57,9 @@ public class ViewController {
                 if (i != strarray.length - 1)
                     names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ",   ";
                 else
-                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i];
+                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ". ";
             }
-            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names),
+            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names)+setupGameGUIMessages[6],
                     setupGameGUIMessages[7],setupGameGUIMessages[8])) {
                 return strarray;
             }
@@ -134,11 +134,11 @@ public class ViewController {
     }
 
     public void updateGUIDice(int die1,int die2) {
-        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 4 + 3),
-                (int) (Math.random() * 5 + 2), die2,
+        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 3 + 1),
+                (int) (Math.random() * 6 + 3), die2,
                 (int) (Math.random() * 359),
-                (int) (Math.random() * 4 + 7),
-                (int) (Math.random() * 5 + 2)
+                (int) (Math.random() * 3 + 4),
+                (int) (Math.random() * 3 + 7)
         );
     }
 
