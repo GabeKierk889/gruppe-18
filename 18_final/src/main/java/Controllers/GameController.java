@@ -139,27 +139,30 @@ public class GameController {
 
     public void sellAssets(String name, int needToPay, int creditorPlayerNum) {
         // note int creditorPlayerNum is only needed to pass in the value as a parameter to goBankrupt()
-        int totalAssetValue = calculateAssets(getPlayerNum(name));
+        int playerNum = getPlayerNum(name);
+        int totalAssetValue = calculateAssets(playerNum);
 
         //checks if the player is not able to pay / is going bankrupt
         if(totalAssetValue < needToPay)
-            goBankrupt(name, totalAssetValue,needToPay,creditorPlayerNum);
+            goBankrupt(playerNum, totalAssetValue,needToPay,creditorPlayerNum);
 
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
     }
 
-    private void goBankrupt(String playername, int totalAssetValue,int needToPay, int creditorPlayerNum) {
+    private void goBankrupt(int bankruptPlayerNum, int totalAssetValue,int needToPay, int creditorPlayerNum) {
         // WIP
-        // sell all buildings
+        // sell all buildings owned by bankrupt player which adds some money to bankrupt player's account
 
-        // if creditor is another player:
+        int remainingMoneyDebt = players[bankruptPlayerNum-1].getAccount().getBalance();
+        // if creditor is another player, deposit an amount = needToPay - remainingMoneyDebt to creditor
+        // because the transferMoney method in account has only withdrawn the amount, not made any deposits
+        players[creditorPlayerNum-1].getAccount().depositMoney(needToPay);
 
+        // transfer ownable fields to creditor (creditorPlayerNum = 0 for the bank)
+        // if creditor is the bank, the called method ensures an auction is held
+        board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum,creditorPlayerNum);
 
-        // transfer ownable fields to creditor (if creditor is another player)
-
-        // if creditor is the bank, set ownerNum = 0 and hold auctions of the relevant fields
-
-        // write message to gui that playername is going bankrupt because they cannot pay needToPay
+        // write message to gui that player is going bankrupt because they cannot pay needToPay
         // because they only have a total asset value of int calculateAssets
     }
 
