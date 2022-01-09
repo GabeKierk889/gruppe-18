@@ -31,7 +31,6 @@ public class ViewController {
         return single_instance;
     }
 
-
     public void setupGUIBoard() {
         guiFields = new GUI_Field[numbOfFields];
         guiStreets = new GUI_Street[numbOfFields];
@@ -47,6 +46,7 @@ public class ViewController {
         gui = new GUI(guiFields, Color.lightGray);
 
         colorStreets();
+        setupShipping();
     }
 
     public String[] getPlayerNames() {
@@ -174,6 +174,13 @@ public class ViewController {
 
     }
 
+    private void setupShipping() {
+        guiFields[5] = new GUI_Shipping();
+        guiFields[15] = new GUI_Shipping();
+        guiFields[25] = new GUI_Shipping();
+        guiFields[35] = new GUI_Shipping();
+    }
+
     public void rollMessage() {
         String name = getCurrentPlayerName();
         gui.getUserButtonPressed(name+ takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
@@ -197,6 +204,24 @@ public class ViewController {
                 (int) (Math.random() * 359),
                 (int) (Math.random() * 4 + 7),
                 (int) (Math.random() * 5 + 2)
-                );
+        );
+    }
+
+    // TODO: Uncomment later
+    public void jailMessage(){
+        String name = getCurrentPlayerName();
+        gui.showMessage(name+takeTurnGUIMessages[6]);
+    }
+
+    public void startBonusMessage(){
+        int bonusStart = GameSettings.STARTBONUS;
+        String name = getCurrentPlayerName();
+        gui.showMessage(String.format(takeTurnGUIMessages[4], bonusStart));
+    }
+
+    public void sameFaceValueMessage(){
+        String name = getCurrentPlayerName();
+        gui.showMessage(takeTurnGUIMessages[4]);
+
     }
 }
