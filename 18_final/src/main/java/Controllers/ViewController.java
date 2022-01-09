@@ -91,30 +91,21 @@ public class ViewController {
         switch (totalPlayers) {
             case 6:
                 guiCars[5] = new GUI_Car();
-                guiCars[5].setPrimaryColor(Color.CYAN);
-                guiCars[5].setSecondaryColor(Color.MAGENTA);
+                guiCars[5].setPrimaryColor(Color.PINK);
             case 5:
                 guiCars[4] = new GUI_Car();
-                guiCars[4].setPrimaryColor(Color.BLUE);
-                guiCars[4].setSecondaryColor(Color.MAGENTA);
+                guiCars[4].setPrimaryColor(new Color(180,30,250));
             case 4:
                 guiCars[3] = new GUI_Car();
-                guiCars[3].setPrimaryColor(Color.GREEN);
-                guiCars[3].setSecondaryColor(Color.MAGENTA);
+                guiCars[3].setPrimaryColor(new Color(90,130,250));
             case 3:
                 guiCars[2] = new GUI_Car();
-                guiCars[2].setPrimaryColor(Color.PINK);
-                guiCars[2].setSecondaryColor(Color.MAGENTA);
-
+                guiCars[2].setPrimaryColor(new Color(50,180,50));
+            case 2: // for added flexibility, in case MINNUMOFPLAYERS is changed to 2 instead of 3
                 guiCars[1] = new GUI_Car();
-                guiCars[1].setPrimaryColor(Color.BLACK);
-                guiCars[1].setSecondaryColor(Color.MAGENTA);
-
+                guiCars[1].setPrimaryColor(Color.CYAN);
                 guiCars[0] = new GUI_Car();
-                guiCars[0].setPrimaryColor(Color.RED);
-                guiCars[0].setSecondaryColor(Color.MAGENTA);
-                break;
-            default:
+                guiCars[0].setPrimaryColor(new Color(255,100,150));
                 break;
         }
     }
