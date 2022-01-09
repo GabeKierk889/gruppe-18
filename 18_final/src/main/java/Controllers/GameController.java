@@ -87,8 +87,8 @@ public class GameController {
     private boolean checkForWinner(){
         boolean winner = false;
         int bankruptCounter = 0;
-        for(int i = 0; i < players.length; i++){
-            if(players[i].getIsBankrupt()){
+        for (Player player : players) {
+            if (player.getIsBankrupt()) {
                 bankruptCounter++;
             }
             if (bankruptCounter == players.length - 1) {

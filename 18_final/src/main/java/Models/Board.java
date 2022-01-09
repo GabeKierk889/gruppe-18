@@ -60,16 +60,16 @@ public class Board {
         // updates rent for multiple fields
         // note: rent needs to be updated for multiple shipping fields regardless of whether player owns all the shipping fields
         {
-            for (int i = 0; i < fields.length; i++) {
-                if (fields[i].getClass().toString().equalsIgnoreCase(fieldClassName)) {
+            for (Field field : fields) {
+                if (field.getClass().toString().equalsIgnoreCase(fieldClassName)) {
                     // updates rent for other shipping and brewery fields
                     // needs to check that ownernum is the same for the shipping fields
-                    if (streetColor.equalsIgnoreCase("") && ownernum == ((OwnableField) fields[i]).getOwnerNum())
-                        ((OwnableField) fields[i]).updateRent();
+                    if (streetColor.equalsIgnoreCase("") && ownernum == ((OwnableField) field).getOwnerNum())
+                        ((OwnableField) field).updateRent();
                         // updates rent for streets of the same color
                         // ownernum has already been verified to be the same as ownsAllFieldsOfSameType is true
-                    else if (streetColor.equalsIgnoreCase(((StreetField) fields[i]).getStreetColor()))
-                        ((OwnableField) fields[i]).updateRent();
+                    else if (streetColor.equalsIgnoreCase(((StreetField) field).getStreetColor()))
+                        ((OwnableField) field).updateRent();
                 }
             }
         }
@@ -79,10 +79,10 @@ public class Board {
 
     public int numOfShippingFieldsOwned(int playerNum){
         int numberOfShippingFieldsOwned = 0;
-        for (int i = 0; i< fields.length; i++) {
+        for (Field field : fields) {
             // counts how many shipping fields the player owns in total
-            if (fields[i].isShippingField()) {
-                if (((OwnableField) fields[i]).getOwnerNum() == playerNum && playerNum != 0)
+            if (field.isShippingField()) {
+                if (((OwnableField) field).getOwnerNum() == playerNum && playerNum != 0)
                     numberOfShippingFieldsOwned++;
             }
         }
@@ -108,11 +108,11 @@ public class Board {
         // stores data in an array with length 2, first numofhouses, then numofhotels
         int[] buildingsOwned = new int[2];
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        for (int i = 0; i< fields.length; i++) {
+        for (Field field : fields) {
             // checks for streetFields owned by current player
-            if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == currentPlayer) {
-                buildingsOwned[0] += ((StreetField) fields[i]).getNumOfHouses();
-                if (((StreetField) fields[i]).hasHotel())
+            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == currentPlayer) {
+                buildingsOwned[0] += ((StreetField) field).getNumOfHouses();
+                if (((StreetField) field).hasHotel())
                     buildingsOwned[1]++;
             }
         }
@@ -123,13 +123,13 @@ public class Board {
     public int calculateAssetValueOfBuildingsOwned(int playerNum) {
         int housesValueAsNew, hotelsValueAsNew, totalValueAsNew;
         housesValueAsNew = 0; hotelsValueAsNew = 0;
-        for (int i = 0; i< fields.length; i++) {
+        for (Field field : fields) {
             // checks for streetFields owned by player and calculates asset/resell value of buildings
-            if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
-                housesValueAsNew += ((StreetField) fields[i]).getNumOfHouses()*((StreetField) fields[i]).getHOUSEPRICE();
-                if (((StreetField) fields[i]).hasHotel())
+            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == playerNum) {
+                housesValueAsNew += ((StreetField) field).getNumOfHouses() * ((StreetField) field).getHOUSEPRICE();
+                if (((StreetField) field).hasHotel())
                     // the price of a new hotel is the equivalent of housePrice * (MaxNumHousesOn1Field + 1)
-                    hotelsValueAsNew += ((StreetField) fields[i]).getHOUSEPRICE()*(1+StreetField.MAXNUMOFHOUSES);
+                    hotelsValueAsNew += ((StreetField) field).getHOUSEPRICE() * (1 + StreetField.MAXNUMOFHOUSES);
             }
         }
         totalValueAsNew = housesValueAsNew + hotelsValueAsNew;
@@ -139,10 +139,10 @@ public class Board {
     // calculates the asset value of all ownable fields owned by player
     public int calculateValueOfFieldsOwned(int playerNum) {
         int totalValue = 0;
-        for (int i = 0; i< fields.length; i++) {
+        for (Field field : fields) {
             // checks for fields owned by player and calculates total asset value of ownable fields
-            if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
-                totalValue += ((OwnableField) fields[i]).getPRICE();
+            if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
+                totalValue += ((OwnableField) field).getPRICE();
             }
         }
         return totalValue;
@@ -150,20 +150,20 @@ public class Board {
 
     public void bankruptcyTransferAllFieldAssets(int oldOwnerPlayerNum, int newOwnerPlayerNum) {
         // this method should only called when a player goes bankrupt and needs to transfer ownership of all fields
-        for (int i = 0; i< fields.length; i++) {
-            if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == oldOwnerPlayerNum) {
-                ((OwnableField) fields[i]).setOwnerNum(newOwnerPlayerNum);
+        for (Field field : fields) {
+            if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == oldOwnerPlayerNum) {
+                ((OwnableField) field).setOwnerNum(newOwnerPlayerNum);
                 // if the creditor/ new owner of the fields is the bank, hold auction
                 if (newOwnerPlayerNum == 0)
-                    ((OwnableField) fields[i]).auctionField();
+                    ((OwnableField) field).auctionField();
             }
         }
         // if ownership is transferred to another player (not the bank), update the rents
         // (the auction method will update the rents after each auction, so does not need to be done twice)
         if (newOwnerPlayerNum != 0)
-            for (int i = 0; i< fields.length; i++) {
-                if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == newOwnerPlayerNum)
-                    ((OwnableField) fields[i]).updateRent();
+            for (Field field : fields) {
+                if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == newOwnerPlayerNum)
+                    ((OwnableField) field).updateRent();
             }
     }
 
