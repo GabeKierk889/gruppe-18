@@ -110,21 +110,6 @@ public class GameController {
         return 0;
     }
 
-//    private int goBankrupt(){
-//        int paymentAmount;
-//        int assetsValue;
-//
-//        for(int i = 0; i < players.length; i++) {
-//            if(paymentAmount > assetsValue){
-//                players[i].getAccount().withdrawMoney(players[i].getAccount().getBalance());
-//                players[i].getIsBankrupt();
-//            }
-//
-//        }
-//
-//        return 0;
-//    }
-
     // a basic player turn
     private void takeTurn(){
         viewController.rollMessage();
@@ -152,22 +137,23 @@ public class GameController {
         return totalAssetValue;
     }
 
-    public void sellAssets(String name, int needToPay) {
+    public void sellAssets(String name, int needToPay, int creditorPlayerNum) {
+        // note int creditorPlayerNum is only needed to pass in the value as a parameter to goBankrupt()
         int totalAssetValue = calculateAssets(getPlayerNum(name));
+
         //checks if the player is not able to pay / is going bankrupt
         if(totalAssetValue < needToPay)
-            goBankrupt(name, totalAssetValue,needToPay);
+            goBankrupt(name, totalAssetValue,needToPay,creditorPlayerNum);
 
-        // if the player is not going bankrupt, add gui messages asking player to raise funds to pay needToPAyAmount
+        // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
     }
 
-    private void goBankrupt(String playername, int totalAssetValue,int needToPay) {
+    private void goBankrupt(String playername, int totalAssetValue,int needToPay, int creditorPlayerNum) {
         // WIP
         // sell all buildings
 
         // if creditor is another player:
-        // any remaining negative money balance that the bankrupt player cannot pay
-        // (but which has already deposited into creditor's account), must be withdrawn from creditor's account
+
 
         // transfer ownable fields to creditor (if creditor is another player)
 

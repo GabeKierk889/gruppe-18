@@ -140,12 +140,31 @@ public class Board {
     public int calculateValueOfFieldsOwned(int playerNum) {
         int totalValue = 0;
         for (int i = 0; i< fields.length; i++) {
-            // checks for streetFields owned by player and calculates total asset value of ownable fields
+            // checks for fields owned by player and calculates total asset value of ownable fields
             if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
                 totalValue += ((OwnableField) fields[i]).getPRICE();
             }
         }
         return totalValue;
+    }
+
+    public void bankruptcyTransferAllFieldAssets(int oldOwnerPlayerNum, int newOwnerPlayerNum) {
+        // this method should only called when a player goes bankrupt and needs to transfer ownership of all fields
+        for (int i = 0; i< fields.length; i++) {
+            if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == oldOwnerPlayerNum) {
+                ((OwnableField) fields[i]).setOwnerNum(newOwnerPlayerNum);
+                // if the creditor/ new owner of the fields is the bank, hold auction
+                if (newOwnerPlayerNum == 0)
+                    ((OwnableField) fields[i]).auctionField();
+            }
+        }
+        // if ownership is transferred to another player (not the bank), update the rents
+        // (the auction method will update the rents after each auction, so does not need to be done twice)
+        if (newOwnerPlayerNum != 0)
+            for (int i = 0; i< fields.length; i++) {
+                if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == newOwnerPlayerNum)
+                    ((OwnableField) fields[i]).updateRent();
+            }
     }
 
     public int getTotalNumOfFields(){
