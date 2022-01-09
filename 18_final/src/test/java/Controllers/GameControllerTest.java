@@ -23,4 +23,5 @@ class GameControllerTest {
         GameController.getInstance().switchTurn(extraTurn);
         assertEquals(2,GameController.getInstance().getCurrentPlayerNum());
     }
+
 }
