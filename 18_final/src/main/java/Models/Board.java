@@ -11,18 +11,9 @@ import Services.FileImporter;
 public class Board {
     private Field[] fields;
 
-    // TODO: Find bedre navn til fieldsReader
-    private String[] fieldsReader;
-    private FieldsDataReader fieldsDataReader = new FieldsDataReader("Fields.csv");
-
     public Board() {
         FieldsCreator service = new FieldsCreator();
-        FileImporter reader = new FileImporter();
-
         fields = service.createFields();
-
-        // TODO: WIP
-        fieldsReader = reader.readAllLinesInFile("Fields.csv");
     }
 
     // TODO: Forsøg på at lave buildHouse()
