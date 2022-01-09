@@ -55,6 +55,7 @@ public class Board {
         return test;
     }
 
+    // TODO: add updating of gui-fields within this method?
     public void updateRentForAllFieldsOfSameType(int fieldArrayNum){
         // updates rent for the field itself and all other fields of the same type
         // field type refers to shippingfield, or company, or color of a lot
@@ -71,7 +72,7 @@ public class Board {
                 if (field.getClass().toString().equalsIgnoreCase(fieldClassName) && ownernum == ((OwnableField) field).getOwnerNum()) {
                     if (!field.isStreetField())
                         ((OwnableField) field).updateRent();
-                    else if (streetColor.equalsIgnoreCase(((StreetField) field).getStreetColor()))
+                    else if (field.isStreetField() && streetColor.equalsIgnoreCase(((StreetField) field).getStreetColor()))
                         ((OwnableField) field).updateRent();
                 }
             }
@@ -129,10 +130,10 @@ public class Board {
         for (Field field : fields) {
             // checks for streetFields owned by player and calculates asset/resell value of buildings
             if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == playerNum) {
-                housesValueAsNew += ((StreetField) field).getNumOfHouses() * ((StreetField) field).getHOUSEPRICE();
+                housesValueAsNew += ((StreetField) field).getNumOfHouses() * ((StreetField) field).getHousePrice();
                 if (((StreetField) field).hasHotel())
                     // the price of a new hotel is the equivalent of housePrice * (MaxNumHousesOn1Field + 1)
-                    hotelsValueAsNew += ((StreetField) field).getHOUSEPRICE() * (1 + StreetField.MAXNUMOFHOUSES);
+                    hotelsValueAsNew += ((StreetField) field).getHousePrice() * (1 + StreetField.MAXNUMOFHOUSES);
             }
         }
         totalValueAsNew = housesValueAsNew + hotelsValueAsNew;
@@ -159,7 +160,7 @@ public class Board {
                 if (((OwnableField) field).isMortgaged)
                     totalValue += ((OwnableField) field).MORTGAGEVALUE;
                 else
-                    totalValue += ((OwnableField) field).getPRICE();
+                    totalValue += ((OwnableField) field).getFieldPrice();
             }
         }
         return totalValue;
@@ -170,7 +171,7 @@ public class Board {
         for (Field field : fields) {
             if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == oldOwnerPlayerNum) {
                 ((OwnableField) field).setOwnerNum(newOwnerPlayerNum);
-                // if the creditor/ new owner of the fields is the bank, hold auction
+                // if the creditor/ new owner of the fields is the bank, sell the fields on auction
                 if (newOwnerPlayerNum == 0)
                     ((OwnableField) field).auctionField();
             }

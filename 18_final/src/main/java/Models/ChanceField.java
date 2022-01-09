@@ -23,7 +23,15 @@ public class ChanceField extends Field{
     public void landOnField(Player currentplayerobject) {
         drawChanceCard();
         // TODO: gui - show the chance card message in the green square in the middle
-//        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
+        // show the player the chance card via GUI, then implement the effect
+//        MonopolyGame.showChanceCardMessage();
+        // example code for viewController
+//        static void showChanceCardMessage() {
+//            gui.setChanceCard(ChanceField.getCurrentCard().chanceCardText());
+//            gui.getUserButtonPressed("Press the green square in the middle to view your chance card. Keep hovering your cursor over the card while you're reading it. " +
+//                    "When you are done reading, press the 'Apply' button to apply the instructions of the chance card", "Apply");
+//            gui.setChanceCard(""); // removes the text after the player has read it
+//        }
         currentCard.effect(currentplayerobject);
     }
 

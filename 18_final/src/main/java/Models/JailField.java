@@ -1,5 +1,7 @@
 package Models;
 
+import Controllers.ViewController;
+
 public class JailField extends Field {
 
     public JailField(String fieldName) {
@@ -9,8 +11,7 @@ public class JailField extends Field {
     @Override
     public void landOnField(Player currentplayerobject) {
         currentplayerobject.setIsInJail(true);
-        // TODO: gui
-        // placeholder - print out message to GUI that player is now in jail
+        ViewController.getInstance().goToJailMessage();
     }
 
     @Override
