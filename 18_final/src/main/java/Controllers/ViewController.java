@@ -42,9 +42,9 @@ public class ViewController {
             guiFields[i] = guiStreets[i];
         }
 
-        gui = new GUI(guiFields, new Color(230, 230, 230));
+        gui = new GUI(guiFields, Color.lightGray);
 
-        formatStreets();
+        colorStreets();
     }
 
     public String[] getPlayerNames() {
@@ -138,8 +138,39 @@ public class ViewController {
     }
 
     // TODO: Format fields.
-    public void formatStreets() {
-        guiStreets[1].setBackGroundColor(new Color(0,0,255));
+    public void colorStreets() {
+        Color orange = new Color(255,165,0);
+        Color lilla = new Color(128,0,128);
+
+        guiStreets[1].setBackGroundColor(Color.blue);
+        guiStreets[3].setBackGroundColor(Color.blue);
+
+        guiStreets[6].setBackGroundColor(orange);
+        guiStreets[7].setBackGroundColor(orange);
+        guiStreets[8].setBackGroundColor(orange);
+
+        guiStreets[11].setBackGroundColor(Color.green);
+        guiStreets[13].setBackGroundColor(Color.green);
+        guiStreets[14].setBackGroundColor(Color.green);
+
+        guiStreets[18].setBackGroundColor(Color.gray);
+        guiStreets[19].setBackGroundColor(Color.gray);
+
+        guiStreets[21].setBackGroundColor(Color.red);
+        guiStreets[23].setBackGroundColor(Color.red);
+        guiStreets[24].setBackGroundColor(Color.red);
+
+        guiStreets[26].setBackGroundColor(Color.white);
+        guiStreets[27].setBackGroundColor(Color.white);
+        guiStreets[29].setBackGroundColor(Color.white);
+
+        guiStreets[31].setBackGroundColor(Color.yellow);
+        guiStreets[32].setBackGroundColor(Color.yellow);
+        guiStreets[34].setBackGroundColor(Color.yellow);
+
+        guiStreets[37].setBackGroundColor(lilla);
+        guiStreets[39].setBackGroundColor(lilla);
+
     }
 
     public void rollMessage() {
