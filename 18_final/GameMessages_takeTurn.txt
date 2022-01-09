@@ -2,7 +2,7 @@ s tur. Tryk for at kaste med terningerne.
 Kast
 OK
 Du har slået 2 ens og får et ekstra kast
-Du har modtaget kr. * for at passere START
+Du har modtaget kr. %x for at passere START
 Tryk på den grønne firkant i midten for at se dit chancekort.
 Åh nej, du skal i fængsel!
 Vil du bruge dit chancekort til at komme gratis ud af fængsel? Du kan kun bruge det 1 gang.

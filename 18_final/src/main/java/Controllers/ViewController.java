@@ -58,9 +58,9 @@ public class ViewController {
                 if (i != strarray.length - 1)
                     names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ",   ";
                 else
-                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ". ";
+                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] ;
             }
-            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names)+setupGameGUIMessages[6],
+            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names)+" "+setupGameGUIMessages[6],
                     setupGameGUIMessages[7],setupGameGUIMessages[8])) {
                 return strarray;
             }
