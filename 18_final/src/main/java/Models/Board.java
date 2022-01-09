@@ -108,7 +108,7 @@ public class Board {
         // stores data in an array with length 2, first numofhouses, then numofhotels
         int[] buildingsOwned = new int[2];
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        for (int i = 0; i< GameController.getBoard().getTotalNumOfFields(); i++) {
+        for (int i = 0; i< GameController.getInstance().getBoard().getTotalNumOfFields(); i++) {
             // checks for streetFields owned by current player
             if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == currentPlayer) {
                 buildingsOwned[0] += ((StreetField) fields[i]).getNumOfHouses();

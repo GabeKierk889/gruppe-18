@@ -21,7 +21,7 @@ public class Player {
     }
 
     public int movePlayerSteps(int stepsToMove) {
-        onField = (onField+stepsToMove) % GameController.getBoard().getTotalNumOfFields();
+        onField = (onField+stepsToMove) % GameController.getInstance().getBoard().getTotalNumOfFields();
         return onField; }
 
     public void collectStartBonus(int diceThrow) {
@@ -32,7 +32,7 @@ public class Player {
 
     public void movePlayerToField(int fieldArrayNumber) {
         if(fieldArrayNumber >= 0)
-            onField = fieldArrayNumber % GameController.getBoard().getTotalNumOfFields();
+            onField = fieldArrayNumber % GameController.getInstance().getBoard().getTotalNumOfFields();
     }
 
     public String getName() {
