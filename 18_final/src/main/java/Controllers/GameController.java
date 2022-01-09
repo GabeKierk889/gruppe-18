@@ -6,7 +6,7 @@ import Models.*;
 public class GameController {
 
     private ViewController viewController;
-    private static Board board;
+    private Board board;
     private DiceCup diceCup;
     private static GameController single_instance;
     private String[] playerNames;
@@ -148,7 +148,7 @@ public class GameController {
 //        }
     }
 
-    public static Board getBoard() { return board; }
+    public Board getBoard() { return board; }
 
     public DiceCup getDiceCup() {
         return diceCup;
