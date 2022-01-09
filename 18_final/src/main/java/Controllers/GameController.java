@@ -87,8 +87,8 @@ public class GameController {
     private boolean checkForWinner(){
         boolean winner = false;
         int bankruptCounter = 0;
-        for(int i = 0; i < players.length; i++){
-            if(players[i].getIsBankrupt()){
+        for (Player player : players) {
+            if (player.getIsBankrupt()) {
                 bankruptCounter++;
             }
             if (bankruptCounter == players.length - 1) {
@@ -110,25 +110,6 @@ public class GameController {
         return 0;
     }
 
-//    private int goBankrupt(){
-//        int paymentAmount;
-//        int assetsValue;
-//
-//        for(int i = 0; i < players.length; i++) {
-//            if(paymentAmount > assetsValue){
-//                players[i].getAccount().withdrawMoney(players[i].getAccount().getBalance());
-//                players[i].getIsBankrupt();
-//            }
-//
-//        }
-//
-//        return 0;
-//    }
-
-    private int calculateAssets(){
-        return 0;
-    }
-
     // a basic player turn
     private void takeTurn(){
         viewController.rollMessage();
@@ -146,6 +127,51 @@ public class GameController {
 //        } else {
 //            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
 //        }
+    }
+
+    private int calculateAssets(int playerNum) {
+        int totalAssetValue, valueOfBuildings, valueOfOwnableFields;
+        valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
+        valueOfOwnableFields = board.calculateValueOfFieldsOwned(playerNum);
+        totalAssetValue = players[playerNum-1].getAccount().getBalance() + valueOfBuildings + valueOfOwnableFields;
+        return totalAssetValue;
+    }
+
+    public void sellAssets(String name, int needToPay, int creditorPlayerNum) {
+        // note int creditorPlayerNum is only needed to pass in the value as a parameter to goBankrupt()
+        int playerNum = getPlayerNum(name);
+        int totalAssetValue = calculateAssets(playerNum);
+
+        //checks if the player is not able to pay / is going bankrupt
+        if(totalAssetValue < needToPay)
+            goBankrupt(playerNum, totalAssetValue,needToPay,creditorPlayerNum);
+
+        // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
+    }
+
+    private void goBankrupt(int bankruptPlayerNum, int totalAssetValue,int needToPay, int creditorPlayerNum) {
+        // WIP
+        // sell all buildings owned by bankrupt player which adds some money to bankrupt player's account
+
+        int remainingMoneyDebt = players[bankruptPlayerNum-1].getAccount().getBalance();
+        // if creditor is another player, deposit an amount = needToPay - remainingMoneyDebt to creditor
+        // because the transferMoney method in account has only withdrawn the amount, not made any deposits
+        players[creditorPlayerNum-1].getAccount().depositMoney(needToPay);
+
+        // transfer ownable fields to creditor (creditorPlayerNum = 0 for the bank)
+        // if creditor is the bank, the called method ensures an auction is held
+        board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum,creditorPlayerNum);
+
+        // write message to gui that player is going bankrupt because they cannot pay needToPay
+        // because they only have a total asset value of int calculateAssets
+    }
+
+    private int getPlayerNum (String playerName) {
+        for (int i = 0; i < totalPlayers; i++) {
+            if (players[i].getName().equals(playerName))
+                return i+1;
+        }
+        return 0; // returns 0 if player name is not found
     }
 
     public Board getBoard() { return board; }

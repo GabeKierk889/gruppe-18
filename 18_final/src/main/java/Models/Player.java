@@ -5,16 +5,16 @@ package Models;
 import Controllers.GameController;
 
 public class Player {
-    private final String name;
-    private final Account account;
+    private final String NAME;
+    private final Account ACCOUNT;
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt
     private boolean isInJail;
     private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
 
-    public Player(String name){
-        account = new Account();
-        this.name = name;
+    public Player(String NAME){
+        ACCOUNT = new Account(NAME);
+        this.NAME = NAME;
         onField = 0;
         isBankrupt = false;
         isInJail = false;
@@ -36,10 +36,10 @@ public class Player {
     }
 
     public String getName() {
-        return name;
+        return NAME;
     }
     public Account getAccount() {
-        return account;
+        return ACCOUNT;
     }
     public int OnField() {return onField;}
     public void setIsBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }

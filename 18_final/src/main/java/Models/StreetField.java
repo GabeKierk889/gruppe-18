@@ -59,4 +59,12 @@ public class StreetField extends OwnableField {
     public boolean isStreetField() {
         return true;
     }
+
+    @Override
+    public void setOwnerNum (int playerNum) {
+        // only executes for unbuilt fields
+        if (numOfHouses == 0 && !hasHotel &&
+            playerNum >= 0 && playerNum <= GameController.getInstance().getTotalPlayers())
+            ownerNum = playerNum;
+    }
 }

@@ -59,7 +59,7 @@ public abstract class OwnableField extends Field {
             auctionField();
     }
 
-    private void auctionField() { }
+    public void auctionField() { }
 
     public void mortgageField(Player currentplayerobject) {
         // does not output any messages to gui
@@ -93,7 +93,8 @@ public abstract class OwnableField extends Field {
     }
 
     public void setOwnerNum (int playerNum) {
-        ownerNum = playerNum;
+        if (playerNum >= 0 && playerNum <= GameController.getInstance().getTotalPlayers())
+            ownerNum = playerNum;
     }
 
     public int getPRICE() {
