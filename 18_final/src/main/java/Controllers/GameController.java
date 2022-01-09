@@ -180,11 +180,17 @@ public class GameController {
         // if creditor is the bank, the called method ensures an auction is held
         board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum,creditorPlayerNum);
 
+        players[bankruptPlayerNum-1].setIsBankrupt(true); // sets player's bankrupt status to true
+        // returns a player's (up to 2) get out of jail chance cards to the deck of chance cards
+        ChanceField.putBackChanceCard(players[bankruptPlayerNum-1].returnReleaseFromJailCard());
+        ChanceField.putBackChanceCard(players[bankruptPlayerNum-1].returnReleaseFromJailCard()); // 2nd card
+
         // TODO: gui
         // write message to gui that player is going bankrupt because they cannot pay needToPay
         // because they only have a total asset value of int calculateAssets
         // update gui fields info (ownership, rent)
         // update gui account
+        // remove player's gui car from the gui fields
     }
 
     private int getPlayerNum (String playerName) {
