@@ -1,15 +1,15 @@
 Name,Position,Type,Price,HousePrice,Rent 0,Rent 1,Rent 2,Rent 3,Rent 4,Rent 5,Color
 Start,0,Field,,,,,,,,,
-Roedovrevej,1,StreetField,1200,1000,50,250,750,2250,4000,6000,blaa
+Rødovrevej,1,StreetField,1200,1000,50,250,750,2250,4000,6000,blaa
 Chance,2,ChanceField,,,,,,,,,
 Hvidovrevej,3,StreetField,1200,1000,50,250,400,750,2250,6000,blaa
 Indkomstskat,4,TaxField,4000,,,,,,,,
-Helsingoer - Helsingborg,5,ShippingField,4000,,500,1000,2000,4000,,,
+Helsingør - Helsingborg,5,ShippingField,4000,,500,1000,2000,4000,,,
 Roskildevej,6,StreetField,2000,1000,100,600,1800,5400,8000,11000,orange
 Chance,7,ChanceField,,,,,,,,,
 Valby Langgade,8,StreetField,2000,1000,100,600,1800,5400,8000,11000,orange
 Allegade,9,StreetField,2400,1000,150,800,2000,6000,9000,12000,orange
-Besoeg i faengsel,10,Field,,,,,,,,,
+På besøg,10,Field,,,,,,,,,
 Frederiksberg Alle,11,StreetField,2800,2000,200,1000,3000,9000,12500,15000,groen
 Tuborg,12,BreweryField,3000,,100,200,,,,,
 Bulowsvej,13,StreetField,2800,2000,200,1000,3000,9000,12500,15000,groen
@@ -23,19 +23,19 @@ Parkering,20,Field,,,,,,,,,
 Trianglen,21,StreetField,4400,3000,350,1800,5000,14000,17500,21000,roed
 Chance,22,ChanceField,,,,,,,,,
 Vesterbrogade,23,StreetField,4400,3000,350,1800,5000,14000,17500,21000,roed
-Groenningen,24,StreetField,4800,3000,400,2000,6000,15000,18500,22000,roed
+Grønningen,24,StreetField,4800,3000,400,2000,6000,15000,18500,22000,roed
 Gedser - Rostock,25,ShippingField,4000,,500,1000,2000,4000,,,
 Bredgade,26,StreetField,5200,3000,450,2200,6600,16000,19500,23000,hvid
 Kgs. Nytorv,27,StreetField,5200,3000,450,2200,6600,16000,19500,23000,hvid
 Carlsberg,28,BreweryField,3000,,100,200,,,,,
-Oestergade,29,StreetField,5600,3000,500,2400,7200,17000,20500,24000,hvid
-Gaa i faengsel,30,JailField,,,,,,,,,
+Østergade,29,StreetField,5600,3000,500,2400,7200,17000,20500,24000,hvid
+Gå i fængsel,30,JailField,,,,,,,,,
 Amagertorv,31,StreetField,6000,4000,550,2600,7800,18000,22000,25000,gul
 Vimmelskaftet,32,StreetField,6000,4000,550,2600,7800,18000,22000,25000,gul
 Chance,33,ChanceField,,,,,,,,,
 Nygade,34,StreetField,6400,4000,600,3000,9000,20000,24000,28000,gul
-Roedby - Puttgarden,35,ShippingField,4000,,500,1000,2000,4000,,,
+Rødby - Puttgarden,35,ShippingField,4000,,500,1000,2000,4000,,,
 Chance,36,ChanceField,,,,,,,,,
 Frederiksberggade,37,StreetField,7000,4000,700,3500,10000,22000,26000,30000,lilla
 Statsskat,38,TaxField,2000,,,,,,,,
-Raadhuspladsen,39,StreetField,8000,4000,1000,4000,12000,28000,34000,40000,lilla
+Rådhuspladsen,39,StreetField,8000,4000,1000,4000,12000,28000,34000,40000,lilla
