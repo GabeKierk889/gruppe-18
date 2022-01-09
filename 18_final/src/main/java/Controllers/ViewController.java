@@ -248,5 +248,5 @@ public class ViewController {
         gui.showMessage(setupGameGUIMessages[12]);
     }
 
-
+    //Deniz
 }
