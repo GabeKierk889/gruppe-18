@@ -2,6 +2,8 @@ package Controllers;
 
 import Models.Board;
 import Models.GameSettings;
+import Services.FieldsCreator;
+import Services.FieldsDataReader;
 import Services.FileImporter;
 import gui_fields.*;
 import gui_main.GUI;
@@ -43,10 +45,15 @@ public class ViewController {
             guiFields[i] = guiStreets[i];
         }
 
-        gui = new GUI(guiFields, Color.lightGray);
-
         colorStreets();
-        setupShipping();
+        setupShippingFields();
+        setupBreweryFields();
+        setupSTART();
+        setupChanceFields();
+        setupRefuge();
+        setupJailFields();
+        setupTaxFeilds();
+        gui = new GUI(guiFields, Color.WHITE);
     }
 
     public String[] getPlayerNames() {
@@ -134,42 +141,162 @@ public class ViewController {
         Color lilla = new Color(128,0,128);
 
         guiStreets[1].setBackGroundColor(Color.blue);
+        guiStreets[1].setSubText("beløb");
+
         guiStreets[3].setBackGroundColor(Color.blue);
+        guiStreets[3].setSubText("beløb");
 
         guiStreets[6].setBackGroundColor(orange);
+        guiStreets[6].setSubText("beløb");
         guiStreets[8].setBackGroundColor(orange);
+        guiStreets[8].setSubText("beløb");
         guiStreets[9].setBackGroundColor(orange);
+        guiStreets[9].setSubText("beløb");
 
         guiStreets[11].setBackGroundColor(Color.green);
+        guiStreets[11].setSubText("beløb");
         guiStreets[13].setBackGroundColor(Color.green);
+        guiStreets[13].setSubText("beløb");
         guiStreets[14].setBackGroundColor(Color.green);
+        guiStreets[14].setSubText("beløb");
+
 
         guiStreets[16].setBackGroundColor(Color.gray);
+        guiStreets[16].setSubText("beløb");
         guiStreets[18].setBackGroundColor(Color.gray);
+        guiStreets[18].setSubText("beløb");
         guiStreets[19].setBackGroundColor(Color.gray);
+        guiStreets[19].setSubText("beløb");
 
         guiStreets[21].setBackGroundColor(Color.red);
+        guiStreets[21].setSubText("beløb");
         guiStreets[23].setBackGroundColor(Color.red);
+        guiStreets[23].setSubText("beløb");
         guiStreets[24].setBackGroundColor(Color.red);
+        guiStreets[24].setSubText("beløb");
 
         guiStreets[26].setBackGroundColor(Color.white);
+        guiStreets[26].setSubText("beløb");
         guiStreets[27].setBackGroundColor(Color.white);
+        guiStreets[27].setSubText("beløb");
         guiStreets[29].setBackGroundColor(Color.white);
+        guiStreets[29].setSubText("beløb");
 
         guiStreets[31].setBackGroundColor(Color.yellow);
+        guiStreets[31].setSubText("beløb");
         guiStreets[32].setBackGroundColor(Color.yellow);
+        guiStreets[32].setSubText("beløb");
         guiStreets[34].setBackGroundColor(Color.yellow);
+        guiStreets[34].setSubText("beløb");
 
         guiStreets[37].setBackGroundColor(lilla);
+        guiStreets[37].setSubText("beløb");
         guiStreets[39].setBackGroundColor(lilla);
+        guiStreets[39].setSubText("beløb");
 
     }
 
-    private void setupShipping() {
+    private void setupShippingFields() {
         guiFields[5] = new GUI_Shipping();
+        guiStreets[5].setSubText("beløb");
         guiFields[15] = new GUI_Shipping();
+        guiStreets[15].setSubText("beløb");
         guiFields[25] = new GUI_Shipping();
+        guiStreets[25].setSubText("beløb");
         guiFields[35] = new GUI_Shipping();
+        guiStreets[35].setSubText("beløb");
+    }
+
+    private void setupBreweryFields() {
+        guiFields[12] = new GUI_Brewery();
+        guiFields[12].setTitle("Tuborg");
+        guiFields[12].setSubText("beløb");
+        guiFields[28] = new GUI_Brewery();
+        guiFields[28].setTitle("Carlsberg");
+        guiFields[28].setSubText("beløb");
+    }
+
+    private void setupSTART() {
+        guiFields[0] = new GUI_Start(
+                GameController.getInstance().getBoard().getFieldObject(0).getFieldName(),
+                "start",
+                "passér start tekst",
+                Color.MAGENTA,
+                Color.WHITE);
+    }
+
+    private void setupChanceFields() {
+        guiFields[2] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+        guiFields[7] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+        guiFields[17] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+        guiFields[22] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+        guiFields[33] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+        guiFields[36] = new GUI_Chance(
+                "?",
+                "Prøv lykken",
+                "Prøv lykken",
+                Color.black,
+                Color.green
+        );
+    }
+
+    private void setupRefuge() {
+        guiFields[20] = new GUI_Refuge();
+    }
+
+    private void setupTaxFeilds() {
+        guiFields[4] = new GUI_Tax(
+                "Indkomstskat",
+                "",
+                "Betal inkomstskat: 10% eller kr. 4000",
+                Color.lightGray,
+                Color.black
+                );
+        guiFields[38] = new GUI_Tax(
+                "Statsskat",
+                "",
+                "Ekstraordinær statsskat: Betal kr. 2000",
+                Color.lightGray,
+                Color.black
+        );
+    }
+
+    private void setupJailFields() {
+        guiFields[10] = new GUI_Jail();
+        guiFields[10].setSubText("På besoeg");
+
+        guiFields[30] = new GUI_Jail();
+        guiFields[30].setSubText("De fængsles");
     }
 
     public void rollMessage() {
