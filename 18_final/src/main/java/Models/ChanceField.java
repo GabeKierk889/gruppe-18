@@ -22,6 +22,7 @@ public class ChanceField extends Field{
     @Override
     public void landOnField(Player currentplayerobject) {
         drawChanceCard();
+        // TODO: gui - show the chance card message in the green square in the middle
 //        MonopolyGame.showChanceCardMessage(); // shows the player the chance card via GUI, then implements the effect
         currentCard.effect(currentplayerobject);
     }

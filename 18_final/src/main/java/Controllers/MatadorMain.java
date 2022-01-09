@@ -6,11 +6,11 @@ public class MatadorMain {
 
         GameController gameController = GameController.getInstance();
 
-//        gameController.initializeGame();
-//
-//        gameController.gameLoop();
+        gameController.initializeGame();
 
-        gameController.testMethod();
+        gameController.gameLoop();
+
+//        gameController.testMethod();
     }
 
 }

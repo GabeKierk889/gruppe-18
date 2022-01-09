@@ -70,7 +70,7 @@ public class GameController {
             takeTurn();
         }
         if(playerIsInJail){
-            releaseFromOfJail();
+            releaseFromJail();
             takeTurn();
         }
         if(diceCup.sameFaceValue()) {
@@ -109,6 +109,7 @@ public class GameController {
 
     // a basic player turn
     private void takeTurn() {
+        // TODO: add gui messages during a turn
         // roll dice
         viewController.rollMessage();
         diceCup.roll();
@@ -130,7 +131,8 @@ public class GameController {
         }
     }
     // releases the player from jail
-    private void releaseFromOfJail(){
+    private void releaseFromJail(){
+        // TODO: gui
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
             ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
         } else {
@@ -155,6 +157,7 @@ public class GameController {
         if(totalAssetValue < needToPay)
             goBankrupt(playerNum, totalAssetValue,needToPay,creditorPlayerNum);
 
+        // TODO: gui
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
     }
 
@@ -163,6 +166,7 @@ public class GameController {
         int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
         players[bankruptPlayerNum-1].getAccount().depositMoney(resellValueBuildings);
         board.removeAllBuildingsOwned(bankruptPlayerNum);
+        // TODO: gui
         // call to a gui method that removes all gui buildings owned by player
 
         // calculate the remaining money debt of the bankrupt player
@@ -175,6 +179,7 @@ public class GameController {
         // if creditor is the bank, the called method ensures an auction is held
         board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum,creditorPlayerNum);
 
+        // TODO: gui
         // write message to gui that player is going bankrupt because they cannot pay needToPay
         // because they only have a total asset value of int calculateAssets
         // update gui fields info (ownership, rent)

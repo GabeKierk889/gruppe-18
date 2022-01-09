@@ -9,7 +9,8 @@ public class JailField extends Field {
     @Override
     public void landOnField(Player currentplayerobject) {
         currentplayerobject.setIsInJail(true);
-        // placeholder - print out message to GUI
+        // TODO: gui
+        // placeholder - print out message to GUI that player is now in jail
     }
 
     @Override
