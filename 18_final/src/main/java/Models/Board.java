@@ -108,7 +108,7 @@ public class Board {
         // stores data in an array with length 2, first numofhouses, then numofhotels
         int[] buildingsOwned = new int[2];
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        for (int i = 0; i< GameController.getInstance().getBoard().getTotalNumOfFields(); i++) {
+        for (int i = 0; i< fields.length; i++) {
             // checks for streetFields owned by current player
             if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == currentPlayer) {
                 buildingsOwned[0] += ((StreetField) fields[i]).getNumOfHouses();
@@ -117,6 +117,35 @@ public class Board {
             }
         }
         return buildingsOwned;
+    }
+
+    // calculates the asset/ resell value of all buildings owned by player
+    public int calculateAssetValueOfBuildingsOwned(int playerNum) {
+        int housesValueAsNew, hotelsValueAsNew, totalValueAsNew;
+        housesValueAsNew = 0; hotelsValueAsNew = 0;
+        for (int i = 0; i< fields.length; i++) {
+            // checks for streetFields owned by player and calculates asset/resell value of buildings
+            if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
+                housesValueAsNew += ((StreetField) fields[i]).getNumOfHouses()*((StreetField) fields[i]).getHOUSEPRICE();
+                if (((StreetField) fields[i]).hasHotel())
+                    // the price of a new hotel is the equivalent of housePrice * (MaxNumHousesOn1Field + 1)
+                    hotelsValueAsNew += ((StreetField) fields[i]).getHOUSEPRICE()*(1+StreetField.MAXNUMOFHOUSES);
+            }
+        }
+        totalValueAsNew = housesValueAsNew + hotelsValueAsNew;
+        return (int) Math.round(totalValueAsNew * GameSettings.HOUSE_RESELL_VALUE_MULTIPLIER);
+    }
+
+    // calculates the asset value of all ownable fields owned by player
+    public int calculateValueOfFieldsOwned(int playerNum) {
+        int totalValue = 0;
+        for (int i = 0; i< fields.length; i++) {
+            // checks for streetFields owned by player and calculates total asset value of ownable fields
+            if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
+                totalValue += ((OwnableField) fields[i]).getPRICE();
+            }
+        }
+        return totalValue;
     }
 
     public int getTotalNumOfFields(){
