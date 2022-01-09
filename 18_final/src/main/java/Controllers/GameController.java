@@ -150,13 +150,17 @@ public class GameController {
     }
 
     private void goBankrupt(int bankruptPlayerNum, int totalAssetValue,int needToPay, int creditorPlayerNum) {
-        // WIP
-        // sell all buildings owned by bankrupt player which adds some money to bankrupt player's account
+        // sell all buildings owned by bankrupt player and adds the money to bankrupt player's account
+        int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
+        players[bankruptPlayerNum-1].getAccount().depositMoney(resellValueBuildings);
+        board.removeAllBuildingsOwned(bankruptPlayerNum);
+        // call to a gui method that removes all gui buildings owned by player
 
+        // calculate the remaining money debt of the bankrupt player
         int remainingMoneyDebt = players[bankruptPlayerNum-1].getAccount().getBalance();
-        // if creditor is another player, deposit an amount = needToPay - remainingMoneyDebt to creditor
+        // if creditor is another player, deposit an amount = needToPay + remainingMoneyDebt(<0) to creditor
         // because the transferMoney method in account has only withdrawn the amount, not made any deposits
-        players[creditorPlayerNum-1].getAccount().depositMoney(needToPay);
+        players[creditorPlayerNum-1].getAccount().depositMoney(needToPay+remainingMoneyDebt);
 
         // transfer ownable fields to creditor (creditorPlayerNum = 0 for the bank)
         // if creditor is the bank, the called method ensures an auction is held
@@ -164,6 +168,8 @@ public class GameController {
 
         // write message to gui that player is going bankrupt because they cannot pay needToPay
         // because they only have a total asset value of int calculateAssets
+        // update gui fields info (ownership, rent)
+        // update gui account
     }
 
     private int getPlayerNum (String playerName) {

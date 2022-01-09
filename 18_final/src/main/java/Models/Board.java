@@ -136,13 +136,27 @@ public class Board {
         return (int) Math.round(totalValueAsNew * GameSettings.HOUSE_RESELL_VALUE_MULTIPLIER);
     }
 
+    // removes all buildings owned by player
+    public void removeAllBuildingsOwned(int playerNum) {
+        for (Field field : fields) {
+            // checks for streetFields owned by player and removes all buildings
+            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == playerNum) {
+                ((StreetField) field).setNumOfHouses(0);
+                ((StreetField) field).setHasHotel(false);
+            }
+        }
+    }
+
     // calculates the asset value of all ownable fields owned by player
     public int calculateValueOfFieldsOwned(int playerNum) {
         int totalValue = 0;
         for (Field field : fields) {
             // checks for fields owned by player and calculates total asset value of ownable fields
             if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
-                totalValue += ((OwnableField) field).getPRICE();
+                if (((OwnableField) field).isMortgaged)
+                    totalValue += ((OwnableField) field).MORTGAGEVALUE;
+                else
+                    totalValue += ((OwnableField) field).getPRICE();
             }
         }
         return totalValue;
