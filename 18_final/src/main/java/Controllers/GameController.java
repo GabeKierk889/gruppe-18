@@ -208,19 +208,5 @@ public class GameController {
     public void testMethod() {
         Board board = new Board();
         board.buildHouse();
-
-        // TODO: Midlertidig kommenteret ud
-//        while (true) {
-//            viewController.rollMessage();
-//            diceCup.roll();
-//            viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
-//            int moveFrom, moveTo;
-//            moveFrom = players[playerArrayNum].OnField();
-//            // next line moves the player i.e. changes the onField varialbe
-//            players[playerArrayNum].movePlayerSteps(diceCup.getSum());
-//            moveTo = players[playerArrayNum].OnField();
-//            viewController.moveGUICar(moveFrom,moveTo,currentPlayerNum);
-//            switchTurn(false);
-//        }
     }
 }
