@@ -15,9 +15,7 @@ public class GameController {
     private int currentPlayerNum;
     private int playerArrayNum;
 
-    private GameController() {
-
-    }
+    private GameController() { }
 
     // makes this class a singleton
     public static GameController getInstance() {
@@ -64,6 +62,7 @@ public class GameController {
     }
 
     public void gameLoop(){
+        while (!checkForWinner()) {
         boolean extraTurn = false;
         boolean playerIsInJail = players[playerArrayNum].getIsInJail();
 
@@ -71,16 +70,14 @@ public class GameController {
             takeTurn();
         }
         if(playerIsInJail){
-            releaseFromOfJail();
+            releaseFromJail();
             takeTurn();
         }
         if(diceCup.sameFaceValue()) {
             extraTurn = true;
         }
-        switchTurn(extraTurn);
-        checkForWinner();
+        switchTurn(extraTurn); }
         determineWinner();
-
     }
 
     // finds a winner if all other than one player is bankrupt
@@ -111,25 +108,39 @@ public class GameController {
     }
 
     // a basic player turn
-    private void takeTurn(){
+    private void takeTurn() {
+        // TODO: add gui messages during a turn
+        // roll dice
         viewController.rollMessage();
         diceCup.roll();
-        players[playerArrayNum].movePlayerSteps(diceCup.getSum()); // moves the player according to the throw
+        viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
+        // save player's current location and then move player
+        int moveFrom, moveTo;
+        moveFrom = players[playerArrayNum].OnField();
+        players[playerArrayNum].movePlayerSteps(diceCup.getSum());
+        moveTo = players[playerArrayNum].OnField();
+        viewController.moveGUICar(moveFrom, moveTo, currentPlayerNum);
         players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
-//        viewController.updateGUIBalance();
-//        board.getFieldObject(player.OnField()).landOnField(players[playerArrayNum]); // field effect happens
+        viewController.updateGUIBalance();
+        int lastLocation = moveTo;
+        board.getFieldObject(players[playerArrayNum].OnField()).landOnField(players[playerArrayNum]); // field effect happens
+        // following flow ensures landOnField method is called again in case player has landed on another field during their turn
+        while (lastLocation != players[playerArrayNum].OnField()) {
+            lastLocation = players[playerArrayNum].OnField();
+            board.getFieldObject(lastLocation).landOnField(players[playerArrayNum]);
+        }
     }
-
     // releases the player from jail
-    private void releaseFromOfJail(){
-//        if(players[playerArrayNum].hasAReleaseFromJailCard()){
-//            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
-//        } else {
-//            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
-//        }
+    private void releaseFromJail(){
+        // TODO: gui
+        if(players[playerArrayNum].hasAReleaseFromJailCard()){
+            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+        } else {
+            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
+        }
     }
 
-    private int calculateAssets(int playerNum) {
+    public int calculateAssets(int playerNum) {
         int totalAssetValue, valueOfBuildings, valueOfOwnableFields;
         valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
         valueOfOwnableFields = board.calculateValueOfFieldsOwned(playerNum);
@@ -146,6 +157,7 @@ public class GameController {
         if(totalAssetValue < needToPay)
             goBankrupt(playerNum, totalAssetValue,needToPay,creditorPlayerNum);
 
+        // TODO: gui
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
     }
 
@@ -154,6 +166,7 @@ public class GameController {
         int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
         players[bankruptPlayerNum-1].getAccount().depositMoney(resellValueBuildings);
         board.removeAllBuildingsOwned(bankruptPlayerNum);
+        // TODO: gui
         // call to a gui method that removes all gui buildings owned by player
 
         // calculate the remaining money debt of the bankrupt player
@@ -166,6 +179,7 @@ public class GameController {
         // if creditor is the bank, the called method ensures an auction is held
         board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum,creditorPlayerNum);
 
+        // TODO: gui
         // write message to gui that player is going bankrupt because they cannot pay needToPay
         // because they only have a total asset value of int calculateAssets
         // update gui fields info (ownership, rent)
@@ -197,17 +211,7 @@ public class GameController {
     public Player getPlayerObject(int playerNum) { return players[playerNum - 1]; }
 
     public void testMethod() {
-        while (true) {
-            viewController.rollMessage();
-            diceCup.roll();
-            viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
-            int moveFrom, moveTo;
-            moveFrom = players[playerArrayNum].OnField();
-            // next line moves the player i.e. changes the onField varialbe
-            players[playerArrayNum].movePlayerSteps(diceCup.getSum());
-            moveTo = players[playerArrayNum].OnField();
-            viewController.moveGUICar(moveFrom,moveTo,currentPlayerNum);
-            switchTurn(false);
-        }
+        Board board = new Board();
+        board.buildHouse();
     }
 }

@@ -13,7 +13,20 @@ public class Board {
         fields = service.createFields();
     }
 
-    public void buildHouse(){}
+    // TODO: Forsøg på at lave buildHouse()
+    public void buildHouse(){
+        // Hent hus pris
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        // TODO: Problem herunder
+//        int currentField = GameController.getInstance().getPlayerObject(currentPlayer).OnField();
+//        System.out.println(currentField);
+//        int[] currentHousePrice = fieldsDataReader.getHousePriceArray(currentField);
+        // Køb hus
+        // Træk penge
+//        GameController.getInstance().getPlayerObject(currentPlayer).getAccount().withdrawMoney(currentHousePrice);
+        // Opsæt hus
+    }
+
     public void buildHotel(){}
     public void sellHouse(){}
 
@@ -26,19 +39,13 @@ public class Board {
         int ownernum = ((OwnableField) fields[fieldArrayNum]).getOwnerNum();
         if (fields[fieldArrayNum].isStreetField()) // updates color, if the field is a street
             streetColor = ((StreetField) fields[fieldArrayNum]).getStreetColor();
-        for (int i = 0; i< fields.length; i++) {
-            // checks other fields of the same class name, if they are of the same type, and have the same owner
-            if (fields[i].getClass().toString().equalsIgnoreCase(fieldClassName) && i != fieldArrayNum) {
-                // checks shipping and breweries
-                if (streetColor.equalsIgnoreCase("")) {
-                    if (((OwnableField) fields[i]).getOwnerNum() == ownernum && ownernum != 0)
-                        test = true;
-                    else
-                        return false;
-                }
-                // checks streets of same color
-                else if (streetColor.equalsIgnoreCase(((StreetField) fields[i]).getStreetColor())) {
-                    if (((OwnableField) fields[i]).getOwnerNum() == ownernum && ownernum != 0)
+        for (Field field : fields) {
+            // checks any fields of the same class name, if they are of the same type, and have the same owner
+            if (field.getClass().toString().equalsIgnoreCase(fieldClassName)) {
+                // if condition only runs if it is either a shipping or brewery field, or if it is a streetField of same color
+                if (!fields[fieldArrayNum].isStreetField() ||
+                    (fields[fieldArrayNum].isStreetField() && streetColor.equalsIgnoreCase(((StreetField) field).getStreetColor())) ) {
+                    if (((OwnableField) field).getOwnerNum() == ownernum && ownernum != 0)
                         test = true;
                     else
                         return false;
@@ -61,13 +68,9 @@ public class Board {
         // note: rent needs to be updated for multiple shipping fields regardless of whether player owns all the shipping fields
         {
             for (Field field : fields) {
-                if (field.getClass().toString().equalsIgnoreCase(fieldClassName)) {
-                    // updates rent for other shipping and brewery fields
-                    // needs to check that ownernum is the same for the shipping fields
-                    if (streetColor.equalsIgnoreCase("") && ownernum == ((OwnableField) field).getOwnerNum())
+                if (field.getClass().toString().equalsIgnoreCase(fieldClassName) && ownernum == ((OwnableField) field).getOwnerNum()) {
+                    if (!field.isStreetField())
                         ((OwnableField) field).updateRent();
-                        // updates rent for streets of the same color
-                        // ownernum has already been verified to be the same as ownsAllFieldsOfSameType is true
                     else if (streetColor.equalsIgnoreCase(((StreetField) field).getStreetColor()))
                         ((OwnableField) field).updateRent();
                 }

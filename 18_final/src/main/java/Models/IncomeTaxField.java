@@ -1,19 +1,23 @@
 package Models;
 
-public class IncomeTaxField extends TaxField {
+import Controllers.GameController;
 
-    public IncomeTaxField(String fieldName, int taxAmount) {
+public class IncomeTaxField extends TaxField {
+    double taxrate;
+
+    public IncomeTaxField(String fieldName, int taxAmount, double taxrate) {
         super(fieldName, taxAmount);
+        this.taxrate = taxrate;
     }
 
     @Override
     public int calculateTax(Player currentplayerobject) {
+        // TODO: gui that asks the player and takes user input
         // placeholder - use gui to ask player if they want to pay 10% or the fixed tax amount
         if(false) {
+            int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
             // calculate 10% of assets
-            int tenPercent;
-            tenPercent = 0;
-            return tenPercent;
+            return (int) Math.round(taxrate * GameController.getInstance().calculateAssets(currentPlayer));
         }
         else return FIXEDTAX;
     }

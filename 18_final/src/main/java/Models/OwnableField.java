@@ -23,24 +23,26 @@ public abstract class OwnableField extends Field {
     @Override
     public void landOnField(Player currentplayerobject) {
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
-        Player ownerPlayerObject = GameController.getInstance().getPlayerObject(ownerNum);
         // buy field or pay money
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
         else if (ownerNum != currentPlayerNum
-                && !ownerPlayerObject.getIsInJail()
+                && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
             updateRent();
             currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
+            // TODO: gui
 //             write message to gui that a rent has been paid;
         }
         else if (ownerNum != currentPlayerNum
-                && ownerPlayerObject.getIsInJail())
+                && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
             ;
+            // TODO: gui
 //             write message to gui that owner is in jail so no rent needs to be paid
         else if (ownerNum != currentPlayerNum && isMortgaged)
             ;
+        // TODO: gui
 //         write message to gui that field is mortgaged so no rent needs to be paid
         }
 
@@ -50,22 +52,30 @@ public abstract class OwnableField extends Field {
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
         int fieldArrayNum = board.getFieldArrayNumber(fieldName);
         if (true) { // use gui to get user input on whether a player wants to buy a field
+            // TODO: gui that asks the player and takes user input on whether to buy field
             setOwnerNum(currentPlayerNum);
             currentplayerobject.getAccount().withdrawMoney(PRICE);
             board.updateRentForAllFieldsOfSameType(fieldArrayNum);
+            // TODO: gui
             // show message in GUI that a field has been bought
         }
         else
             auctionField();
     }
 
-    public void auctionField() { }
+    public void auctionField() {
+        // TODO: for later, lower priotity
+    }
 
     public void mortgageField(Player currentplayerobject) {
-        // does not output any messages to gui
-        if(!isMortgaged) {
+        if (isMortgaged)
+            ;
+            // TODO: gui
+        // add gui error message that field is already mortgaged
+        else {
             isMortgaged = true;
             currentplayerobject.getAccount().depositMoney(MORTGAGEVALUE);
+            // TODO: gui
             // output message via gui that field has been mortgaged and money deposited
         }
     }
@@ -78,6 +88,7 @@ public abstract class OwnableField extends Field {
             int interest = (int) Math.round(MORTGAGEVALUE*GameSettings.MORTGAGE_INTEREST_MULTIPLIER /round) * round;
             currentplayerobject.getAccount().withdrawMoney(MORTGAGEVALUE+interest);
             isMortgaged = false;
+            // TODO: gui
             // output message via gui that field has been unmortgaged and money paid
         }
     }

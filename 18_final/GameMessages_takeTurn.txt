@@ -1,4 +1,4 @@
-'s tur. Tryk for at kaste med terningerne.
+s tur. Tryk for at kaste med terningerne.
 Kast
 OK
 Du har slået 2 ens og får et ekstra kast
