@@ -2,8 +2,8 @@ Velkommen til Matador-spillet!
 Skriv navnene på alle spillerne på en linje (adskilt af mellemrum), i den rækkefoelge I vil spille.
 Der er sket en fejl. Det samme navn er blevet indtastet to eller flere gange. Proev igen.
 Der er sket en fejl. Der skal være * til @ spillere. Proev igen.
-Spiller *: 
-Her er spillerne du har indtastet og rækkefoelgen af spillere.
+Spiller %x:
+Her er spillerne du har indtastet og rækkefoelgen af spillere %s.
 Vil I starte spillet med disse spillere?
 Ja
 Nej

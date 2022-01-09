@@ -20,7 +20,6 @@ public class Player {
         isInJail = false;
     }
 
-    // TODO: Bug?
     public int movePlayerSteps(int stepsToMove) {
         onField = (onField+stepsToMove) % GameController.getBoard().getTotalNumOfFields();
         return onField; }

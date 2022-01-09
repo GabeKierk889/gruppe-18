@@ -1,12 +1,12 @@
 package Controllers;
 
-import Models.Account;
 import Models.Board;
 import Models.GameSettings;
 import Services.FileImporter;
 import gui_fields.*;
 import gui_main.GUI;
 import java.awt.Color;
+import java.io.FileReader;
 
 public class ViewController {
     private GUI_Field[] guiFields;
@@ -16,11 +16,13 @@ public class ViewController {
     private GUI gui;
     private static ViewController single_instance;
     int numbOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
-    private String[] guiMessage;
+    private String[] takeTurnGUIMessages;
+    private String[] setupGameGUIMessages;
 
     private ViewController() {
         FileImporter reader = new FileImporter();
-        guiMessage = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
+        takeTurnGUIMessages = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
+        setupGameGUIMessages = reader.readAllLinesInFile("GameMessages_setupGame.txt");
     }
 
     public static ViewController getInstance() {
@@ -48,7 +50,7 @@ public class ViewController {
     }
 
     public String[] getPlayerNames() {
-        String str = gui.getUserString("On 1 line (separated by spaces only), enter the names of 2-4 players who will be playing today");
+        String str = gui.getUserString(setupGameGUIMessages[1]);
         String[] strarray = str.split(" ");
         boolean duplicateNames = false;
         for (int i = 0; i < strarray.length; i++) {
@@ -59,20 +61,19 @@ public class ViewController {
                 }
         }
         if (duplicateNames) {
-            gui.showMessage("Error, two players cannot have exactly the same name. Please try again.");
+            gui.showMessage(setupGameGUIMessages[2]);
         } else if (strarray.length > GameSettings.MAXNUMOFPLAYERS || strarray.length < GameSettings.MINNUMOFPLAYERS) {
 //            gui.showMessage();
         } else {
             String names = "";
             for (int i = 0; i < strarray.length; i++) {
                 if (i != strarray.length - 1)
-                    names += "Player  " + (i + 1) + ": " + strarray[i] + ",   ";
+                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ",   ";
                 else
-                    names += "Player  " + (i + 1) + ": " + strarray[i];
+                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i];
             }
-            if (gui.getUserLeftButtonPressed("Here are the names that you entered," +
-                            "and the order of the players' turns: \n" + names + "\n\n\t\t\tDo you want to start the game?",
-                    "Yes", "No, reset names")) {
+            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names),
+                    setupGameGUIMessages[7],setupGameGUIMessages[8])) {
                 return strarray;
             }
         }
@@ -137,8 +138,7 @@ public class ViewController {
         guiFields[moveTo].setCar(currentGUIPlayer, true);
     }
 
-    // TODO: Format fields.
-    public void colorStreets() {
+    private void colorStreets() {
         Color orange = new Color(255,165,0);
         Color lilla = new Color(128,0,128);
 
@@ -176,7 +176,7 @@ public class ViewController {
 
     public void rollMessage() {
         String name = getCurrentPlayerName();
-        gui.getUserButtonPressed(name+guiMessage[0],guiMessage[1]);
+        gui.getUserButtonPressed(name+ takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
     }
 
     private int currentPlayerNum() {
