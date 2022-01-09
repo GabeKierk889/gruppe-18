@@ -50,6 +50,7 @@ public class ViewController {
         if (duplicateNames) {
             gui.showMessage(setupGameGUIMessages[2]);
         } else if (strarray.length > GameSettings.MAXNUMOFPLAYERS || strarray.length < GameSettings.MINNUMOFPLAYERS) {
+            // TODO: gui-besked - problem med at opsætte spillere - der må være fra x til x spillere
 //            gui.showMessage();
         } else {
             String names = "";
