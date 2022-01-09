@@ -142,6 +142,12 @@ public class ViewController {
         );
     }
 
+    public void updateGUIBalance() {
+        // updating and showing the updated gui balances for all players
+        for (int i = 0; i < guiPlayers.length; i++)
+            guiPlayers[i].setBalance(GameController.getInstance().getPlayerObject(i + 1).getAccount().getBalance());
+    }
+
     //Take turn messages
     public void diceThrow(){
         gui.showMessage(takeTurnGUIMessages[1]);

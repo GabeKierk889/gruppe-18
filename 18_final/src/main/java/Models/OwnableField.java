@@ -23,20 +23,19 @@ public abstract class OwnableField extends Field {
     @Override
     public void landOnField(Player currentplayerobject) {
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
-        Player ownerPlayerObject = GameController.getInstance().getPlayerObject(ownerNum);
         // buy field or pay money
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
         else if (ownerNum != currentPlayerNum
-                && !ownerPlayerObject.getIsInJail()
+                && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
             updateRent();
             currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
 //             write message to gui that a rent has been paid;
         }
         else if (ownerNum != currentPlayerNum
-                && ownerPlayerObject.getIsInJail())
+                && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
             ;
 //             write message to gui that owner is in jail so no rent needs to be paid
         else if (ownerNum != currentPlayerNum && isMortgaged)
@@ -62,8 +61,11 @@ public abstract class OwnableField extends Field {
     public void auctionField() { }
 
     public void mortgageField(Player currentplayerobject) {
+        if (isMortgaged)
+            ;
+        // add gui error message that field is already mortgaged
         // does not output any messages to gui
-        if(!isMortgaged) {
+        else {
             isMortgaged = true;
             currentplayerobject.getAccount().depositMoney(MORTGAGEVALUE);
             // output message via gui that field has been mortgaged and money deposited

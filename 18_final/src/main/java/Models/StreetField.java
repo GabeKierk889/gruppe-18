@@ -67,4 +67,11 @@ public class StreetField extends OwnableField {
             playerNum >= 0 && playerNum <= GameController.getInstance().getTotalPlayers())
             ownerNum = playerNum;
     }
+
+    @Override
+    public void mortgageField(Player currentplayerobject) {
+        if (numOfHouses > 0 || hasHotel)
+            ; //error message in gui that all buildings must be sold first
+        super.mortgageField(currentplayerobject);
+    }
 }
