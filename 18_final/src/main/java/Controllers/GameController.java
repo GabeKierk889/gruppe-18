@@ -125,10 +125,6 @@ public class GameController {
 //        return 0;
 //    }
 
-    private int calculateAssets(){
-        return 0;
-    }
-
     // a basic player turn
     private void takeTurn(){
         viewController.rollMessage();
@@ -146,6 +142,47 @@ public class GameController {
 //        } else {
 //            players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
 //        }
+    }
+
+    private int calculateAssets(int playerNum) {
+        int totalAssetValue, valueOfBuildings, valueOfOwnableFields;
+        valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
+        valueOfOwnableFields = board.calculateValueOfFieldsOwned(playerNum);
+        totalAssetValue = players[playerNum-1].getAccount().getBalance() + valueOfBuildings + valueOfOwnableFields;
+        return totalAssetValue;
+    }
+
+    public void sellAssets(String name, int needToPay) {
+        int totalAssetValue = calculateAssets(getPlayerNum(name));
+        //checks if the player is not able to pay / is going bankrupt
+        if(totalAssetValue < needToPay)
+            goBankrupt(name, totalAssetValue,needToPay);
+
+        // if the player is not going bankrupt, add gui messages asking player to raise funds to pay needToPAyAmount
+    }
+
+    private void goBankrupt(String playername, int totalAssetValue,int needToPay) {
+        // WIP
+        // sell all buildings
+
+        // if creditor is another player:
+        // any remaining negative money balance that the bankrupt player cannot pay
+        // (but which has already deposited into creditor's account), must be withdrawn from creditor's account
+
+        // transfer ownable fields to creditor (if creditor is another player)
+
+        // if creditor is the bank, set ownerNum = 0 and hold auctions of the relevant fields
+
+        // write message to gui that playername is going bankrupt because they cannot pay needToPay
+        // because they only have a total asset value of int calculateAssets
+    }
+
+    private int getPlayerNum (String playerName) {
+        for (int i = 0; i < totalPlayers; i++) {
+            if (players[i].getName().equals(playerName))
+                return i+1;
+        }
+        return 0; // returns 0 if player name is not found
     }
 
     public Board getBoard() { return board; }

@@ -5,23 +5,23 @@ package Models;
 import Controllers.GameController;
 
 public class Player {
-    private final String name;
-    private final Account account;
+    private final String NAME;
+    private final Account ACCOUNT;
     private int onField;
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt
     private boolean isInJail;
     private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
 
-    public Player(String name){
-        account = new Account();
-        this.name = name;
+    public Player(String NAME){
+        ACCOUNT = new Account(NAME);
+        this.NAME = NAME;
         onField = 0;
         isBankrupt = false;
         isInJail = false;
     }
 
     public int movePlayerSteps(int stepsToMove) {
-        onField = (onField+stepsToMove) % GameController.getBoard().getTotalNumOfFields();
+        onField = (onField+stepsToMove) % GameController.getInstance().getBoard().getTotalNumOfFields();
         return onField; }
 
     public void collectStartBonus(int diceThrow) {
@@ -32,14 +32,14 @@ public class Player {
 
     public void movePlayerToField(int fieldArrayNumber) {
         if(fieldArrayNumber >= 0)
-            onField = fieldArrayNumber % GameController.getBoard().getTotalNumOfFields();
+            onField = fieldArrayNumber % GameController.getInstance().getBoard().getTotalNumOfFields();
     }
 
     public String getName() {
-        return name;
+        return NAME;
     }
     public Account getAccount() {
-        return account;
+        return ACCOUNT;
     }
     public int OnField() {return onField;}
     public void setIsBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }

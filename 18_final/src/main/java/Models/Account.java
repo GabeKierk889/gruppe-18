@@ -2,11 +2,15 @@ package Models;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
+import Controllers.GameController;
+
 public class Account {
 
     private int balance;
+    private final String NAME;
 
-    public Account () {
+    public Account (String ownerName) {
+        NAME = ownerName;
         balance = GameSettings.STARTINGBALANCE;
     }
 
@@ -15,6 +19,9 @@ public class Account {
         // currently allowing a negative balance
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
+        if (balance<0) {
+            GameController.getInstance().sellAssets(NAME,withdrawal);
+        }
 
         // Only allows withdrawal if the amount is greater than zero and also the withdrawal amount is greater than
         // the current balance.
@@ -38,8 +45,9 @@ public class Account {
     }
 
     public void transferMoney(int amount, int recipientPlayerNum) {
-        withdrawMoney(amount);
-//        MonopolyGame.game.getPlayerObject(recipientPlayerNum).getAccount().depositMoney(amount);
+        withdrawMoney(amount); // this includes calls to sell assets / go bankrupt methods
+        if (balance >= 0)
+            GameController.getInstance().getPlayerObject(recipientPlayerNum).getAccount().depositMoney(amount);
     }
 
     public void setBalance(int balance) {
