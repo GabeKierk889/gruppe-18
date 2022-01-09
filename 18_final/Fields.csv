@@ -11,7 +11,7 @@ Valby Langgade,8,StreetField,2000,1000,100,600,1800,5400,8000,11000,orange
 Allegade,9,StreetField,2400,1000,150,800,2000,6000,9000,12000,orange
 Besoeg i faengsel,10,Field,,,,,,,,,
 Frederiksberg Alle,11,StreetField,2800,2000,200,1000,3000,9000,12500,15000,groen
-Tuborg Squash,12,BreweryField,3000,,100,200,,,,,
+Tuborg,12,BreweryField,3000,,100,200,,,,,
 Bulowsvej,13,StreetField,2800,2000,200,1000,3000,9000,12500,15000,groen
 Gl. Kongevej,14,StreetField,3200,2000,250,1250,3750,10000,14000,18000,groen
 Mols-Linien,15,ShippingField,4000,,500,1000,2000,4000,,,
@@ -27,7 +27,7 @@ Groenningen,24,StreetField,4800,3000,400,2000,6000,15000,18500,22000,roed
 Gedser - Rostock,25,ShippingField,4000,,500,1000,2000,4000,,,
 Bredgade,26,StreetField,5200,3000,450,2200,6600,16000,19500,23000,hvid
 Kgs. Nytorv,27,StreetField,5200,3000,450,2200,6600,16000,19500,23000,hvid
-Coca Cola,28,BreweryField,3000,,100,200,,,,,
+Carlsberg,28,BreweryField,3000,,100,200,,,,,
 Oestergade,29,StreetField,5600,3000,500,2400,7200,17000,20500,24000,hvid
 Gaa i faengsel,30,JailField,,,,,,,,,
 Amagertorv,31,StreetField,6000,4000,550,2600,7800,18000,22000,25000,gul
