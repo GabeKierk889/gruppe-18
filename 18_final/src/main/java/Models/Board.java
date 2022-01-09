@@ -1,10 +1,7 @@
 package Models;
 
 import Controllers.GameController;
-import Controllers.ViewController;
 import Services.FieldsCreator;
-import Services.FieldsDataReader;
-import Services.FileImporter;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
