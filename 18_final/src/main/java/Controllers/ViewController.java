@@ -146,13 +146,14 @@ public class ViewController {
         guiStreets[3].setBackGroundColor(Color.blue);
 
         guiStreets[6].setBackGroundColor(orange);
-        guiStreets[7].setBackGroundColor(orange);
         guiStreets[8].setBackGroundColor(orange);
+        guiStreets[9].setBackGroundColor(orange);
 
         guiStreets[11].setBackGroundColor(Color.green);
         guiStreets[13].setBackGroundColor(Color.green);
         guiStreets[14].setBackGroundColor(Color.green);
 
+        guiStreets[16].setBackGroundColor(Color.gray);
         guiStreets[18].setBackGroundColor(Color.gray);
         guiStreets[19].setBackGroundColor(Color.gray);
 
