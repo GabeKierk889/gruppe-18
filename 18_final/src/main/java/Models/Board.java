@@ -8,12 +8,34 @@ import Services.FieldsCreator;
 public class Board {
     private Field[] fields;
 
+    // TODO: Find bedre navn til fieldsReader
+    private String[] fieldsReader;
+    private FieldsDataReader fieldsDataReader = new FieldsDataReader("Fields.csv");
+
     public Board() {
         FieldsCreator service = new FieldsCreator();
+        FileImporter reader = new FileImporter();
+
         fields = service.createFields();
+
+        // TODO: WIP
+        fieldsReader = reader.readAllLinesInFile("Fields.csv");
     }
 
-    public void buildHouse(){}
+    // TODO: Forsøg på at lave buildHouse()
+    public void buildHouse(){
+        // Hent hus pris
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        // TODO: Problem herunder
+//        int currentField = GameController.getInstance().getPlayerObject(currentPlayer).OnField();
+//        System.out.println(currentField);
+//        int[] currentHousePrice = fieldsDataReader.getHousePriceArray(currentField);
+        // Køb hus
+        // Træk penge
+//        GameController.getInstance().getPlayerObject(currentPlayer).getAccount().withdrawMoney(currentHousePrice);
+        // Opsæt hus
+    }
+
     public void buildHotel(){}
     public void sellHouse(){}
 
