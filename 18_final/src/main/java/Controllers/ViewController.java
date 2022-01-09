@@ -7,6 +7,8 @@ import gui_main.GUI;
 import java.awt.Color;
 
 public class ViewController {
+    // TODO: update class diagram with some of the new methods
+
     private GUI_Car[] guiCars;
     private GUI_Player[] guiPlayers;
     private GUI gui;

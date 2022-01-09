@@ -4,6 +4,7 @@ import Models.*;
 
 
 public class GameController {
+    // TODO: update class diagram with some of the new methods
 
     private ViewController viewController;
     private Board board;
