@@ -3,6 +3,7 @@ package Models;
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
 import Controllers.GameController;
+import Controllers.ViewController;
 
 public class Player {
     private final String NAME;
@@ -27,6 +28,7 @@ public class Player {
     public void collectStartBonus(int diceThrow) {
         // only applies to regular turns/ passing START by throwing the dice, not chance card situations
         if (onField < diceThrow)
+            ViewController.getInstance().collectStartBonusMessage();
             getAccount().depositMoney(GameSettings.STARTBONUS);
     }
 
