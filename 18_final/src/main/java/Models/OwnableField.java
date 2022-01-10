@@ -55,9 +55,15 @@ public abstract class OwnableField extends Field {
                     str = ((StreetField) this).getStreetColor();
                 }
                 // if streetField has houses/ hotels
-                else if (false) {
+                else if (!unBuilt) {
                     lineArray = 23;
-//                    str = ((StreetField) this).getStreetColor();
+                    int numHouses = ((StreetField) this).getNumOfHouses();
+                    if (((StreetField) this).hasHotel())
+                        str = ViewController.getInstance().getTakeTurnGUIMessages(26);
+                    else if (numHouses == 1)
+                        str = ViewController.getInstance().getTakeTurnGUIMessages(24);
+                    else
+                        str = ViewController.getInstance().getTakeTurnGUIMessages(25);
                 }
             }
         ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,lineArray,28,ownerName,str,""+currentRent);

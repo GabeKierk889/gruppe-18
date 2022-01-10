@@ -302,5 +302,9 @@ public class ViewController {
         }
     }
 
-    
+    public String getTakeTurnGUIMessages(int txtLineArray) {
+        return takeTurnGUIMessages[txtLineArray];
+    }
+
+    //Deniz
 }
