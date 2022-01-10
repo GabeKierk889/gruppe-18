@@ -22,7 +22,6 @@ public class ChanceField extends Field{
 
     @Override
     public void landOnField(Player currentplayerobject) {
-        ViewController.getInstance().drawChanceCardMessage();
         drawChanceCard();
         // TODO: gui - show the chance card message in the green square in the middle
         // show the player the chance card via GUI, then implement the effect
@@ -34,6 +33,7 @@ public class ChanceField extends Field{
 //                    "When you are done reading, press the 'Apply' button to apply the instructions of the chance card", "Apply");
 //            gui.setChanceCard(""); // removes the text after the player has read it
 //        }
+        ViewController.getInstance().drawChanceCardMessage(currentCard.getChanceCardText());
         currentCard.effect(currentplayerobject);
     }
 
