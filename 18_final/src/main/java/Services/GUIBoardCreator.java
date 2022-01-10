@@ -112,9 +112,13 @@ public class GUIBoardCreator {
 
     private void formatShippingFields() {
         guiFields[5].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[5]));
+        guiFields[5].setTitle(board.getFieldObject(5).getFieldName());
         guiFields[15].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[15]));
+        guiFields[15].setTitle(board.getFieldObject(15).getFieldName());
         guiFields[25].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[25]));
+        guiFields[25].setTitle(board.getFieldObject(25).getFieldName());
         guiFields[35].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[35]));
+        guiFields[35].setTitle(board.getFieldObject(35).getFieldName());
     }
 
     private void setupSTART() {
