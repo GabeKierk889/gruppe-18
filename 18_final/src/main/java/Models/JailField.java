@@ -13,7 +13,7 @@ public class JailField extends Field {
     public void landOnField(Player currentplayerobject) {
         currentplayerobject.setIsInJail(true);
         ViewController.getInstance().goToJailMessage();
-        currentplayerobject.movePlayerToField(10);
+        currentplayerobject.moveToField(10);
         ViewController.getInstance().moveGUICar(30,10, GameController.getInstance().getCurrentPlayerNum());
     }
 
