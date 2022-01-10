@@ -20,7 +20,7 @@ Betal
 Du er landet på et felt ejet af %1$s.
 Da %1$s ejer alle de %2$s felter, er lejen fordoblet.
 Da %1$s ejer flere rederier, er lejen forhøjet.
-Da %1$s ejer flere bryggerier, er lejen forhøjet.
+Da %1$s ejer begge bryggerier, er lejen fordoblet.
 Da der er %2$s på grunden, er lejen forhøjet.
 et hus
 huse
