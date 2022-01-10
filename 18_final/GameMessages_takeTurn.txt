@@ -17,16 +17,16 @@ Ja
 Nej
 Anvend
 Betal
-Du er landet på et felt ejet af %s.
-Da %1$s ejer alle de %1$s felter, er lejen fordoblet.
-Da %s ejer flere rederier, er lejen forhøjet.
-Da %s ejer flere bryggerier, er lejen forhøjet.
-Da der er %s på grunden, er lejen forhøjet.
+Du er landet på et felt ejet af %1$s.
+Da %1$s ejer alle de %2$s felter, er lejen fordoblet.
+Da %1$s ejer flere rederier, er lejen forhøjet.
+Da %1$s ejer flere bryggerier, er lejen forhøjet.
+Da der er %2$s på grunden, er lejen forhøjet.
 hus
 huse
 hotel
 hoteller
-Du skal nu betale kr. %s i leje.
+Du skal nu betale kr. %3s i leje.
 Da ejeren af feltet er i fængsel, skal du ikke betale leje.
 Da feltet er blevet pantsat af ejeren, skal der ikke betales leje.
 Du skal betale i alt kr. %1$s for %2$s og %3$s.

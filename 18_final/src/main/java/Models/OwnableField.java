@@ -28,7 +28,9 @@ public abstract class OwnableField extends Field {
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
-        else if (ownerNum != currentPlayerNum
+        else {
+            String ownerName = GameController.getInstance().getPlayerName(ownerNum);
+            if (ownerNum != currentPlayerNum
                 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
             updateRent();
@@ -36,16 +38,11 @@ public abstract class OwnableField extends Field {
             // TODO: gui
 //             write message to gui that a rent has been paid;
         }
-        else if (ownerNum != currentPlayerNum
-                && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
-            ;
-            // TODO: gui
-//             write message to gui that owner is in jail so no rent needs to be paid
+        else if (ownerNum != currentPlayerNum && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
+            ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,29,-1,ownerName,"","");
         else if (ownerNum != currentPlayerNum && isMortgaged)
-            ;
-        // TODO: gui
-//         write message to gui that field is mortgaged so no rent needs to be paid
-        }
+            ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,30,-1,ownerName,"","");
+        } }
 
     public void buyField(Player currentplayerobject) {
         boolean playerWantsToBuyField;
@@ -65,7 +62,7 @@ public abstract class OwnableField extends Field {
         currentplayerobject.getAccount().withdrawMoney(purchasePrice);
         board.updateRentForAllFieldsOfSameType(fieldArrayNum);
         ViewController.getInstance().updateGUIBalance();
-        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice);
+        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice,"");
         ViewController.getInstance().formatFieldBorder(fieldArrayNum);
     }
 
