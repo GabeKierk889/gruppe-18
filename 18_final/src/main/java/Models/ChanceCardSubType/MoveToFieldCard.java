@@ -16,20 +16,21 @@ public class MoveToFieldCard extends ChanceCard {
     @Override
     public void effect(Player currentplayerobject) {
         Board board = GameController.getInstance().getBoard();
-        int fieldarraynum = board.getFieldArrayNumber(FIELDNAME);
+        int moveToFieldNum = board.getFieldArrayNumber(FIELDNAME);
         // calls a method that moves the GUI car
-//        ViewController.getInstance().moveGUICarToField(fieldarraynum);
+        ViewController.getInstance().moveGUICar(currentplayerobject.OnField(),
+        moveToFieldNum,GameController.getInstance().getCurrentPlayerNum());
 
         // checks whether the player would pass START moving there and thus get a START bonus
         // no start bonus will be collected if the player is moving to the jail field
-        if(!board.getFieldObject(fieldarraynum).isJailField()  &&
-                fieldarraynum < currentplayerobject.OnField()) {
+        if(!board.getFieldObject(moveToFieldNum).isJailField()  &&
+                moveToFieldNum < currentplayerobject.OnField()) {
             currentplayerobject.getAccount().depositMoney(GameSettings.STARTBONUS);
-//            ViewController.getInstance().updateGUIBalance();
-            // show message in gui that a start bonus has been deposited
+            ViewController.getInstance().updateGUIBalance();
+            ViewController.getInstance().startBonusMessage();
         }
         // sets the onField variable to the new field
-        currentplayerobject.movePlayerToField(fieldarraynum);
+        currentplayerobject.movePlayerToField(moveToFieldNum);
     }
 }
 

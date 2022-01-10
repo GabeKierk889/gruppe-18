@@ -1,6 +1,7 @@
 package Models.ChanceCardSubType;
 
 import Controllers.GameController;
+import Controllers.ViewController;
 import Models.Board;
 import Models.ChanceCard;
 import Models.Player;
@@ -20,7 +21,10 @@ public class PayMoneyForBuildingsCard extends ChanceCard {
         int payment = buildingsOwned[1] * PAYPERHOTEL + buildingsOwned[0] * PAYPERHOUSE;
         if (payment > 0) {
         currentplayerobject.getAccount().withdrawMoney(payment);
-        // write a message to player via gui on how much has been paid
+        // TODO: gui
+        // write a message to player via gui on how much needs to be paid for your x houses and y hotels
+        // e.g. "you need to pay x for your x houses and x hotels", "pay"
+            ViewController.getInstance().updateGUIBalance();
         }
     }
 }

@@ -1,6 +1,7 @@
 package Models.ChanceCardSubType;
 
 import Controllers.GameController;
+import Controllers.ViewController;
 import Models.ChanceCard;
 import Models.Player;
 
@@ -24,6 +25,6 @@ public class ReceiveFromEachPlayerCard extends ChanceCard {
                 GameController.getInstance().getPlayerObject(i + 1).getAccount().transferMoney(AMOUNT, currentPlayerNum);
             }
         }
-        // update gui bank balance
+        ViewController.getInstance().updateGUIBalance();
     }
 }

@@ -17,6 +17,6 @@ public class ReceiveMoneyCard extends ChanceCard {
     @Override
     public void effect(Player currentplayerobject) {
         currentplayerobject.getAccount().depositMoney(AMOUNT);
-//        ViewController.getInstance().updateGUIBalance();
+        ViewController.getInstance().updateGUIBalance();
     }
 }

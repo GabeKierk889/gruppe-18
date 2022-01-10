@@ -1,6 +1,6 @@
 package Models.ChanceCardSubType;
 
-import Controllers.GameController;
+import Controllers.ViewController;
 import Models.ChanceCard;
 import Models.Player;
 
@@ -17,7 +17,7 @@ public class PayMoneyCard extends ChanceCard {
     @Override
     public void effect(Player currentplayerobject) {
         currentplayerobject.getAccount().withdrawMoney(AMOUNT);
-//        ViewController.getInstance().updateGUIBalance();
+        ViewController.getInstance().updateGUIBalance();
     }
 }
 
