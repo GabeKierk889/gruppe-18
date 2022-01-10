@@ -19,28 +19,55 @@ public abstract class OwnableField extends Field {
         isMortgaged = false;
         this.RENTARRAY = rentArray;
         MORTGAGEVALUE = (int) (PRICE * MORTGAGE_PRICE_RATIO);
+        currentRent = rentArray[0];
     }
 
     @Override
     public void landOnField(Player currentplayerobject) {
+        Board board = GameController.getInstance().getBoard();
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
-        // buy field or pay money
+        // buy field
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
-        else {
+        else if (ownerNum != 0) { // pay rent
             String ownerName = GameController.getInstance().getPlayerName(ownerNum);
             if (ownerNum != currentPlayerNum
                 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
-            updateRent();
+            this.updateRent();
             currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
-            // TODO: gui
-//             write message to gui that a rent has been paid;
+             // gui message to pay rent
+            int lineArray = -1; // pass in -1 to method if no extra message needs to be displayed
+            String str = "";
+            // if owner owns several shipping fields, display message that rent is higher
+            if (this.isShippingField() && 1 < board.numOfShippingFieldsOwned(ownerNum))
+                lineArray = 21;
+            // if owner owns several brewery fields, display message that rent is higher
+            else if (this.isBreweryField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)))
+                lineArray = 22;
+            // if owner owns can collect higher rent from street fields
+            else if (this.isStreetField()) {
+                boolean unBuilt = !((StreetField) this).hasHotel() && ((StreetField) this).getNumOfHouses() == 0;
+                // if streetField is unbuilt and player owns all of same color
+                if (board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)) && unBuilt ) {
+                    lineArray = 20;
+                    str = ((StreetField) this).getStreetColor();
+                }
+                // if streetField has houses/ hotels
+                else if (false) {
+                    lineArray = 23;
+//                    str = ((StreetField) this).getStreetColor();
+                }
+            }
+        ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,lineArray,28,ownerName,str,""+currentRent);
+        ViewController.getInstance().updateGUIBalance();
         }
         else if (ownerNum != currentPlayerNum && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
+            // gui message to show that owner is in jail and no rent is needed
             ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,29,-1,ownerName,"","");
         else if (ownerNum != currentPlayerNum && isMortgaged)
+            // gui message to show that field is mortgaged and no rent is needed
             ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,30,-1,ownerName,"","");
         } }
 
@@ -62,8 +89,8 @@ public abstract class OwnableField extends Field {
         currentplayerobject.getAccount().withdrawMoney(purchasePrice);
         board.updateRentForAllFieldsOfSameType(fieldArrayNum);
         ViewController.getInstance().updateGUIBalance();
-        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice,"");
         ViewController.getInstance().formatFieldBorder(fieldArrayNum);
+        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice,"");
     }
 
     public void auctionField() {
