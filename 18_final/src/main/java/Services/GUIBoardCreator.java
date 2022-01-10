@@ -39,7 +39,7 @@ public class GUIBoardCreator {
 //                        i == 30 || i == 33 || i == 36 || i == 38)
 
             ) {
-                guiFields[i].setSubText(takeTurnMessages[9]+" "+fieldPrice[i]);
+                guiFields[i].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[i]));
             }
             // setup chance fields
             if (board.getFieldObject(i) instanceof ChanceField) {
@@ -103,18 +103,18 @@ public class GUIBoardCreator {
     private void setupBreweryFields() {
         guiFields[12] = new GUI_Brewery();
         guiFields[12].setTitle(board.getFieldObject(12).getFieldName());
-        guiFields[12].setSubText(takeTurnMessages[9]+" "+fieldPrice[12]);
+        guiFields[12].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[12]));
         guiFields[28] = new GUI_Brewery();
         guiFields[28].setTitle(board.getFieldObject(28).getFieldName());
-        guiFields[28].setSubText(takeTurnMessages[9]+" "+fieldPrice[28]);
+        guiFields[28].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[28]));
 
     }
 
     private void formatShippingFields() {
-        guiFields[5].setSubText(takeTurnMessages[9]+" "+fieldPrice[5]);
-        guiFields[15].setSubText(takeTurnMessages[9]+" "+fieldPrice[15]);
-        guiFields[25].setSubText(takeTurnMessages[9]+" "+fieldPrice[25]);
-        guiFields[35].setSubText(takeTurnMessages[9]+" "+fieldPrice[35]);
+        guiFields[5].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[5]));
+        guiFields[15].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[15]));
+        guiFields[25].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[25]));
+        guiFields[35].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[35]));
     }
 
     private void setupSTART() {
