@@ -225,6 +225,10 @@ public class ViewController {
         gui.showMessage(String.format(takeTurnGUIMessages[4],""+GameSettings.STARTBONUS));
     }
 
+    public void drawChanceCardMessage() {
+        gui.getUserButtonPressed(takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
+    }
+
     // this methods code is modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
     public void formatFieldBorder(int fieldArrayNum) {
         boolean isShippingField = GameController.getInstance().getBoard().getFieldObject(fieldArrayNum).isShippingField();
