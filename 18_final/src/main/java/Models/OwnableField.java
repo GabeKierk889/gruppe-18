@@ -1,6 +1,7 @@
 package Models;
 
 import Controllers.GameController;
+import Controllers.ViewController;
 
 public abstract class OwnableField extends Field {
     protected final int PRICE;
@@ -47,48 +48,47 @@ public abstract class OwnableField extends Field {
         }
 
     public void buyField(Player currentplayerobject) {
-        boolean playerWantsToBuyField; // send a message to gui and get a boolean result
-        Board board = GameController.getInstance().getBoard();
+        boolean playerWantsToBuyField;
+        playerWantsToBuyField = ViewController.getInstance().showMessageAndGetBooleanUserInput(13,15,16,fieldName,""+PRICE);
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
-        int fieldArrayNum = board.getFieldArrayNumber(fieldName);
-        if (true) { // use gui to get user input on whether a player wants to buy a field
-            // TODO: gui that asks the player and takes user input on whether to buy field
-            setOwnerNum(currentPlayerNum);
-            currentplayerobject.getAccount().withdrawMoney(PRICE);
-            board.updateRentForAllFieldsOfSameType(fieldArrayNum);
-            // TODO: gui
-            // show message in GUI that a field has been bought
+        if (playerWantsToBuyField) { // use gui to get user input on whether a player wants to buy a field
+            buyFieldTransaction(currentPlayerNum,currentplayerobject, PRICE);
         }
         else
             auctionField();
     }
 
+    private void buyFieldTransaction(int currentPlayerNum, Player currentplayerobject, int purchasePrice) {
+        Board board = GameController.getInstance().getBoard();
+        int fieldArrayNum = board.getFieldArrayNumber(fieldName);
+        setOwnerNum(currentPlayerNum);
+        currentplayerobject.getAccount().withdrawMoney(purchasePrice);
+        board.updateRentForAllFieldsOfSameType(fieldArrayNum);
+        ViewController.getInstance().updateGUIBalance();
+        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice);
+    }
+
     public void auctionField() {
-        // TODO: for later, lower priotity
+        // TODO: for later, lower priority
     }
 
     public void mortgageField(Player currentplayerobject) {
-        if (isMortgaged)
-            ;
-            // TODO: gui
-        // add gui error message that field is already mortgaged
-        else {
+        if (!isMortgaged) {
             isMortgaged = true;
             currentplayerobject.getAccount().depositMoney(MORTGAGEVALUE);
-            // TODO: gui
+            // TODO: gui, for later, lower priority
             // output message via gui that field has been mortgaged and money deposited
         }
     }
 
     public void unMortgageField(Player currentplayerobject) {
-        // does not output any messages to gui
         if(isMortgaged) {
             // calculate and round interest to nearest int round
             int round = GameSettings.MORTGAGE_INTEREST_ROUNDING;
             int interest = (int) Math.round(MORTGAGEVALUE*GameSettings.MORTGAGE_INTEREST_MULTIPLIER /round) * round;
             currentplayerobject.getAccount().withdrawMoney(MORTGAGEVALUE+interest);
             isMortgaged = false;
-            // TODO: gui
+            // TODO: gui, for later, lower priority
             // output message via gui that field has been unmortgaged and money paid
         }
     }
@@ -108,7 +108,7 @@ public abstract class OwnableField extends Field {
             ownerNum = playerNum;
     }
 
-    public int getPRICE() {
+    public int getFieldPrice() {
         return PRICE;
     }
     protected void setMortgageStatus(boolean status) {this.isMortgaged = status; }
@@ -116,7 +116,6 @@ public abstract class OwnableField extends Field {
     protected int getMortgageValue() { return MORTGAGEVALUE; }
 
     public void tradeField() { }
-
 
     @Override
     public boolean isOwnableField() {
