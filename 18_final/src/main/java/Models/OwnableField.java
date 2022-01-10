@@ -30,7 +30,7 @@ public abstract class OwnableField extends Field {
         if (ownerNum == 0) {
             buyField(currentplayerobject);
         }
-        else if (ownerNum != 0) { // pay rent
+        else { // pay rent
             String ownerName = GameController.getInstance().getPlayerName(ownerNum);
             if (ownerNum != currentPlayerNum
                 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
@@ -46,7 +46,7 @@ public abstract class OwnableField extends Field {
             // if owner owns several brewery fields, display message that rent is higher
             else if (this.isBreweryField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)))
                 lineArray = 22;
-            // if owner owns can collect higher rent from street fields
+            // if owner can collect higher rent from street fields
             else if (this.isStreetField()) {
                 boolean unBuilt = !((StreetField) this).hasHotel() && ((StreetField) this).getNumOfHouses() == 0;
                 // if streetField is unbuilt and player owns all of same color
@@ -96,7 +96,8 @@ public abstract class OwnableField extends Field {
         board.updateRentForAllFieldsOfSameType(fieldArrayNum);
         ViewController.getInstance().updateGUIBalance();
         ViewController.getInstance().formatFieldBorder(fieldArrayNum);
-        ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice,"");
+        // write out buy field information to player via gui
+        sendGUIPlayerMessage(purchasePrice);
     }
 
     public void auctionField() {
@@ -151,6 +152,27 @@ public abstract class OwnableField extends Field {
     @Override
     public boolean isOwnableField() {
         return true;
+    }
+
+    private void sendGUIPlayerMessage(int purchasePrice) {
+        Board board = GameController.getInstance().getBoard();
+        String message1 = String.format(ViewController.getInstance().getTakeTurnGUIMessages(14),fieldName,""+purchasePrice);
+        // if owner owns several shipping fields, display message that rent is higher
+        if (this.isShippingField() && 1 < board.numOfShippingFieldsOwned(ownerNum))
+            ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1,39);
+            // if owner owns several brewery fields, display message that rent is higher
+        else if (this.isBreweryField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)))
+            ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1,40);
+            // if owner can collect higher rent from street fields
+        else if (this.isStreetField()) {
+            if (board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName))) {
+                String str1, str2, str3;
+                str1 = ((StreetField) this).getStreetColor();
+                str2 = ViewController.getInstance().getTakeTurnGUIMessages(25);
+                str3 = ""+StreetField.MAXNUMOFHOUSES;
+                ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1,36,37,38,str1,str2, str3);
+            }
+        }
     }
 
 }

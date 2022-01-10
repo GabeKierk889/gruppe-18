@@ -22,6 +22,7 @@ public abstract class TaxField extends Field {
         int taxToPay = calculateTax(currentplayerobject);
         currentplayerobject.getAccount().withdrawMoney(taxToPay);
         ViewController.getInstance().showTakeTurnMessageWithPlayerName(12,""+taxToPay,"","");
+        ViewController.getInstance().updateGUIBalance();
     }
 
 }

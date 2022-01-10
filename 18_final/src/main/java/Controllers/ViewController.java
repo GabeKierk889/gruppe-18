@@ -171,6 +171,7 @@ public class ViewController {
     public void startBonusMessage(){
         int bonusStart = GameSettings.STARTBONUS;
         String name = getCurrentPlayerName();
+        updateGUIBalance();
         gui.showMessage(name + ": "+ String.format(takeTurnGUIMessages[4], bonusStart));
     }
 
@@ -179,7 +180,8 @@ public class ViewController {
     }
 
     public void goToJailMessage(){
-        gui.showMessage(takeTurnGUIMessages[6]);
+        String name = getCurrentPlayerName();
+        gui.showMessage(name + ": "+ takeTurnGUIMessages[6]);
     }
 
     public boolean releaseFromJailMessageHasCard() {
@@ -219,6 +221,10 @@ public class ViewController {
         gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));
     }
     // method overloading
+    public void showTakeTurnMessageWithPlayerName(String customString, int txtFileLineArrayNum) {
+        gui.showMessage(getCurrentPlayerName() + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);
+    }
+    // method overloading
     public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
        String str = takeTurnGUIMessages[txtFileLineArrayNum];
        if (txtFileLineArrayNum2 != -1)
@@ -226,6 +232,15 @@ public class ViewController {
         if (txtFileLineArrayNum3 != -1)
             str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
         gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));
+    }
+    // method overloading
+    public void showTakeTurnMessageWithPlayerName(String customString, int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
+        String str = takeTurnGUIMessages[txtFileLineArrayNum];
+        if (txtFileLineArrayNum2 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+        if (txtFileLineArrayNum3 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
+        gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));
     }
     public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton, int txtFileLineFalseButton) {
         return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineQuestion],
@@ -239,14 +254,10 @@ public class ViewController {
         takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
     }
 
-    public void collectStartBonusMessage() {
-        updateGUIBalance();
-        gui.showMessage(String.format(takeTurnGUIMessages[4],""+GameSettings.STARTBONUS));
-    }
-
     public void drawChanceCardMessage(String text) {
         gui.setChanceCard(text);
-        gui.getUserButtonPressed(takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
+        String name = getCurrentPlayerName();
+        gui.getUserButtonPressed(name + ": "+ takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
         gui.setChanceCard("");
     }
 
