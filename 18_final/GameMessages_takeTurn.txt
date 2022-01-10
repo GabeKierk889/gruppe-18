@@ -18,7 +18,7 @@ Nej
 Anvend
 Betal
 Du er landet på et felt ejet af %1$s.
-Da %1$s ejer alle de %2$s felter, er lejen fordoblet.
+Da %1$s ejer alle de %2$s grunde, er lejen fordoblet.
 Da %1$s ejer flere rederier, er lejen forhøjet.
 Da %1$s ejer begge bryggerier, er lejen fordoblet.
 Da der er %2$s på grunden, er lejen forhøjet.
@@ -34,3 +34,8 @@ dit
 dine
 %1$s betal nu %2$s for at komme ud af fængslet.
 kr.
+Da du nu ejer alle de %1$s grunde, vil lejen blive fordoblet på alle ubebyggede grunde af samme farve.
+Du vil nu kunne bygge %2$s på de %1$s grunde.
+Du skal bygges jævnt, op til %3$S huse pr grund. Når der står %3$S huse på hver grund, kan du opføre hoteller.
+Da du ejer flere rederier, vil lejen forhøjet for alle dine rederier.
+Da du nu ejer begge bryggerier, vil lejen på begge felter blive fordoblet.
