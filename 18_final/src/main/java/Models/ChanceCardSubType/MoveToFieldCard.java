@@ -30,7 +30,7 @@ public class MoveToFieldCard extends ChanceCard {
             ViewController.getInstance().startBonusMessage();
         }
         // sets the onField variable to the new field
-        currentplayerobject.movePlayerToField(moveToFieldNum);
+        currentplayerobject.moveToField(moveToFieldNum);
     }
 }
 
