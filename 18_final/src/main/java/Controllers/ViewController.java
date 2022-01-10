@@ -124,7 +124,7 @@ public class ViewController {
 
     public void rollMessage() {
         String name = getCurrentPlayerName();
-        gui.getUserButtonPressed(name+ takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
+        gui.getUserButtonPressed(name+": "+ takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
     }
 
     private int currentPlayerNum() {
@@ -154,15 +154,6 @@ public class ViewController {
             guiPlayers[i].setBalance(GameController.getInstance().getPlayerObject(i + 1).getAccount().getBalance());
     }
 
-    //Take turn messages
-    public void diceThrow(){
-        gui.showMessage(takeTurnGUIMessages[1]);
-    }
-
-    public void okButton(){
-        gui.showMessage(takeTurnGUIMessages[2]);
-    }
-
     public void sameFaceValueMessage() {
         String name = getCurrentPlayerName();
         gui.showMessage(name + ": " + takeTurnGUIMessages[3]);
@@ -173,10 +164,6 @@ public class ViewController {
         String name = getCurrentPlayerName();
         updateGUIBalance();
         gui.showMessage(name + ": "+ String.format(takeTurnGUIMessages[4], bonusStart));
-    }
-
-    public void greenSquare(){
-        gui.showMessage(takeTurnGUIMessages[5]);
     }
 
     public void goToJailMessage(){
@@ -190,10 +177,6 @@ public class ViewController {
 
     public void releaseFromJailMessagePayMoney() {
         gui.showMessage(String.format(takeTurnGUIMessages[34],GameController.getInstance().getPlayerObject(currentPlayerNum()).getName(),takeTurnGUIMessages[35]+" "+GameSettings.JAILFEE));
-    }
-
-    public void useChanceCard(){
-        gui.showMessage(takeTurnGUIMessages[7]);
     }
 
     //Game setup messages
@@ -316,6 +299,4 @@ public class ViewController {
     public String getTakeTurnGUIMessages(int txtLineArray) {
         return takeTurnGUIMessages[txtLineArray];
     }
-
-    //Deniz
 }

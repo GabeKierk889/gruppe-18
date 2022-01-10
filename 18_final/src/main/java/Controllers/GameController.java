@@ -130,6 +130,7 @@ public class GameController {
             lastLocation = players[playerArrayNum].OnField();
             board.getFieldObject(lastLocation).landOnField(players[playerArrayNum]);
         }
+        viewController.sameFaceValueMessage();
     }
     // releases the player from jail
     private void releaseFromJail(){
