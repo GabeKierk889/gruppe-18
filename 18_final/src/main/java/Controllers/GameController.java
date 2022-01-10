@@ -216,6 +216,8 @@ public class GameController {
         this.currentPlayerNum = currentPlayerNum;
     }
     public Player getPlayerObject(int playerNum) { return players[playerNum - 1]; }
+    public String getPlayerName(int playerNum) { return players[playerNum - 1].getName(); }
+
 
     public void testMethod() {
         Board board = new Board();

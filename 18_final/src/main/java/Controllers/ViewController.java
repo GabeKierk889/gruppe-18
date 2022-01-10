@@ -206,8 +206,17 @@ public class ViewController {
         gui.showMessage(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineArrayNum]);
     }
     // method overloading
-    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2) {
-        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2));
+    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));
+    }
+    // method overloading
+    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
+       String str = takeTurnGUIMessages[txtFileLineArrayNum];
+       if (txtFileLineArrayNum2 != -1)
+           str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+        if (txtFileLineArrayNum3 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));
     }
     public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton, int txtFileLineFalseButton) {
         return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineQuestion],
