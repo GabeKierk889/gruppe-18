@@ -139,9 +139,11 @@ public class GameController {
             viewController.releaseFromJailMessageHasCard();
             if (playerUseReleaseFromJailCard) {
                 ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+                players[playerArrayNum].setIsInJail(false);
             }
         } else {
             viewController.releaseFromJailMessagePayMoney();
+            players[playerArrayNum].setIsInJail(false);
             players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
             viewController.updateGUIBalance();
         }
