@@ -26,7 +26,7 @@ hus
 huse
 hotel
 hoteller
-Du skal nu betale kr. %3s i leje.
+Du skal nu betale kr. %3$s i leje.
 Da ejeren af feltet er i fængsel, skal du ikke betale leje.
 Da feltet er blevet pantsat af ejeren, skal der ikke betales leje.
 Du skal betale i alt kr. %1$s for %2$s og %3$s.
