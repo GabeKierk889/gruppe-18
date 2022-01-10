@@ -26,6 +26,11 @@ public class ChanceCardsCreator {
                 new PayMoneyCard(text[9],numbersInChanceCardText[9]),
                 new PayMoneyForBuildingsCard(text[10],numbersInChanceCardText[10]),
                 new PayMoneyForBuildingsCard(text[11],numbersInChanceCardText[11]),
+
+
+                new MoveXFieldsForward(text[27],numbersInChanceCardText[27]),
+
+
                 new JailReleaseCard(text[43]),
                 new JailReleaseCard(text[44])
         };
