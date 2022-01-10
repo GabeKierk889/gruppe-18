@@ -116,10 +116,22 @@ public class ViewController {
         }
     }
 
+    public void removeGUICar(int playerNum, int playeronfieldNum) {
+        guiFields[playeronfieldNum].setCar(guiPlayers[playerNum-1], false);
+    }
+
     public void moveGUICar(int moveFrom, int moveTo, int currentPlayerNum) {
         GUI_Player currentGUIPlayer = guiPlayers[currentPlayerNum - 1];
         guiFields[moveFrom].setCar(currentGUIPlayer, false);
         guiFields[moveTo].setCar(currentGUIPlayer, true);
+    }
+
+    public void setGUIHasHotel(int fieldArrayNum, boolean hasHotel) {
+        guiStreets[fieldArrayNum].setHotel(hasHotel);
+    }
+
+    public void setGUINumHouses(int fieldArrayNum, int numHouses) {
+        guiStreets[fieldArrayNum].setHouses(numHouses);
     }
 
     public void rollMessage() {
@@ -156,7 +168,7 @@ public class ViewController {
 
     public void sameFaceValueMessage() {
         String name = getCurrentPlayerName();
-        gui.showMessage(name + ": " + takeTurnGUIMessages[3]);
+        gui.getUserButtonPressed(name+": "+ takeTurnGUIMessages[3]+" "+takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
     }
 
     public void startBonusMessage(){
@@ -196,9 +208,10 @@ public class ViewController {
         gui.showMessage(setupGameGUIMessages[12]);
     }
 
-    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum) {
-        gui.showMessage(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineArrayNum]);
-    }
+    public String getTakeTurnGUIMessages(int txtLineArray) { return takeTurnGUIMessages[txtLineArray]; }
+    // method overloading
+    public String getTakeTurnGUIMessages(int txtLineArray, String stringInText, String stringInText2, String stringInText3) {
+        return String.format(takeTurnGUIMessages[txtLineArray],stringInText,stringInText2,stringInText3);}
     // method overloading
     public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
         gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));
@@ -296,7 +309,4 @@ public class ViewController {
         }
     }
 
-    public String getTakeTurnGUIMessages(int txtLineArray) {
-        return takeTurnGUIMessages[txtLineArray];
-    }
 }

@@ -1,7 +1,7 @@
 Tryk for at kaste med terningerne.
 Kast
 OK
-Du har slået 2 ens og får et ekstra kast.
+Du slog 2 ens og får derfor et ekstra kast.
 Du har modtaget kr. %s for at passere START.
 Tryk på den grønne firkant i midten for at se dit chancekort. Hold musen over feltet med teksten mens du læser det. Når du er færdig med at læse kortet, tryk Anvend.
 Åh nej, du skal i fængsel! Du vil ikke modtage leje mens du er i fængsel.
@@ -36,6 +36,11 @@ dine
 kr.
 Da du nu ejer alle de %1$s grunde, vil lejen blive fordoblet på alle ubebyggede grunde af samme farve.
 Du vil nu kunne bygge %2$s på de %1$s grunde.
-Du skal bygges jævnt, op til %3$S huse pr grund. Når der står %3$S huse på hver grund, kan du opføre hoteller.
+Der skal bygges jævnt, op til %3$S huse pr grund. Når der står %3$S huse på hver grund, kan du opføre hoteller.
 Da du ejer flere rederier, vil lejen forhøjet for alle dine rederier.
 Da du nu ejer begge bryggerier, vil lejen på begge felter blive fordoblet.
+Du har slået to ens %s gange i træk og skal gå direkte i fængsel. Du vil ikke modtage leje mens du er i fængsel.
+%1$s skal betale kr. %2$s men har kun midler til at betale kr. %3$s. %1$s er derfor gået bankerot og er ude af spillet.
+Alle værdier ejet af %1$s vil nu blive overdraget til %2$s. Evt. bygninger vil blive solgt først inden grunde overdrages.
+banken
+%1$s: Du har nu fået overdraget kr. %2$s og alle grunde tidligere ejet af %3$s. Grundene kan evt. stadig være pantsatte.

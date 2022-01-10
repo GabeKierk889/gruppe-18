@@ -1,8 +1,5 @@
 package Controllers;
 
-import Models.Board;
-import Models.StreetField;
-
 public class MatadorMain {
 
     public static void main(String[] args) {
@@ -14,9 +11,6 @@ public class MatadorMain {
         gameController.gameLoop();
 
 //        gameController.testMethod();
-
-//        Board board = new Board();
-//        board.buildHouse();
     }
 
 }

@@ -1,6 +1,7 @@
 package Models;
 
 import Controllers.GameController;
+import Controllers.ViewController;
 import Services.FieldsCreator;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
@@ -13,37 +14,10 @@ public class Board {
         fields = service.createFields();
     }
 
-    // TODO: Forsøg på at lave buildHouse()
-//    public void buildHouse(){
-//        // Ejer alle felter af samme type
-//        boolean ownsFields = true; // tmp value
-//        // Hent hus pris
-//
-//        int housePrice = ((StreetField) fields[1]).getHousePrice();
-//        // Ejere allerede hus(e)
-//        boolean alreadyOwnsHouses = true; // tmp value
-//
-//        if (ownsFields) {
-//            // Vil du købe hus?
-//            // TODO: GUI Besked ("Vil du købe hus?"   JA / Nej)
-//            Boolean buyHouseAnswer = true; // tmp value
-//
-//            // Er der allerede hus(e)?
-//            if (buyHouseAnswer && alreadyOwnsHouses) {
-//                // Køb hus og træk penge
-//                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
-//
-//                // Opsæt et hus mere
-//            } else if (buyHouseAnswer) {
-//                // Køb hus og træk penge
-//                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
-//                // Opsæt et hus
-//            }
-//        }
-//    }
-
+    public void buildHouse(){}
     public void buildHotel(){}
     public void sellHouse(){}
+    public void sellHotel(){}
 
     // checks if a player owns all the fields of a given type
     // field type refers to shippingfield, or company, or street color
@@ -70,7 +44,6 @@ public class Board {
         return test;
     }
 
-    // TODO: add updating of gui-fields within this method?
     public void updateRentForAllFieldsOfSameType(int fieldArrayNum){
         // updates rent for the field itself and all other fields of the same type
         // field type refers to shippingfield, or company, or color of a lot
@@ -157,19 +130,19 @@ public class Board {
 
     // removes all buildings owned by player
     public void removeAllBuildingsOwned(int playerNum) {
-        for (Field field : fields) {
+        for (int i = 0; i < fields.length; i++) {
             // checks for streetFields owned by player and removes all buildings
-            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == playerNum) {
-                ((StreetField) field).setNumOfHouses(0);
-                ((StreetField) field).setHasHotel(false);
+            if (fields[i].isStreetField() && ((OwnableField) fields[i]).getOwnerNum() == playerNum) {
+                ((StreetField) fields[i]).setNumOfHouses(0);
+                ((StreetField) fields[i]).setHasHotel(false);
+                ViewController.getInstance().setGUIHasHotel(i, false);
+                ViewController.getInstance().setGUINumHouses(i,0);
             }
         }
     }
 
     // calculates the asset value of all ownable fields owned by player
     public int calculateValueOfFieldsOwned(int playerNum) {
-        int minPlayers = 3;
-        int maxPlayers = 6;
         int totalValue = 0;
         for (Field field : fields) {
             // checks for fields owned by player and calculates total asset value of ownable fields
@@ -183,22 +156,39 @@ public class Board {
         return totalValue;
     }
 
+    // calculates how much extra money player can raise by putting all non-mortgaged fields on mortgage
+    public int calculateAvailableMortgageValueOfFieldsOwned(int playerNum) {
+        int totalValue = 0;
+        for (Field field : fields) {
+            // checks for fields owned by player and calculates available mortgage value
+            if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
+                if (!((OwnableField) field).isMortgaged)
+                    totalValue += ((OwnableField) field).MORTGAGEVALUE;
+            }
+        }
+        return totalValue;
+    }
+
     public void bankruptcyTransferAllFieldAssets(int oldOwnerPlayerNum, int newOwnerPlayerNum) {
         // this method should only called when a player goes bankrupt and needs to transfer ownership of all fields
         for (Field field : fields) {
             if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == oldOwnerPlayerNum) {
                 ((OwnableField) field).setOwnerNum(newOwnerPlayerNum);
-                // if the creditor/ new owner of the fields is the bank, sell the fields on auction
-                if (newOwnerPlayerNum == 0)
+                // if the creditor/ new owner of the fields is the bank, unmortgage the fields and sell the fields on auction
+                if (newOwnerPlayerNum == 0) {
+                    ((OwnableField) field).setMortgageStatus(false);
                     ((OwnableField) field).auctionField();
+                }
             }
         }
         // if ownership is transferred to another player (not the bank), update the rents
         // (the auction method will update the rents after each auction, so does not need to be done twice)
         if (newOwnerPlayerNum != 0)
             for (Field field : fields) {
-                if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == newOwnerPlayerNum)
+                if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == newOwnerPlayerNum) {
                     ((OwnableField) field).updateRent();
+                    ViewController.getInstance().formatFieldBorder(newOwnerPlayerNum);
+                }
             }
     }
 

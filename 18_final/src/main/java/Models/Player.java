@@ -12,6 +12,7 @@ public class Player {
     private boolean isBankrupt; // Keeps track of whether a player has gone bankrupt
     private boolean isInJail;
     private ChanceCard releaseFromJailCard, releaseFromJailCard2; // a player can own max 2 jail chance cards in Matador
+    private int throwTwoOfSameDiceInARow;
 
     public Player(String NAME){
         ACCOUNT = new Account(NAME);
@@ -19,6 +20,7 @@ public class Player {
         onField = 0;
         isBankrupt = false;
         isInJail = false;
+        throwTwoOfSameDiceInARow = 0;
     }
 
     public int moveSteps(int stepsToMove) {
@@ -29,6 +31,7 @@ public class Player {
         // only applies to regular turns/ passing START by throwing the dice, not chance card situations
         if (onField < diceThrow) {
             getAccount().depositMoney(GameSettings.STARTBONUS);
+            ViewController.getInstance().updateGUIBalance();
             ViewController.getInstance().startBonusMessage();
         }
     }
@@ -73,6 +76,18 @@ public class Player {
 
     public boolean hasAReleaseFromJailCard () {
         return releaseFromJailCard != null;
+    }
+
+    public void increaseThrowTwoOfSameCounter() {
+        throwTwoOfSameDiceInARow++;
+    }
+
+    public void resetThrowTwoOfSameCounter() {
+        throwTwoOfSameDiceInARow = 0;
+    }
+
+    public int getThrowTwoOfSameDiceInARow() {
+        return throwTwoOfSameDiceInARow;
     }
 }
 

@@ -7,8 +7,8 @@ public class Die {
     private final int NUMOFSIDES = 6;
 
     public Die() {
-        faceValue = 1;
-    }
+        faceValue = 0;
+    } // deliberately set to 0 in the beginning to distinguish new dice
 
     public int roll() {
         faceValue = (int) (Math.random() * NUMOFSIDES) + 1;
