@@ -18,7 +18,7 @@ class PlayerTest {
         diceCup.roll();
         int steps = diceCup.getSum();
 
-        player.movePlayerSteps(steps);
+        player.moveSteps(steps);
         assertEquals(playerOnField + steps,player.OnField());
     }
 
@@ -26,10 +26,10 @@ class PlayerTest {
     void collectStartBonus() {
         GameController.getInstance().initializeGame();
         int totalFields = board.getTotalNumOfFields();
-        player.movePlayerToField(totalFields-1);
+        player.moveToField(totalFields-1);
 
         int balance = player.getAccount().getBalance();
-        player.movePlayerSteps(1);
+        player.moveSteps(1);
         player.collectStartBonus(1);
         int startBonus = GameSettings.STARTBONUS;
         assertEquals(balance + startBonus,player.getAccount().getBalance());
