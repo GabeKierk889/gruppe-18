@@ -30,6 +30,22 @@ public class StreetField extends OwnableField {
             currentRent = 2*RENTARRAY[0];
     }
 
+    @Override
+    public void setOwnerNum (int playerNum) {
+        // only executes for unbuilt fields
+        if (numOfHouses == 0 && !hasHotel &&
+            playerNum >= 0 && playerNum <= GameController.getInstance().getTotalPlayers())
+            ownerNum = playerNum;
+    }
+
+    @Override
+    public void mortgageField(Player currentplayerobject) {
+        if (numOfHouses > 0 || hasHotel)
+            // TODO: for later, lower priority
+            ; //gui that tells the player they must sell all buildings before they can mortgage the field
+        super.mortgageField(currentplayerobject);
+    }
+
     public int getNumOfHouses() {
         return numOfHouses;
     }
@@ -51,28 +67,12 @@ public class StreetField extends OwnableField {
         return STREETCOLOR;
     }
 
-    public int getHOUSEPRICE() {
+    public int getHousePrice() {
         return HOUSEPRICE;
     }
 
     @Override
     public boolean isStreetField() {
         return true;
-    }
-
-    @Override
-    public void setOwnerNum (int playerNum) {
-        // only executes for unbuilt fields
-        if (numOfHouses == 0 && !hasHotel &&
-            playerNum >= 0 && playerNum <= GameController.getInstance().getTotalPlayers())
-            ownerNum = playerNum;
-    }
-
-    @Override
-    public void mortgageField(Player currentplayerobject) {
-        if (numOfHouses > 0 || hasHotel)
-            // TODO: gui that tells the player they must sell all buildings before they can mortgage the field
-            ; //error message in gui that all buildings must be sold first
-        super.mortgageField(currentplayerobject);
     }
 }

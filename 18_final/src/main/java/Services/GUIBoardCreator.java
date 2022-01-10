@@ -2,6 +2,7 @@ package Services;
 
 import Controllers.GameController;
 import Models.Board;
+import Models.ChanceField;
 import gui_fields.*;
 
 import java.awt.*;
@@ -16,6 +17,8 @@ public class GUIBoardCreator {
     private String[] takeTurnMessages = fileImporter.readAllLinesInFile("GameMessages_takeTurn.txt");
     private String[] fieldDescriptions = fileImporter.readAllLinesInFile("FieldDescriptions.txt");
 
+    // TODO: @Mark, jeg så lige hurtigt nogle ting, og har lavet nogle foreslåede ændringer.
+    //  har bared commented out din kode, har ikke slettet noget
     public GUIBoardCreator(GUI_Field[] guiFields, GUI_Street[] guiStreets) {
 
         this.guiFields = guiFields;
@@ -30,21 +33,24 @@ public class GUIBoardCreator {
             guiStreets[i].setBackGroundColor(Color.lightGray);
             guiFields[i] = guiStreets[i];
             // if a field is ownable, set sub text to price
-            if (
-                    !(i == 0 || i == 2 || i == 7 ||
-                        i == 10 || i == 17 || i == 20 || i == 22 ||
-                        i == 30 || i == 33 || i == 36 || i == 38)
+            if ( board.getFieldObject(i).isOwnableField()
+//                    !(i == 0 || i == 2 || i == 7 ||
+//                        i == 10 || i == 17 || i == 20 || i == 22 ||
+//                        i == 30 || i == 33 || i == 36 || i == 38)
+
             ) {
                 guiFields[i].setSubText(takeTurnMessages[9]+" "+fieldPrice[i]);
             }
             // setup chance fields
-            if (i == 2 || i == 7 || i == 17 || i == 22 || i == 33 || i == 36) {
+            if (board.getFieldObject(i) instanceof ChanceField) {
+//            if (i == 2 || i == 7 || i == 17 || i == 22 || i == 33 || i == 36) {
                 guiFields[i] = new GUI_Chance();
                 guiFields[i].setDescription("");
 
             }
             // setup shipping fields
-            if (i == 5 || i == 15 || i == 25 || i == 35) {
+            if (board.getFieldObject(i).isShippingField()) {
+//            if (i == 5 || i == 15 || i == 25 || i == 35) {
                 guiFields[i] = new GUI_Shipping();
             }
         }
@@ -58,10 +64,6 @@ public class GUIBoardCreator {
         setupTaxFields();
     }
 
-    // @Mark - denne klasse synes jeg kan/skal være helt fri for hardcodede eller importerede strenge
-    // alt du behøver som fx pris og feltnavn findes allerede under board.getFieldObject(int).getFieldName for eks
-    // eller, det kan godt være du skal bruge nogle få strenge såsom "kr. " + fieldPrice, eller det med skattefeltet
-    // men det meste andet kan hentes fra felt-objekterne
     private void formatStreets() {
         Color orange = new Color(255, 165, 0);
         Color lilla = new Color(128, 0, 128);
