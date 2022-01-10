@@ -161,9 +161,8 @@ public class Board {
             if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
                 if (((OwnableField) field).isMortgaged)
                     totalValue += ((OwnableField) field).MORTGAGEVALUE;
-                // TODO: Uncomment later
-//                else
-//                    totalValue += ((OwnableField) field).getFieldPrice();
+                else
+                    totalValue += ((OwnableField) field).getFieldPrice();
             }
         }
         return totalValue;
