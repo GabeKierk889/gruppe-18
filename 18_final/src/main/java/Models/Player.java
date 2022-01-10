@@ -21,7 +21,7 @@ public class Player {
         isInJail = false;
     }
 
-    public int movePlayerSteps(int stepsToMove) {
+    public int moveSteps(int stepsToMove) {
         onField = (onField+stepsToMove) % GameController.getInstance().getBoard().getTotalNumOfFields();
         return onField; }
 
@@ -32,7 +32,7 @@ public class Player {
             ViewController.getInstance().collectStartBonusMessage();
     }
 
-    public void movePlayerToField(int fieldArrayNumber) {
+    public void moveToField(int fieldArrayNumber) {
         if(fieldArrayNumber >= 0)
             onField = fieldArrayNumber % GameController.getInstance().getBoard().getTotalNumOfFields();
     }
