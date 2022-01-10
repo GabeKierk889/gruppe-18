@@ -41,6 +41,7 @@ public class ViewController {
     public String[] getPlayerNames() {
         String str = gui.getUserString(setupGameGUIMessages[1]);
         String[] strarray = str.split(" ");
+        int minPlayers = 3, maxPlayers = 6;
         boolean duplicateNames = false;
         for (int i = 0; i < strarray.length; i++) {
             for (int j = 0; j < strarray.length; j++)
@@ -52,8 +53,7 @@ public class ViewController {
         if (duplicateNames) {
             gui.showMessage(setupGameGUIMessages[2]);
         } else if (strarray.length > GameSettings.MAXNUMOFPLAYERS || strarray.length < GameSettings.MINNUMOFPLAYERS) {
-            // TODO: gui-besked - problem med at opsætte spillere - der må være fra x til x spillere
-//            gui.showMessage();
+            gui.showMessage(String.format(setupGameGUIMessages[3], minPlayers, maxPlayers));
         } else {
             String names = "";
             for (int i = 0; i < strarray.length; i++) {

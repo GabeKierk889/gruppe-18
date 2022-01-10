@@ -153,6 +153,8 @@ public class Board {
 
     // calculates the asset value of all ownable fields owned by player
     public int calculateValueOfFieldsOwned(int playerNum) {
+        int minPlayers = 3;
+        int maxPlayers = 6;
         int totalValue = 0;
         for (Field field : fields) {
             // checks for fields owned by player and calculates total asset value of ownable fields
