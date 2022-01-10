@@ -165,7 +165,9 @@ public class GameController {
         int totalAssetValue = calculateAssets(playerNum);
 
         //checks if the player is not able to pay / is going bankrupt
-        if(totalAssetValue < needToPay)
+//        if(totalAssetValue < needToPay)
+        // player goes if they have a negative account balance
+        if (players[playerNum].getAccount().getBalance() < 0)
             goBankrupt(playerNum, totalAssetValue,needToPay,creditorPlayerNum);
 
         // TODO: gui
@@ -184,7 +186,8 @@ public class GameController {
         int remainingMoneyDebt = players[bankruptPlayerNum-1].getAccount().getBalance();
         // if creditor is another player, deposit an amount = needToPay + remainingMoneyDebt(<0) to creditor
         // because the transferMoney method in account has only withdrawn the amount, not made any deposits
-        players[creditorPlayerNum-1].getAccount().depositMoney(needToPay+remainingMoneyDebt);
+        if(creditorPlayerNum > 0)
+            players[creditorPlayerNum-1].getAccount().depositMoney(needToPay+remainingMoneyDebt);
 
         // transfer ownable fields to creditor (creditorPlayerNum = 0 for the bank)
         // if creditor is the bank, the called method ensures an auction is held
