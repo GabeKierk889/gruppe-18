@@ -45,11 +45,11 @@ public class FieldsDataReader {
             int counter = 0;
             while (lineScan.hasNext()) { // reads rent levels and stores this data in a 2D array of rents
                 next = lineScan.next();
-                counter++;
                 if (counter < rentLevels && !next.equals(""))
                     rentArrayArray[i][counter] = Integer.parseInt(next);
                 if (counter >= rentLevels)
                     streetColorsArray[i] = next; // reads last column - field colors
+                counter++;
             }
         }
     }

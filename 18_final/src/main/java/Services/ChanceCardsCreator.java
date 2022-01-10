@@ -26,13 +26,29 @@ public class ChanceCardsCreator {
                 new PayMoneyCard(text[9],numbersInChanceCardText[9]),
                 new PayMoneyForBuildingsCard(text[10],numbersInChanceCardText[10]),
                 new PayMoneyForBuildingsCard(text[11],numbersInChanceCardText[11]),
+                new ReceiveMoneyCard(text[12],numbersInChanceCardText[12]),
+                new ReceiveMoneyCard(text[13],numbersInChanceCardText[13]),
+                new ReceiveMoneyCard(text[14],numbersInChanceCardText[14]),
+                new ReceiveMoneyCard(text[15],numbersInChanceCardText[15]),
+                new ReceiveMoneyCard(text[16],numbersInChanceCardText[16]),
+                new ReceiveMoneyCard(text[17],numbersInChanceCardText[17]),
+                new ReceiveMoneyCard(text[18],numbersInChanceCardText[18]),
+                new ReceiveMoneyCard(text[19],numbersInChanceCardText[19]),
+                new ReceiveMoneyCard(text[20],numbersInChanceCardText[20]),
+                new ReceiveMoneyCard(text[21],numbersInChanceCardText[21]),
+                new ReceiveMoneyCard(text[22],numbersInChanceCardText[22]),
+                new ReceiveMoneyCard(text[23],numbersInChanceCardText[23]),
+                new ReceiveFromEachPlayerCard(text[24],numbersInChanceCardText[24]),
+                new ReceiveFromEachPlayerCard(text[25],numbersInChanceCardText[25]),
+                new ReceiveFromEachPlayerCard(text[26],numbersInChanceCardText[26]),
+
 
 
                 new MoveXFieldsForward(text[27],numbersInChanceCardText[27]),
 
 
                 new JailReleaseCard(text[43]),
-                new JailReleaseCard(text[44])
+                new JailReleaseCard(text[44]),
         };
     }
 }

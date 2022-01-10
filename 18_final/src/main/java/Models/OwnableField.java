@@ -35,7 +35,7 @@ public abstract class OwnableField extends Field {
             if (ownerNum != currentPlayerNum
                 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
-            this.updateRent();
+            updateRent();
             currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
              // gui message to pay rent
             int lineArray = -1; // pass in -1 to method if no extra message needs to be displayed
