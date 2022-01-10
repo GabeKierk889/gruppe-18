@@ -118,7 +118,7 @@ public class GameController {
         // save player's current location and then move player
         int moveFrom, moveTo;
         moveFrom = players[playerArrayNum].OnField();
-        players[playerArrayNum].movePlayerSteps(diceCup.getSum());
+        players[playerArrayNum].moveSteps(diceCup.getSum());
         moveTo = players[playerArrayNum].OnField();
         viewController.moveGUICar(moveFrom, moveTo, currentPlayerNum);
         players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
