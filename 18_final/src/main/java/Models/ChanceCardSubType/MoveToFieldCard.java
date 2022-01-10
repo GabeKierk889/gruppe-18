@@ -17,7 +17,8 @@ public class MoveToFieldCard extends ChanceCard {
     public void effect(Player currentplayerobject) {
         Board board = GameController.getInstance().getBoard();
         int moveToFieldNum = board.getFieldArrayNumber(FIELDNAME);
-        if (board.getFieldObject(moveToFieldNum) instanceof JailField) {
+        boolean isJailField = board.getFieldObject(moveToFieldNum) instanceof JailField;
+        if (isJailField) {
             moveToFieldNum = 10;
             ViewController.getInstance().goToJailMessage();
         }
@@ -28,8 +29,7 @@ public class MoveToFieldCard extends ChanceCard {
 
         // checks whether the player would pass START moving there and thus get a START bonus
         // no start bonus will be collected if the player is moving to the jail field
-        if(!board.getFieldObject(moveToFieldNum).isJailField()  &&
-                moveToFieldNum < currentplayerobject.OnField()) {
+        if(!isJailField  && moveToFieldNum < currentplayerobject.OnField()) {
             currentplayerobject.getAccount().depositMoney(GameSettings.STARTBONUS);
             ViewController.getInstance().updateGUIBalance();
             ViewController.getInstance().startBonusMessage();
