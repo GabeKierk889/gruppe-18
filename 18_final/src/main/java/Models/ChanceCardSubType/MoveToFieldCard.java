@@ -17,6 +17,11 @@ public class MoveToFieldCard extends ChanceCard {
     public void effect(Player currentplayerobject) {
         Board board = GameController.getInstance().getBoard();
         int moveToFieldNum = board.getFieldArrayNumber(FIELDNAME);
+        if (board.getFieldObject(moveToFieldNum) instanceof JailField) {
+            moveToFieldNum = 10;
+            ViewController.getInstance().goToJailMessage();
+        }
+
         // calls a method that moves the GUI car
         ViewController.getInstance().moveGUICar(currentplayerobject.OnField(),
         moveToFieldNum,GameController.getInstance().getCurrentPlayerNum());
