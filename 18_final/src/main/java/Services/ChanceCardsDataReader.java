@@ -1,11 +1,13 @@
 package Services;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 // has methods to return raw chance card text, and to parse out and return any integers within the text
 public class ChanceCardsDataReader {
     private String[] rawStringsData;
     private int[][] numArray;
+    private String[] fieldNameWithinText;
 
     public ChanceCardsDataReader(String filename) {
         FileImporter reader = new FileImporter();
@@ -35,12 +37,31 @@ public class ChanceCardsDataReader {
         }
     }
 
+    private void readFieldNames(){
+        FieldsDataReader read = new FieldsDataReader("Fields.csv");
+        String[] fieldName = read.getFieldNamesArray();
+        fieldNameWithinText = new String[rawStringsData.length];
+
+        for (int i = 0; i < rawStringsData.length; i++) {
+            for (int j = 0; j < fieldName.length; j++) {
+                if((rawStringsData[i]).toLowerCase().contains(fieldName[j].toLowerCase())){
+                    fieldNameWithinText[i] = fieldName[j];
+                }
+            }
+        }
+    }
+
     public String[] getChanceCardsTextArray() {
         return rawStringsData;
     }
 
     public int[][] getNumbersFromChanceCardsText() {
         return numArray;
+    }
+
+    public String[] getFieldNameWithinText() {
+        readFieldNames();
+        return fieldNameWithinText;
     }
 }
 
