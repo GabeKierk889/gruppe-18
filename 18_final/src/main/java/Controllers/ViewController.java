@@ -179,8 +179,15 @@ public class ViewController {
     }
 
     public void goToJailMessage(){
-        String name = getCurrentPlayerName();
-        gui.showMessage(name+": "+takeTurnGUIMessages[6]);
+        gui.showMessage(takeTurnGUIMessages[6]);
+    }
+
+    public boolean releaseFromJailMessageHasCard() {
+        return gui.getUserLeftButtonPressed(String.format(takeTurnGUIMessages[7],GameController.getInstance().getPlayerObject(currentPlayerNum()).getName()), takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
+    }
+
+    public void releaseFromJailMessagePayMoney() {
+        gui.showMessage(String.format(takeTurnGUIMessages[34],GameController.getInstance().getPlayerObject(currentPlayerNum()).getName(),takeTurnGUIMessages[35]+" "+GameSettings.JAILFEE));
     }
 
     public void useChanceCard(){

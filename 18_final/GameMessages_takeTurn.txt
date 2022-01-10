@@ -5,7 +5,7 @@ Du har slået 2 ens og får et ekstra kast.
 Du har modtaget kr. %s for at passere START.
 Tryk på den grønne firkant i midten for at se dit chancekort. Hold musen over feltet med teksten mens du læser det. Når du er færdig med at læse kortet, tryk Anvend.
 Åh nej, du skal i fængsel! Du vil ikke modtage leje mens du er i fængsel.
-Vil du bruge dit chancekort til at komme gratis ud af fængsel? Du kan kun bruge det 1 gang.
+%s vil du bruge dit chancekort til at komme gratis ud af fængsel? Du kan kun bruge det 1 gang.
 ...
 kr. %s
 Prøv lykken
@@ -32,3 +32,5 @@ Da feltet er blevet pantsat af ejeren, skal der ikke betales leje.
 Du skal betale i alt kr. %1$s for %2$s og %3$s.
 dit
 dine
+%1$s betal nu %2$s for at komme ud af fængslet.
+kr.

@@ -13,6 +13,9 @@ public class MatadorMain {
         gameController.gameLoop();
 
 //        gameController.testMethod();
+
+//        Board board = new Board();
+//        board.buildHouse();
     }
 
 }

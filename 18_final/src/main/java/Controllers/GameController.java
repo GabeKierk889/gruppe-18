@@ -122,6 +122,7 @@ public class GameController {
         moveTo = players[playerArrayNum].OnField();
         viewController.moveGUICar(moveFrom, moveTo, currentPlayerNum);
         players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
+        viewController.updateGUIBalance();
         int lastLocation = moveTo;
         board.getFieldObject(players[playerArrayNum].OnField()).landOnField(players[playerArrayNum]); // field effect happens
         // following flow ensures landOnField method is called again in case player has landed on another field during their turn
@@ -134,9 +135,17 @@ public class GameController {
     private void releaseFromJail(){
         // TODO: gui
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
-            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+            boolean playerUseReleaseFromJailCard = viewController.releaseFromJailMessageHasCard();
+            viewController.releaseFromJailMessageHasCard();
+            if (playerUseReleaseFromJailCard) {
+                ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+                players[playerArrayNum].setIsInJail(false);
+            }
         } else {
+            viewController.releaseFromJailMessagePayMoney();
+            players[playerArrayNum].setIsInJail(false);
             players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
+            viewController.updateGUIBalance();
         }
     }
 
@@ -218,8 +227,9 @@ public class GameController {
     public String getPlayerName(int playerNum) { return players[playerNum - 1].getName(); }
 
 
-//    public void testMethod() {
+    public void testMethod() {
 //        Board board = new Board();
 //        board.buildHouse();
-//    }
+
+    }
 }

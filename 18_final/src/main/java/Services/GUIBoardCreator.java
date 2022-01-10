@@ -61,7 +61,6 @@ public class GUIBoardCreator {
         Color lilla = new Color(128, 0, 128);
 
         guiStreets[1].setBackGroundColor(Color.blue);
-        guiStreets[1].setForeGroundColor(Color.RED);
 
         guiStreets[3].setBackGroundColor(Color.blue);
 
