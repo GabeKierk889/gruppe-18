@@ -20,6 +20,7 @@ public class MoveToFieldCard extends ChanceCard {
         boolean isJailField = board.getFieldObject(moveToFieldNum) instanceof JailField;
         if (isJailField) {
             moveToFieldNum = 10;
+            currentplayerobject.setIsInJail(true);
             ViewController.getInstance().goToJailMessage();
         }
 
