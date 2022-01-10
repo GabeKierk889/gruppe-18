@@ -217,7 +217,7 @@ public class ViewController {
        if (txtFileLineArrayNum2 != -1)
            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
         if (txtFileLineArrayNum3 != -1)
-            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
         gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));
     }
     public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton, int txtFileLineFalseButton) {
@@ -233,6 +233,7 @@ public class ViewController {
     }
 
     public void collectStartBonusMessage() {
+        updateGUIBalance();
         gui.showMessage(String.format(takeTurnGUIMessages[4],""+GameSettings.STARTBONUS));
     }
 

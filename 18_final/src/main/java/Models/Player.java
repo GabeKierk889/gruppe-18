@@ -28,8 +28,8 @@ public class Player {
     public void collectStartBonus(int diceThrow) {
         // only applies to regular turns/ passing START by throwing the dice, not chance card situations
         if (onField < diceThrow)
-            ViewController.getInstance().collectStartBonusMessage();
             getAccount().depositMoney(GameSettings.STARTBONUS);
+            ViewController.getInstance().collectStartBonusMessage();
     }
 
     public void movePlayerToField(int fieldArrayNumber) {

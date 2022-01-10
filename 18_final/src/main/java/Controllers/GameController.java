@@ -122,7 +122,6 @@ public class GameController {
         moveTo = players[playerArrayNum].OnField();
         viewController.moveGUICar(moveFrom, moveTo, currentPlayerNum);
         players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
-        viewController.updateGUIBalance();
         int lastLocation = moveTo;
         board.getFieldObject(players[playerArrayNum].OnField()).landOnField(players[playerArrayNum]); // field effect happens
         // following flow ensures landOnField method is called again in case player has landed on another field during their turn
@@ -219,8 +218,8 @@ public class GameController {
     public String getPlayerName(int playerNum) { return players[playerNum - 1].getName(); }
 
 
-    public void testMethod() {
-        Board board = new Board();
-        board.buildHouse();
-    }
+//    public void testMethod() {
+//        Board board = new Board();
+//        board.buildHouse();
+//    }
 }
