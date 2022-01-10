@@ -12,7 +12,6 @@ public class StreetField extends OwnableField {
     public StreetField(String fieldName, int price, int housePrice, int[] rentArray, String streetColor) {
         super(fieldName, price, rentArray);
         STREETCOLOR = streetColor;
-        currentRent = rentArray[0];
         numOfHouses = 0;
         hasHotel = false;
         HOUSEPRICE = housePrice;

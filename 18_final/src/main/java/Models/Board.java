@@ -15,33 +15,33 @@ public class Board {
     }
 
     // TODO: Forsøg på at lave buildHouse()
-    public void buildHouse(){
-        // Ejer alle felter af samme type
-        boolean ownsFields = true; // tmp value
-        // Hent hus pris
-
-        int housePrice = ((StreetField) fields[1]).getHousePrice();
-        // Ejere allerede hus(e)
-        boolean alreadyOwnsHouses = true; // tmp value
-
-        if (ownsFields) {
-            // Vil du købe hus?
-            // TODO: GUI Besked ("Vil du købe hus?"   JA / Nej)
-            Boolean buyHouseAnswer = true; // tmp value
-
-            // Er der allerede hus(e)?
-            if (buyHouseAnswer && alreadyOwnsHouses) {
-                // Køb hus og træk penge
-                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
-
-                // Opsæt et hus mere
-            } else if (buyHouseAnswer) {
-                // Køb hus og træk penge
-                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
-                // Opsæt et hus
-            }
-        }
-    }
+//    public void buildHouse(){
+//        // Ejer alle felter af samme type
+//        boolean ownsFields = true; // tmp value
+//        // Hent hus pris
+//
+//        int housePrice = ((StreetField) fields[1]).getHousePrice();
+//        // Ejere allerede hus(e)
+//        boolean alreadyOwnsHouses = true; // tmp value
+//
+//        if (ownsFields) {
+//            // Vil du købe hus?
+//            // TODO: GUI Besked ("Vil du købe hus?"   JA / Nej)
+//            Boolean buyHouseAnswer = true; // tmp value
+//
+//            // Er der allerede hus(e)?
+//            if (buyHouseAnswer && alreadyOwnsHouses) {
+//                // Køb hus og træk penge
+//                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
+//
+//                // Opsæt et hus mere
+//            } else if (buyHouseAnswer) {
+//                // Køb hus og træk penge
+//                GameController.getInstance().getPlayerObject(GameController.getInstance().getCurrentPlayerNum()).getAccount().withdrawMoney(housePrice);
+//                // Opsæt et hus
+//            }
+//        }
+//    }
 
     public void buildHotel(){}
     public void sellHouse(){}
