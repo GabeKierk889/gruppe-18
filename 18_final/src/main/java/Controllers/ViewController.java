@@ -19,11 +19,13 @@ public class ViewController {
     private GUI_Street[] guiStreets= new GUI_Street[numbOfFields];
     private String[] takeTurnGUIMessages;
     private String[] setupGameGUIMessages;
+    private String[] chanceCardMessages;
 
     private ViewController() {
         FileImporter reader = new FileImporter();
         takeTurnGUIMessages = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
         setupGameGUIMessages = reader.readAllLinesInFile("GameMessages_setupGame.txt");
+        chanceCardMessages = reader.readAllLinesInFile("Chancecards_text.txt");
     }
 
     public static ViewController getInstance() {
@@ -234,8 +236,10 @@ public class ViewController {
         gui.showMessage(String.format(takeTurnGUIMessages[4],""+GameSettings.STARTBONUS));
     }
 
-    public void drawChanceCardMessage() {
+    public void drawChanceCardMessage(String text) {
+        gui.setChanceCard(text);
         gui.getUserButtonPressed(takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
+        gui.setChanceCard("");
     }
 
     // this methods code is modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
