@@ -16,7 +16,7 @@ public class MoveXFieldsBackwards extends ChanceCard {
     @Override
     public void effect(Player currentplayerobject) {
         int oldLocation = currentplayerobject.OnField();
-        int newLocation = oldLocation - 3;
+        int newLocation = oldLocation - STEPSTOMOVE;
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
 
         if (newLocation < 0) {
