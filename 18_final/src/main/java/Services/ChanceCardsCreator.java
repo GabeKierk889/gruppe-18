@@ -41,10 +41,9 @@ public class ChanceCardsCreator {
                 new ReceiveFromEachPlayerCard(text[24],numbersInChanceCardText[24]),
                 new ReceiveFromEachPlayerCard(text[25],numbersInChanceCardText[25]),
                 new ReceiveFromEachPlayerCard(text[26],numbersInChanceCardText[26]),
-
-
-
                 new MoveXFieldsForward(text[27],numbersInChanceCardText[27]),
+                new MoveXFieldsBackwards(text[28],numbersInChanceCardText[28]),
+                new MoveXFieldsBackwards(text[28],numbersInChanceCardText[28]),
 
 
                 new JailReleaseCard(text[43]),
