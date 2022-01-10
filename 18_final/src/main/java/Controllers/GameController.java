@@ -135,9 +135,15 @@ public class GameController {
     private void releaseFromJail(){
         // TODO: gui
         if(players[playerArrayNum].hasAReleaseFromJailCard()){
-            ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+            boolean playerUseReleaseFromJailCard = viewController.releaseFromJailMessageHasCard();
+            viewController.releaseFromJailMessageHasCard();
+            if (playerUseReleaseFromJailCard) {
+                ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
+            }
         } else {
+            viewController.releaseFromJailMessagePayMoney();
             players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
+            viewController.updateGUIBalance();
         }
     }
 
@@ -220,7 +226,8 @@ public class GameController {
 
 
     public void testMethod() {
-        Board board = new Board();
-        board.buildHouse();
+//        Board board = new Board();
+//        board.buildHouse();
+
     }
 }

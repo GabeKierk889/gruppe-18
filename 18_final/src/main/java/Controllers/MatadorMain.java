@@ -6,16 +6,16 @@ public class MatadorMain {
 
     public static void main(String[] args) {
 
-//        GameController gameController = GameController.getInstance();
+        GameController gameController = GameController.getInstance();
 //
-//        gameController.initializeGame();
+        gameController.initializeGame();
 //
-//        gameController.gameLoop();
+        gameController.gameLoop();
 
 //        gameController.testMethod();
 
-        Board board = new Board();
-        board.buildHouse();
+//        Board board = new Board();
+//        board.buildHouse();
     }
 
 }

@@ -1,5 +1,6 @@
 package Models;
 
+import Controllers.GameController;
 import Controllers.ViewController;
 
 public class JailField extends Field {
@@ -12,6 +13,8 @@ public class JailField extends Field {
     public void landOnField(Player currentplayerobject) {
         currentplayerobject.setIsInJail(true);
         ViewController.getInstance().goToJailMessage();
+        currentplayerobject.movePlayerToField(10);
+        ViewController.getInstance().moveGUICar(30,10, GameController.getInstance().getCurrentPlayerNum());
     }
 
     @Override
