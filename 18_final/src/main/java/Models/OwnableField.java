@@ -66,6 +66,7 @@ public abstract class OwnableField extends Field {
         board.updateRentForAllFieldsOfSameType(fieldArrayNum);
         ViewController.getInstance().updateGUIBalance();
         ViewController.getInstance().showTakeTurnMessageWithPlayerName(14,fieldName,""+purchasePrice);
+        ViewController.getInstance().formatFieldBorder(fieldArrayNum);
     }
 
     public void auctionField() {

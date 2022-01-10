@@ -26,5 +26,9 @@ public class Field {
     public boolean isJailField() {
         return false;
     }
+    public boolean isBreweryField() {
+        return false;
+    }
+
 
 }

@@ -17,8 +17,7 @@ public class GUIBoardCreator {
     private String[] takeTurnMessages = fileImporter.readAllLinesInFile("GameMessages_takeTurn.txt");
     private String[] fieldDescriptions = fileImporter.readAllLinesInFile("FieldDescriptions.txt");
 
-    // TODO: @Mark, jeg så lige hurtigt nogle ting, og har lavet nogle foreslåede ændringer.
-    //  har bared commented out din kode, har ikke slettet noget
+    // TODO: Lave descriptions til felter som beskriver leje, huspriser, pantsætningsværdi osv
     public GUIBoardCreator(GUI_Field[] guiFields, GUI_Street[] guiStreets) {
 
         this.guiFields = guiFields;
@@ -33,24 +32,17 @@ public class GUIBoardCreator {
             guiStreets[i].setBackGroundColor(Color.lightGray);
             guiFields[i] = guiStreets[i];
             // if a field is ownable, set sub text to price
-            if ( board.getFieldObject(i).isOwnableField()
-//                    !(i == 0 || i == 2 || i == 7 ||
-//                        i == 10 || i == 17 || i == 20 || i == 22 ||
-//                        i == 30 || i == 33 || i == 36 || i == 38)
-
-            ) {
+            if ( board.getFieldObject(i).isOwnableField()) {
                 guiFields[i].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[i]));
             }
             // setup chance fields
             if (board.getFieldObject(i) instanceof ChanceField) {
-//            if (i == 2 || i == 7 || i == 17 || i == 22 || i == 33 || i == 36) {
                 guiFields[i] = new GUI_Chance();
                 guiFields[i].setDescription("");
 
             }
             // setup shipping fields
             if (board.getFieldObject(i).isShippingField()) {
-//            if (i == 5 || i == 15 || i == 25 || i == 35) {
                 guiFields[i] = new GUI_Shipping();
             }
         }
@@ -69,6 +61,7 @@ public class GUIBoardCreator {
         Color lilla = new Color(128, 0, 128);
 
         guiStreets[1].setBackGroundColor(Color.blue);
+        guiStreets[1].setForeGroundColor(Color.RED);
 
         guiStreets[3].setBackGroundColor(Color.blue);
 
@@ -107,7 +100,6 @@ public class GUIBoardCreator {
         guiFields[28] = new GUI_Brewery();
         guiFields[28].setTitle(board.getFieldObject(28).getFieldName());
         guiFields[28].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[28]));
-
     }
 
     private void formatShippingFields() {

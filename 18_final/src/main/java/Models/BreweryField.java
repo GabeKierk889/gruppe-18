@@ -18,4 +18,9 @@ public class BreweryField extends OwnableField {
         else
             currentRent = RENTARRAY[0] * diceSum;
     }
+
+    @Override
+    public boolean isBreweryField() {
+        return true;
+    }
 }
