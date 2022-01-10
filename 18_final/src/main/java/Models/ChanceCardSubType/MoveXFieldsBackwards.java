@@ -22,6 +22,7 @@ public class MoveXFieldsBackwards extends ChanceCard {
         if (newLocation < 0) {
             newLocation = newLocation + GameController.getInstance().getBoard().getTotalNumOfFields();
         }
+        currentplayerobject.moveToField(newLocation);
         ViewController.getInstance().moveGUICar(oldLocation, newLocation, currentPlayer);
     }
 }
