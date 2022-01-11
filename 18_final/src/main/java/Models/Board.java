@@ -14,7 +14,11 @@ public class Board {
         fields = service.createFields();
     }
 
-    public void buildHouse(){}
+    public void buildHouse(){
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        // viewcontroller method
+    }
+
     public void buildHotel(){}
     public void sellHouse(){}
     public void sellHotel(){}
