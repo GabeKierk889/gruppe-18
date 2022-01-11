@@ -67,7 +67,8 @@ public abstract class OwnableField extends Field {
         ViewController.getInstance().updateGUIBalance();
         ViewController.getInstance().formatFieldBorder(fieldArrayNum);
         // write out buy field information to player via gui
-        sendGUIPlayerMessage(purchasePrice);
+        if(!currentplayerobject.getIsBankrupt())
+            sendGUIPlayerMessage(purchasePrice);
     }
 
     public void auctionField() {
@@ -79,7 +80,7 @@ public abstract class OwnableField extends Field {
             isMortgaged = true;
             currentplayerobject.getAccount().depositMoney(MORTGAGEVALUE);
             // TODO: gui, for later, lower priority
-            // output message via gui that field has been mortgaged and money deposited
+            // output message via gui if they want to put on mortgage
         }
     }
 
@@ -88,10 +89,11 @@ public abstract class OwnableField extends Field {
             // calculate and round interest to nearest int round
             int round = GameSettings.MORTGAGE_INTEREST_ROUNDING;
             int interest = (int) Math.round(MORTGAGEVALUE*GameSettings.MORTGAGE_INTEREST_MULTIPLIER /round) * round;
-            currentplayerobject.getAccount().withdrawMoney(MORTGAGEVALUE+interest);
-            isMortgaged = false;
             // TODO: gui, for later, lower priority
-            // output message via gui that field has been unmortgaged and money paid
+            // output message via gui to pay in order to unmortgage field
+            isMortgaged = false;
+            currentplayerobject.getAccount().withdrawMoney(MORTGAGEVALUE+interest);
+            ViewController.getInstance().updateGUIBalance();
         }
     }
 
@@ -181,4 +183,7 @@ public abstract class OwnableField extends Field {
         else ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1);
     }
 
+    public boolean isMortgaged() {
+        return isMortgaged;
+    }
 }

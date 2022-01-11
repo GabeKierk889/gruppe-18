@@ -55,8 +55,9 @@ public class ChanceCardsCreator {
                 new MoveToFieldCard(text[37],fieldNameWithinText[37]),
                 new MoveToFieldCard(text[38],fieldNameWithinText[38]),
                 new MoveToFieldCard(text[39],fieldNameWithinText[39]),
-
-
+                new MoveToNearestShippingFieldCard(text[40],1),
+                new MoveToNearestShippingFieldCard(text[41],numbersInChanceCardText[41][0]),
+                new MoveToNearestShippingFieldCard(text[42],numbersInChanceCardText[42][0]),
                 new JailReleaseCard(text[43]),
                 new JailReleaseCard(text[44]),
                 new ReceiveMatadorStipendCard(text[45],numbersInChanceCardText[45])

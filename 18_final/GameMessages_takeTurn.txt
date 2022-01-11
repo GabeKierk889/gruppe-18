@@ -46,7 +46,7 @@ banken
 %1$s: Du har nu fået overdraget kr. %2$s og alle grunde tidligere ejet af %3$s. Grundene kan evt. stadig være pantsatte.
 Fortryd
 Prøv igen
-
+Der skal betales dobbelt leje til ejeren af rederiet. Du vil nu forudbetale den ekstra del af lejen, kr. %s.
 
 
 
