@@ -24,7 +24,7 @@ public class Account {
         }
     }
 
-    // method overloading - this method called in transferMoney(), keeps track of creditorPlayerNum
+    // method overloading - this method is called in transferMoney(), keeps track of creditorPlayerNum
     public void withdrawMoney (int withdrawal, int creditorPlayerNum) {
         // currently allowing a negative balance
         if (withdrawal > 0) {
