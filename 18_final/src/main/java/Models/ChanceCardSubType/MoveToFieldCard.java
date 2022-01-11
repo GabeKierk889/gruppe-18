@@ -17,7 +17,7 @@ public class MoveToFieldCard extends ChanceCard {
     public void effect(Player currentplayerobject) {
         Board board = GameController.getInstance().getBoard();
         int moveToFieldNum = board.getFieldArrayNumber(FIELDNAME);
-        boolean isJailField = board.getFieldObject(moveToFieldNum) instanceof JailField;
+        boolean isJailField = board.getFieldObject(moveToFieldNum).isJailField();
         if (isJailField) {
             moveToFieldNum = 10;
             currentplayerobject.setIsInJail(true);

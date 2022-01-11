@@ -116,10 +116,10 @@ public class GameController {
         int moveFrom, moveTo;
         moveFrom = players[playerArrayNum].OnField(); // save player's last location
         // roll dice
-        if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt())
-            viewController.sameFaceValueMessage(); // message in gui that player has gotten an extra throw
+        if (diceCup.sameFaceValue()) // message in gui that player has got an extra throw + roll message
+            viewController.sameFaceValueMessage();
         else
-            viewController.rollMessage();
+            viewController.rollMessage(); // the "normal" roll message
         diceCup.roll();
         viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
         if (diceCup.sameFaceValue())
