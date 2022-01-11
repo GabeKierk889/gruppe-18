@@ -15,7 +15,8 @@ public class Board {
     }
 
     public void buildHouse(){
-
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        // viewcontroller method
     }
 
     public void buildHotel(){}
