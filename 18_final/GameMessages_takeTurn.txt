@@ -53,8 +53,8 @@ banken
 
 
 
-%1$s: Vil du handle med bygninger nu?
+%1$s: Vil du handle med bygninger nu? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en ad gangen.
+%1$s: Vil du fortsætte med at handle med bygninger?
 Ja, købe %s
 Ja, sælge %s
-Ja, både købe og sælge %s
 huse og hoteller
