@@ -7,11 +7,11 @@ import java.util.Scanner;
 public class FileImporter {
     private BufferedReader reader;
 
-    public String[] readAllLinesInFile(String file) {
+    public String[] readAllLinesInFile(String filename) {
         String[] array = null;
         try {
-            int linesInFile = getLinesInFile(file);
-            reader = new BufferedReader(new FileReader(file));
+            int linesInFile = getLinesInFile(filename);
+            reader = new BufferedReader(new FileReader(filename));
             array = new String[linesInFile];
             for (int i = 0; i < linesInFile; i++)
                 array[i] = reader.readLine();

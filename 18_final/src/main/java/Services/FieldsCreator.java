@@ -17,7 +17,7 @@ public class FieldsCreator {
                 new StreetField(fieldName[1],fieldPrice[1],housePrice[1],rentArray[1],streetColor[1]),
                 new ChanceField(fieldName[2]),
                 new StreetField(fieldName[3],fieldPrice[3],housePrice[3],rentArray[3],streetColor[3]),
-                new IncomeTaxField(fieldName[4], GameSettings.INCOMETAXAMOUNT, GameSettings.INCOME_TAX_RATE),
+                new IncomeTaxField(fieldName[4], GameSettings.INCOME_TAX_AMOUNT, GameSettings.INCOME_TAX_RATE),
                 new ShippingField(fieldName[5],fieldPrice[5],rentArray[5]),
                 new StreetField(fieldName[6],fieldPrice[6],housePrice[6],rentArray[6],streetColor[6]),
                 new ChanceField(fieldName[7]),
@@ -51,7 +51,7 @@ public class FieldsCreator {
                 new ShippingField(fieldName[35],fieldPrice[35],rentArray[35]),
                 new ChanceField(fieldName[36]),
                 new StreetField(fieldName[37],fieldPrice[37],housePrice[37],rentArray[37],streetColor[37]),
-                new StateTaxField(fieldName[38],GameSettings.STATETAXAMOUNT),
+                new StateTaxField(fieldName[38],GameSettings.STATE_TAX_AMOUNT),
                 new StreetField(fieldName[39],fieldPrice[39],housePrice[39],rentArray[39],streetColor[39])
         };
     }

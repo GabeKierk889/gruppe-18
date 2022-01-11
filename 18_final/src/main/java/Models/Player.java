@@ -36,9 +36,9 @@ public class Player {
         }
     }
 
-    public void moveToField(int fieldArrayNumber) {
-        if(fieldArrayNumber >= 0)
-            onField = fieldArrayNumber % GameController.getInstance().getBoard().getTotalNumOfFields();
+    public void moveToField(int fieldArrayNum) {
+        if(fieldArrayNum >= 0)
+            onField = fieldArrayNum % GameController.getInstance().getBoard().getTotalNumOfFields();
     }
 
     public String getName() {
@@ -53,12 +53,12 @@ public class Player {
     public boolean getIsInJail () { return isInJail; }
     public boolean getIsBankrupt () { return isBankrupt; }
 
-    public void giveReleaseFromJailCard (ChanceCard card) {
+    public void giveReleaseFromJailCard (ChanceCard jailCard) {
         // if player is given a release from jail card, they get to keep it (max 2 cards)
         if (releaseFromJailCard == null)
-            releaseFromJailCard = card;
+            releaseFromJailCard = jailCard;
         else
-            releaseFromJailCard2 = card; }
+            releaseFromJailCard2 = jailCard; }
 
     public ChanceCard returnReleaseFromJailCard () {
         // if a jail card is taken away from a player, the 2nd one is taken first (if they have 2)
