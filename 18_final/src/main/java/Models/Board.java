@@ -235,12 +235,11 @@ public class Board {
                 && ownsAllFieldsOfSameType(fieldArrayNum) )
         { // checks other fields of the same color if they also have 4 houses or even a hotel built already
             String color = ((StreetField) fields[fieldArrayNum]).getStreetColor();
-            for (int j = 0; j< fields.length; j++) {
-                if (fields[j].isStreetField() && color.equalsIgnoreCase(((StreetField) fields[j]).getStreetColor()) ) {
-                    if ( ((StreetField) fields[j]).getNumOfHouses() == 4 || ((StreetField) fields[j]).hasHotel()) {
+            for (Field field : fields) {
+                if (field.isStreetField() && color.equalsIgnoreCase(((StreetField) field).getStreetColor())) {
+                    if (((StreetField) field).getNumOfHouses() == 4 || ((StreetField) field).hasHotel()) {
                         test = true;
-                    }
-                    else return false;
+                    } else return false;
                 }
             }
         }
@@ -252,7 +251,7 @@ public class Board {
         String userDoesNotWantToBuyResponse = ViewController.getInstance().getTakeTurnGUIMessages(16);
         // depending on the player's situation, need gui to only display the relevant options available for player
         boolean mayBuyHouse,maySellHouse,mayBuyHotel,maySellHotel,showAll, allExceptSellHotel, allExceptBuyHotel, allExceptBuyHouse, buyHouseSellHouse,
-                buyHouseSellHotel, sellHouseSellHotel, sellHouseBuyHotel, buyHotelSellHouse, buyHouseOnly,sellHouseOnly,sellHotelOnly;
+                buyHouseSellHotel, sellHouseSellHotel, sellHouseBuyHotel, buyHouseOnly,sellHouseOnly,sellHotelOnly;
         while (!userinput.equalsIgnoreCase(userDoesNotWantToBuyResponse)) {
             mayBuyHouse = currentPlayerMayBuyHouses();
             maySellHouse = currentPlayerMaySellHouses();
@@ -266,7 +265,6 @@ public class Board {
             buyHouseSellHotel = mayBuyHouse && !maySellHouse && !mayBuyHotel && maySellHotel;
             sellHouseSellHotel = !mayBuyHouse && maySellHouse && !mayBuyHotel && maySellHotel;
             sellHouseBuyHotel = !mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
-            buyHotelSellHouse = !mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
             buyHouseOnly = mayBuyHouse && !maySellHouse && !mayBuyHotel && !maySellHotel;
             sellHouseOnly = !mayBuyHouse && maySellHouse && !mayBuyHotel && !maySellHotel;
             sellHotelOnly = !mayBuyHouse && !maySellHouse && !mayBuyHotel && maySellHotel;
@@ -277,7 +275,16 @@ public class Board {
                 userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,56,25,25,27);
             else if (allExceptBuyHotel)
                 userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,57,25,25,27);
-
+            else if (allExceptBuyHouse)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57,56,57,25,27,27);
+            else if (buyHouseSellHouse)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,25,25);
+            else if (buyHouseSellHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,25,27);
+            else if (sellHouseSellHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57,57,25,27);
+            else if (sellHouseBuyHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57,56,25,27);
             else if (buyHouseOnly)
                 userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,25);
             else if (sellHouseOnly)
