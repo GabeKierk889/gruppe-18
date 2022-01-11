@@ -19,13 +19,11 @@ public class ViewController {
     private GUI_Street[] guiStreets= new GUI_Street[numbOfFields];
     private String[] takeTurnGUIMessages;
     private String[] setupGameGUIMessages;
-    private String[] chanceCardMessages;
 
     private ViewController() {
         FileImporter reader = new FileImporter();
         takeTurnGUIMessages = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
         setupGameGUIMessages = reader.readAllLinesInFile("GameMessages_setupGame.txt");
-        chanceCardMessages = reader.readAllLinesInFile("Chancecards_text.txt");
     }
 
     public static ViewController getInstance() {
@@ -116,8 +114,8 @@ public class ViewController {
         }
     }
 
-    public void removeGUICar(int playerNum, int playeronfieldNum) {
-        guiFields[playeronfieldNum].setCar(guiPlayers[playerNum-1], false);
+    public void removeGUICar(int playerNum, int playerOnFieldNum) {
+        guiFields[playerOnFieldNum].setCar(guiPlayers[playerNum-1], false);
     }
 
     public void moveGUICar(int moveFrom, int moveTo, int currentPlayerNum) {
@@ -192,19 +190,19 @@ public class ViewController {
     }
 
     //Game setup messages
-    public void clickRules() {
+    public void clickRulesMessage() {
         gui.showMessage(setupGameGUIMessages[9]);
     }
 
-    public void rules() {
+    public void rulesMessage() {
         gui.showMessage(setupGameGUIMessages[10]);
     }
 
-    public void startGame() {
+    public void startGameMessage() {
         gui.showMessage(setupGameGUIMessages[11]);
     }
 
-    public void gameRules() {
+    public void gameRulesMessage() {
         gui.showMessage(setupGameGUIMessages[12]);
     }
 

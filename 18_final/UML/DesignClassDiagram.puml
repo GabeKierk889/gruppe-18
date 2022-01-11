@@ -5,17 +5,58 @@ skinparam classAttributeIconSize 0
 package services {
 
 class FileImporter {
+    -reader: BufferedReader
+
+    +readAllLinesInFile(filename : String) : String[]
+    -getLinesInFile(filename : String) : int
 }
 class FieldsDataReader {
+    -rawStringsData: String[]
+    -fieldNamesArray: String[]
+    -fieldTypeArray: String[]
+    -streetColorsArray: String[]
+    -fieldPriceArray: int[]
+    -housePriceArray: int[]
+    -rentArrayArray: int[][]
+    -rentLevels: int
+
+    -readData() : void
 }
 class FieldsCreator {
+    +createFields() : Field[]
 }
 class ChanceCardsDataReader {
+    -rawStringsData : String[]
+    -numArray: int[][]
+    -fieldNameWithinText: String[]
+
+    -readData() : void
+    -readFileNames : void
+
 }
 class ChanceCardsCreator {
+    +createChanceCardsDeck() : ChanceCard[]
 }
 
-class GUIBoardCreator {}
+class GUIBoardCreator {
+    -guiFields: GUI_Field[]
+    -guiStreets: GUI_Street[]
+    -board: Board
+    -fieldsDataReader: FieldsDataReader
+    -fieldPrice: int[]
+    -fileImporter: FileImporter
+    -takeTurnMessages: String[]
+    -fieldDescriptions: String[]
+
+    -setUpAndFormatGUIBoard() : void
+    -formatStreets() : void
+    -setupBreweryFields() : void
+    -formatShippingFields() : void
+    -setupSTART() : void
+    -setupRefuge : void
+    -setupTaxFields : void
+    -setupJailFields : void
+}
 
 }
 
@@ -23,14 +64,34 @@ package controllers {
 
 class MatadorMain {
 
+    {static}+main(args : String[]) : void
+
 }
 
 class GameController <<Singleton>>{
     -players: Player[]
+    -playerNames: Player[]
+    -totalPlayers: int
+    -currentPlayerNum: int
+    -playerArrayNum: int
     -board: Board
     -diceCup: DiceCup
+    -viewController: ViewController
+    {static}-single_instance: GameController
 
     +initializeGame() : void
+    -setupPlayers() : void
+    +switchTurn(extraTurn : boolean) : void
+    +gameLoop() : void
+    -checkForWinner() : boolean
+    -determineWinner() : int
+    -takeTurn() : void
+    -releaseFromJail() : void
+    +calculateAssets(playerNum : int) : int
+    -calculateLiquidAssets(playerNum : int) : int
+    +sellAssets(name : String, needToPay : int, creditorPlayerNum : int) : void
+    -goBankrupt(bankruptPlayerNum : int, assetvalue : int, needToPay : int, creditorPlayerNum : int) : void
+
 }
 
 'class GameSetupController {
@@ -38,6 +99,43 @@ class GameController <<Singleton>>{
 '}
 
 class ViewController <<Singleton>>{
+    -guiCars: GUI_Car[]
+    -guiPlayers: GUI_Player[]
+    -gui: GUI
+    {static}-single_instance: ViewController
+    -numOfFields: int
+    -guiFields: GUI_Field[]
+    -guiStreets: GUI_Street[]
+    -takeTurnGUIMessages: String[]
+    -setupGameGUIMessages: String[]
+
+    +setupGUIBoard() : void
+    +putPlayersOnBoard() : void
+    -setupGUICars() : void
+    -setupGUIPlayers() : void
+    +removeGUICar(playerNum : int, playerOnFieldNum : int) : void
+    +moveGUICar(moveFrom : int, moveTo : int, currentPlayerNum : int) : void
+    +rollMessage() : void
+    -currentPlayerNum() : int
+    +updateGUIDice(die1 : int, die2 : int) : void
+    +updateGUIBalance() : void
+    +sameFaceValueMessage() : void
+    +startBonusMessage() : void
+    +goToJailMessage() : void
+    +releaseFromJailMessageHasCard() : boolean
+    +releaseFromJailMessagePayMoney() : void
+    +clickRulesMessage() : void
+    +rulesMessage() : void
+    +startGameMessage() : void
+    +gameRulesMessage() : void
+    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int) : void
+    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int) : boolean
+    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int, stringInText : String, stringInText2 : String) : boolean
+    +drawChanceCardMessage(text : String) : void
+    +formatFieldBorder(fieldArrayNum : int) : void
 
 }
 
@@ -56,6 +154,10 @@ class GameSettings {
     {static}+INCOME_TAX_RATE: double
     {static}+MORTGAGE_INTEREST_MULTIPLIER: double
     {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
+    {static}+MORTGAGE_INTEREST_ROUNDING: int
+    {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
+    {static}+GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES: int
+
 }
 
 class Player {
@@ -66,45 +168,48 @@ class Player {
     -isInJail: Boolean
     -jailCard1: ChanceCard
     -jailCard2: ChanceCard
+    -throwTwoOfSameDiceInARow: int
 
-    +moveToField(fieldNum : int) : int
-    +moveSteps(steps : int) : void
+    +moveToField(fieldArrayNum : int) : void
+    +moveSteps(stepsToMove : int) : int
     +hasAJailCard() : Boolean
     +giveJailCard(jailCard : ChanceCard) : void
     +returnJailCard() : ChanceCard
-    +collectStartBonus() : void
+    +collectStartBonus(int diceThrow) : void
 }
 
 class Board {
     -fields: Field[]
 
-    +ownsAllFieldsOfSameType(fieldNum : int) : boolean
-    +updateRentForAllFieldsOfSameType(fieldNum : int) : void
+    +ownsAllFieldsOfSameType(fieldArrayNum : int) : boolean
+    +updateRentForAllFieldsOfSameType(fieldArrayNum : int) : void
     +numOfShippingFieldsOwned(playerNum : int) : int
     +numBuildingsOwnedByCurrentPlayer() : int[]
-    +calculateValueOfBuildingsOwned(playerNum : int) : int
+    +calculateAssetValueOfBuildingsOwned(playerNum : int) : int
     +calculateValueOfFieldsOwned(playerNum : int) : int
+    +removeAllBuildingsOwned(playerNum : int) : void
+    +calculateAvailableMortgageValueOfFieldsOwned(playerNum : int) : int
+    bankruptcyTransferAllFieldAssets(oldOwnerPlayerNum : int, newOwnerPlayerNum : int) : void
     +buildHouse() : void
     +buildHotel() : void
     +sellHouse() : void
     +sellHotel() : void
-    +getTotalNumOfFields() : int
 }
 
 class Field {
-    #fieldName: String
+    #FIELDNAME: String
 
-    +landOnField(currentPlayerObject : Player)
-    +isOwnableField() : boolean
+    +landOnField(currentPlayerObject : Player) : void
 }
 
 class Account {
     -NAME: String
     -balance: int
 
-    +deposit(amount : int) : void
-    +withdraw(amount : int) : void
-    +transfer(amount : int, recipientPlayerNum : int) : void
+    +depositMoney(deposit : int) : void
+    +withdrawMoney(withdrawal : int) : void
+    +withdrawMoney(withdrawal : int, creditorPlayerNum : int) : void
+    +transferMoney(amount : int, recipientPlayerNum : int) : void
 }
 
 class DiceCup {
@@ -123,8 +228,23 @@ class Die {
 }
 
 package ChanceCardSubType {
-class ChanceCardSubType {
-}
+
+note as note
+
+All classes in this package inherits from the ChanceCard class
+
+end note
+
+class JailReleaseCard
+class MoveToFieldCard
+class MoveXFieldsBackwardsCard
+class MoveXFieldsForwardCard
+class PayMoneyCard
+class PayMoneyForBuildingsCard
+class RecieveFromEachPlayerCard
+class RecieveMatadorStipendCard
+class RecieveMoneyCard
+
 }
 
 abstract class ChanceCard {
@@ -140,12 +260,17 @@ abstract class OwnableField {
         #RENTARRAY: int[]
         #isMortgaged: boolean
         #MORTGAGEVALUE: int
+        -MORTGAGE_PRICE_RATIO: double
 
         +buyField(currentPlayerObject : Player) : void
-        +updateRent() : void
+        -buyFieldTransaction(currentPlayerNum : int, currentplayerobject : Player, purchasePrice : int) : void
+        +auctionField() : void
+        {abstract}+updateRent() : void
         +mortgageField() : void
+        -unMortgageField(currentplayerobject : Player) : void
         +auctionField() : void
         +tradeField() : void
+        -sendGUIPlayerMessage(purchasePrice : int) : void
 }
 
 class StreetField {
@@ -200,7 +325,9 @@ FieldsDataReader --> FileImporter
 ChanceCardsDataReader --> FileImporter
 FieldsCreator --> FieldsDataReader
 ChanceCardsCreator --> ChanceCardsDataReader
-ChanceField --> ChanceCardsCreator
+ChanceField o- ChanceCard
+ChanceField -> ChanceCardsCreator
+ChanceCard <|-- ChanceCardSubType
 ViewController --> GUIBoardCreator
 Board --> FieldsCreator
 ViewController --* GameController
@@ -213,8 +340,6 @@ Board *-- "40" Field
 OwnableField <|-- StreetField
 Field <|-- ChanceField
 Field <|-- JailField
-ChanceField o- ChanceCard
-ChanceCard <|-- ChanceCardSubType
 DiceCup *-- "2" Die
 Field <|-- OwnableField
 OwnableField <|-- BreweryField
@@ -222,6 +347,7 @@ OwnableField <|-- ShippingField
 Field <|-- TaxField
 TaxField <|-- StateTaxField
 TaxField <|-- IncomeTaxField
+'ChanceCard <|--
 
 
 @enduml

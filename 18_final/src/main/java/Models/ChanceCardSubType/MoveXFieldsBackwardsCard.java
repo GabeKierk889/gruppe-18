@@ -5,10 +5,10 @@ import Controllers.ViewController;
 import Models.ChanceCard;
 import Models.Player;
 
-public class MoveXFieldsBackwards extends ChanceCard {
+public class MoveXFieldsBackwardsCard extends ChanceCard {
     private final int STEPSTOMOVE;
 
-    public MoveXFieldsBackwards(String text, int[] numOfFields) {
+    public MoveXFieldsBackwardsCard(String text, int[] numOfFields) {
         super(text);
         STEPSTOMOVE = numOfFields[0];
     }

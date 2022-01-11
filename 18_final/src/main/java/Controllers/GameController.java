@@ -200,7 +200,7 @@ public class GameController {
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
     }
 
-    private void goBankrupt(int bankruptPlayerNum, int assetvalue, int needToPay, int creditorPlayerNum) {
+    private void goBankrupt(int bankruptPlayerNum, int assetValue, int needToPay, int creditorPlayerNum) {
         // sell all buildings owned by bankrupt player and adds the money to bankrupt player's account
         int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
         players[bankruptPlayerNum - 1].getAccount().depositMoney(resellValueBuildings);
@@ -223,7 +223,7 @@ public class GameController {
         ChanceField.putBackChanceCard(players[bankruptPlayerNum - 1].returnReleaseFromJailCard()); // 2nd card
 
         // write message to gui that player is going bankrupt because they cannot pay and will be removed from the game
-        String line1 = viewController.getTakeTurnGUIMessages(42, players[bankruptPlayerNum - 1].getName(), "" + needToPay, "" + assetvalue);
+        String line1 = viewController.getTakeTurnGUIMessages(42, players[bankruptPlayerNum - 1].getName(), "" + needToPay, "" + assetValue);
         String creditorName;
         if (creditorPlayerNum > 0)
             creditorName = players[creditorPlayerNum - 1].getName();
