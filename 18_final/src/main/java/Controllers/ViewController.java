@@ -282,56 +282,16 @@ public class ViewController {
         gui.setChanceCard("");
     }
 
-    // this methods code is modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
     public void formatFieldBorder(int fieldArrayNum) {
         boolean isShippingField = GameController.getInstance().getBoard().getFieldObject(fieldArrayNum).isShippingField();
         boolean isBreweryField = GameController.getInstance().getBoard().getFieldObject(fieldArrayNum).isBreweryField();
-
-        switch (((OwnableField)GameController.getInstance().getBoard().getFieldObject(fieldArrayNum)).getOwnerNum()) {
-            case 1: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[0].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[0].getPrimaryColor());
-                }
-                break; }
-            case 2: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[1].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[1].getPrimaryColor());
-                }
-                break; }
-            case 3: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[2].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[2].getPrimaryColor());
-                }
-                break; }
-            case 4: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[3].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[3].getPrimaryColor());
-                }
-                break; }
-            case 5: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[4].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[4].getPrimaryColor());
-                }
-                break; }
-            case 6: {
-                if (isShippingField || isBreweryField) {
-                    guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[5].getPrimaryColor());
-                } else {
-                    guiStreets[fieldArrayNum].setBorder(guiPlayers[5].getPrimaryColor());
-                }
-                break; }
-            default: break;
+        int ownerNum = ((OwnableField) GameController.getInstance().getBoard().getFieldObject(fieldArrayNum)).getOwnerNum();
+        if (ownerNum > 0) {
+            if (isShippingField || isBreweryField) {
+                guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[ownerNum - 1].getPrimaryColor());
+            } else {
+                guiStreets[fieldArrayNum].setBorder(guiPlayers[ownerNum - 1].getPrimaryColor());
+            }
         }
     }
-
 }
