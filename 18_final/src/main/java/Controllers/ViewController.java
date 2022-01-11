@@ -249,6 +249,26 @@ public class ViewController {
         String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2),
         takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
     }
+    // method overloading
+    public String getBuyOrSellBuildingsUserInput (int lineArrayNum, String dropDown1,String stringInText) {
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(dropDown1,stringInText));
+    }
+    public String getBuyOrSellBuildingsUserInput (int lineArrayNum, String dropDown1, String dropDown2
+            , String stringInText, String stringInText2) {
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(dropDown1,stringInText),String.format(dropDown2,stringInText2));
+    }
+    public String getBuyOrSellBuildingsUserInput (int lineArrayNum, String dropDown1, String dropDown2, String dropDown3
+            , String stringInText, String stringInText2, String stringInText3) {
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(dropDown1,stringInText),String.format(dropDown2,stringInText2),String.format(dropDown3,stringInText3));
+    }
+    public String getBuyOrSellBuildingsUserInput (int lineArrayNum, String dropDown1, String dropDown2, String dropDown3, String dropDown4
+            , String stringInText, String stringInText2, String stringInText3, String stringInText4) {
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(dropDown1,stringInText),String.format(dropDown2,stringInText2),String.format(dropDown3,stringInText3),String.format(dropDown4,stringInText4));
+    }
 
     public void drawChanceCardMessage(String text) {
         gui.setChanceCard(text);
