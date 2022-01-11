@@ -20,31 +20,31 @@ public class Board {
         String userSelection = ViewController.getInstance().whereToBuildUserInput(colorsEligibleForBuilding);
         String userSelectionColor = extractColor(userSelection);
         int pricePerHouse;
-        int maxNumHouses = 0;
-        int minNumHouses = StreetField.MAXNUMOFHOUSES + 1;
-        int totalNewBuilds = 0;
         int[] totalHousesOnField = new int[fields.length];
         int[] housesToBuild = new int[fields.length];
-        boolean[] hotelsOnLot = new boolean[fields.length];
-        int counter = 0;
+        boolean[] fieldHasHotel = new boolean[fields.length];
         boolean succesfulCompletion = false;
         do {
+            int maxNumHouses = 0;
+            int minNumHouses = StreetField.MAXNUMOFHOUSES + 1;
+            int totalNewBuilds = 0;
+            int counter = 0;
             for (Field field : fields) {
                 // runs for all fields of the same color
                 if (field.isStreetField() && userSelectionColor.equalsIgnoreCase(((StreetField) field).getStreetColor())) {
-                    hotelsOnLot[counter] = ((StreetField) field).hasHotel();
+                    fieldHasHotel[counter] = ((StreetField) field).hasHotel();
                     pricePerHouse = ((StreetField) field).getHousePrice();
-                    if (!hotelsOnLot[counter] && ((StreetField) field).getNumOfHouses() < StreetField.MAXNUMOFHOUSES) {
+                    if (!fieldHasHotel[counter] && ((StreetField) field).getNumOfHouses() < StreetField.MAXNUMOFHOUSES) {
                         housesToBuild[counter] = ViewController.getInstance().numberHousesToBuildUserInput(field.getFieldName(),pricePerHouse);
                         totalHousesOnField[counter] = housesToBuild[counter] + ((StreetField) field).getNumOfHouses();
                         totalNewBuilds += housesToBuild[counter];
-                        // check: for street of the same color, what is the min/max number houses on any one lot
-                        // if there is a hotel, there will be 0 houses, but ignore this in minimum calculation
-                        if (!hotelsOnLot[counter] && totalHousesOnField[counter] < minNumHouses)
-                            minNumHouses = totalHousesOnField[counter];
-                        if (totalHousesOnField[counter] > maxNumHouses)
-                            maxNumHouses = totalHousesOnField[counter];
                     }
+                    // check: for streets of the same color, what is the min/max number houses on any one lot
+                    // if there is a hotel, there will be 0 houses, but ignore this in minimum calculation
+                    if (!fieldHasHotel[counter] && totalHousesOnField[counter] < minNumHouses)
+                        minNumHouses = totalHousesOnField[counter];
+                    if (totalHousesOnField[counter] > maxNumHouses)
+                        maxNumHouses = totalHousesOnField[counter];
                     counter++;
                 }
             }
