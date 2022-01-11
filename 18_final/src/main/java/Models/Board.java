@@ -14,7 +14,10 @@ public class Board {
         fields = service.createFields();
     }
 
-    public void buildHouse(){}
+    public void buildHouse(){
+
+    }
+
     public void buildHotel(){}
     public void sellHouse(){}
     public void sellHotel(){}
