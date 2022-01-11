@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.GameSettings;
 import Models.OwnableField;
+import Models.StreetField;
 import Services.*;
 import gui_fields.*;
 import gui_main.GUI;
@@ -277,6 +278,19 @@ public class ViewController {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
                 String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]),String.format(takeTurnGUIMessages[dropDownLine4],takeTurnGUIMessages[stringInText4]));
+    }
+
+    public String whereToBuildUserInput (String[] colors) {
+        String[] options = new String[colors.length];
+        for (int i = 0; i < options.length; i++){
+            options[i] = String.format(takeTurnGUIMessages[59],colors[i]);
+        }
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[58],options);
+    }
+
+    public int numberHousesToBuildUserInput (String fieldName, int housePrice) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + takeTurnGUIMessages[61];
+        return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
     }
 
     public void drawChanceCardMessage(String text) {
