@@ -2,28 +2,24 @@ package Controllers;
 
 import Models.GameSettings;
 import Models.OwnableField;
+import Models.StreetField;
 import Services.*;
 import gui_fields.*;
 import gui_main.GUI;
-import java.awt.Color;
 
 public class ViewController {
-    // TODO: update class diagram with some of the new methods
 
-    private GUI_Car[] guiCars;
     private GUI_Player[] guiPlayers;
     private GUI gui;
     private static ViewController single_instance;
-    int numbOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
-    private GUI_Field[] guiFields = new GUI_Field[numbOfFields];
-    private GUI_Street[] guiStreets= new GUI_Street[numbOfFields];
-    private String[] takeTurnGUIMessages;
-    private String[] setupGameGUIMessages;
+    private final int totalNumOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
+    private GUI_Field[] guiFields = new GUI_Field[totalNumOfFields];
+    private GUI_Street[] guiStreets= new GUI_Street[totalNumOfFields];
+    private final String[] takeTurnGUIMessages;
 
     private ViewController() {
         FileImporter reader = new FileImporter();
         takeTurnGUIMessages = reader.readAllLinesInFile("GameMessages_takeTurn.txt");
-        setupGameGUIMessages = reader.readAllLinesInFile("GameMessages_setupGame.txt");
     }
 
     public static ViewController getInstance() {
@@ -33,89 +29,23 @@ public class ViewController {
     }
 
     public void setupGUIBoard() {
-        GUIBoardCreator service = new GUIBoardCreator(guiFields,guiStreets);
-        guiFields = service.createGuiFields();
-        guiStreets = service.createGuiStreets();
-        gui = new GUI(guiFields, Color.WHITE);
+        gui = ViewController_GameSetup.getInstance().setupGUIBoard(guiFields,guiStreets);
     }
 
     public String[] getPlayerNames() {
-        String str = gui.getUserString(setupGameGUIMessages[1]);
-        String[] strarray = str.split(" ");
-        int minPlayers = 3, maxPlayers = 6;
-        boolean duplicateNames = false;
-        for (int i = 0; i < strarray.length; i++) {
-            for (int j = 0; j < strarray.length; j++)
-                if (j != i && strarray[j].equals(strarray[i])) {
-                    duplicateNames = true;
-                    break;
-                }
-        }
-        if (duplicateNames) {
-            gui.showMessage(setupGameGUIMessages[2]);
-        } else if (strarray.length > GameSettings.MAXNUMOFPLAYERS || strarray.length < GameSettings.MINNUMOFPLAYERS) {
-            gui.showMessage(String.format(setupGameGUIMessages[3], minPlayers, maxPlayers));
-        } else {
-            String names = "";
-            for (int i = 0; i < strarray.length; i++) {
-                if (i != strarray.length - 1)
-                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] + ",   ";
-                else
-                    names += String.format(setupGameGUIMessages[4] + " ", (i + 1)) + strarray[i] ;
-            }
-            if (gui.getUserLeftButtonPressed(String.format(setupGameGUIMessages[5], names)+"  "+setupGameGUIMessages[6],
-                    setupGameGUIMessages[7],setupGameGUIMessages[8])) {
-                return strarray;
-            }
-        }
-        return getPlayerNames();
+        return ViewController_GameSetup.getInstance().getPlayerNames(gui);
     }
 
     public void putPlayersOnBoard() {
-        setupGUICars();
-        setupGUIPlayers();
-    }
-
-    private void setupGUICars() {
         int totalPlayers = GameController.getInstance().getTotalPlayers();
-        guiCars = new GUI_Car[totalPlayers];
-
-        switch (totalPlayers) {
-            case 6:
-                guiCars[5] = new GUI_Car();
-                guiCars[5].setPrimaryColor(Color.PINK);
-            case 5:
-                guiCars[4] = new GUI_Car();
-                guiCars[4].setPrimaryColor(new Color(180,30,250));
-            case 4:
-                guiCars[3] = new GUI_Car();
-                guiCars[3].setPrimaryColor(new Color(90,130,250));
-            case 3:
-                guiCars[2] = new GUI_Car();
-                guiCars[2].setPrimaryColor(new Color(50,180,50));
-            case 2: // for added flexibility, in case MINNUMOFPLAYERS is changed to 2 instead of 3
-                guiCars[1] = new GUI_Car();
-                guiCars[1].setPrimaryColor(Color.CYAN);
-                guiCars[0] = new GUI_Car();
-                guiCars[0].setPrimaryColor(new Color(255,100,150));
-                break;
-        }
-    }
-
-    private void setupGUIPlayers() {
-        int totalPlayers = GameController.getInstance().getTotalPlayers();
+        GUI_Car[] guiCars = new GUI_Car[totalPlayers];
+        ViewController_GameSetup.getInstance().setupGUICars(totalPlayers, guiCars);
         guiPlayers = new GUI_Player[totalPlayers];
-
         for (int i = totalPlayers - 1; i >= 0; i--) {
-            guiPlayers[i] = new GUI_Player(getPlayerName(i+1),
-                    GameSettings.STARTINGBALANCE, guiCars[i]);
+            guiPlayers[i] = new GUI_Player(getPlayerName(i+1), GameSettings.STARTINGBALANCE, guiCars[i]);
             gui.addPlayer(guiPlayers[i]);
             guiFields[0].setCar(guiPlayers[i], true);
         }
-    }
-
-    public void removeGUICar(int playerNum, int playerOnFieldNum) {
-        guiFields[playerOnFieldNum].setCar(guiPlayers[playerNum-1], false);
     }
 
     public void moveGUICar(int moveFrom, int moveTo, int currentPlayerNum) {
@@ -124,17 +54,21 @@ public class ViewController {
         guiFields[moveTo].setCar(currentGUIPlayer, true);
     }
 
-    public void setGUIHasHotel(int fieldArrayNum, boolean hasHotel) {
-        guiStreets[fieldArrayNum].setHotel(hasHotel);
-    }
-
-    public void setGUINumHouses(int fieldArrayNum, int numHouses) {
-        guiStreets[fieldArrayNum].setHouses(numHouses);
+    public void removeGUICar(int playerNum, int playerOnFieldNum) {
+        guiFields[playerOnFieldNum].setCar(guiPlayers[playerNum-1], false);
     }
 
     public void rollMessage() {
         String name = getCurrentPlayerName();
         gui.getUserButtonPressed(name+": "+ takeTurnGUIMessages[0], takeTurnGUIMessages[1]);
+    }
+
+    public void updateGUIDice(int die1,int die2) {
+        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 3 + 1),
+                (int) (Math.random() * 6 + 3), die2,
+                (int) (Math.random() * 359),
+                (int) (Math.random() * 3 + 4),
+                (int) (Math.random() * 3 + 7));
     }
 
     private int currentPlayerNum() {
@@ -147,15 +81,6 @@ public class ViewController {
 
     private String getPlayerName(int playerNum) {
         return GameController.getInstance().getPlayerObject(playerNum).getName();
-    }
-
-    public void updateGUIDice(int die1,int die2) {
-        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 3 + 1),
-                (int) (Math.random() * 6 + 3), die2,
-                (int) (Math.random() * 359),
-                (int) (Math.random() * 3 + 4),
-                (int) (Math.random() * 3 + 7)
-        );
     }
 
     public void updateGUIBalance() {
@@ -189,94 +114,81 @@ public class ViewController {
         gui.showMessage(String.format(takeTurnGUIMessages[34],GameController.getInstance().getPlayerObject(currentPlayerNum()).getName(),takeTurnGUIMessages[35]+" "+GameSettings.JAILFEE));
     }
 
-    //Game setup messages
-    public void clickRulesMessage() {
-        gui.showMessage(setupGameGUIMessages[9]);
-    }
-
-    public void rulesMessage() {
-        gui.showMessage(setupGameGUIMessages[10]);
-    }
-
-    public void startGameMessage() {
-        gui.showMessage(setupGameGUIMessages[11]);
-    }
-
-    public void gameRulesMessage() {
-        gui.showMessage(setupGameGUIMessages[12]);
-    }
-
-    public String getTakeTurnGUIMessages(int txtLineArray) { return takeTurnGUIMessages[txtLineArray]; }
     // method overloading
+    public String getTakeTurnGUIMessages(int txtLineArray) { return takeTurnGUIMessages[txtLineArray]; }
     public String getTakeTurnGUIMessages(int txtLineArray, String stringInText, String stringInText2, String stringInText3) {
         return String.format(takeTurnGUIMessages[txtLineArray],stringInText,stringInText2,stringInText3);}
     public String getTakeTurnGUIMessages(int txtLineArray, int stringInTextLine) {
-       return String.format(takeTurnGUIMessages[txtLineArray],takeTurnGUIMessages[stringInTextLine]);
-    }
-    // method overloading
+       return String.format(takeTurnGUIMessages[txtLineArray],takeTurnGUIMessages[stringInTextLine]);}
     public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
-        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));
-    }
-    // method overloading
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));}
     public void showTakeTurnMessageWithPlayerName(String customString, int txtFileLineArrayNum) {
-        gui.showMessage(getCurrentPlayerName() + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);
-    }
-    // method overloading
+        gui.showMessage(getCurrentPlayerName() + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);}
     public void showTakeTurnMessageWithPlayerName(String customString) {
-        gui.showMessage(getCurrentPlayerName() + ": " +customString);
-    }
-    // method overloading
+        gui.showMessage(getCurrentPlayerName() + ": " +customString);}
     public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
        String str = takeTurnGUIMessages[txtFileLineArrayNum];
        if (txtFileLineArrayNum2 != -1)
            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
         if (txtFileLineArrayNum3 != -1)
             str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
-        gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));
-    }
-    // method overloading
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));}
     public void showTakeTurnMessageWithPlayerName(String customString, int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
         String str = takeTurnGUIMessages[txtFileLineArrayNum];
         if (txtFileLineArrayNum2 != -1)
             str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
         if (txtFileLineArrayNum3 != -1)
             str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
-        gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));
-    }
-    public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton, int txtFileLineFalseButton) {
-        return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineQuestion],
-        takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
-    }
-    // method overloading
+        gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));}
+
     public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton,
-        int txtFileLineFalseButton, String stringInText, String stringInText2) {
+        int txtFileLineFalseButton, String stringInText, String stringInText2, int stringInText3) {
+        String str = (stringInText3 < 0) ? "" : takeTurnGUIMessages[stringInText3];
         return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " +
-        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2),
+        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2, str),
         takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
     }
-    // method overloading
+
     public String getBuyOrSellBuildingsUserInput (int dropDownLine1,int stringInText) {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
                 String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]));
     }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2
-            , int stringInText, int stringInText2) {
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int stringInText, int stringInText2) {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
                 String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]));
     }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3
-            , int stringInText, int stringInText2, int stringInText3) {
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int stringInText, int stringInText2, int stringInText3) {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
                 String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]));
     }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int dropDownLine4
-            , int stringInText, int stringInText2, int stringInText3, int stringInText4) {
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int dropDownLine4, int stringInText, int stringInText2, int stringInText3, int stringInText4) {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
                 String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]),String.format(takeTurnGUIMessages[dropDownLine4],takeTurnGUIMessages[stringInText4]));
+    }
+
+    public String whereToBuildUserInput (String[] colors) {
+        String[] options = new String[colors.length];
+        for (int i = 0; i < options.length; i++)
+            options[i] = String.format(takeTurnGUIMessages[59],colors[i]);
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[58],options);
+    }
+
+    public int numberHousesToBuildUserInput (String fieldName, int housePrice) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + " " + takeTurnGUIMessages[61];
+        return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
+    }
+
+    public void setGUINumHouses(int fieldArrayNum, int numHouses) {
+        guiStreets[fieldArrayNum].setHouses(numHouses);
+    }
+
+    public void setGUIHasHotel(int fieldArrayNum, boolean hasHotel) {
+        guiStreets[fieldArrayNum].setHouses(0);
+        guiStreets[fieldArrayNum].setHotel(hasHotel);
     }
 
     public void drawChanceCardMessage(String text) {
@@ -293,9 +205,8 @@ public class ViewController {
         if (ownerNum > 0) {
             if (isShippingField || isBreweryField) {
                 guiFields[fieldArrayNum].setForeGroundColor(guiPlayers[ownerNum - 1].getPrimaryColor());
-            } else {
+            } else
                 guiStreets[fieldArrayNum].setBorder(guiPlayers[ownerNum - 1].getPrimaryColor());
-            }
         }
     }
 }

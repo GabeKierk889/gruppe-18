@@ -35,9 +35,10 @@ public abstract class OwnableField extends Field {
                 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail()
                 && !isMortgaged) {
             updateRent();
-            currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
             showGUIPayRentMessage(ownerName);
-        }
+            currentplayerobject.getAccount().transferMoney(currentRent,ownerNum);
+            ViewController.getInstance().updateGUIBalance();
+            }
         else if (ownerNum != currentPlayerNum && GameController.getInstance().getPlayerObject(ownerNum).getIsInJail())
             // gui message to show that owner is in jail and no rent is needed
             ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,29,-1,ownerName,"","");
@@ -48,7 +49,7 @@ public abstract class OwnableField extends Field {
 
     public void buyField(Player currentplayerobject) {
         boolean playerWantsToBuyField;
-        playerWantsToBuyField = ViewController.getInstance().showMessageAndGetBooleanUserInput(13,15,16,fieldName,""+PRICE);
+        playerWantsToBuyField = ViewController.getInstance().showMessageAndGetBooleanUserInput(13,15,16,fieldName,""+PRICE,-1);
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
         if (playerWantsToBuyField) { // use gui to get user input on whether a player wants to buy a field
             buyFieldTransaction(currentPlayerNum,currentplayerobject, PRICE);
@@ -155,7 +156,6 @@ public abstract class OwnableField extends Field {
             }
         }
         ViewController.getInstance().showTakeTurnMessageWithPlayerName(19,lineArray,28,ownerName,str,""+currentRent);
-        ViewController.getInstance().updateGUIBalance();
     }
 
     private void sendGUIPlayerMessage(int purchasePrice) {
