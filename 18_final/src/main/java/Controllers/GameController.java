@@ -148,12 +148,12 @@ public class GameController {
         else players[playerArrayNum].resetThrowTwoOfSameCounter();
         if (players[playerArrayNum].getThrowTwoOfSameDiceInARow() == GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES) {
             // if same dice 3 times in a row, player must go to jail immediately and end their turn
+            viewController.showTakeTurnMessageWithPlayerName(41, "" + GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES, "", "");
             int moveTo = 10; // jail field
             players[playerArrayNum].moveToField(moveTo);
             viewController.moveGUICar(playerOnField, moveTo, currentPlayerNum);
             players[playerArrayNum].setIsInJail(true);
             players[playerArrayNum].resetThrowTwoOfSameCounter(); // reset the counter
-            viewController.showTakeTurnMessageWithPlayerName(41, "" + GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES, "", "");
         }
     }
 
@@ -161,13 +161,12 @@ public class GameController {
     private void releaseFromJail() {
         if (players[playerArrayNum].hasAReleaseFromJailCard()) {
             boolean playerUseReleaseFromJailCard = viewController.releaseFromJailMessageHasCard();
-            viewController.releaseFromJailMessageHasCard();
             if (playerUseReleaseFromJailCard) {
                 ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
                 players[playerArrayNum].setIsInJail(false);
             }
         }
-        if (players[playerArrayNum].getIsInJail()) { // using return; call did not work
+        if (players[playerArrayNum].getIsInJail()) {
             viewController.releaseFromJailMessagePayMoney();
             players[playerArrayNum].setIsInJail(false);
             players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee

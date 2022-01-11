@@ -2,63 +2,7 @@
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
 
-package services {
 
-class FileImporter {
-    -reader: BufferedReader
-
-    +readAllLinesInFile(filename : String) : String[]
-    -getLinesInFile(filename : String) : int
-}
-class FieldsDataReader {
-    -rawStringsData: String[]
-    -fieldNamesArray: String[]
-    -fieldTypeArray: String[]
-    -streetColorsArray: String[]
-    -fieldPriceArray: int[]
-    -housePriceArray: int[]
-    -rentArrayArray: int[][]
-    -rentLevels: int
-
-    -readData() : void
-}
-class FieldsCreator {
-    +createFields() : Field[]
-}
-class ChanceCardsDataReader {
-    -rawStringsData : String[]
-    -numArray: int[][]
-    -fieldNameWithinText: String[]
-
-    -readData() : void
-    -readFileNames : void
-
-}
-class ChanceCardsCreator {
-    +createChanceCardsDeck() : ChanceCard[]
-}
-
-class GUIBoardCreator {
-    -guiFields: GUI_Field[]
-    -guiStreets: GUI_Street[]
-    -board: Board
-    -fieldsDataReader: FieldsDataReader
-    -fieldPrice: int[]
-    -fileImporter: FileImporter
-    -takeTurnMessages: String[]
-    -fieldDescriptions: String[]
-
-    -setUpAndFormatGUIBoard() : void
-    -formatStreets() : void
-    -setupBreweryFields() : void
-    -formatShippingFields() : void
-    -setupSTART() : void
-    -setupRefuge : void
-    -setupTaxFields : void
-    -setupJailFields : void
-}
-
-}
 
 package controllers {
 
@@ -140,6 +84,8 @@ class ViewController <<Singleton>>{
 }
 
 }
+
+
 
 package models {
 
@@ -320,34 +266,92 @@ class IncomeTaxField {
 
 }
 
+package services {
+
+class FileImporter {
+    -reader: BufferedReader
+
+    +readAllLinesInFile(filename : String) : String[]
+    -getLinesInFile(filename : String) : int
+}
+class FieldsDataReader {
+    -rawStringsData: String[]
+    -fieldNamesArray: String[]
+    -fieldTypeArray: String[]
+    -streetColorsArray: String[]
+    -fieldPriceArray: int[]
+    -housePriceArray: int[]
+    -rentArrayArray: int[][]
+    -rentLevels: int
+
+    -readData() : void
+}
+class FieldsCreator {
+    +createFields() : Field[]
+}
+class ChanceCardsDataReader {
+    -rawStringsData : String[]
+    -numArray: int[][]
+    -fieldNameWithinText: String[]
+
+    -readData() : void
+    -readFileNames : void
+
+}
+class ChanceCardsCreator {
+    +createChanceCardsDeck() : ChanceCard[]
+}
+
+class GUIBoardCreator {
+    -guiFields: GUI_Field[]
+    -guiStreets: GUI_Street[]
+    -board: Board
+    -fieldsDataReader: FieldsDataReader
+    -fieldPrice: int[]
+    -fileImporter: FileImporter
+    -takeTurnMessages: String[]
+    -fieldDescriptions: String[]
+
+    -setUpAndFormatGUIBoard() : void
+    -formatStreets() : void
+    -setupBreweryFields() : void
+    -formatShippingFields() : void
+    -setupSTART() : void
+    -setupRefuge : void
+    -setupTaxFields : void
+    -setupJailFields : void
+}
+
+}
+
 MatadorMain *-- GameController
-FieldsDataReader --> FileImporter
-ChanceCardsDataReader --> FileImporter
-FieldsCreator --> FieldsDataReader
-ChanceCardsCreator --> ChanceCardsDataReader
 ChanceField o- ChanceCard
 ChanceField -> ChanceCardsCreator
-ChanceCard <|-- ChanceCardSubType
-ViewController --> GUIBoardCreator
-Board --> FieldsCreator
+ChanceCard <|--- ChanceCardSubType
 ViewController --* GameController
+ViewController -> GUIBoardCreator
+Board --> FieldsCreator
+Board *-- "40" Field
 GameController --> GameSettings
 GameController *--- Board
 GameController *--- DiceCup
 GameController *--- Player
 Player *-- Account
-Board *-- "40" Field
 OwnableField <|-- StreetField
 Field <|-- ChanceField
 Field <|-- JailField
-DiceCup *-- "2" Die
+Field <|-- TaxField
 Field <|-- OwnableField
+DiceCup *-- "2" Die
 OwnableField <|-- BreweryField
 OwnableField <|-- ShippingField
-Field <|-- TaxField
 TaxField <|-- StateTaxField
 TaxField <|-- IncomeTaxField
-'ChanceCard <|--
+FieldsDataReader --> FileImporter
+ChanceCardsDataReader --> FileImporter
+FieldsCreator --> FieldsDataReader
+ChanceCardsCreator --> ChanceCardsDataReader
+
 
 
 @enduml

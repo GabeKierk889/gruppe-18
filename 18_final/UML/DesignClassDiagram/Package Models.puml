@@ -1,0 +1,218 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam ParticipantPadding 30
+
+
+package  services #DDDDDD {
+() FieldsCreator
+() ChanceCardsCreator
+}
+
+package  controllers #DDDDDD {
+() GameController
+}
+
+package models {
+
+class GameSettings {
+    {static}+MINNUMOFPLAYERS: int
+    {static}+MAXNUMOFPLAYERS: int
+    {static}+STARTINGBALANCE: int
+    {static}+STARTBONUS: int
+    {static}+JAILFEE: int
+    {static}+STATE_TAX_AMOUNT: int
+    {static}+INCOME_TAX_AMOUNT: int
+    {static}+INCOME_TAX_RATE: double
+    {static}+MORTGAGE_INTEREST_MULTIPLIER: double
+    {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
+    {static}+MORTGAGE_INTEREST_ROUNDING: int
+    {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
+    {static}+GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES: int
+
+}
+
+class Board {
+    -fields: Field[]
+
+    +ownsAllFieldsOfSameType(fieldArrayNum : int) : boolean
+    +updateRentForAllFieldsOfSameType(fieldArrayNum : int) : void
+    +numOfShippingFieldsOwned(playerNum : int) : int
+    +numBuildingsOwnedByCurrentPlayer() : int[]
+    +calculateAssetValueOfBuildingsOwned(playerNum : int) : int
+    +calculateValueOfFieldsOwned(playerNum : int) : int
+    +removeAllBuildingsOwned(playerNum : int) : void
+    +calculateAvailableMortgageValueOfFieldsOwned(playerNum : int) : int
+    bankruptcyTransferAllFieldAssets(oldOwnerPlayerNum : int, newOwnerPlayerNum : int) : void
+    +buildHouse() : void
+    +buildHotel() : void
+    +sellHouse() : void
+    +sellHotel() : void
+}
+class ChanceField {
+    {static}-chanceCards: ChanceCard[]
+    {static}-currentCard: ChanceCard
+
+    {static}+drawChanceCard() : ChanceCard
+    {static}+shuffleChanceCards() : void
+    {static}+putBackChanceCard(jailCard : ChanceCard) : void
+    {static}-putAllNullCardsInBottom() : void
+}
+abstract class ChanceCard {
+#TEXT: String
++getChanceCardText() : String
+{abstract}+effect(currentPlayerObject : Player) : void
+}
+
+class Player {
+    -NAME: String
+    -isBankrupt: Boolean
+    -onField: int
+    -ACCOUNT: Account
+    -isInJail: Boolean
+    -jailCard1: ChanceCard
+    -jailCard2: ChanceCard
+    -throwTwoOfSameDiceInARow: int
+
+    +moveToField(fieldArrayNum : int) : void
+    +moveSteps(stepsToMove : int) : int
+    +hasAJailCard() : Boolean
+    +giveJailCard(jailCard : ChanceCard) : void
+    +returnJailCard() : ChanceCard
+    +collectStartBonus(int diceThrow) : void
+}
+
+
+class Field {
+    #FIELDNAME: String
+
+    +landOnField(currentPlayerObject : Player) : void
+}
+
+class Account {
+    -NAME: String
+    -balance: int
+
+    +depositMoney(deposit : int) : void
+    +withdrawMoney(withdrawal : int) : void
+    +withdrawMoney(withdrawal : int, creditorPlayerNum : int) : void
+    +transferMoney(amount : int, recipientPlayerNum : int) : void
+}
+
+class DiceCup {
+    -die1: Die
+    -die2: Die
+
+    +roll() : void
+    +isSameFaceValue() : boolean
+}
+
+class Die {
+    -facevalue: int
+    -NUMOFSIDES: int
+
+    +roll() : void
+}
+
+package ChanceCardSubType {
+
+note as note
+
+All classes in this package inherits from the ChanceCard class
+
+end note
+
+class JailReleaseCard
+class MoveToFieldCard
+class MoveXFieldsBackwardsCard
+class MoveXFieldsForwardCard
+class PayMoneyCard
+class PayMoneyForBuildingsCard
+class RecieveFromEachPlayerCard
+class RecieveMatadorStipendCard
+class RecieveMoneyCard
+
+}
+
+
+abstract class OwnableField {
+        #ownerNum: int
+        #PRICE: int
+        #currentRent: int
+        #RENTARRAY: int[]
+        #isMortgaged: boolean
+        #MORTGAGEVALUE: int
+        -MORTGAGE_PRICE_RATIO: double
+
+        +buyField(currentPlayerObject : Player) : void
+        -buyFieldTransaction(currentPlayerNum : int, currentplayerobject : Player, purchasePrice : int) : void
+        +auctionField() : void
+        {abstract}+updateRent() : void
+        +mortgageField() : void
+        -unMortgageField(currentplayerobject : Player) : void
+        +auctionField() : void
+        +tradeField() : void
+        -sendGUIPlayerMessage(purchasePrice : int) : void
+}
+
+class StreetField {
+    -numOfHouses: int
+    -hasHotel: boolean
+    -HOUSEPRICE: int
+    -STREETCOLOR: String
+
+}
+
+class BreweryField {
+
+}
+
+class ShippingField {
+
+}
+
+
+class JailField {
+
+}
+
+abstract class TaxField {
+    #FIXEDTAX: int
+
+    {abstract}+calculateTax(currentPlayerObject : Player) : int
+    -PayTax(currentPlayerObject : Player) : void
+}
+
+class StateTaxField {
+
+}
+
+class IncomeTaxField {
+
+}
+
+}
+
+
+FieldsCreator <--- Board
+ChanceCardsCreator <-- ChanceField
+Board *-- "40" Field
+GameController *--- Board
+ChanceField o-- ChanceCard
+ChanceCard <|--- ChanceCardSubType
+GameController *--- DiceCup
+GameController *--- Player
+Player *-- Account
+GameController --> GameSettings
+OwnableField <|-- StreetField
+Field <|-- ChanceField
+Field <|-- JailField
+Field <|-- TaxField
+Field <|-- OwnableField
+DiceCup *-- "2" Die
+OwnableField <|-- BreweryField
+OwnableField <|-- ShippingField
+TaxField <|-- StateTaxField
+TaxField <|-- IncomeTaxField
+
+@enduml
