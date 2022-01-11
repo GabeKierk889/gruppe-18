@@ -80,7 +80,7 @@ public class GameController {
             }
             switchTurn(extraTurn);
         }
-        determineWinner();
+        int winnerPlayerNum = determineWinner();
     }
 
     // finds a winner if all other than one player is bankrupt
