@@ -146,6 +146,8 @@ public class GameController {
                 moveFrom = players[playerArrayNum].OnField();
                 board.getFieldObject(moveFrom).landOnField(players[playerArrayNum]);
             }
+            // asks a player if they want to buy or sell buildings
+            board.currentPlayerBuildingDecision();
         }
     }
 

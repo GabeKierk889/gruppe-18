@@ -53,7 +53,6 @@ banken
 
 
 
-Vil du handle med bygninger nu? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en ad gangen.
-Vil du fortsætte med at handle med bygninger?
+Vil du handle med bygninger? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en handling ad gangen.
 Ja, købe %s
 Ja, sælge %s

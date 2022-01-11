@@ -192,6 +192,118 @@ public class Board {
             }
     }
 
+    public boolean currentPlayerMayBuyHouses() {
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        for (int i = 0; i< fields.length; i++) {
+            // checks for streets owned by current player
+            if (fields[i].isStreetField()
+                    && ((OwnableField) fields[i]).getOwnerNum() == currentPlayer
+                    // check that there aren't hotels or 4 houses on all the relevant fields already
+                    && !(((StreetField) fields[i]).hasHotel() )
+                    && (((StreetField) fields[i]).getNumOfHouses() < StreetField.MAXNUMOFHOUSES ) ) {
+                if (ownsAllFieldsOfSameType(i))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean currentPlayerMaySellHouses() {
+        int[] buildingsOwned = numBuildingsOwnedByCurrentPlayer();
+        return buildingsOwned[0] > 0; // if they own any houses
+    }
+
+    public boolean currentPlayerMayBuyHotels() {
+        for (int i = 0; i< fields.length; i++) {
+            if (currentPlayerMayBuyHotelsOnField(i))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean currentPlayerMaySellHotels() {
+        int[] buildingsOwned = numBuildingsOwnedByCurrentPlayer();
+        return buildingsOwned[1] > 0; // if they own any hotels
+    }
+
+    public boolean currentPlayerMayBuyHotelsOnField(int fieldArrayNum) {
+        boolean test = false;
+        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
+        if (fields[fieldArrayNum].isStreetField()
+                && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == currentPlayer
+                && (((StreetField) fields[fieldArrayNum]).getNumOfHouses() == 4 )
+                && ownsAllFieldsOfSameType(fieldArrayNum) )
+        { // checks other fields of the same color if they also have 4 houses or even a hotel built already
+            String color = ((StreetField) fields[fieldArrayNum]).getStreetColor();
+            for (int j = 0; j< fields.length; j++) {
+                if (fields[j].isStreetField() && color.equalsIgnoreCase(((StreetField) fields[j]).getStreetColor()) ) {
+                    if ( ((StreetField) fields[j]).getNumOfHouses() == 4 || ((StreetField) fields[j]).hasHotel()) {
+                        test = true;
+                    }
+                    else return false;
+                }
+            }
+        }
+        return test;
+    }
+
+    public void currentPlayerBuildingDecision() { // uses gui to get user input on buy/sell buildings decision
+        String userinput = "";
+        String userDoesNotWantToBuyResponse = ViewController.getInstance().getTakeTurnGUIMessages(16);
+        // depending on the player's situation, need gui to only display the relevant options available for player
+        boolean mayBuyHouse,maySellHouse,mayBuyHotel,maySellHotel,showAll, allExceptSellHotel, allExceptBuyHotel, allExceptBuyHouse, buyHouseSellHouse,
+                buyHouseSellHotel, sellHouseSellHotel, sellHouseBuyHotel, buyHotelSellHouse, buyHouseOnly,sellHouseOnly,sellHotelOnly;
+        while (!userinput.equalsIgnoreCase(userDoesNotWantToBuyResponse)) {
+            mayBuyHouse = currentPlayerMayBuyHouses();
+            maySellHouse = currentPlayerMaySellHouses();
+            mayBuyHotel = currentPlayerMayBuyHotels();
+            maySellHotel = currentPlayerMaySellHotels();
+            showAll = mayBuyHouse && maySellHouse && mayBuyHotel && maySellHotel;
+            allExceptSellHotel = mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
+            allExceptBuyHotel = mayBuyHouse && maySellHouse && !mayBuyHotel && maySellHotel;
+            allExceptBuyHouse = !mayBuyHouse && maySellHouse && mayBuyHotel && maySellHotel;
+            buyHouseSellHouse = mayBuyHouse && maySellHouse && !mayBuyHotel && !maySellHotel;
+            buyHouseSellHotel = mayBuyHouse && !maySellHouse && !mayBuyHotel && maySellHotel;
+            sellHouseSellHotel = !mayBuyHouse && maySellHouse && !mayBuyHotel && maySellHotel;
+            sellHouseBuyHotel = !mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
+            buyHotelSellHouse = !mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
+            buyHouseOnly = mayBuyHouse && !maySellHouse && !mayBuyHotel && !maySellHotel;
+            sellHouseOnly = !mayBuyHouse && maySellHouse && !mayBuyHotel && !maySellHotel;
+            sellHotelOnly = !mayBuyHouse && !maySellHouse && !mayBuyHotel && maySellHotel;
+
+            if (showAll)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,56,57,25,25,27,27);
+            else if (allExceptSellHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,56,25,25,27);
+            else if (allExceptBuyHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,57,57,25,25,27);
+
+            else if (buyHouseOnly)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(56,25);
+            else if (sellHouseOnly)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57,25);
+            else if (sellHotelOnly)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57,27);
+            else
+                userinput = userDoesNotWantToBuyResponse;
+            // calls the relevant methods based on user response
+            if (!userinput.equals(userDoesNotWantToBuyResponse)) {
+                String buyHouseDecision = ViewController.getInstance().getTakeTurnGUIMessages(56,25);
+                String sellHouseDecision = ViewController.getInstance().getTakeTurnGUIMessages(57,25);
+                String buyHotelDecision = ViewController.getInstance().getTakeTurnGUIMessages(56,27);
+                String sellHotelDecision = ViewController.getInstance().getTakeTurnGUIMessages(57,27);
+                if (userinput.equalsIgnoreCase(buyHouseDecision))
+                    buildHouse();
+                else if (userinput.equalsIgnoreCase(sellHouseDecision))
+                    sellHouse();
+                else if (userinput.equalsIgnoreCase(buyHotelDecision))
+                    buildHotel();
+                else if (userinput.equalsIgnoreCase(sellHotelDecision))
+                    sellHotel();
+            }
+        }
+    }
+
     public int getTotalNumOfFields(){
         return fields.length;
     }
