@@ -19,7 +19,7 @@ public class Account {
         // currently allowing a negative balance
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
-        if (balance<0) {
+        if (balance < 0) {
             GameController.getInstance().sellAssets(NAME,withdrawal,0);
         }
     }
@@ -29,7 +29,7 @@ public class Account {
         // currently allowing a negative balance
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
-        if (balance<0) {
+        if (balance < 0) {
             GameController.getInstance().sellAssets(NAME,withdrawal,creditorPlayerNum);
         }
     }

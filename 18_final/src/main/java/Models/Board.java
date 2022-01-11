@@ -17,7 +17,8 @@ public class Board {
     public void buildHouse() {
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         String[] colorsEligibleForBuilding = getStreetColorsEligibleForBuildingHouse();
-        String userSelectionColor = ViewController.getInstance().whereToBuildUserInput(colorsEligibleForBuilding);
+        String userSelection = ViewController.getInstance().whereToBuildUserInput(colorsEligibleForBuilding);
+        String userSelectionColor = extractColor(userSelection);
         int pricePerHouse;
         int maxNumHouses = 0;
         int minNumHouses = StreetField.MAXNUMOFHOUSES + 1;
@@ -416,6 +417,18 @@ public class Board {
                 lastColor = temp[i];
                 result[counter] = temp[i];
                 counter++;
+            }
+        }
+        return result;
+    }
+
+    private String extractColor(String str) {
+        String result = "";
+        for (int i = 0; i < fields.length; i++) {
+            if(fields[i].isStreetField()) {
+            if(str.contains(((StreetField) fields[i]).getStreetColor())){
+                result = ((StreetField) fields[i]).getStreetColor();
+            }
             }
         }
         return result;

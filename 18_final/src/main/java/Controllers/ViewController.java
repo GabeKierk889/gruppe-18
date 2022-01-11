@@ -289,7 +289,7 @@ public class ViewController {
     }
 
     public int numberHousesToBuildUserInput (String fieldName, int housePrice) {
-        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + takeTurnGUIMessages[61];
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + " " + takeTurnGUIMessages[61];
         return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
     }
 
