@@ -203,17 +203,21 @@ public class GameController {
     }
 
     private void goBankrupt(int bankruptPlayerNum, int assetValue, int needToPay, int creditorPlayerNum) {
-        // sell all buildings owned by bankrupt player and adds the money to bankrupt player's account
-        int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
-        players[bankruptPlayerNum - 1].getAccount().depositMoney(resellValueBuildings);
-        board.removeAllBuildingsOwned(bankruptPlayerNum);
+        // calculate value of buildings and the money balance (before the bankrupting withdrawal was made)
 
-        // calculate the remaining money debt of the bankrupt player
-        int remainingMoneyDebt = players[bankruptPlayerNum - 1].getAccount().getBalance();
-        // if creditor is another player, deposit an amount = needToPay + remainingMoneyDebt(<0) to creditor
-        // because the transferMoney method in account has only withdrawn the amount, not made any deposits
+        int moneyToPayCreditor;
+        // sell all buildings owned by bankrupt player and save the amount of money raised
+        board.removeAllBuildingsOwned(bankruptPlayerNum);
+        int resellValueBuildings = board.calculateAssetValueOfBuildingsOwned(bankruptPlayerNum);
+        // calculate how much money the bankrupt player had before the bankrupting withdrawal was made
+        int moneyBeforeWithdrawal = players[bankruptPlayerNum - 1].getAccount().getBalance() + needToPay;
+        moneyToPayCreditor = resellValueBuildings + moneyBeforeWithdrawal;
+
+        // if creditor is another player, deposit the money to creditor
         if (creditorPlayerNum > 0)
-            players[creditorPlayerNum - 1].getAccount().depositMoney(needToPay + remainingMoneyDebt);
+            players[creditorPlayerNum - 1].getAccount().depositMoney(moneyToPayCreditor);
+        else // update the bankrupt player's account (to reflect how much debt that had after selling buildings)
+            players[bankruptPlayerNum - 1].getAccount().depositMoney(moneyToPayCreditor);
 
         // transfer ownable fields to creditor (creditorPlayerNum = 0 for the bank)
         // if creditor is the bank, the called method ensures an auction is held
@@ -235,7 +239,7 @@ public class GameController {
         viewController.updateGUIBalance();
         viewController.removeGUICar(currentPlayerNum, players[bankruptPlayerNum - 1].OnField());
         if (creditorPlayerNum > 0)
-            viewController.showTakeTurnMessageWithPlayerName(45, creditorName, "" + remainingMoneyDebt, players[bankruptPlayerNum - 1].getName());
+            viewController.showTakeTurnMessageWithPlayerName(45, creditorName, "" + moneyToPayCreditor, players[bankruptPlayerNum - 1].getName());
     }
 
     private int getPlayerNum(String playerName) {

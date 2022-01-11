@@ -48,7 +48,7 @@ public abstract class OwnableField extends Field {
 
     public void buyField(Player currentplayerobject) {
         boolean playerWantsToBuyField;
-        playerWantsToBuyField = ViewController.getInstance().showMessageAndGetBooleanUserInput(13,15,16,fieldName,""+PRICE);
+        playerWantsToBuyField = ViewController.getInstance().showMessageAndGetBooleanUserInput(13,15,16,fieldName,""+PRICE,-1);
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
         if (playerWantsToBuyField) { // use gui to get user input on whether a player wants to buy a field
             buyFieldTransaction(currentPlayerNum,currentplayerobject, PRICE);

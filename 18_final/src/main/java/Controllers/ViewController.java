@@ -244,18 +244,16 @@ public class ViewController {
             str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
         gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));
     }
-    public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton, int txtFileLineFalseButton) {
-        return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " + takeTurnGUIMessages[txtFileLineQuestion],
-        takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
-    }
-    // method overloading
+
     public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton,
-        int txtFileLineFalseButton, String stringInText, String stringInText2) {
+        int txtFileLineFalseButton, String stringInText, String stringInText2, int stringInText3) {
+        String str;
+        str = (stringInText3 < 0) ? "" : takeTurnGUIMessages[stringInText3];
         return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " +
-        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2),
+        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2, str),
         takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
     }
-    // method overloading
+
     public String getBuyOrSellBuildingsUserInput (int dropDownLine1,int stringInText) {
         int lineArrayNum = 55;
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
@@ -291,6 +289,15 @@ public class ViewController {
     public int numberHousesToBuildUserInput (String fieldName, int housePrice) {
         String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + " " + takeTurnGUIMessages[61];
         return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
+    }
+
+    public void setGUIHouses(int fieldArrayNum, int numHouses) {
+        guiStreets[fieldArrayNum].setHouses(numHouses);
+    }
+
+    public void setGUIHotel(int fieldArrayNum, boolean hasHotel) {
+        guiStreets[fieldArrayNum].setHouses(0);
+        guiStreets[fieldArrayNum].setHotel(hasHotel);
     }
 
     public void drawChanceCardMessage(String text) {
