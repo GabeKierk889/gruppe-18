@@ -19,13 +19,11 @@ public class GUIBoardCreator {
 
     // TODO: Lave descriptions til felter som beskriver leje, huspriser, pantsætningsværdi osv
     public GUIBoardCreator(GUI_Field[] guiFields, GUI_Street[] guiStreets) {
-
         this.guiFields = guiFields;
         this.guiStreets = guiStreets;
-        setUpAndFormatGUIBoard();
     }
 
-    private void setUpAndFormatGUIBoard() {
+    public void setUpAndFormatGUIBoard() {
         for (int i = 0; i < board.getTotalNumOfFields(); i++) { // sets up all GUI fields/streets
             guiStreets[i] = new GUI_Street();
             guiStreets[i].setTitle(board.getFieldObject(i).getFieldName());
@@ -153,11 +151,4 @@ public class GUIBoardCreator {
         guiFields[30].setSubText(GameController.getInstance().getBoard().getFieldObject(30).getFieldName());
     }
 
-    public GUI_Field[] createGuiFields() {
-        return guiFields;
-    }
-
-    public GUI_Street[] createGuiStreets() {
-        return guiStreets;
-    }
 }
