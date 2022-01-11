@@ -1,0 +1,107 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package controllers {
+
+class MatadorMain {
+
+    {static}+main(args : String[]) : void
+
+}
+
+class GameController <<Singleton>>{
+    -players: Player[]
+    -playerNames: Player[]
+    -totalPlayers: int
+    -currentPlayerNum: int
+    -playerArrayNum: int
+    -board: Board
+    -diceCup: DiceCup
+    -viewController: ViewController
+    {static}-single_instance: GameController
+
+    +initializeGame() : void
+    -setupPlayers() : void
+    +switchTurn(extraTurn : boolean) : void
+    +gameLoop() : void
+    -checkForWinner() : boolean
+    -determineWinner() : int
+    -takeTurn() : void
+    -releaseFromJail() : void
+    +calculateAssets(playerNum : int) : int
+    -calculateLiquidAssets(playerNum : int) : int
+    +sellAssets(name : String, needToPay : int, creditorPlayerNum : int) : void
+    -goBankrupt(bankruptPlayerNum : int, assetvalue : int, needToPay : int, creditorPlayerNum : int) : void
+
+}
+
+'class GameSetupController {
+'
+'}
+
+class ViewController <<Singleton>>{
+    -guiCars: GUI_Car[]
+    -guiPlayers: GUI_Player[]
+    -gui: GUI
+    {static}-single_instance: ViewController
+    -numOfFields: int
+    -guiFields: GUI_Field[]
+    -guiStreets: GUI_Street[]
+    -takeTurnGUIMessages: String[]
+    -setupGameGUIMessages: String[]
+
+    +setupGUIBoard() : void
+    +putPlayersOnBoard() : void
+    -setupGUICars() : void
+    -setupGUIPlayers() : void
+    +removeGUICar(playerNum : int, playerOnFieldNum : int) : void
+    +moveGUICar(moveFrom : int, moveTo : int, currentPlayerNum : int) : void
+    +rollMessage() : void
+    -currentPlayerNum() : int
+    +updateGUIDice(die1 : int, die2 : int) : void
+    +updateGUIBalance() : void
+    +sameFaceValueMessage() : void
+    +startBonusMessage() : void
+    +goToJailMessage() : void
+    +releaseFromJailMessageHasCard() : boolean
+    +releaseFromJailMessagePayMoney() : void
+    +clickRulesMessage() : void
+    +rulesMessage() : void
+    +startGameMessage() : void
+    +gameRulesMessage() : void
+    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int) : void
+    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
+    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int) : boolean
+    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int, stringInText : String, stringInText2 : String) : boolean
+    +drawChanceCardMessage(text : String) : void
+    +formatFieldBorder(fieldArrayNum : int) : void
+
+}
+
+}
+
+package models #DDDDDD {
+() Player
+() DiceCup
+() Board
+() GameSettings
+
+}
+
+package services #DDDDDD {
+() GUIBoardCreator
+}
+
+MatadorMain *-- GameController
+ViewController --* GameController
+ViewController ----> GUIBoardCreator
+GameController *--- Player
+GameController *--- DiceCup
+GameController *--- Board
+GameController ---> GameSettings
+
+
+@enduml
