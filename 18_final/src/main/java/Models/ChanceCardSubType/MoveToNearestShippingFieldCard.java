@@ -43,8 +43,8 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
             boolean isFieldMortgaged = ((OwnableField)board.getFieldObject(nearestShippingFieldNum)).isMortgaged();
             if (extraRentFactor > 0 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail() && !isFieldMortgaged) {
                 extraRentAmount = ((OwnableField) board.getFieldObject(nearestShippingFieldNum)).getRent() * extraRentFactor;
-                currentplayerobject.getAccount().transferMoney(extraRentAmount, ownerNum);
                 ViewController.getInstance().showTakeTurnMessageWithPlayerName(48,""+extraRentAmount,"","");
+                currentplayerobject.getAccount().transferMoney(extraRentAmount, ownerNum);
                 ViewController.getInstance().updateGUIBalance();
             }
         }
