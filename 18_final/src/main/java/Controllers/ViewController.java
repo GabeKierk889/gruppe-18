@@ -222,6 +222,10 @@ public class ViewController {
         gui.showMessage(getCurrentPlayerName() + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);
     }
     // method overloading
+    public void showTakeTurnMessageWithPlayerName(String customString) {
+        gui.showMessage(getCurrentPlayerName() + ": " +customString);
+    }
+    // method overloading
     public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
        String str = takeTurnGUIMessages[txtFileLineArrayNum];
        if (txtFileLineArrayNum2 != -1)

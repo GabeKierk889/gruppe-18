@@ -176,7 +176,9 @@ public abstract class OwnableField extends Field {
                 str3 = ""+StreetField.MAXNUMOFHOUSES;
                 ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1,36,37,38,str1,str2, str3);
             }
+            else ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1);
         }
+        else ViewController.getInstance().showTakeTurnMessageWithPlayerName(message1);
     }
 
 }
