@@ -44,6 +44,15 @@ Du har slået to ens %s gange i træk og skal gå direkte i fængsel. Du vil ikk
 Alle værdier ejet af %1$s vil nu blive overdraget til %2$s. Evt. bygninger vil blive solgt først inden grunde overdrages.
 banken
 %1$s: Du har nu fået overdraget kr. %2$s og alle grunde tidligere ejet af %3$s. Grundene kan evt. stadig være pantsatte.
+
+
+
+
+
+
+
+
+
 %1$s: Vil du handle med bygninger nu?
 Ja, købe %s
 Ja, sælge %s
