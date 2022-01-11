@@ -2,7 +2,6 @@ package Models;
 
 import Controllers.GameController;
 import Controllers.ViewController;
-import Services.BuildSellBuildingsHandler;
 import Services.FieldsCreator;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
@@ -16,8 +15,7 @@ public class Board {
     }
 
     public void buildSellBuildings() {
-        BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(fields);
-        helper.currentPlayerBuildingDecision();
+
     }
 
     // checks if a player owns all the fields of a given type
