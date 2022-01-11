@@ -59,6 +59,7 @@ public class ChanceCardsCreator {
 
                 new JailReleaseCard(text[43]),
                 new JailReleaseCard(text[44]),
+                new ReceiveMatadorStipendCard(text[45],numbersInChanceCardText[45])
         };
     }
 }
