@@ -3,6 +3,7 @@ package Services;
 import Controllers.GameController;
 import Models.Board;
 import Models.ChanceField;
+import Models.GameSettings;
 import gui_fields.*;
 
 import java.awt.*;
@@ -13,6 +14,7 @@ public class GUIBoardCreator {
     private Board board = GameController.getInstance().getBoard();
     private FieldsDataReader fieldsDataReader = new FieldsDataReader("Fields.csv");
     private int[] fieldPrice = fieldsDataReader.getFieldPriceArray();
+    private int[][] rentAmount = fieldsDataReader.getRentArrayArray();
     private FileImporter fileImporter = new FileImporter();
     private String[] takeTurnMessages = fileImporter.readAllLinesInFile("GameMessages_takeTurn.txt");
     private String[] fieldDescriptions = fileImporter.readAllLinesInFile("FieldDescriptions.txt");
@@ -32,6 +34,14 @@ public class GUIBoardCreator {
             // if a field is ownable, set sub text to price
             if ( board.getFieldObject(i).isOwnableField()) {
                 guiFields[i].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[i]));
+                guiFields[i].setDescription(
+                        String.format(fieldDescriptions[7],rentAmount[i][0])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[8],rentAmount[i][1])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[9],rentAmount[i][2])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[10],rentAmount[i][3])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[11],rentAmount[i][4])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[12],rentAmount[i][5])
+                );
             }
             // setup chance fields
             if (board.getFieldObject(i) instanceof ChanceField) {
@@ -114,7 +124,7 @@ public class GUIBoardCreator {
         guiFields[0] = new GUI_Start(
                 GameController.getInstance().getBoard().getFieldObject(0).getFieldName(),
                 board.getFieldObject(0).getFieldName(),
-                "",
+                String.format(fieldDescriptions[0], ""+GameSettings.STARTBONUS),
                 Color.MAGENTA,
                 Color.WHITE);
     }
@@ -130,14 +140,14 @@ public class GUIBoardCreator {
         guiFields[4] = new GUI_Tax(
                 GameController.getInstance().getBoard().getFieldObject(4).getFieldName(),
                 "",
-                fieldDescriptions[1],
+                String.format(fieldDescriptions[1], ""+GameSettings.INCOME_TAX_AMOUNT),
                 Color.lightGray,
                 Color.black
         );
         guiFields[38] = new GUI_Tax(
                 GameController.getInstance().getBoard().getFieldObject(38).getFieldName(),
                 "",
-                fieldDescriptions[2],
+                String.format(fieldDescriptions[2], ""+GameSettings.STATE_TAX_AMOUNT),
                 Color.lightGray,
                 Color.black
         );

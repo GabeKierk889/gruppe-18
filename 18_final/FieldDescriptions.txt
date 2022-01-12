@@ -1,6 +1,15 @@
-Hver gang De passerer START, modtag kr. %x
-Betal inkomstskat: 10% eller kr. %x
-Ekstraordinær statsskat: Betal kr. %x
+Hver gang De passerer START, modtag kr. %s
+Betal inkomstskat: 10 %% eller kr. %s
+Ekstraordinær statsskat: Betal kr. %s
 Parkering
 Gør noget ved dine drømme
 Pris
+\n
+Leje kr. %s
+m/ 1 hus kr. %s
+2 huse kr. %s
+3 huse kr. %s
+4 huse kr. %s
+Hotel kr. %s
+Hvert hus koster kr. %s
+Et hotel koster kr. %s
