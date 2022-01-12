@@ -13,7 +13,6 @@ public class Field {
     public String getFieldName() {
         return fieldName;
     }
-
     public boolean isOwnableField() {
         return false;
     }

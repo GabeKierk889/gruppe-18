@@ -10,7 +10,7 @@ import java.util.Scanner;
 // assumes the following order of columns: fieldname, position, type, price, house price, rent 0, rent 1 etc. with field color as last column.
 
 public class FieldsDataReader {
-    private String[] rawStringsData, fieldNamesArray, fieldTypeArray, streetColorsArray;
+    private String[] rawStringsData, fieldNamesArray, streetColorsArray;
     private int[] fieldPriceArray, housePriceArray;
     private int[][] rentArrayArray;
     private int rentLevels = StreetField.MAXNUMOFHOUSES + 2; // 1 rent level for each house + noHouse + hotel
@@ -20,7 +20,6 @@ public class FieldsDataReader {
         rawStringsData = reader.readAllLinesInFile(filename);
         fieldNamesArray = new String[rawStringsData.length - 1];
         streetColorsArray = new String[rawStringsData.length - 1];
-        fieldTypeArray = new String[rawStringsData.length - 1];
         fieldPriceArray = new int[rawStringsData.length - 1];
         housePriceArray = new int[rawStringsData.length - 1];
         rentArrayArray = new int[rawStringsData.length - 1][rentLevels];
@@ -35,7 +34,7 @@ public class FieldsDataReader {
             lineScan.useDelimiter(","); // csv file delimited by comma
             fieldNamesArray[i] = lineScan.next(); // reads first column - field names
             lineScan.next();
-            fieldTypeArray[i] = lineScan.next(); // reads 3rd column - field types
+            lineScan.next();
             String next = lineScan.next();
             if (!next.equals(""))
                 fieldPriceArray[i] = Integer.parseInt(next); // reads field prices
@@ -57,25 +56,17 @@ public class FieldsDataReader {
     public String[] getFieldNamesArray() {
         return fieldNamesArray;
     }
-
     public int[] getFieldPriceArray() {
         return fieldPriceArray;
     }
-
     public int[] getHousePriceArray() {
         return housePriceArray;
     }
-
     public int[][] getRentArrayArray() {
         return rentArrayArray;
     }
-
     public String[] getStreetColorsArray() {
         return streetColorsArray;
-    }
-
-    public String[] getFieldTypeArray() {
-        return fieldTypeArray;
     }
 }
 

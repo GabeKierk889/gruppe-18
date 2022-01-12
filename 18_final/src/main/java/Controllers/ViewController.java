@@ -60,14 +60,6 @@ public class ViewController {
                 (int) (Math.random() * 3 + 7));
     }
 
-    private int currentPlayerNum() {
-        return GameController.getInstance().getCurrentPlayerNum();
-    }
-
-    private String getCurrentPlayerName() {
-        return GameController.getInstance().getPlayerObject(currentPlayerNum()).getName();
-    }
-
     private String getPlayerName(int playerNum) {
         return GameController.getInstance().getPlayerObject(playerNum).getName();
     }
@@ -91,7 +83,6 @@ public class ViewController {
     }
 
     public void setGUINumHouses(int fieldArrayNum, int numHouses) {
-        guiStreets[fieldArrayNum].setHouses(0);
         guiStreets[fieldArrayNum].setHouses(numHouses);
     }
 

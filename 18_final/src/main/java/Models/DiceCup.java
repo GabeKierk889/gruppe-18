@@ -27,13 +27,6 @@ public class DiceCup {
         return die2.getFaceValue();
     }
 
-    public Die getDie1() {
-        return die1;
-    }
-    public Die getDie2() {
-        return die2;
-    }
-
     public boolean sameFaceValue() {
         return die1.getFaceValue() == die2.getFaceValue();
     }

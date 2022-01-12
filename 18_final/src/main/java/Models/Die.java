@@ -21,7 +21,6 @@ public class Die {
         if (facevalue > 0 && facevalue <= NUMOFSIDES) this.faceValue = facevalue;
     }
 
-
     public String toString () {
         return Integer.toString(faceValue);
     }

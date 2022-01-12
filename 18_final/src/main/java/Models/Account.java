@@ -16,7 +16,7 @@ public class Account {
 
     // Withdraws money.
     public void withdrawMoney (int withdrawal) {
-        // currently allowing a negative balance
+        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
         if (balance < 0) {
@@ -26,7 +26,7 @@ public class Account {
 
     // method overloading - this method is called in transferMoney(), keeps track of creditorPlayerNum
     public void withdrawMoney (int withdrawal, int creditorPlayerNum) {
-        // currently allowing a negative balance
+        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
         if (balance < 0) {

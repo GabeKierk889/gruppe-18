@@ -83,10 +83,6 @@ public class Board {
         return numberOfShippingFieldsOwned;
     }
 
-    public Field getFieldObject(int arrayindex) {
-        return fields[arrayindex];
-    }
-
     public int getFieldArrayNumber(String fieldName) {
         // returns the field array number of the specified field name
         // returns -1 if the field cannot be found;
@@ -158,19 +154,6 @@ public class Board {
         return totalValue;
     }
 
-    // calculates how much extra money player can raise by putting all non-mortgaged fields on mortgage
-    public int calculateAvailableMortgageValueOfFieldsOwned(int playerNum) {
-        int totalValue = 0;
-        for (Field field : fields) {
-            // checks for fields owned by player and calculates available mortgage value
-            if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
-                if (!((OwnableField) field).isMortgaged)
-                    totalValue += ((OwnableField) field).MORTGAGEVALUE;
-            }
-        }
-        return totalValue;
-    }
-
     public void bankruptcyTransferAllFieldAssets(int oldOwnerPlayerNum, int newOwnerPlayerNum) {
         // this method should only called when a player goes bankrupt and needs to transfer ownership of all fields
         for (Field field : fields) {
@@ -196,6 +179,10 @@ public class Board {
 
     public Field[] getFields() {
         return fields;
+    }
+
+    public Field getFieldObject(int arrayindex) {
+        return fields[arrayindex];
     }
 
     public int getTotalNumOfFields() {

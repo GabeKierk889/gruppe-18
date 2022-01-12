@@ -18,9 +18,8 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
         Board board = GameController.getInstance().getBoard();
         int nearestShippingFieldNum = 0;
         int onField = currentplayerobject.OnField();
-        int arrayNum;
         for (int i = onField; i < onField + board.getTotalNumOfFields(); i++) {
-            arrayNum = i % board.getTotalNumOfFields();
+            int arrayNum = i % board.getTotalNumOfFields();
             if (board.getFieldObject(arrayNum).isShippingField()) {
                 nearestShippingFieldNum = arrayNum;
                 break;

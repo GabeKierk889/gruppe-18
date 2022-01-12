@@ -27,8 +27,8 @@ huse
 et hotel
 hoteller
 Du skal nu betale kr. %3$s i leje.
-Da ejeren af feltet er i fængsel, skal du ikke betale leje.
-Da feltet er blevet pantsat af ejeren, skal der ikke betales leje.
+Da ejeren af grunden er i fængsel, skal du ikke betale leje.
+Da grunden er blevet pantsat af ejeren, skal der ikke betales leje.
 Du skal betale i alt kr. %1$s for %2$s og %3$s.
 dit
 dine
@@ -40,8 +40,8 @@ Der skal bygges jævnt. Når der står %3$S huse på hver af de %1$s grunde, kan
 Da du ejer flere rederier, vil lejen forhøjet for alle dine rederier.
 Da du nu ejer begge bryggerier, vil lejen på begge felter blive fordoblet.
 Du har slået to ens %s gange i træk og skal gå direkte i fængsel. Din tur slutter hermed. Du vil ikke modtage leje mens du er i fængsel.
-%1$s skal betale kr. %2$s men har kun midler til at betale kr. %3$s, hvilket inkluderer penge samt salgsværdien af evt. bygninger. %1$s kan dermed ikke betale sin gæld og er derfor bankerot og ude af spillet.
-Alle værdier ejet af %1$s vil nu blive overdraget til %2$s. Evt. bygninger vil blive solgt først inden grunde overdrages.
+Du skal betale kr. %1$s men har kun midler til at betale kr. %2$s, hvilket inkluderer penge samt salgsværdien af evt. ejendomme. Du kan dermed ikke betale din gæld og er derfor bankerot og ude af spillet.
+Alle dine værdier vil nu blive overdraget til %s. Evt. ejendomme vil blive solgt først inden grunde overdrages.
 banken
 %1$s: Du har nu fået overdraget kr. %2$s og alle grunde tidligere ejet af %3$s. Grundene kan evt. stadig være pantsatte.
 Fortryd
@@ -50,10 +50,10 @@ Der skal betales dobbelt leje til ejeren af rederiet. Du vil nu forudbetale den 
 Du skal betale indkomstskat. Du kan vælge om du vil betale %1$s %% af alle dine værdier eller kr. %2$s. %3$s
 Betal variabel skat af værdier
 Betal konstant beløb
-Du er nu gået i negativ balance, og du bliver nødt til at sælge nogle bygninger.
-
-
-Vil du handle med bygninger? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en handling ad gangen.
+Du er nu gået i negativ balance, og du bliver nødt til at sælge nogle ejendomme.
+Din konto er i minus og du er derfor nødt til at sælge nogle ejendomme. Vil du sælge dine huse eller hoteller?
+Du skal samlet betale kr. %s i ekstraudgifter for alle dine ejendomme.
+Vil du handle med ejendomme? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en handling ad gangen.
 Ja, købe %s
 Ja, sælge %s
 Hvorhenne vil du gerne bygge?
@@ -64,15 +64,22 @@ Der er ikke blevet bygget.
 Hvor mange huse vil du bygge på %1$s? Et hus koster kr. %2$s. Indtast 0 hvis du ikke ønsker at bygge på grunden. Der kan bygges maks %3$s huse pr grund.
 Der blev indtastet 0 bygninger og der er derfor ikke blevet bygget.
 Bekræft at du vil bygge %2$s %3$s for i alt kr. %1$s.
-Der vil nu blive opført %1$s %2$s og du skal betale i alt kr. %3$s.
+Der er nu blevet opført %1$s %2$s for i alt kr. %3$s.
 Da der er bygget %1$s huse på alle de %2$s grunde, vil du nu få muligheden for at opføre hoteller. Du kan ombygge dine %1$s huse til et hotel for prisen på et ekstra hus.
 Vil du opføre et hotel på %1$s? Det koster kr. %2$s at ombygge dine eksisterende huse til et hotel.
 hus
 hotel
-Hvorfra vil du gerne sælge bygninger?
+Hvorfra vil du gerne sælge?
 Vil du sælge dit hotel på %1$s? Du vil få kr. %2$s for at sælge dit hotel.
 Der blev indtastet 0 bygninger og der er derfor ikke blevet solgt nogen bygninger.
-Der er ikke blevet solgt nogen bygninger.
+Der er ikke blevet solgt nogen ejendomme.
 Bekræft salget af %2$s %3$s for i alt kr. %1$s.
 Der er nu blevet solgt %1$s %2$s og du har modtaget i alt kr. %3$s.
 Vælg det antal huse du vil sælge på %1$s. Salgsprisen er kr. %2$s pr hus.
+Auktionen forløber således: Alle spillere vil blive bedt om at give et bindende bud på grunden. Derefter bliver buddene sammenlignet og spilleren med det højeste bud skal købe grunden for hvad de har budt. Hvis to eller flere spillere har det samme højeste bud, vil en ny byde-runde blive afholdt mellem kun de spillere der har budt højest. Sådan vil det fortsætte indtil der kan findes en vinder. Hvis man ikke ønsker at købe grunden, kan man byde 0 kr. Auktionen vil blive afsluttet hvis ingen spillere byder på grunden.
+Tillykke til %1$s som har vundet auktionen. Du skal nu købe grunden for kr. %2$s.
+Da der var flere spillere der bød det højeste bud, vil en ny auktionsrunde blive afholdt blandt jer. Jeres tidligere bud bliver slettet og I skal hver afgive et nyt bud.
+Ingen bud blev modtaget. Auktionen afsluttes uden en køber.
+%1$s: Hvad vil du byde for %2$s? Grunden er vurderet til kr. %3$s. Husk at alle bud er bindende. Hvis du ikke ønsker at byde, indtast da 0.
+Du vil desværre ikke modtage Matador-legatet, da du har værdier for kr. %1$s og derfor overstiger grænsen på kr. %2$s.
+Stort tillykke! Du er kvalificeret til at modtage Matador-legatet, da du har værdier for kr. %1$s, hvilket er under grænsen på kr. %2$s. Du vil hermed modtage legatet på kr. %3$s.

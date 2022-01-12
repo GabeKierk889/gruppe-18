@@ -19,15 +19,14 @@ public class ReceiveMatadorStipendCard extends ChanceCard {
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
         int assetsOwned = GameController.getInstance().calculateAssets(currentPlayerNum);
         if (assetsOwned <= MAXASSETVALUE) {
-            currentplayerobject.getAccount().depositMoney(AMOUNT);
-            // TODO: gui
             // write a message to player via gui that they qualify for and will receive the stipend
-            // as their assets are worth x (below the limit)
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(84,""+assetsOwned,""+MAXASSETVALUE,""+AMOUNT);
+            currentplayerobject.getAccount().depositMoney(AMOUNT);
             ViewController.getInstance().updateGUIBalance();
         }
         else
-            ; // write a message to player that they will not receive the stipend
-                // as their assets are worth x (more than the limit)
+        // write a message to player that they will not receive the stipend
+            ViewController_GUIMessages.getInstance().showTakeTurnMessage(83,""+assetsOwned,""+MAXASSETVALUE,"");
     }
 
 }

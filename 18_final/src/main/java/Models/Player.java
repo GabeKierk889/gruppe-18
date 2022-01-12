@@ -42,18 +42,6 @@ public class Player {
             onField = fieldArrayNum % GameController.getInstance().getBoard().getTotalNumOfFields();
     }
 
-    public String getName() {
-        return NAME;
-    }
-    public Account getAccount() {
-        return ACCOUNT;
-    }
-    public int OnField() {return onField;}
-    public void setIsBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
-    public void setIsInJail (boolean isInJail) { this.isInJail = isInJail; }
-    public boolean getIsInJail () { return isInJail; }
-    public boolean getIsBankrupt () { return isBankrupt; }
-
     public void giveReleaseFromJailCard (ChanceCard jailCard) {
         // if player is given a release from jail card, they get to keep it (max 2 cards)
         if (releaseFromJailCard == null)
@@ -75,18 +63,26 @@ public class Player {
         return temp;
     }
 
+    public String getName() {
+        return NAME;
+    }
+    public Account getAccount() {
+        return ACCOUNT;
+    }
+    public int OnField() {return onField;}
+    public void setIsBankrupt(boolean isPlayerBankrupt) { this.isBankrupt = isPlayerBankrupt; }
+    public void setIsInJail (boolean isInJail) { this.isInJail = isInJail; }
+    public boolean getIsInJail () { return isInJail; }
+    public boolean getIsBankrupt () { return isBankrupt; }
     public boolean hasAReleaseFromJailCard () {
         return releaseFromJailCard != null;
     }
-
     public void increaseThrowTwoOfSameCounter() {
         throwTwoOfSameDiceInARow++;
     }
-
     public void resetThrowTwoOfSameCounter() {
         throwTwoOfSameDiceInARow = 0;
     }
-
     public int getThrowTwoOfSameDiceInARow() {
         return throwTwoOfSameDiceInARow;
     }
