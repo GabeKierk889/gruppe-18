@@ -50,7 +50,7 @@ Der skal betales dobbelt leje til ejeren af rederiet. Du vil nu forudbetale den 
 Du skal betale indkomstskat. Du kan vælge om du vil betale %1$s %% af alle dine værdier eller kr. %2$s. %3$s
 Betal variabel skat af værdier
 Betal konstant beløb
-
+Du er nu gået i negativ balance, og du bliver nødt til at sælge nogle bygninger.
 
 
 Vil du handle med bygninger? Hvis du vil foretage flere handlinger, kan du vælge hvad du vil gøre en handling ad gangen.
@@ -73,5 +73,6 @@ Hvorfra vil du gerne sælge bygninger?
 Vil du sælge dit hotel på %1$s? Du vil få kr. %2$s for at sælge dit hotel.
 Der blev indtastet 0 bygninger og der er derfor ikke blevet solgt nogen bygninger.
 Der er ikke blevet solgt nogen bygninger.
-Du vil modtage kr. %1$s for at sælge i alt %2$s %3$s.
+Bekræft salget af %2$s %3$s for i alt kr. %1$s.
 Der er nu blevet solgt %1$s %2$s og du har modtaget i alt kr. %3$s.
+Vælg det antal huse du vil sælge på %1$s. Salgsprisen er kr. %2$s pr hus.

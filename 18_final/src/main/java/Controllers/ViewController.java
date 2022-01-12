@@ -189,6 +189,11 @@ public class ViewController {
         return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
     }
 
+    public int numberHousesToSellUserInput (String fieldName, int housePrice, int numHousesOnField) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[77],fieldName,housePrice,StreetField.MAXNUMOFHOUSES);
+        return gui.getUserInteger(str,0, numHousesOnField);
+    }
+
     public boolean buildHotelUserInput (String fieldName, int housePrice) {
         String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[68],fieldName,housePrice,"");
         return gui.getUserLeftButtonPressed(str,takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
@@ -200,6 +205,7 @@ public class ViewController {
     }
 
     public void setGUINumHouses(int fieldArrayNum, int numHouses) {
+        guiStreets[fieldArrayNum].setHouses(0);
         guiStreets[fieldArrayNum].setHouses(numHouses);
     }
 

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.*;
+import Services.BuildSellBuildingsHandler;
 
 public class GameController {
 
@@ -207,10 +208,13 @@ public class GameController {
         // if the player is not able to pay with their liquid assets, they go bankrupt
         if (liquidAssetValue < needToPay)
             goBankrupt(playerNum, liquidAssetValue, needToPay, creditorPlayerNum);
-        else ;
-        // TODO: gui
-        viewController.updateGUIBalance();
+        else {
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
+           viewController.updateGUIBalance();
+            viewController.showTakeTurnMessageWithPlayerName(52,"","","");
+            BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(getBoard().getFields());
+            helper.playerMustSellBuildings(playerNum, players[playerNum-1]);
+        }
     }
 
     private void goBankrupt(int bankruptPlayerNum, int assetValue, int needToPay, int creditorPlayerNum) {

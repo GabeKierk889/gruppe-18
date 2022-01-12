@@ -2,10 +2,7 @@ package Services;
 
 import Controllers.GameController;
 import Controllers.ViewController;
-import Models.Field;
-import Models.GameSettings;
-import Models.OwnableField;
-import Models.StreetField;
+import Models.*;
 
 public class BuildSellBuildingsHandler {
     Field[] fields;
@@ -164,12 +161,68 @@ public class BuildSellBuildingsHandler {
         }
     }
 
-    public void sellHouse() {
+    public void sellHouse(int playerNum) {
+        String[] colorsEligibleForSelling = getStreetColorsEligibleForSellingHouse(playerNum);
+        String userSelection = ViewController.getInstance().whereToUnBuildUserInput(colorsEligibleForSelling);
+        String userSelectionColor = extractColor(userSelection);
+        int resellvaluePerHouse = 0;
+        int[] housesToSell = new int[fields.length];
+        int[] totalHousesOnField = new int[fields.length];
+        int totalBuildingsSold = 0;
+        int counter = 0;
+        for (Field field : fields) {
+            // runs for all fields of the same color
+            if (field.isStreetField() && userSelectionColor.equalsIgnoreCase(((StreetField) field).getStreetColor())) {
+                resellvaluePerHouse = (int) Math.round(((StreetField) field).getHousePrice() * GameSettings.HOUSE_RESELL_VALUE_MULTIPLIER);
+                if (((StreetField) field).getNumOfHouses() > 0)
+                    housesToSell[counter] = ViewController.getInstance().numberHousesToSellUserInput(field.getFieldName(), resellvaluePerHouse,((StreetField) field).getNumOfHouses());
+                if (housesToSell[counter] > 0) {
+                    totalHousesOnField[counter] = ((StreetField) field).getNumOfHouses() - housesToSell[counter];
+                    totalBuildingsSold = housesToSell[counter];
+                }
+                counter++;
+            }
+        }
+        int totalMoneyEarned = totalBuildingsSold * resellvaluePerHouse;
+        if (totalBuildingsSold == 0)
+            ViewController.getInstance().showTakeTurnMessageWithPlayerName(73, "", "", "");
+        else {
+            // gives the player an opportunity to confirm the sale of building
+            int lineintext; // stores the word for either "a house" or "houses"
+            if (totalBuildingsSold > 1)
+                lineintext = 25;
+            else
+                lineintext = 69;
+            if (!ViewController.getInstance().showMessageAndGetBooleanUserInput(75, 15, 46, "" + totalMoneyEarned, "" + totalBuildingsSold, lineintext)) // asks player to confirm
+                ViewController.getInstance().showTakeTurnMessageWithPlayerName(74, "", "", "");
+            else {
+                // sell the house
+                counter = 0;
+                int fieldnum = 0;
+                for (int i = 0; i < fields.length; i++) {
+                    if (fields[i].isStreetField() && userSelectionColor.equalsIgnoreCase(((StreetField) fields[i]).getStreetColor())) {
+                        fieldnum = i;
+                        if (housesToSell[counter] > 0) {
+                            ((StreetField) fields[i]).setNumOfHouses(totalHousesOnField[counter]);
+                            ViewController.getInstance().setGUINumHouses(i, totalHousesOnField[counter]); }
+                        counter++;
+                    }
+                }
+                GameController.getInstance().getBoard().updateRentForAllFieldsOfSameType(fieldnum);
+                GameController.getInstance().getPlayerObject(playerNum).getAccount().depositMoney(totalMoneyEarned);
+                ViewController.getInstance().updateGUIBalance();
+                String str; // stores the word for either "a house" or "houses"
+                if (totalBuildingsSold > 1)
+                    str = ViewController.getInstance().getTakeTurnGUIMessages(25);
+                else
+                    str = ViewController.getInstance().getTakeTurnGUIMessages(69);
+                ViewController.getInstance().showTakeTurnMessageWithPlayerName(76, "" + totalBuildingsSold, str, "" + totalMoneyEarned);
+            }
+        }
     }
 
-    public void sellHotel() {
-        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        String[] colorsEligibleForSelling = getStreetColorsEligibleForSellingHotel();
+    public void sellHotel(int playerNum) {
+        String[] colorsEligibleForSelling = getStreetColorsEligibleForSellingHotel(playerNum);
         String userSelection = ViewController.getInstance().whereToUnBuildUserInput(colorsEligibleForSelling);
         String userSelectionColor = extractColor(userSelection);
         int resellvaluePerHotel = 0;
@@ -213,7 +266,7 @@ public class BuildSellBuildingsHandler {
                         counter++;
                     }
                 }
-                GameController.getInstance().getPlayerObject(currentPlayer).getAccount().depositMoney(totalMoneyEarned);
+                GameController.getInstance().getPlayerObject(playerNum).getAccount().depositMoney(totalMoneyEarned);
                 ViewController.getInstance().updateGUIBalance();
                 String str; // stores the word for either "a hotel" or "hotels"
                 if (totalBuildingsSold > 1)
@@ -253,8 +306,8 @@ public class BuildSellBuildingsHandler {
         return false;
     }
 
-    public boolean currentPlayerMaySellHouses() {
-        int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByCurrentPlayer();
+    public boolean playerMaySellHouses(int playernum) {
+        int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByPlayer(playernum);
         return buildingsOwned[0] > 0; // if they own any houses
     }
 
@@ -266,8 +319,8 @@ public class BuildSellBuildingsHandler {
         return false;
     }
 
-    public boolean currentPlayerMaySellHotels() {
-        int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByCurrentPlayer();
+    public boolean playerMaySellHotels(int playerNum) {
+        int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByPlayer(playerNum);
         return buildingsOwned[1] > 0; // if they own any hotels
     }
 
@@ -291,29 +344,19 @@ public class BuildSellBuildingsHandler {
         return test;
     }
 
-    public boolean currentPlayerMayBuySellHotelOnField(int fieldArrayNum) {
-        boolean test = false;
-        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        if (fields[fieldArrayNum].isStreetField()
-                && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == currentPlayer
-                && (((StreetField) fields[fieldArrayNum]).hasHotel())) {
-            test = true;
-        }
-        return test;
+    public boolean playerMayBuySellHotelOnField(int fieldArrayNum, int playerNum) {
+        return  fields[fieldArrayNum].isStreetField()
+                && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == playerNum
+                && (((StreetField) fields[fieldArrayNum]).hasHotel());
     }
 
-    public boolean currentPlayerMayBuySellHouseOnField(int fieldArrayNum) {
-        boolean test = false;
-        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
-        if (fields[fieldArrayNum].isStreetField()
-                && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == currentPlayer
-                && (((StreetField) fields[fieldArrayNum]).getNumOfHouses() > 0)) {
-            test = true;
-        }
-        return test;
+    public boolean playerMaySellHouseOnField(int fieldArrayNum, int playerNum) {
+        return fields[fieldArrayNum].isStreetField()
+                && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == playerNum
+                && (((StreetField) fields[fieldArrayNum]).getNumOfHouses() > 0);
     }
 
-    public void currentPlayerBuildingDecision() { // uses gui to get user input on buy/sell buildings decision
+    public void currentPlayerBuildingDecision(int playernum) { // uses gui to get user input on buy/sell buildings decision
         String userinput = "";
         String userDoesNotWantToBuyResponse = ViewController.getInstance().getTakeTurnGUIMessages(16);
         // depending on the player's situation, need gui to only display the relevant options available for player
@@ -321,9 +364,9 @@ public class BuildSellBuildingsHandler {
                 buyHouseSellHotel, sellHouseSellHotel, sellHouseBuyHotel, buyHouseOnly, sellHouseOnly, sellHotelOnly;
         while (!userinput.equalsIgnoreCase(userDoesNotWantToBuyResponse)) {
             mayBuyHouse = currentPlayerMayBuyHouses();
-            maySellHouse = currentPlayerMaySellHouses();
+            maySellHouse = playerMaySellHouses(playernum);
             mayBuyHotel = currentPlayerMayBuyHotels();
-            maySellHotel = currentPlayerMaySellHotels();
+            maySellHotel = playerMaySellHotels(playernum);
             showAll = mayBuyHouse && maySellHouse && mayBuyHotel && maySellHotel;
             allExceptSellHotel = mayBuyHouse && maySellHouse && mayBuyHotel && !maySellHotel;
             allExceptBuyHotel = mayBuyHouse && maySellHouse && !mayBuyHotel && maySellHotel;
@@ -369,12 +412,39 @@ public class BuildSellBuildingsHandler {
                 if (userinput.equalsIgnoreCase(buyHouseDecision))
                     buildHouse();
                 else if (userinput.equalsIgnoreCase(sellHouseDecision))
-                    sellHouse();
+                    sellHouse(playernum);
                 else if (userinput.equalsIgnoreCase(buyHotelDecision))
                     buildHotel();
                 else if (userinput.equalsIgnoreCase(sellHotelDecision))
-                    sellHotel();
+                    sellHotel(playernum);
             }
+        }
+    }
+
+    public void playerMustSellBuildings(int playerNum, Player playerobject) {
+        boolean maySellHouse, maySellHotel, sellHouseSellHotel, sellHouseOnly, sellHotelOnly;
+        String userinput;
+        while (playerobject.getAccount().getBalance() < 0) {
+            maySellHouse = playerMaySellHouses(playerNum);
+            maySellHotel = playerMaySellHotels(playerNum);
+            sellHouseSellHotel =  maySellHouse && maySellHotel;
+            sellHouseOnly =  maySellHouse  && !maySellHotel;
+            sellHotelOnly =  !maySellHouse && maySellHotel;
+            if (sellHouseSellHotel)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57, 57, 25, 27);
+            else if (sellHouseOnly)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57, 25);
+            else if (sellHotelOnly)
+                userinput = ViewController.getInstance().getBuyOrSellBuildingsUserInput(57, 27);
+            else
+                userinput = "";
+            // calls the relevant methods based on user response
+            String sellHouseDecision = ViewController.getInstance().getTakeTurnGUIMessages(57, 25);
+            String sellHotelDecision = ViewController.getInstance().getTakeTurnGUIMessages(57, 27);
+            if (userinput.equalsIgnoreCase(sellHouseDecision))
+                sellHouse(playerNum);
+            else if (userinput.equalsIgnoreCase(sellHotelDecision))
+                sellHotel(playerNum);
         }
     }
 
@@ -412,13 +482,13 @@ public class BuildSellBuildingsHandler {
         return getStreetColors(temp, numDifferentColors);
     }
 
-    private String[] getStreetColorsEligibleForSellingHouse() {
+    private String[] getStreetColorsEligibleForSellingHouse(int playerNum) {
         // returns an array of street colors where player may sell houses
         String[] temp = new String[fields.length];
         String lastColor = "";
         int numDifferentColors = 0;
         for (int i = 0; i < fields.length; i++) {
-            if (fields[i].isStreetField() && currentPlayerMayBuySellHouseOnField(i)) {
+            if (fields[i].isStreetField() && playerMaySellHouseOnField(i,playerNum)) {
                 temp[i] = ((StreetField) fields[i]).getStreetColor();
                 if (!temp[i].equalsIgnoreCase(lastColor)) {
                     numDifferentColors++;
@@ -429,13 +499,13 @@ public class BuildSellBuildingsHandler {
         return getStreetColors(temp, numDifferentColors);
     }
 
-    private String[] getStreetColorsEligibleForSellingHotel() {
+    private String[] getStreetColorsEligibleForSellingHotel(int playerNum) {
         // returns an array of street colors where player may sell hotels
         String[] temp = new String[fields.length];
         String lastColor = "";
         int numDifferentColors = 0;
         for (int i = 0; i < fields.length; i++) {
-            if (fields[i].isStreetField() && currentPlayerMayBuySellHotelOnField(i)) {
+            if (fields[i].isStreetField() && playerMayBuySellHotelOnField(i,playerNum)) {
                 temp[i] = ((StreetField) fields[i]).getStreetColor();
                 if (!temp[i].equalsIgnoreCase(lastColor)) {
                     numDifferentColors++;
