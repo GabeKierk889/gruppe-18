@@ -83,3 +83,4 @@ Ingen bud blev modtaget. Auktionen afsluttes uden en køber.
 %1$s: Hvad vil du byde for %2$s? Grunden er vurderet til kr. %3$s. Husk at alle bud er bindende. Hvis du ikke ønsker at byde, indtast da 0.
 Du vil desværre ikke modtage Matador-legatet, da du har værdier for kr. %1$s og derfor overstiger grænsen på kr. %2$s.
 Stort tillykke! Du er kvalificeret til at modtage Matador-legatet, da du har værdier for kr. %1$s, hvilket er under grænsen på kr. %2$s. Du vil hermed modtage legatet på kr. %3$s.
+Der vil med det samme blive afholdt auktion af de overdragede grunde.

@@ -225,12 +225,14 @@ public class GameController {
         // write message to gui that player is going bankrupt because they cannot pay and will be removed from the game
         String line1 = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(42, "" + needToPay, "" + assetValue,"");
         String creditorName;
-        if (creditorPlayerNum > 0)
+        if (creditorPlayerNum > 0) {
             creditorName = players[creditorPlayerNum - 1].getName();
-        else // bank is creditor
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(players[bankruptPlayerNum - 1].getName(),line1, 43, -1, -1, creditorName, "","");
+        }
+        else {// bank is creditor
             creditorName = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(44);
-        ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(players[bankruptPlayerNum - 1].getName(),line1, 43, -1, -1, creditorName, "","");
-
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(players[bankruptPlayerNum - 1].getName(),line1, 43, 85, -1, creditorName, "","");
+        }
         board.removeAllBuildingsOwned(bankruptPlayerNum);
         viewController.removeGUICar(currentPlayerNum, players[bankruptPlayerNum - 1].OnField());
         players[bankruptPlayerNum - 1].setIsBankrupt(true); // sets player's bankrupt status to true
