@@ -11,7 +11,7 @@ package ChanceCardSubType {
 
 note as note
 
-All classes in this package inherits from the ChanceCard class
+All classes in this package inherit from the ChanceCard class
 
 end note
 

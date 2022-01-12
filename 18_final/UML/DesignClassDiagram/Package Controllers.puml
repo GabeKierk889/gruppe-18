@@ -55,22 +55,38 @@ class ViewController <<Singleton>>{
     +putPlayersOnBoard() : void
     +removeGUICar(playerNum : int, playerOnFieldNum : int) : void
     +moveGUICar(moveFrom : int, moveTo : int, currentPlayerNum : int) : void
-    +rollMessage() : void
     -currentPlayerNum() : int
     +updateGUIDice(die1 : int, die2 : int) : void
     +updateGUIBalance() : void
+    +formatFieldBorder(fieldArrayNum : int) : void
+
+}
+
+class ViewController_GUIMessages <<Singleton>> {
+    -gui: GUI
+    {static}-single_instance: ViewController_GUIMessages
+    -TOTALNUMOFFIELDS: int
+    -guiFields: GUI_Field[]
+    -guiStreets: GUI_Street[]
+    -TAKETURNGUIMESSAGES: String[]
+
+    {static}+getInstance() : ViewController_GUIMessages
+    +rollMessage() : void
     +sameFaceValueMessage() : void
     +startBonusMessage() : void
     +goToJailMessage() : void
     +releaseFromJailMessageHasCard() : boolean
     +releaseFromJailMessagePayMoney() : void
-    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
-    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int) : void
-    +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
-    +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
-    +showMessageAndGetBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int, stringInText : String, stringInText2 : String, stringInText3 : int) : boolean
+    +showTakeTurnMessageWithPlayerName(...) : void
     +drawChanceCardMessage(text : String) : void
-    +formatFieldBorder(fieldArrayNum : int) : void
+    +showMessageAndGetBooleanUserInput(int, int, int, String, String, int) : boolean
+    +getBuyOrSellBuildingsUserInput(...) : String
+    +whereToBuildUserInput(colors : String[]) : String
+    +whereToUnBuildUserInput(colors : String[]) : String
+    +numberHousesToBuildUserInput(fieldName : String, housePrice : int, numOfHousesOnField : int) : int : int
+    +numberHousesToSellUserInput(fieldName : String, housePrice : int, numOnHousesOnField : int) : int
+    +buildHotelUserInput(fieldName : String, housePrice : int) : boolean
+    +sellHotelUserInput(fieldName : String, housePrice : int) : boolean
 
 }
 
@@ -83,8 +99,8 @@ class ViewController_GameSetup <<Singleton>>{
     +showGameRules() : void
     +getPlayerNames(gui : GUI) : String[]
     +setupGUICars(int players : int, guiCars : GUI_Car[]) : void
-
 }
+
 
 }
 
