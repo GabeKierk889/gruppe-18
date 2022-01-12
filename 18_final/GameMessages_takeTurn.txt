@@ -63,8 +63,8 @@ Der skal bygges jævnt, dvs. forskellen på antallet af huse på hver grund af s
 Der er ikke blevet bygget.
 Hvor mange huse vil du bygge på %1$s? Et hus koster kr. %2$s. Indtast 0 hvis du ikke ønsker at bygge på grunden. Der kan bygges maks %3$s huse pr grund.
 Der blev indtastet 0 bygninger og der er derfor ikke blevet bygget.
-Der skal betales kr. %1$s for at bygge i alt %2$s %3$s.
-Der er nu blevet opført %1$s %2$s for i alt kr. %3$s.
+Bekræft at du vil bygge %2$s %3$s for i alt kr. %1$s.
+Der vil nu blive opført %1$s %2$s og du skal betale i alt kr. %3$s.
 Da der er bygget %1$s huse på alle de %2$s grunde, vil du nu få muligheden for at opføre hoteller. Du kan ombygge dine %1$s huse til et hotel for prisen på et ekstra hus.
 Vil du opføre et hotel på %1$s? Det koster kr. %2$s at ombygge dine eksisterende huse til et hotel.
 hus

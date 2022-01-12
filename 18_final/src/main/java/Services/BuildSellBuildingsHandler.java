@@ -60,7 +60,7 @@ public class BuildSellBuildingsHandler {
                         lineintext = 25;
                     else
                         lineintext = 69;
-                    if (!ViewController.getInstance().showMessageAndGetBooleanUserInput(65, 18, 46, "" + totalCost, "" + totalNewBuilds, lineintext)) // asks player to confirm
+                    if (!ViewController.getInstance().showMessageAndGetBooleanUserInput(65, 15, 46, "" + totalCost, "" + totalNewBuilds, lineintext)) // asks player to confirm
                         ViewController.getInstance().showTakeTurnMessageWithPlayerName(62, "", "", "");
                     else {
                         // build the house
@@ -78,21 +78,19 @@ public class BuildSellBuildingsHandler {
                                 }
                             }
                         }
+                        String str; // stores the word for either "a house" or "houses"
+                        if (totalNewBuilds > 1)
+                            str = ViewController.getInstance().getTakeTurnGUIMessages(25);
+                        else
+                            str = ViewController.getInstance().getTakeTurnGUIMessages(69);
+                        ViewController.getInstance().showTakeTurnMessageWithPlayerName(66, "" + totalNewBuilds, str, "" + totalCost);
+                        boolean noHotel = false; // checks if there are any hotels already
+                        for (boolean test : fieldHasHotel)
+                            noHotel = !test;
+                        if (noHotel && playerMayNowBuildHotelsOnFieldsOfThisColor) // display message to player that they may now build hotels
+                            ViewController.getInstance().showTakeTurnMessageWithPlayerName(67, "" + StreetField.MAXNUMOFHOUSES, userSelectionColor, "");
                         GameController.getInstance().getPlayerObject(currentPlayer).getAccount().withdrawMoney(totalCost);
                         ViewController.getInstance().updateGUIBalance();
-                        if (!GameController.getInstance().getPlayerObject(currentPlayer).getIsBankrupt()) {
-                            String str; // stores the word for either "a house" or "houses"
-                            if (totalNewBuilds > 1)
-                                str = ViewController.getInstance().getTakeTurnGUIMessages(25);
-                            else
-                                str = ViewController.getInstance().getTakeTurnGUIMessages(69);
-                            ViewController.getInstance().showTakeTurnMessageWithPlayerName(66, "" + totalNewBuilds, str, "" + totalCost);
-                            boolean noHotel = false; // checks if there are any hotels already
-                            for (boolean test : fieldHasHotel)
-                                noHotel = !test;
-                            if (noHotel && playerMayNowBuildHotelsOnFieldsOfThisColor) // display message to player that they may now build hotels
-                                ViewController.getInstance().showTakeTurnMessageWithPlayerName(67, "" + StreetField.MAXNUMOFHOUSES, userSelectionColor, "");
-                        }
                     }
                 }
             }
@@ -132,7 +130,7 @@ public class BuildSellBuildingsHandler {
                 lineintext = 27;
             else
                 lineintext = 70;
-            if (!ViewController.getInstance().showMessageAndGetBooleanUserInput(65, 18, 46, "" + totalCost, "" + totalNewBuilds, lineintext)) // asks player to confirm
+            if (!ViewController.getInstance().showMessageAndGetBooleanUserInput(65, 15, 46, "" + totalCost, "" + totalNewBuilds, lineintext)) // asks player to confirm
                 ViewController.getInstance().showTakeTurnMessageWithPlayerName(62, "", "", "");
             else {
                 // build the hotel
@@ -147,16 +145,14 @@ public class BuildSellBuildingsHandler {
                         counter++;
                     }
                 }
+                String str; // stores the word for either "a hotel" or "hotels"
+                if (totalNewBuilds > 1)
+                    str = ViewController.getInstance().getTakeTurnGUIMessages(27);
+                else
+                    str = ViewController.getInstance().getTakeTurnGUIMessages(70);
+                ViewController.getInstance().showTakeTurnMessageWithPlayerName(66, "" + totalNewBuilds, str, "" + totalCost);
                 GameController.getInstance().getPlayerObject(currentPlayer).getAccount().withdrawMoney(totalCost);
                 ViewController.getInstance().updateGUIBalance();
-                if (!GameController.getInstance().getPlayerObject(currentPlayer).getIsBankrupt()) {
-                    String str; // stores the word for either "a hotel" or "hotels"
-                    if (totalNewBuilds > 1)
-                        str = ViewController.getInstance().getTakeTurnGUIMessages(27);
-                    else
-                        str = ViewController.getInstance().getTakeTurnGUIMessages(70);
-                    ViewController.getInstance().showTakeTurnMessageWithPlayerName(66, "" + totalNewBuilds, str, "" + totalCost);
-                }
             }
         }
     }
