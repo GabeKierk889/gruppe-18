@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam ParticipantPadding 30
+
+package models {
+
+() ChanceCard
+
+package ChanceCardSubType {
+
+note as note
+
+All classes in this package inherits from the ChanceCard class
+
+end note
+
+class JailReleaseCard
+class MoveToFieldCard
+class MoveXFieldsBackwardsCard
+class MoveXFieldsForwardCard
+class PayMoneyCard
+class PayMoneyForBuildingsCard
+class RecieveFromEachPlayerCard
+class RecieveMatadorStipendCard
+class RecieveMoneyCard
+
+}
+
+}
+
+ChanceCard <|--- ChanceCardSubType
+
+
+@enduml

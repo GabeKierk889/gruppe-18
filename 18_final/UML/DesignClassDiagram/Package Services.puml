@@ -40,7 +40,7 @@ class ChanceCardsDataReader {
     -fieldNameWithinText: String[]
 
     -readData() : void
-    -readFileNames : void
+    -readFileNames() : void
 
 }
 class ChanceCardsCreator {
@@ -62,16 +62,16 @@ class GUIBoardCreator {
     -setupBreweryFields() : void
     -formatShippingFields() : void
     -setupSTART() : void
-    -setupRefuge : void
-    -setupTaxFields : void
-    -setupJailFields : void
+    -setupRefuge() : void
+    -setupTaxFields() : void
+    -setupJailFields() : void
 }
 
 }
 
-ChanceField --> ChanceCardsCreator
-ViewController --> GUIBoardCreator
-Board --> FieldsCreator
+ChanceField *-- ChanceCardsCreator
+ViewController *-- GUIBoardCreator
+Board *-- FieldsCreator
 FieldsDataReader --> FileImporter
 ChanceCardsDataReader --> FileImporter
 FieldsCreator --> FieldsDataReader

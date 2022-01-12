@@ -1,0 +1,118 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+skinparam classAttributeIconSize 0
+
+skinparam ParticipantPadding 30
+
+
+package  services #DDDDDD {
+() ChanceCardsCreator
+}
+
+package models {
+() Field
+
+package FieldSubTypes <<Rectangle>> {
+
+
+class ChanceField {
+    {static}-chanceCards: ChanceCard[]
+    {static}-currentCard: ChanceCard
+
+    {static}+drawChanceCard() : ChanceCard
+    {static}+shuffleChanceCards() : void
+    {static}+putBackChanceCard(jailCard : ChanceCard) : void
+    {static}-putAllNullCardsInBottom() : void
+}
+abstract class ChanceCard {
+#TEXT: String
++getChanceCardText() : String
+{abstract}+effect(currentPlayerObject : Player) : void
+}
+
+package ChanceCardSubType #DDDDDD {
+
+() ChanceCardSubTypes
+
+
+
+}
+
+
+abstract class OwnableField {
+        #ownerNum: int
+        #PRICE: int
+        #currentRent: int
+        #RENTARRAY: int[]
+        #isMortgaged: boolean
+        #MORTGAGEVALUE: int
+        -MORTGAGE_PRICE_RATIO: double
+
+        +buyField(currentPlayerObject : Player) : void
+        -buyFieldTransaction(currentPlayerNum : int, currentplayerobject : Player, purchasePrice : int) : void
+        +auctionField() : void
+        {abstract}+updateRent() : void
+        +mortgageField() : void
+        -unMortgageField(currentplayerobject : Player) : void
+        +auctionField() : void
+        +tradeField() : void
+        -sendGUIPlayerMessage(purchasePrice : int) : void
+}
+
+class StreetField {
+    -numOfHouses: int
+    -hasHotel: boolean
+    -HOUSEPRICE: int
+    -STREETCOLOR: String
+
+}
+
+class BreweryField {
+
+}
+
+class ShippingField {
+
+}
+
+
+class JailField {
+
+}
+
+abstract class TaxField {
+    #FIXEDTAX: int
+
+    {abstract}+calculateTax(currentPlayerObject : Player) : int
+    -PayTax(currentPlayerObject : Player) : void
+}
+
+class StateTaxField {
+
+}
+
+class IncomeTaxField {
+
+}
+
+}
+
+}
+
+
+ChanceCardsCreator --* ChanceField
+ChanceField o-- ChanceCard
+ChanceCard <|--- ChanceCardSubType
+OwnableField <|-- StreetField
+Field <|-- ChanceField
+Field <|-- JailField
+Field <|-- TaxField
+Field <|-- OwnableField
+OwnableField <|-- BreweryField
+OwnableField <|-- ShippingField
+TaxField <|-- StateTaxField
+TaxField <|-- IncomeTaxField
+
+@enduml
