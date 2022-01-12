@@ -182,6 +182,11 @@ public class ViewController {
         return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
     }
 
+    public boolean buildHotelUserInput (String fieldName, int housePrice) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[68],fieldName,housePrice,"");
+        return gui.getUserLeftButtonPressed(str,takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
+    }
+
     public void setGUINumHouses(int fieldArrayNum, int numHouses) {
         guiStreets[fieldArrayNum].setHouses(numHouses);
     }

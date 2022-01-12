@@ -10,4 +10,4 @@ Nej
 Tryk "Regler" for at se spillereglerne. Ellers tryk "Start spil" for at starte spillet.
 Regler
 Start spil
-Spilleregler: Spillet handler om at købe og sælge grunde og bygninger for at blive matador. Alle spillere kaster efter tur med to terninger og rykker rundt på brættet. Undervejs vil der ske ting og sager - men I skal bare følge instruktionerne der kommer undervejs i spillet. Man taber når man skylder mere end man ejer. Vinderen er den spiller der står tilbage som den eneste spiller, der ikke er gået bankerot.              God fornøjelse!
+Spilleregler: Spillet handler om at købe og sælge grunde og bygninger for at blive matador. Alle spillere kaster efter tur med to terninger og rykker rundt på brættet. Undervejs vil der ske ting og sager - men I skal bare følge instruktionerne der kommer undervejs i spillet. Man taber når man skylder mere end man ejer. Vinderen er den spiller der står tilbage som den eneste spiller, der ikke er gået bankerot.    God fornøjelse!

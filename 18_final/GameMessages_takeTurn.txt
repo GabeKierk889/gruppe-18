@@ -60,10 +60,12 @@ Hvorhenne vil du gerne bygge?
 På de %s grunde
 Grænsen for maks %1$s huse pr grund vil blive overskredet for mindst en af de pågældende grunde. Prøv igen.
 Der skal bygges jævnt, dvs. forskellen på antallet af huse på hver grund af samme farve må maks. være 1.
-Husene er ikke blevet bygget.
+Der er ikke blevet bygget.
 Hvor mange huse vil du bygge på %1$s? Et hus koster kr. %2$s. Indtast 0 hvis du ikke ønsker at bygge på grunden. Der kan bygges maks %3$s huse pr grund.
-Der blev indtastet 0 huse og der er derfor ikke blevet bygget.
+Der blev indtastet 0 bygninger og der er derfor ikke blevet bygget.
 Der skal betales kr. %1$s for at bygge i alt %2$s %3$s.
 Der er nu blevet opført %1$s %2$s for i alt kr. %3$s.
 Da der er bygget %1$s huse på alle de %2$s grunde, vil du nu få muligheden for at opføre hoteller. Du kan ombygge dine %1$s huse til et hotel for prisen på et ekstra hus.
-Vil du bygge et hotel på %1$s? Det koster kr. %2$s at ombygge dine eksisterende huse til et hotel.
+Vil du opføre et hotel på %1$s? Det koster kr. %2$s at ombygge dine eksisterende huse til et hotel.
+hus
+hotel

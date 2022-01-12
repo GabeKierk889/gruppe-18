@@ -71,7 +71,7 @@ public class GameController {
                 releaseFromJail();
                 takeTurn();
             }
-            if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt() && !players[playerArrayNum].getIsInJail()) {
+            if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt()) {
                 extraTurn = true;
             }
             switchTurn(extraTurn);
@@ -120,10 +120,12 @@ public class GameController {
         diceCup.roll();
         viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
 
-        putPlayerInJailIfSameDice3TimesInRow(moveFrom);
+        if(putPlayerInJailIfSameDice3TimesInRow(moveFrom)) {
+            diceCup.setDiceNotSameFaceValue(); // scrambles the dice so that on the next turn, the next player does not get an extra turn message
+        }
 
         // below will only run below if player has not been put in jail by throwing 2 of the same dice 3 times in a row
-        if (!players[playerArrayNum].getIsInJail()) {
+        else {
             // move player
             players[playerArrayNum].moveSteps(diceCup.getSum());
             moveTo = players[playerArrayNum].OnField();
@@ -142,7 +144,7 @@ public class GameController {
         }
     }
 
-    private void putPlayerInJailIfSameDice3TimesInRow (int playerOnField) {
+    private boolean putPlayerInJailIfSameDice3TimesInRow (int playerOnField) {
         if (diceCup.sameFaceValue())
             players[playerArrayNum].increaseThrowTwoOfSameCounter(); // keeps track of how many times in a row player has thrown two of the same
         else players[playerArrayNum].resetThrowTwoOfSameCounter();
@@ -154,7 +156,9 @@ public class GameController {
             viewController.moveGUICar(playerOnField, moveTo, currentPlayerNum);
             players[playerArrayNum].setIsInJail(true);
             players[playerArrayNum].resetThrowTwoOfSameCounter(); // reset the counter
+            return true;
         }
+        else return false;
     }
 
     // releases the player from jail
