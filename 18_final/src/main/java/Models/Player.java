@@ -4,6 +4,7 @@ package Models;
 
 import Controllers.GameController;
 import Controllers.ViewController;
+import Controllers.ViewController_GUIMessages;
 
 public class Player {
     private final String NAME;
@@ -32,7 +33,7 @@ public class Player {
         if (onField < diceThrow) {
             getAccount().depositMoney(GameSettings.STARTBONUS);
             ViewController.getInstance().updateGUIBalance();
-            ViewController.getInstance().startBonusMessage();
+            ViewController_GUIMessages.getInstance().startBonusMessage();
         }
     }
 

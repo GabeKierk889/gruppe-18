@@ -1,6 +1,7 @@
 package Models;
 
 import Controllers.ViewController;
+import Controllers.ViewController_GUIMessages;
 
 public abstract class TaxField extends Field {
     protected final int FIXEDTAX;
@@ -19,7 +20,7 @@ public abstract class TaxField extends Field {
 
     private void payTax(Player currentplayerobject) {
         int taxToPay = calculateTax(currentplayerobject);
-        ViewController.getInstance().showTakeTurnMessageWithPlayerName(12,""+taxToPay,"","");
+        ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(12,""+taxToPay,"","");
         currentplayerobject.getAccount().withdrawMoney(taxToPay);
         ViewController.getInstance().updateGUIBalance();
     }

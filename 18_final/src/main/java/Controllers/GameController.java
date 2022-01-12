@@ -115,9 +115,9 @@ public class GameController {
 
         // roll dice incl gui messages
         if (diceCup.sameFaceValue()) // message in gui that player has got an extra throw + roll message
-            viewController.sameFaceValueMessage();
+            ViewController_GUIMessages.getInstance().sameFaceValueMessage();
         else
-            viewController.rollMessage(); // the "normal" roll message
+            ViewController_GUIMessages.getInstance().rollMessage(); // the "normal" roll message
         diceCup.roll();
         viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
 
@@ -151,7 +151,7 @@ public class GameController {
         else players[playerArrayNum].resetThrowTwoOfSameCounter();
         if (players[playerArrayNum].getThrowTwoOfSameDiceInARow() == GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES) {
             // if same dice 3 times in a row, player must go to jail immediately and end their turn
-            viewController.showTakeTurnMessageWithPlayerName(41, "" + GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES, "", "");
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(41, "" + GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES, "", "");
             int moveTo = 10; // jail field
             players[playerArrayNum].moveToField(moveTo);
             viewController.moveGUICar(playerOnField, moveTo, currentPlayerNum);
@@ -165,14 +165,14 @@ public class GameController {
     // releases the player from jail
     private void releaseFromJail() {
         if (players[playerArrayNum].hasAReleaseFromJailCard()) {
-            boolean playerUseReleaseFromJailCard = viewController.releaseFromJailMessageHasCard();
+            boolean playerUseReleaseFromJailCard = ViewController_GUIMessages.getInstance().releaseFromJailMessageHasCard();
             if (playerUseReleaseFromJailCard) {
                 ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
                 players[playerArrayNum].setIsInJail(false);
             }
         }
         if (players[playerArrayNum].getIsInJail()) {
-            viewController.releaseFromJailMessagePayMoney();
+            ViewController_GUIMessages.getInstance().releaseFromJailMessagePayMoney();
             players[playerArrayNum].setIsInJail(false);
             players[playerArrayNum].getAccount().withdrawMoney(GameSettings.JAILFEE); // player pays jail fee
             viewController.updateGUIBalance();
@@ -211,7 +211,7 @@ public class GameController {
         else {
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
            viewController.updateGUIBalance();
-            viewController.showTakeTurnMessageWithPlayerName(52,"","","");
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(52,"","","");
             BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(getBoard().getFields());
             helper.playerMustSellBuildings(playerNum, players[playerNum-1]);
         }
@@ -227,13 +227,13 @@ public class GameController {
         moneyToPayCreditor = resellValueBuildings + moneyBeforeWithdrawal;
 
         // write message to gui that player is going bankrupt because they cannot pay and will be removed from the game
-        String line1 = viewController.getTakeTurnGUIMessages(42, players[bankruptPlayerNum - 1].getName(), "" + needToPay, "" + assetValue);
+        String line1 = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(42, players[bankruptPlayerNum - 1].getName(), "" + needToPay, "" + assetValue);
         String creditorName;
         if (creditorPlayerNum > 0)
             creditorName = players[creditorPlayerNum - 1].getName();
         else // bank is creditor
-            creditorName = viewController.getTakeTurnGUIMessages(44);
-        viewController.showTakeTurnMessageWithPlayerName(line1, 43, -1, -1, players[bankruptPlayerNum - 1].getName(), creditorName, "");
+            creditorName = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(44);
+        ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(line1, 43, -1, -1, players[bankruptPlayerNum - 1].getName(), creditorName, "");
         viewController.removeGUICar(currentPlayerNum, players[bankruptPlayerNum - 1].OnField());
         board.removeAllBuildingsOwned(bankruptPlayerNum);
         players[bankruptPlayerNum-1].getAccount().setBalance(0); // set balance 0 for bankrupt players
@@ -241,7 +241,7 @@ public class GameController {
         if (creditorPlayerNum > 0) {
             players[creditorPlayerNum - 1].getAccount().depositMoney(moneyToPayCreditor);
             viewController.updateGUIBalance();
-            viewController.showTakeTurnMessageWithPlayerName(45, creditorName, "" + moneyToPayCreditor, players[bankruptPlayerNum - 1].getName()); }
+            ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(45, creditorName, "" + moneyToPayCreditor, players[bankruptPlayerNum - 1].getName()); }
         else
             viewController.updateGUIBalance();
 

@@ -2,7 +2,7 @@ package Models;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
-import Controllers.ViewController;
+import Controllers.ViewController_GUIMessages;
 import Models.ChanceCardSubType.JailReleaseCard;
 import Services.ChanceCardsCreator;
 
@@ -23,7 +23,7 @@ public class ChanceField extends Field{
     @Override
     public void landOnField(Player currentplayerobject) {
         drawChanceCard();
-        ViewController.getInstance().drawChanceCardMessage(currentCard.getChanceCardText());
+        ViewController_GUIMessages.getInstance().drawChanceCardMessage(currentCard.getChanceCardText());
         currentCard.effect(currentplayerobject);
     }
 

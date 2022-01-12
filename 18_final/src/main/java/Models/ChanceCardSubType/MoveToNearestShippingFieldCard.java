@@ -2,6 +2,7 @@ package Models.ChanceCardSubType;
 
 import Controllers.GameController;
 import Controllers.ViewController;
+import Controllers.ViewController_GUIMessages;
 import Models.*;
 
 public class MoveToNearestShippingFieldCard extends ChanceCard {
@@ -33,7 +34,7 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
         if( nearestShippingFieldNum < onField) {
             currentplayerobject.getAccount().depositMoney(GameSettings.STARTBONUS);
             ViewController.getInstance().updateGUIBalance();
-            ViewController.getInstance().startBonusMessage();
+            ViewController_GUIMessages.getInstance().startBonusMessage();
         }
         // if double rent is needed, then transfer an additional portion of rent prior to landOnField method being called
         int ownerNum = ((ShippingField) board.getFieldObject(nearestShippingFieldNum)).getOwnerNum();
@@ -43,7 +44,7 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
             boolean isFieldMortgaged = ((OwnableField)board.getFieldObject(nearestShippingFieldNum)).isMortgaged();
             if (extraRentFactor > 0 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail() && !isFieldMortgaged) {
                 extraRentAmount = ((OwnableField) board.getFieldObject(nearestShippingFieldNum)).getRent() * extraRentFactor;
-                ViewController.getInstance().showTakeTurnMessageWithPlayerName(48,""+extraRentAmount,"","");
+                ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(48,""+extraRentAmount,"","");
                 currentplayerobject.getAccount().transferMoney(extraRentAmount, ownerNum);
                 ViewController.getInstance().updateGUIBalance();
             }

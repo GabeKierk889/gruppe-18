@@ -2,6 +2,7 @@ package Models.ChanceCardSubType;
 
 import Controllers.GameController;
 import Controllers.ViewController;
+import Controllers.ViewController_GUIMessages;
 import Models.Board;
 import Models.ChanceCard;
 import Models.Player;

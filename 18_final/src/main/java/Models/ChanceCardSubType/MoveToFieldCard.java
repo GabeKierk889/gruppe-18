@@ -21,7 +21,7 @@ public class MoveToFieldCard extends ChanceCard {
         if (isJailField) {
             moveToFieldNum = 10;
             currentplayerobject.setIsInJail(true);
-            ViewController.getInstance().goToJailMessage();
+            ViewController_GUIMessages.getInstance().goToJailMessage();
         }
 
         // calls a method that moves the GUI car
@@ -33,7 +33,7 @@ public class MoveToFieldCard extends ChanceCard {
         if(!isJailField  && moveToFieldNum < currentplayerobject.OnField()) {
             currentplayerobject.getAccount().depositMoney(GameSettings.STARTBONUS);
             ViewController.getInstance().updateGUIBalance();
-            ViewController.getInstance().startBonusMessage();
+            ViewController_GUIMessages.getInstance().startBonusMessage();
         }
         // sets the onField variable to the new field
         currentplayerobject.moveToField(moveToFieldNum);
