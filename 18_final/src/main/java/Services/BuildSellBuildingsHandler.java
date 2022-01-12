@@ -21,7 +21,7 @@ public class BuildSellBuildingsHandler {
         int[] totalHousesOnField = new int[fields.length];
         int[] housesToBuild = new int[fields.length];
         boolean[] fieldHasHotel = new boolean[fields.length];
-        boolean succesfulCompletion = false;
+        boolean successfulCompletion = false;
         do {
             int maxNumHouses = 0;
             int minNumHouses = StreetField.MAXNUMOFHOUSES + 1;
@@ -51,7 +51,7 @@ public class BuildSellBuildingsHandler {
                 ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(61, 62, 47, "", "", "");
             else {
                 int totalCost = totalNewBuilds * pricePerHouse;
-                succesfulCompletion = true;
+                successfulCompletion = true;
                 if (totalNewBuilds == 0)
                     ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(64, "", "", "");
                 else {
@@ -96,7 +96,7 @@ public class BuildSellBuildingsHandler {
                 }
             }
         }
-        while (!succesfulCompletion);
+        while (!successfulCompletion);
     }
 
     public void buildHotel() {
@@ -518,10 +518,10 @@ public class BuildSellBuildingsHandler {
         String[] result = new String[numDifferentColors];
         lastColor = "";
         int counter = 0;
-        for (int i = 0; i < temp.length; i++) {
-            if (temp[i] != null && !temp[i].equalsIgnoreCase(lastColor) && counter < numDifferentColors) {
-                lastColor = temp[i];
-                result[counter] = temp[i];
+        for (String s : temp) {
+            if (s != null && !s.equalsIgnoreCase(lastColor) && counter < numDifferentColors) {
+                lastColor = s;
+                result[counter] = s;
                 counter++;
             }
         }
@@ -530,10 +530,10 @@ public class BuildSellBuildingsHandler {
 
     private String extractColor(String str) {
         String result = "";
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i].isStreetField()) {
-                if (str.contains(((StreetField) fields[i]).getStreetColor())) {
-                    result = ((StreetField) fields[i]).getStreetColor();
+        for (Field field : fields) {
+            if (field.isStreetField()) {
+                if (str.contains(((StreetField) field).getStreetColor())) {
+                    result = ((StreetField) field).getStreetColor();
                 }
             }
         }
