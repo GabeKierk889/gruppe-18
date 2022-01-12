@@ -1,6 +1,7 @@
 package Models;
 
 import Controllers.GameController;
+import Controllers.ViewController;
 
 public class IncomeTaxField extends TaxField {
     double taxrate;
@@ -12,9 +13,11 @@ public class IncomeTaxField extends TaxField {
 
     @Override
     public int calculateTax(Player currentplayerobject) {
-        // TODO: gui that asks the player and takes user input
-        // placeholder - use gui to ask player if they want to pay 10% or the fixed tax amount
-        if(false) {
+        int percentageTax = (int)(GameSettings.INCOME_TAX_RATE*100);
+        // use gui to ask player if they want to pay 10% or the fixed tax amount
+        boolean userInput;
+        userInput = ViewController.getInstance().showMessageAndGetBooleanUserInput(49,50,51,""+percentageTax,""+FIXEDTAX, -1);
+        if(userInput) {
             int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
             // calculate 10% of assets
             return (int) Math.round(taxrate * GameController.getInstance().calculateAssets(currentPlayer));

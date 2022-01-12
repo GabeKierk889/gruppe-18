@@ -189,7 +189,8 @@ public class GameController {
     private int calculateLiquidAssets(int playerNum) {
         int totalLiquidAssetValue, valueOfBuildings, mortgageValueOfFields;
         valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
-        mortgageValueOfFields = board.calculateAvailableMortgageValueOfFieldsOwned(playerNum);
+        mortgageValueOfFields = 0; // mortgage feature has not been implemented in this version
+//        mortgageValueOfFields = board.calculateAvailableMortgageValueOfFieldsOwned(playerNum);
         totalLiquidAssetValue = players[playerNum - 1].getAccount().getBalance() + valueOfBuildings + mortgageValueOfFields;
         return totalLiquidAssetValue;
     }
