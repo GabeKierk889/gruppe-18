@@ -12,7 +12,7 @@ public class IncomeTaxField extends TaxField {
     }
 
     @Override
-    public int calculateTax(Player currentplayerobject) {
+    public int calculateTax(Player currentPlayerObject) {
         int percentageTax = (int)(GameSettings.INCOME_TAX_RATE*100);
         // use gui to ask player if they want to pay 10% or the fixed tax amount
         boolean userInput;
