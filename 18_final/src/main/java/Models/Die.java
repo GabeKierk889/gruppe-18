@@ -6,9 +6,7 @@ public class Die {
     private int faceValue;
     private final int NUMOFSIDES = 6;
 
-    public Die() {
-        faceValue = 0;
-    } // deliberately set to 0 in the beginning to distinguish new dice
+    public Die() { faceValue = 1; }
 
     public int roll() {
         faceValue = (int) (Math.random() * NUMOFSIDES) + 1;
@@ -18,6 +16,11 @@ public class Die {
     public int getFaceValue() {
         return faceValue;
     }
+
+    public void setFaceValue(int facevalue) {
+        if (facevalue > 0 && facevalue <= NUMOFSIDES) this.faceValue = facevalue;
+    }
+
 
     public String toString () {
         return Integer.toString(faceValue);

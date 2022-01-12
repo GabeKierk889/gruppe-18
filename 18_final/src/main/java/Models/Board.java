@@ -2,6 +2,7 @@ package Models;
 
 import Controllers.GameController;
 import Controllers.ViewController;
+import Services.BuildSellBuildingsHandler;
 import Services.FieldsCreator;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
@@ -15,7 +16,8 @@ public class Board {
     }
 
     public void buildSellBuildings() {
-
+        BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(fields);
+        helper.currentPlayerBuildingDecision(GameController.getInstance().getCurrentPlayerNum());
     }
 
     // checks if a player owns all the fields of a given type
@@ -95,13 +97,12 @@ public class Board {
         return -1;
     }
 
-    public int[] numBuildingsOwnedByCurrentPlayer() {
+    public int[] numBuildingsOwnedByPlayer(int playerNum) {
         // stores data in an array with length 2, first numofhouses, then numofhotels
         int[] buildingsOwned = new int[2];
-        int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         for (Field field : fields) {
             // checks for streetFields owned by current player
-            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == currentPlayer) {
+            if (field.isStreetField() && ((OwnableField) field).getOwnerNum() == playerNum) {
                 buildingsOwned[0] += ((StreetField) field).getNumOfHouses();
                 if (((StreetField) field).hasHotel())
                     buildingsOwned[1]++;
@@ -184,12 +185,16 @@ public class Board {
         // if ownership is transferred to another player (not the bank), update the rents
         // (the auction method will update the rents after each auction, so does not need to be done twice)
         if (newOwnerPlayerNum != 0)
-            for (Field field : fields) {
-                if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == newOwnerPlayerNum) {
-                    ((OwnableField) field).updateRent();
-                    ViewController.getInstance().formatFieldBorder(newOwnerPlayerNum);
+            for (int i = 0 ; i < fields.length; i++) {
+                if (fields[i].isOwnableField() && ((OwnableField) fields[i]).getOwnerNum() == newOwnerPlayerNum) {
+                    ((OwnableField) fields[i]).updateRent();
+                    ViewController.getInstance().formatFieldBorder(i);
                 }
             }
+    }
+
+    public Field[] getFields() {
+        return fields;
     }
 
     public int getTotalNumOfFields() {

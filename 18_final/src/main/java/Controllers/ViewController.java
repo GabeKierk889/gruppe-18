@@ -177,12 +177,35 @@ public class ViewController {
         return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[58],options);
     }
 
+    public String whereToUnBuildUserInput (String[] colors) {
+        String[] options = new String[colors.length];
+        for (int i = 0; i < options.length; i++)
+            options[i] = String.format(takeTurnGUIMessages[59],colors[i]);
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[71],options);
+    }
+
     public int numberHousesToBuildUserInput (String fieldName, int housePrice) {
         String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[63],fieldName,housePrice,StreetField.MAXNUMOFHOUSES) + " " + takeTurnGUIMessages[61];
         return gui.getUserInteger(str,0, StreetField.MAXNUMOFHOUSES);
     }
 
+    public int numberHousesToSellUserInput (String fieldName, int housePrice, int numHousesOnField) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[77],fieldName,housePrice,StreetField.MAXNUMOFHOUSES);
+        return gui.getUserInteger(str,0, numHousesOnField);
+    }
+
+    public boolean buildHotelUserInput (String fieldName, int housePrice) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[68],fieldName,housePrice,"");
+        return gui.getUserLeftButtonPressed(str,takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
+    }
+
+    public boolean sellHotelUserInput (String fieldName, int housePrice) {
+        String str = getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[72],fieldName,housePrice,"");
+        return gui.getUserLeftButtonPressed(str,takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
+    }
+
     public void setGUINumHouses(int fieldArrayNum, int numHouses) {
+        guiStreets[fieldArrayNum].setHouses(0);
         guiStreets[fieldArrayNum].setHouses(numHouses);
     }
 

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.*;
+import Services.BuildSellBuildingsHandler;
 
 public class GameController {
 
@@ -71,7 +72,7 @@ public class GameController {
                 releaseFromJail();
                 takeTurn();
             }
-            if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt() && !players[playerArrayNum].getIsInJail()) {
+            if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt()) {
                 extraTurn = true;
             }
             switchTurn(extraTurn);
@@ -120,10 +121,12 @@ public class GameController {
         diceCup.roll();
         viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
 
-        putPlayerInJailIfSameDice3TimesInRow(moveFrom);
+        if(putPlayerInJailIfSameDice3TimesInRow(moveFrom)) {
+            diceCup.setDiceNotSameFaceValue(); // scrambles the dice so that on the next turn, the next player does not get an extra turn message
+        }
 
         // below will only run below if player has not been put in jail by throwing 2 of the same dice 3 times in a row
-        if (!players[playerArrayNum].getIsInJail()) {
+        else {
             // move player
             players[playerArrayNum].moveSteps(diceCup.getSum());
             moveTo = players[playerArrayNum].OnField();
@@ -142,7 +145,7 @@ public class GameController {
         }
     }
 
-    private void putPlayerInJailIfSameDice3TimesInRow (int playerOnField) {
+    private boolean putPlayerInJailIfSameDice3TimesInRow (int playerOnField) {
         if (diceCup.sameFaceValue())
             players[playerArrayNum].increaseThrowTwoOfSameCounter(); // keeps track of how many times in a row player has thrown two of the same
         else players[playerArrayNum].resetThrowTwoOfSameCounter();
@@ -154,7 +157,9 @@ public class GameController {
             viewController.moveGUICar(playerOnField, moveTo, currentPlayerNum);
             players[playerArrayNum].setIsInJail(true);
             players[playerArrayNum].resetThrowTwoOfSameCounter(); // reset the counter
+            return true;
         }
+        else return false;
     }
 
     // releases the player from jail
@@ -185,7 +190,8 @@ public class GameController {
     private int calculateLiquidAssets(int playerNum) {
         int totalLiquidAssetValue, valueOfBuildings, mortgageValueOfFields;
         valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
-        mortgageValueOfFields = board.calculateAvailableMortgageValueOfFieldsOwned(playerNum);
+        mortgageValueOfFields = 0; // mortgage feature has not been implemented in this version
+//        mortgageValueOfFields = board.calculateAvailableMortgageValueOfFieldsOwned(playerNum);
         totalLiquidAssetValue = players[playerNum - 1].getAccount().getBalance() + valueOfBuildings + mortgageValueOfFields;
         return totalLiquidAssetValue;
     }
@@ -202,10 +208,13 @@ public class GameController {
         // if the player is not able to pay with their liquid assets, they go bankrupt
         if (liquidAssetValue < needToPay)
             goBankrupt(playerNum, liquidAssetValue, needToPay, creditorPlayerNum);
-        else ;
-        // TODO: gui
-        viewController.updateGUIBalance();
+        else {
         // if the player is not going bankrupt, add gui messages asking player to sell/mortgage assets
+           viewController.updateGUIBalance();
+            viewController.showTakeTurnMessageWithPlayerName(52,"","","");
+            BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(getBoard().getFields());
+            helper.playerMustSellBuildings(playerNum, players[playerNum-1]);
+        }
     }
 
     private void goBankrupt(int bankruptPlayerNum, int assetValue, int needToPay, int creditorPlayerNum) {

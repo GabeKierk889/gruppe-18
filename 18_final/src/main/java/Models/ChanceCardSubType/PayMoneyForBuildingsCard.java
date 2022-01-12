@@ -17,7 +17,7 @@ public class PayMoneyForBuildingsCard extends ChanceCard {
     @Override
     public void effect(Player currentplayerobject) {
         Board board = GameController.getInstance().getBoard();
-        int[] buildingsOwned = board.numBuildingsOwnedByCurrentPlayer();
+        int[] buildingsOwned = board.numBuildingsOwnedByPlayer(GameController.getInstance().getCurrentPlayerNum());
         int payment = buildingsOwned[1] * PAYPERHOTEL + buildingsOwned[0] * PAYPERHOUSE;
         if (payment > 0) {
         // TODO: gui

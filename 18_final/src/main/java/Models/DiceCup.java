@@ -8,6 +8,7 @@ public class DiceCup {
     public DiceCup() {
         die1 = new Die();
         die2 = new Die();
+        setDiceNotSameFaceValue();
     }
 
     public void roll() {
@@ -34,7 +35,12 @@ public class DiceCup {
     }
 
     public boolean sameFaceValue() {
-        return die1.getFaceValue() != 0 && die1.getFaceValue() == die2.getFaceValue();
+        return die1.getFaceValue() == die2.getFaceValue();
+    }
+
+    public void setDiceNotSameFaceValue () {
+        die1.setFaceValue(1);
+        die2.setFaceValue(2);
     }
 
     public String toString() {

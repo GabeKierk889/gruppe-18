@@ -12,7 +12,6 @@ public abstract class TaxField extends Field {
 
     @Override
     public void landOnField(Player currentplayerobject) {
-        calculateTax(currentplayerobject);
         payTax(currentplayerobject);
     }
 
