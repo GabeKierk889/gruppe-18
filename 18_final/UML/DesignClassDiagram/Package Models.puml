@@ -194,8 +194,8 @@ class IncomeTaxField {
 }
 
 
-FieldsCreator <--- Board
-ChanceCardsCreator <-- ChanceField
+FieldsCreator ---* Board
+ChanceCardsCreator --* ChanceField
 Board *-- "40" Field
 GameController *--- Board
 ChanceField o-- ChanceCard

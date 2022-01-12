@@ -53,8 +53,6 @@ class ViewController <<Singleton>>{
 
     +setupGUIBoard() : void
     +putPlayersOnBoard() : void
-    -setupGUICars() : void
-    -setupGUIPlayers() : void
     +removeGUICar(playerNum : int, playerOnFieldNum : int) : void
     +moveGUICar(moveFrom : int, moveTo : int, currentPlayerNum : int) : void
     +rollMessage() : void
@@ -66,18 +64,25 @@ class ViewController <<Singleton>>{
     +goToJailMessage() : void
     +releaseFromJailMessageHasCard() : boolean
     +releaseFromJailMessagePayMoney() : void
-    +clickRulesMessage() : void
-    +rulesMessage() : void
-    +startGameMessage() : void
-    +gameRulesMessage() : void
     +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
     +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int) : void
     +showTakeTurnMessageWithPlayerName(txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
     +showTakeTurnMessageWithPlayerName(customString : String, txtFileLineArrayNum : int, txtFileLineArrayNum2 : int, txtFileLineArrayNum3 : int, stringInText : String, stringInText2 : String, stringInText3 : String) : void
-    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int) : boolean
-    +showMessageAndTakeBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int, stringInText : String, stringInText2 : String) : boolean
+    +showMessageAndGetBooleanUserInput(txtFileLineQuestion : int, txtFileLineTrueButton : int, txtFileLineFalseButton : int, stringInText : String, stringInText2 : String, stringInText3 : int) : boolean
     +drawChanceCardMessage(text : String) : void
     +formatFieldBorder(fieldArrayNum : int) : void
+
+}
+
+class ViewController_GameSetup <<Singleton>>{
+    -setupGameGUIMessages: String[]
+    {static}-single_instance: ViewController_GameSetup
+
+    {static}+getInstance() : ViewController_GameSetup
+    +setupGUIBoard(guiFields : GUI_Field[], guiStreets : GUI_Street[]) : GUI
+    +showGameRules() : void
+    +getPlayerNames(gui : GUI) : String[]
+    +setupGUICars(int players : int, guiCars : GUI_Car[]) : void
 
 }
 
@@ -95,9 +100,10 @@ package services #DDDDDD {
 () GUIBoardCreator
 }
 
-MatadorMain *-- GameController
-ViewController --* GameController
-ViewController ----> GUIBoardCreator
+MatadorMain ..> GameController
+ViewController <.. GameController
+ViewController *---- GUIBoardCreator
+ViewController ..> ViewController_GameSetup
 GameController *--- Player
 GameController *--- DiceCup
 GameController *--- Board
