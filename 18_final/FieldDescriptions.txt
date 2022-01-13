@@ -13,3 +13,11 @@ m/ 1 hus kr. %s
 Hotel kr. %s
 Hvert hus koster kr. %s
 Et hotel koster kr. %s
+Hvis 2 rederier ejes kr. %s
+Hvis 3 rederier ejes kr. %s
+Hvis 4 rederier ejes kr. %s
+Hvis 1 virksomhed ejes, betales 100 gange så meget, som øjnene viser
+Hvis både Tuborg og Carlsberg ejes, betales 200 gange så meget, som øjnene viser
+\n\n
+På besøg
+De fængles
