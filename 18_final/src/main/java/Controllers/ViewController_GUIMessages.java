@@ -64,77 +64,15 @@ public class ViewController_GUIMessages {
         gui.showMessage(String.format(takeTurnGUIMessages[34],GameController.getInstance().getPlayerObject(currentPlayerNum()).getName(),takeTurnGUIMessages[35]+" "+GameSettings.JAILFEE));
     }
 
-    // method overloading
-    public String getTakeTurnGUIMessages(int txtLineArray) { return takeTurnGUIMessages[txtLineArray]; }
-    public String getTakeTurnGUIMessages(int txtLineArray, String stringInText, String stringInText2, String stringInText3) {
-        return String.format(takeTurnGUIMessages[txtLineArray],stringInText,stringInText2,stringInText3);}
-    public String getTakeTurnGUIMessages(int txtLineArray, int stringInTextLine) {
-       return String.format(takeTurnGUIMessages[txtLineArray],takeTurnGUIMessages[stringInTextLine]);}
-    public void showTakeTurnMessage(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
-        gui.showMessage(String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));}
-    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
-        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));}
-    public void showTakeTurnMessageWithPlayerName(String playerName, String customString, int txtFileLineArrayNum) {
-        gui.showMessage(playerName + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);}
-    public void showTakeTurnMessageWithPlayerName(String playerName, String customString) {
-        gui.showMessage(playerName + ": " +customString);}
-    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
-       String str = takeTurnGUIMessages[txtFileLineArrayNum];
-       if (txtFileLineArrayNum2 != -1)
-           str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
-        if (txtFileLineArrayNum3 != -1)
-            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
-        gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));}
-    public void showTakeTurnMessageWithPlayerName(String playerName, String customString, int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
-        String str = takeTurnGUIMessages[txtFileLineArrayNum];
-        if (txtFileLineArrayNum2 != -1)
-            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
-        if (txtFileLineArrayNum3 != -1)
-            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
-        gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));}
-
     public int auctionBidding(String fieldName, int fieldPrice, String playerName) {
         return gui.getUserInteger( String.format(takeTurnGUIMessages[82],playerName,fieldName,""+fieldPrice),0,Integer.MAX_VALUE);
     }
 
-    public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton,
-        int txtFileLineFalseButton, String stringInText, String stringInText2, int stringInText3) {
-        String str = (stringInText3 < 0) ? "" : takeTurnGUIMessages[stringInText3];
-        return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " +
-        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2, str),
-        takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
-    }
-
-    // method overloading
-    public String getSellBuildingsUserInput (int dropDownLine1,int stringInText) {
-        int lineArrayNum = 53;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]));
-    }
-    public String getSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int stringInText, int stringInText2) {
-        int lineArrayNum = 53;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]));
-    }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1,int stringInText) {
-        int lineArrayNum = 55;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]));
-    }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int stringInText, int stringInText2) {
-        int lineArrayNum = 55;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]));
-    }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int stringInText, int stringInText2, int stringInText3) {
-        int lineArrayNum = 55;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]));
-    }
-    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int dropDownLine4, int stringInText, int stringInText2, int stringInText3, int stringInText4) {
-        int lineArrayNum = 55;
-        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
-                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]),String.format(takeTurnGUIMessages[dropDownLine4],takeTurnGUIMessages[stringInText4]));
+    public void drawChanceCardMessage(String text) {
+        gui.setChanceCard(text);
+        String name = getCurrentPlayerName();
+        gui.getUserButtonPressed(name + ": "+ takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
+        gui.setChanceCard("");
     }
 
     public String whereToBuildUserInput (String[] colors) {
@@ -171,11 +109,74 @@ public class ViewController_GUIMessages {
         return gui.getUserLeftButtonPressed(str,takeTurnGUIMessages[15], takeTurnGUIMessages[16]);
     }
 
-    public void drawChanceCardMessage(String text) {
-        gui.setChanceCard(text);
-        String name = getCurrentPlayerName();
-        gui.getUserButtonPressed(name + ": "+ takeTurnGUIMessages[5],takeTurnGUIMessages[17]);
-        gui.setChanceCard("");
+    // method overloading - methods that display a drop down menu to take user input
+    // method signatures differ in taking in a different number of drop-down menu options
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1,int stringInText) {
+        int lineArrayNum = 55;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]));
+    }
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int stringInText, int stringInText2) {
+        int lineArrayNum = 55;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]));
+    }
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int stringInText, int stringInText2, int stringInText3) {
+        int lineArrayNum = 55;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]));
+    }
+    public String getBuyOrSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int dropDownLine3, int dropDownLine4, int stringInText, int stringInText2, int stringInText3, int stringInText4) {
+        int lineArrayNum = 55;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],takeTurnGUIMessages[16],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]),String.format(takeTurnGUIMessages[dropDownLine3],takeTurnGUIMessages[stringInText3]),String.format(takeTurnGUIMessages[dropDownLine4],takeTurnGUIMessages[stringInText4]));
+    }
+    public String getSellBuildingsUserInput (int dropDownLine1,int stringInText) {
+        int lineArrayNum = 53;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]));
+    }
+    public String getSellBuildingsUserInput (int dropDownLine1, int dropDownLine2, int stringInText, int stringInText2) {
+        int lineArrayNum = 53;
+        return gui.getUserSelection(getCurrentPlayerName() + ": " + takeTurnGUIMessages[lineArrayNum],
+                String.format(takeTurnGUIMessages[dropDownLine1],takeTurnGUIMessages[stringInText]),String.format(takeTurnGUIMessages[dropDownLine2],takeTurnGUIMessages[stringInText2]));
     }
 
+    public boolean showMessageAndGetBooleanUserInput(int txtFileLineQuestion, int txtFileLineTrueButton,
+                                                     int txtFileLineFalseButton, String stringInText, String stringInText2, int stringInText3) {
+        String str = (stringInText3 < 0) ? "" : takeTurnGUIMessages[stringInText3];
+        return gui.getUserLeftButtonPressed(getCurrentPlayerName() + ": " +
+                        String.format(takeTurnGUIMessages[txtFileLineQuestion],stringInText,stringInText2, str),
+                takeTurnGUIMessages[txtFileLineTrueButton], takeTurnGUIMessages[txtFileLineFalseButton]);
+    }
+
+    // method overloading - various methods that display a message to the user in the gui, using
+    // parameters that indicate which line(s) in the external file need to be displayed
+    public String getTakeTurnGUIMessages(int txtLineArray) { return takeTurnGUIMessages[txtLineArray]; }
+    public String getTakeTurnGUIMessages(int txtLineArray, String stringInText, String stringInText2, String stringInText3) {
+        return String.format(takeTurnGUIMessages[txtLineArray],stringInText,stringInText2,stringInText3);}
+    public String getTakeTurnGUIMessages(int txtLineArray, int stringInTextLine) {
+        return String.format(takeTurnGUIMessages[txtLineArray],takeTurnGUIMessages[stringInTextLine]);}
+    public void showTakeTurnMessage(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
+        gui.showMessage(String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));}
+    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, String stringInText, String stringInText2, String stringInText3) {
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(takeTurnGUIMessages[txtFileLineArrayNum],stringInText, stringInText2, stringInText3));}
+    public void showTakeTurnMessageWithPlayerName(String playerName, String customString, int txtFileLineArrayNum) {
+        gui.showMessage(playerName + ": " +customString + " " + takeTurnGUIMessages[txtFileLineArrayNum]);}
+    public void showTakeTurnMessageWithPlayerName(String playerName, String customString) {
+        gui.showMessage(playerName + ": " +customString);}
+    public void showTakeTurnMessageWithPlayerName(int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
+        String str = takeTurnGUIMessages[txtFileLineArrayNum];
+        if (txtFileLineArrayNum2 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+        if (txtFileLineArrayNum3 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
+        gui.showMessage(getCurrentPlayerName() + ": " + String.format(str,stringInText, stringInText2, stringInText3));}
+    public void showTakeTurnMessageWithPlayerName(String playerName, String customString, int txtFileLineArrayNum, int txtFileLineArrayNum2, int txtFileLineArrayNum3, String stringInText, String stringInText2, String stringInText3) {
+        String str = takeTurnGUIMessages[txtFileLineArrayNum];
+        if (txtFileLineArrayNum2 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum2];
+        if (txtFileLineArrayNum3 != -1)
+            str += " " + takeTurnGUIMessages[txtFileLineArrayNum3];
+        gui.showMessage(getCurrentPlayerName() + ": " + customString + " " + String.format(str,stringInText, stringInText2, stringInText3));}
 }

@@ -16,7 +16,7 @@ public class Board {
         fields = service.createFields();
     }
 
-    public void buildSellBuildings() {
+    public void buildAndSellBuildings() {
         BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(fields);
         helper.currentPlayerBuildingDecision(GameController.getInstance().getCurrentPlayerNum());
     }

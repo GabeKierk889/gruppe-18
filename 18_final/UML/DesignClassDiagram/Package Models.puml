@@ -23,9 +23,7 @@ class GameSettings {
     {static}+STATE_TAX_AMOUNT: int
     {static}+INCOME_TAX_AMOUNT: int
     {static}+INCOME_TAX_RATE: double
-    {static}+MORTGAGE_INTEREST_MULTIPLIER: double
     {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
-    {static}+MORTGAGE_INTEREST_ROUNDING: int
     {static}+HOUSE_RESELL_VALUE_MULTIPLIER: double
     {static}+GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES: int
 
@@ -42,11 +40,8 @@ class Board {
     +calculateValueOfFieldsOwned(playerNum : int) : int
     +removeAllBuildingsOwned(playerNum : int) : void
     +calculateAvailableMortgageValueOfFieldsOwned(playerNum : int) : int
-    bankruptcyTransferAllFieldAssets(oldOwnerPlayerNum : int, newOwnerPlayerNum : int) : void
-    +buildHouse() : void
-    +buildHotel() : void
-    +sellHouse() : void
-    +sellHotel() : void
+    +bankruptcyTransferAllFieldAssets(oldOwnerPlayerNum : int, newOwnerPlayerNum : int) : void
+    +buildAndSellBuildings() : void
 }
 
 class Player {
@@ -61,10 +56,12 @@ class Player {
 
     +moveToField(fieldArrayNum : int) : void
     +moveSteps(stepsToMove : int) : int
+    +collectStartBonus(int diceThrow) : void
     +hasAJailCard() : Boolean
     +giveJailCard(jailCard : ChanceCard) : void
     +returnJailCard() : ChanceCard
-    +collectStartBonus(int diceThrow) : void
+    +increaseThrowTwoOfSameCounter() : void
+    +resetThrowTwoOfSameCounter() : void
 }
 
 
@@ -90,6 +87,7 @@ class DiceCup {
 
     +roll() : void
     +isSameFaceValue() : boolean
+    +setDiceNotSameFaceValue : void
 }
 
 class Die {

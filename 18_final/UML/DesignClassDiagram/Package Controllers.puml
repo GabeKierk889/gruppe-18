@@ -27,7 +27,9 @@ class GameController <<Singleton>>{
     +gameLoop() : void
     -checkForWinner() : boolean
     -determineWinner() : int
+    -endGame() : void
     -takeTurn() : void
+    -putPlayerInJailIfSameDice3TimesInRow (int playerOnField) : boolean
     -releaseFromJail() : void
     +calculateAssets(playerNum : int) : int
     -calculateLiquidAssets(playerNum : int) : int
@@ -118,7 +120,7 @@ package services #DDDDDD {
 
 MatadorMain ..> GameController
 ViewController <.. GameController
-ViewController *---- GUIBoardCreator
+ViewController_GameSetup *---- GUIBoardCreator
 ViewController ..> ViewController_GameSetup
 GameController *--- Player
 GameController *--- DiceCup
