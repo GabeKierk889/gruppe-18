@@ -76,6 +76,9 @@ This class is used by the following classes:
 - RecieveMatadorStipendCard
 - MoveToNearestShippingFieldCard
 - TaxField
+
+The methods with "..." as parameters exists
+as multiple overloaded versions
 end note
 
 class ViewController_GUIMessages <<Singleton>> {
