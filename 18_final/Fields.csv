@@ -4,7 +4,7 @@ Rødovrevej,1,StreetField,1200,1000,50,250,750,2250,4000,6000,blå
 Chance,2,ChanceField,,,,,,,,,
 Hvidovrevej,3,StreetField,1200,1000,50,250,750,2250,4000,6000,blå
 Indkomstskat,4,TaxField,4000,,,,,,,,
-Hel. - Hel.,5,ShippingField,4000,,500,1000,2000,4000,,,
+Scandlines,5,ShippingField,4000,,500,1000,2000,4000,,,
 Roskildevej,6,StreetField,2000,1000,100,600,1800,5400,8000,11000,orange
 Chance,7,ChanceField,,,,,,,,,
 Valby Langgade,8,StreetField,2000,1000,100,600,1800,5400,8000,11000,orange
