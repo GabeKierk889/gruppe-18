@@ -66,16 +66,20 @@ class ViewController <<Singleton>>{
 
 note top of ViewController_GUIMessages
 This class is used by the following classes:
-- GameController
-- Player
-- JailField
-- OwnableField
-- ChanceField
-- BuildSellBuildingsHandler
-- PayMoneyForBuildingsCard
-- RecieveMatadorStipendCard
-- MoveToNearestShippingFieldCard
-- TaxField
+* GameController
+* Player
+* JailField
+* OwnableField
+* ChanceField
+* BuildSellBuildingsHandler
+* PayMoneyForBuildingsCard
+* ReceiveMatadorStipendCard
+* MoveToNearestShippingFieldCard
+* TaxField
+
+ Objects of these classes use methods within
+ ViewController_GUIMessages to display in-game
+ messages to the user / get user input
 
 The methods with "..." as parameters exists
 as multiple overloaded versions
