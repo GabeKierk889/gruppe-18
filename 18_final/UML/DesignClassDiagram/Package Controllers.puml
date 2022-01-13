@@ -64,7 +64,22 @@ class ViewController <<Singleton>>{
 
 }
 
+note top of ViewController_GUIMessages
+This class is used by the following classes:
+- GameController
+- Player
+- JailField
+- OwnableField
+- ChanceField
+- BuildSellBuildingsHandler
+- PayMoneyForBuildingsCard
+- RecieveMatadorStipendCard
+- MoveToNearestShippingFieldCard
+- TaxField
+end note
+
 class ViewController_GUIMessages <<Singleton>> {
+
     -gui: GUI
     {static}-single_instance: ViewController_GUIMessages
     -TOTALNUMOFFIELDS: int
@@ -118,10 +133,10 @@ package services #DDDDDD {
 () GUIBoardCreator
 }
 
-MatadorMain ..> GameController
-ViewController <.. GameController
+MatadorMain --> GameController
+ViewController <-- GameController
 ViewController_GameSetup *---- GUIBoardCreator
-ViewController ..> ViewController_GameSetup
+ViewController --> ViewController_GameSetup
 GameController *--- Player
 GameController *--- DiceCup
 GameController *--- Board
