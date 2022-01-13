@@ -91,7 +91,6 @@ public class ViewController {
         guiStreets[fieldArrayNum].setHotel(hasHotel);
     }
 
-
     public GUI getGui() {
         return gui;
     }

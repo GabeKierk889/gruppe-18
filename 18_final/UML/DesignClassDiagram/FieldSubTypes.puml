@@ -54,11 +54,9 @@ abstract class OwnableField {
         -buyFieldTransaction(currentPlayerNum : int, currentplayerobject : Player, purchasePrice : int) : void
         +auctionField() : void
         {abstract}+updateRent() : void
-        +mortgageField() : void
-        -unMortgageField(currentplayerobject : Player) : void
-        +auctionField() : void
-        +tradeField() : void
         -sendGUIPlayerMessage(purchasePrice : int) : void
+        -showGUIPayRentMessage(String ownerName) : void
+
 }
 
 class StreetField {

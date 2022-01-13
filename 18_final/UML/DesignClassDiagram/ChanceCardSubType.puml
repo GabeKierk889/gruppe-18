@@ -21,9 +21,10 @@ class MoveXFieldsBackwardsCard
 class MoveXFieldsForwardCard
 class PayMoneyCard
 class PayMoneyForBuildingsCard
-class RecieveFromEachPlayerCard
-class RecieveMatadorStipendCard
-class RecieveMoneyCard
+class ReceiveFromEachPlayerCard
+class ReceiveMatadorStipendCard
+class ReceiveMoneyCard
+class MoveToNearestShippingFieldCard
 
 }
 

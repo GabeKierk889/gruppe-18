@@ -27,7 +27,9 @@ class GameController <<Singleton>>{
     +gameLoop() : void
     -checkForWinner() : boolean
     -determineWinner() : int
+    -endGame() : void
     -takeTurn() : void
+    -putPlayerInJailIfSameDice3TimesInRow (int playerOnField) : boolean
     -releaseFromJail() : void
     +calculateAssets(playerNum : int) : int
     -calculateLiquidAssets(playerNum : int) : int
@@ -62,7 +64,29 @@ class ViewController <<Singleton>>{
 
 }
 
+note top of ViewController_GUIMessages
+This class is used by the following classes:
+* GameController
+* Player
+* JailField
+* OwnableField
+* ChanceField
+* BuildSellBuildingsHandler
+* PayMoneyForBuildingsCard
+* ReceiveMatadorStipendCard
+* MoveToNearestShippingFieldCard
+* TaxField
+
+ Objects of these classes use methods within
+ ViewController_GUIMessages to display in-game
+ messages to the user / get user input
+
+The methods with "..." as parameters exists
+as multiple overloaded versions
+end note
+
 class ViewController_GUIMessages <<Singleton>> {
+
     -gui: GUI
     {static}-single_instance: ViewController_GUIMessages
     -TOTALNUMOFFIELDS: int
@@ -116,10 +140,10 @@ package services #DDDDDD {
 () GUIBoardCreator
 }
 
-MatadorMain ..> GameController
-ViewController <.. GameController
-ViewController *---- GUIBoardCreator
-ViewController ..> ViewController_GameSetup
+MatadorMain --> GameController
+ViewController <-- GameController
+ViewController_GameSetup *---- GUIBoardCreator
+ViewController --> ViewController_GameSetup
 GameController *--- Player
 GameController *--- DiceCup
 GameController *--- Board

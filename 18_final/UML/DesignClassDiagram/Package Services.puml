@@ -40,11 +40,34 @@ class ChanceCardsDataReader {
     -fieldNameWithinText: String[]
 
     -readData() : void
-    -readFileNames() : void
+    -readFieldNames() : void
 
 }
 class ChanceCardsCreator {
     +createChanceCardsDeck() : ChanceCard[]
+}
+
+class BuildSellBuildingsHandler {
+    -fields: Field[]
+
+    +currentPlayerBuildingDecision(playerNum : int) : void
+    +playerMustSellBuildings(playerNum : int, playerObject : Player) : void
+    -buildHouse() : void
+    -sellHouse(playerNum : int) : void
+    -buildHotel() : void
+    -sellHotel(playerNum : int) : void
+    -currentPlayerMayBuyHouses() : boolean
+    -currentPlayerMayBuyHousesOnField(fieldArrayNum : int) : boolean
+    -currentPlayerMaySellHouses(playerNum : int) : boolean
+    -currentPlayerMaySellHouseOnField(fieldArrayNum : int, playerNum : int) : boolean
+    -currentPlayerMayBuyHotels() : boolean
+    -currentPlayerMayBuyHotelOnField(fieldArrayNum : int) : boolean
+    -currentPlayerMaySellHotels(playerNum : int) : boolean
+    -currentPlayerMaySellHotelOnField(fieldArrayNum : int, playerNum : int) : boolean
+    -getStreetColorsEligibleForBuildingHouse() : String[]
+    -getStreetColorsEligibleForBuildingHotel() : String[]
+    -getStreetColorsEligibleForSellingHouse(playerNum : int) : String[]
+    -getStreetColorsEligibleForSellingHotel(playerNum : int) : String[]
 }
 
 class GUIBoardCreator {
@@ -53,11 +76,13 @@ class GUIBoardCreator {
     -board: Board
     -fieldsDataReader: FieldsDataReader
     -fieldPrice: int[]
+    -rentAmount: int[][]
+    -housePrice: int[]
     -fileImporter: FileImporter
     -takeTurnMessages: String[]
     -fieldDescriptions: String[]
 
-    -setUpAndFormatGUIBoard() : void
+    +setUpAndFormatGUIBoard() : void
     -formatStreets() : void
     -setupBreweryFields() : void
     -formatShippingFields() : void
@@ -71,7 +96,8 @@ class GUIBoardCreator {
 
 ChanceField *-- ChanceCardsCreator
 ViewController *-- GUIBoardCreator
-Board *-- FieldsCreator
+Board *---- FieldsCreator
+Board *- BuildSellBuildingsHandler
 FieldsDataReader --> FileImporter
 ChanceCardsDataReader --> FileImporter
 FieldsCreator --> FieldsDataReader
