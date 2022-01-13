@@ -12,7 +12,7 @@ public class BuildSellBuildingsHandler {
         this.fields = fields;
     }
 
-    public void buildHouse() {
+    private void buildHouse() {
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         String[] colorsEligibleForBuilding = getStreetColorsEligibleForBuildingHouse();
         String userSelection = ViewController_GUIMessages.getInstance().whereToBuildUserInput(colorsEligibleForBuilding);
@@ -109,7 +109,7 @@ public class BuildSellBuildingsHandler {
         while (!successfulCompletion);
     }
 
-    public void buildHotel() {
+    private void buildHotel() {
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         String[] colorsEligibleForBuilding = getStreetColorsEligibleForBuildingHotel();
         String userSelection = ViewController_GUIMessages.getInstance().whereToBuildUserInput(colorsEligibleForBuilding);
@@ -174,7 +174,7 @@ public class BuildSellBuildingsHandler {
         }
     }
 
-    public void sellHouse(int playerNum) {
+    private void sellHouse(int playerNum) {
         String[] colorsEligibleForSelling = getStreetColorsEligibleForSellingHouse(playerNum);
         String userSelection = ViewController_GUIMessages.getInstance().whereToUnBuildUserInput(colorsEligibleForSelling);
         String userSelectionColor = extractColor(userSelection);
@@ -234,7 +234,7 @@ public class BuildSellBuildingsHandler {
         }
     }
 
-    public void sellHotel(int playerNum) {
+    private void sellHotel(int playerNum) {
         String[] colorsEligibleForSelling = getStreetColorsEligibleForSellingHotel(playerNum);
         String userSelection = ViewController_GUIMessages.getInstance().whereToUnBuildUserInput(colorsEligibleForSelling);
         String userSelectionColor = extractColor(userSelection);
@@ -307,7 +307,7 @@ public class BuildSellBuildingsHandler {
         return false;
     }
 
-    public boolean currentPlayerMayBuyHouseOnField(int fieldArrayNum) {
+    private boolean currentPlayerMayBuyHouseOnField(int fieldArrayNum) {
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         if (fields[fieldArrayNum].isStreetField()
                 && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == currentPlayer
@@ -319,12 +319,12 @@ public class BuildSellBuildingsHandler {
         return false;
     }
 
-    public boolean playerMaySellHouses(int playernum) {
+    private boolean playerMaySellHouses(int playernum) {
         int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByPlayer(playernum);
         return buildingsOwned[0] > 0; // if they own any houses
     }
 
-    public boolean currentPlayerMayBuyHotels() {
+    private boolean currentPlayerMayBuyHotels() {
         for (int i = 0; i < fields.length; i++) {
             if (currentPlayerMayBuyHotelOnField(i))
                 return true;
@@ -332,12 +332,12 @@ public class BuildSellBuildingsHandler {
         return false;
     }
 
-    public boolean playerMaySellHotels(int playerNum) {
+    private boolean playerMaySellHotels(int playerNum) {
         int[] buildingsOwned = GameController.getInstance().getBoard().numBuildingsOwnedByPlayer(playerNum);
         return buildingsOwned[1] > 0; // if they own any hotels
     }
 
-    public boolean currentPlayerMayBuyHotelOnField(int fieldArrayNum) {
+    private boolean currentPlayerMayBuyHotelOnField(int fieldArrayNum) {
         boolean test = false;
         int currentPlayer = GameController.getInstance().getCurrentPlayerNum();
         if (fields[fieldArrayNum].isStreetField()
@@ -357,13 +357,13 @@ public class BuildSellBuildingsHandler {
         return test;
     }
 
-    public boolean playerMayBuySellHotelOnField(int fieldArrayNum, int playerNum) {
+    private boolean playerMayBuySellHotelOnField(int fieldArrayNum, int playerNum) {
         return  fields[fieldArrayNum].isStreetField()
                 && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == playerNum
                 && (((StreetField) fields[fieldArrayNum]).hasHotel());
     }
 
-    public boolean playerMaySellHouseOnField(int fieldArrayNum, int playerNum) {
+    private boolean playerMaySellHouseOnField(int fieldArrayNum, int playerNum) {
         return fields[fieldArrayNum].isStreetField()
                 && ((OwnableField) fields[fieldArrayNum]).getOwnerNum() == playerNum
                 && (((StreetField) fields[fieldArrayNum]).getNumOfHouses() > 0);
