@@ -15,6 +15,7 @@ public class GUIBoardCreator {
     private FieldsDataReader fieldsDataReader = new FieldsDataReader("Fields.csv");
     private int[] fieldPrice = fieldsDataReader.getFieldPriceArray();
     private int[][] rentAmount = fieldsDataReader.getRentArrayArray();
+    private int[] housePrice = fieldsDataReader.getHousePriceArray();
     private FileImporter fileImporter = new FileImporter();
     private String[] takeTurnMessages = fileImporter.readAllLinesInFile("GameMessages_takeTurn.txt");
     private String[] fieldDescriptions = fileImporter.readAllLinesInFile("FieldDescriptions.txt");
@@ -36,11 +37,15 @@ public class GUIBoardCreator {
                 guiFields[i].setSubText(String.format(takeTurnMessages[9],""+fieldPrice[i]));
                 guiFields[i].setDescription(
                         String.format(fieldDescriptions[7],rentAmount[i][0])+fieldDescriptions[6]+
-                        String.format(fieldDescriptions[8],rentAmount[i][1])+fieldDescriptions[6]+
+                                fieldDescriptions[6]+
+                                String.format(fieldDescriptions[8],rentAmount[i][1])+fieldDescriptions[6]+
                         String.format(fieldDescriptions[9],rentAmount[i][2])+fieldDescriptions[6]+
                         String.format(fieldDescriptions[10],rentAmount[i][3])+fieldDescriptions[6]+
                         String.format(fieldDescriptions[11],rentAmount[i][4])+fieldDescriptions[6]+
-                        String.format(fieldDescriptions[12],rentAmount[i][5])
+                        String.format(fieldDescriptions[12],rentAmount[i][5])+fieldDescriptions[6]+
+                                fieldDescriptions[6]+
+                        String.format(fieldDescriptions[13],housePrice[i])+fieldDescriptions[6]+
+                        String.format(fieldDescriptions[14],housePrice[i])+fieldDescriptions[6]
                 );
             }
             // setup chance fields

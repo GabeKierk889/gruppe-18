@@ -3,15 +3,15 @@
 
 'autonumber
 
-create MatadorMain
-create GameController <<Singleton>>
+Participant MatadorMain
+Participant GameController <<Singleton>>
+Participant ViewController <<Singleton>>
 
-MatadorMain --> GameController : «create»
+
+MatadorMain -> GameController : getInstance()
 MatadorMain -> GameController : initializeGame()
 
-create ViewController <<Singleton>>
-
-GameController --> ViewController : «create»
+GameController -> ViewController : getInstance()
 
 GameController -> ViewController : setupGUIBoard()
 GameController -> ViewController : getPlayerNames()
@@ -25,16 +25,28 @@ create Account
 
 Player --> Account : «create»
 
-create Board
-
-GameController --> Board : «create»
-
 create DiceCup
 
 GameController --> DiceCup : «create»
 
+create Board
+
+GameController --> Board : «create»
+
+create FieldsCreator <<Service>>
+
+Board --> FieldsCreator : «create»
+
+create Fields
+
+FieldsCreator --> Fields : «create»
+
+
 GameController -> ViewController : putPlayersOnBoard()
 
-GameController -> GameController : playerTurn()
+MatadorMain -> GameController : gameLoop()
+
+GameController -> GameController : takeTurn()
+
 
 @enduml

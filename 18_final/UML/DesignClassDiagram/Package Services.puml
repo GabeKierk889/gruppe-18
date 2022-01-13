@@ -76,6 +76,8 @@ class GUIBoardCreator {
     -board: Board
     -fieldsDataReader: FieldsDataReader
     -fieldPrice: int[]
+    -rentAmount: int[][]
+    -housePrice: int[]
     -fileImporter: FileImporter
     -takeTurnMessages: String[]
     -fieldDescriptions: String[]
