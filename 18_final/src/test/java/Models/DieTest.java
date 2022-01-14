@@ -26,7 +26,6 @@ public class DieTest {
         assertEquals(frequency[4], 1000, 100);
         assertEquals(frequency[5], 1000, 100);
 
-
     }
     @Test
     public void maxMinValues() {
