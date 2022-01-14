@@ -7,7 +7,7 @@ import Models.FieldSubType.StreetField;
 import Services.BuildSellBuildingsHandler;
 import Services.FieldsCreator;
 
-//This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
+//Some of this code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
 public class Board {
     private Field[] fields;
@@ -18,6 +18,7 @@ public class Board {
     }
 
     public void buildAndSellBuildings() {
+        // calls a support class to handle build/ sell buildings feature
         BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(fields);
         helper.currentPlayerBuildingDecision(GameController.getInstance().getCurrentPlayerNum());
     }
@@ -31,6 +32,7 @@ public class Board {
         int ownernum = ((OwnableField) fields[fieldArrayNum]).getOwnerNum();
         if (fields[fieldArrayNum].isStreetField()) // updates color, if the field is a street
             streetColor = ((StreetField) fields[fieldArrayNum]).getStreetColor();
+
         for (Field field : fields) {
             // checks any fields of the same class name, if they are of the same type, and have the same owner
             if (field.getClass().toString().equalsIgnoreCase(fieldClassName)) {
@@ -56,6 +58,7 @@ public class Board {
         if (fields[fieldArrayNum].isStreetField()) // if the field is a street
             streetColor = ((StreetField) fields[fieldArrayNum]).getStreetColor();
         if (ownsAllFieldsOfSameType(fieldArrayNum) || fields[fieldArrayNum].isShippingField())
+
         // updates rent for multiple fields
         // note: rent needs to be updated for multiple shipping fields regardless of whether player owns all the shipping fields
         {
@@ -96,7 +99,7 @@ public class Board {
     }
 
     public int[] numBuildingsOwnedByPlayer(int playerNum) {
-        // stores data in an array with length 2, first numofhouses, then numofhotels
+        // stores data in an array with length 2, index0 numofhouses, index1 numofhotels
         int[] buildingsOwned = new int[2];
         for (Field field : fields) {
             // checks for streetFields owned by current player

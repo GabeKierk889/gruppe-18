@@ -43,8 +43,8 @@ public class GameController {
             else
                 currentPlayerNum = 1;
             playerArrayNum = currentPlayerNum - 1;
-            if (players[playerArrayNum].getIsBankrupt()) // skips any bankrupt players
-                switchTurn(false);
+            if (players[playerArrayNum].getIsBankrupt())
+                switchTurn(false); // skips the turn of any bankrupt players
         }
     }
 
@@ -62,7 +62,7 @@ public class GameController {
     }
 
     public void gameLoop() {
-        // while there is no winner
+        // gameloop continues as long as there is no winner
         while (!checkForWinner()) {
             boolean extraTurn = false;
             boolean playerIsInJail = players[playerArrayNum].getIsInJail();
@@ -75,7 +75,7 @@ public class GameController {
                 takeTurn();
             }
             if (diceCup.sameFaceValue() && !players[playerArrayNum].getIsBankrupt()) {
-                extraTurn = true;
+                extraTurn = true; // gives the player an extra turn
             }
             switchTurn(extraTurn);
         }
@@ -89,16 +89,17 @@ public class GameController {
         moveFrom = players[playerArrayNum].OnField(); // save player's last location
 
         // roll dice incl gui messages
-        if (diceCup.sameFaceValue()) // message in gui that player has got an extra throw + roll message
-            ViewController_GUIMessages.getInstance().sameFaceValueMessage();
+        if (diceCup.sameFaceValue()) // message in gui that player has got an extra throw and to roll dice
+            ViewController_GUIMessages.getInstance().sameFaceValueRollMessage();
         else
-            ViewController_GUIMessages.getInstance().rollMessage(); // the "normal" roll message
+            ViewController_GUIMessages.getInstance().rollDiceMessage(); // the "normal" roll dice message
         diceCup.roll();
         viewController.updateGUIDice(diceCup.getDie1Value(), diceCup.getDie2Value());
 
+        // if player has thrown same dice 3 times in a row, the player goes to jail
         if (putPlayerInJailIfSameDice3TimesInRow(moveFrom)) { // scrambles the dice so that on the next turn,
-            diceCup.setDiceNotSameFaceValue();
-        }   // the next player does not get an extra turn message
+            diceCup.setDiceNotSameFaceValue();  // the next player does not get an extra turn message
+        }
 
         // below will only run below if player has not been put in jail by throwing 2 of the same dice 3 times in a row
         else {
@@ -106,8 +107,12 @@ public class GameController {
             players[playerArrayNum].moveSteps(diceCup.getSum());
             moveTo = players[playerArrayNum].OnField();
             viewController.moveGUICar(moveFrom, moveTo, currentPlayerNum);
-            players[playerArrayNum].collectStartBonus(diceCup.getSum()); // the player collects START bonus if they pass START
+
+            // the below method lets the player collects START bonus if they pass START
+            players[playerArrayNum].collectStartBonus(diceCup.getSum());
             moveFrom = moveTo; // saves player's new location after moving
+
+            // landOnField method is called
             board.getFieldObject(players[playerArrayNum].OnField()).landOnField(players[playerArrayNum]); // field effect happens
 
             // following flow ensures landOnField method is called again in case player has landed on another field during their turn
@@ -115,6 +120,7 @@ public class GameController {
                 moveFrom = players[playerArrayNum].OnField();
                 board.getFieldObject(moveFrom).landOnField(players[playerArrayNum]);
             }
+
             // asks a player if they want to buy or sell buildings at the end of their turn
             if (!players[playerArrayNum].getIsBankrupt() && !diceCup.sameFaceValue())
                 board.buildAndSellBuildings();
@@ -123,10 +129,14 @@ public class GameController {
 
     private boolean putPlayerInJailIfSameDice3TimesInRow(int playerOnField) {
         if (diceCup.sameFaceValue())
-            players[playerArrayNum].increaseThrowTwoOfSameCounter(); // keeps track of how many times in a row player has thrown two of the same
-        else players[playerArrayNum].resetThrowTwoOfSameCounter();
+            players[playerArrayNum].increaseThrowTwoOfSameCounter();
+        // keeps track of how many times in a row player has thrown two of the same
+
+        else players[playerArrayNum].resetThrowTwoOfSameCounter(); // reset counter
+
+        // if same dice 3 times in a row, player must go to jail immediately and end their turn
         if (players[playerArrayNum].getThrowTwoOfSameDiceInARow() == GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES) {
-            // if same dice 3 times in a row, player must go to jail immediately and end their turn
+            // show a message in the GUI and move the player to jail
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(41, "" + GameSettings.GOTOJAIL_IF_THROW_SAME_DICE_X_TIMES, "", "");
             int moveTo = 10; // jail field
             players[playerArrayNum].moveToField(moveTo);
@@ -139,13 +149,15 @@ public class GameController {
 
     // releases the player from jail
     private void releaseFromJail() {
+        // asks player if they want to use a chance card to be released (if they have one)
         if (players[playerArrayNum].hasAReleaseFromJailCard()) {
             boolean playerUseReleaseFromJailCard = ViewController_GUIMessages.getInstance().releaseFromJailMessageHasCard();
             if (playerUseReleaseFromJailCard) {
+                // returns the chance card to the deck of cards, releases player
                 ChanceField.putBackChanceCard(players[playerArrayNum].returnReleaseFromJailCard()); // player returns returnReleaseFromJailCard
                 players[playerArrayNum].setIsInJail(false);
             }
-        }
+        } // if player does not have a card or did not use it, asks them to pay money to be released
         if (players[playerArrayNum].getIsInJail()) {
             ViewController_GUIMessages.getInstance().releaseFromJailMessagePayMoney();
             players[playerArrayNum].setIsInJail(false);
@@ -154,6 +166,7 @@ public class GameController {
         }
     }
 
+    // calculates the total value of a player's assets
     public int calculateAssets(int playerNum) {
         int totalAssetValue, valueOfBuildings, valueOfOwnableFields;
         valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
@@ -162,6 +175,7 @@ public class GameController {
         return totalAssetValue;
     }
 
+    // calculates the value of player's liquid assets i.e. money and buildings resell value
     private int calculateLiquidAssets(int playerNum) {
         int totalLiquidAssetValue, valueOfBuildings, mortgageValueOfFields;
         valueOfBuildings = board.calculateAssetValueOfBuildingsOwned(playerNum);
@@ -173,15 +187,15 @@ public class GameController {
 
     public void sellAssets(String name, int needToPay, int creditorPlayerNum) {
         int playerNum = getPlayerNum(name);
-        int liquidAssetValue = calculateLiquidAssets(playerNum) + needToPay;
         // needToPay needs to be added since we need to know how much money player had
         // before the withdrawal that made balance < 0 was made
+        int assetsValuePriorToDebt = calculateLiquidAssets(playerNum) + needToPay;
 
-        // if the player is not able to pay with their liquid assets, they go bankrupt
-        if (liquidAssetValue < needToPay)
-            goBankrupt(playerNum, liquidAssetValue, needToPay, creditorPlayerNum);
+        // if the player is not able to pay their debt, they go bankrupt
+        if (assetsValuePriorToDebt < needToPay)
+            goBankrupt(playerNum, assetsValuePriorToDebt, needToPay, creditorPlayerNum);
         else {
-            // if the player is not going bankrupt, add gui messages asking player to sell assets
+            // if the player is not going bankrupt, add gui messages asking player to sell some assets
             viewController.updateGUIBalance();
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(52, "", "", "");
             BuildSellBuildingsHandler helper = new BuildSellBuildingsHandler(getBoard().getFields());
@@ -200,6 +214,7 @@ public class GameController {
         // write message to gui that player is going bankrupt because they cannot pay and will be removed from the game
         String line1 = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(42, "" + needToPay, "" + assetValue, "");
         String creditorName;
+        // gets the relevant String for the creditor name, shows a message in the GUI
         if (creditorPlayerNum > 0) {
             creditorName = players[creditorPlayerNum - 1].getName();
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(players[bankruptPlayerNum - 1].getName(), line1, 43, -1, -1, creditorName, "", "");
@@ -207,6 +222,8 @@ public class GameController {
             creditorName = ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(44);
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(players[bankruptPlayerNum - 1].getName(), line1, 43, 85, -1, creditorName, "", "");
         }
+
+        // removes a player's buildings and the car from the board
         board.removeAllBuildingsOwned(bankruptPlayerNum);
         viewController.removeGUICar(currentPlayerNum, players[bankruptPlayerNum - 1].OnField());
         players[bankruptPlayerNum - 1].setIsBankrupt(true); // sets player's bankrupt status to true
@@ -217,7 +234,7 @@ public class GameController {
         if (!(creditorPlayerNum == 0 && checkForWinner()))
             board.bankruptcyTransferAllFieldAssets(bankruptPlayerNum, creditorPlayerNum);
 
-        // if creditor is another player, deposit the money to creditor
+        // if creditor is another player, deposit money to the creditor
         if (creditorPlayerNum > 0) {
             players[creditorPlayerNum - 1].getAccount().depositMoney(moneyToPayCreditor);
             viewController.updateGUIBalance();
@@ -231,18 +248,18 @@ public class GameController {
     }
 
     // finds a winner if all other than one player is bankrupt
-    private boolean checkForWinner() {
-        boolean winner = false;
+    public boolean checkForWinner() {
+        boolean gameHasAWinner = false;
         int bankruptCounter = 0;
         for (Player player : players) {
             if (player.getIsBankrupt()) {
                 bankruptCounter++;
             }
             if (bankruptCounter == players.length - 1) {
-                winner = true;
+                gameHasAWinner = true;
             }
         }
-        return winner;
+        return gameHasAWinner;
     }
 
     // the winner is the only player who is not bankrupt
@@ -260,6 +277,7 @@ public class GameController {
     private void endGame() {
         int winnerPlayerNum = determineWinner();
         String winnerName;
+        // outputs a message in the gui about who the winner is, and ends the game
         if (winnerPlayerNum > 0) {
             winnerName = players[winnerPlayerNum - 1].getName();
             ViewController_GUIMessages.getInstance().showTakeTurnMessage(86, winnerName, "", "");

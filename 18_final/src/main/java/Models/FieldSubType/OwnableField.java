@@ -50,6 +50,7 @@ public abstract class OwnableField extends Field {
 
     public void buyField() {
         boolean playerWantsToBuyField;
+        // asks player if they want to buy field. if yes, buy field, if no, hold auction.
         playerWantsToBuyField = ViewController_GUIMessages.getInstance().showMessageAndGetBooleanUserInput(13, 15, 16, fieldName, "" + PRICE, -1);
         int currentPlayerNum = GameController.getInstance().getCurrentPlayerNum();
         if (playerWantsToBuyField) { // use gui to get user input on whether a player wants to buy a field
@@ -58,6 +59,7 @@ public abstract class OwnableField extends Field {
             auctionField();
     }
 
+    // executes the buy field transaction, withdraws money, update rent, format the field, show gui message
     private void buyFieldTransaction(int playerNum, int purchasePrice) {
         Board board = GameController.getInstance().getBoard();
         String playerName = GameController.getInstance().getPlayerName(playerNum);
@@ -72,71 +74,79 @@ public abstract class OwnableField extends Field {
             sendGUIPurchaseMessage(playerName,purchasePrice); }
     }
 
+    // holds an auction for the field
     public void auctionField() {
-        int currentBid, highestBid, numberOfHighestBidders, auctionWonByPlayerNum;
-        int[] bids = new int[GameController.getInstance().getTotalPlayers()];
-        ViewController_GUIMessages.getInstance().showTakeTurnMessage(78,"","","");
-        int auctionRound = 0;
-        highestBid = 0;
-        numberOfHighestBidders = 0;
-        auctionWonByPlayerNum = 0;
-        String playerName;
-        do {
-            auctionRound++;
-            if (auctionRound == 1) {
-                for (int i = 0; i < bids.length; i++) {
-                    if (!GameController.getInstance().getPlayerObject(i+1).getIsBankrupt()) {
-                        playerName = GameController.getInstance().getPlayerName(i+1);
-                        currentBid = ViewController_GUIMessages.getInstance().auctionBidding(fieldName, PRICE, playerName);
-                        bids[i] = currentBid;
-                        if (currentBid > highestBid)
-                            highestBid = currentBid;
+        if (!GameController.getInstance().checkForWinner()) { //only run auction if there are 2+ players in the game
+            int currentBid, highestBid, numberOfHighestBidders, auctionWonByPlayerNum;
+            int[] bids = new int[GameController.getInstance().getTotalPlayers()];
+            ViewController_GUIMessages.getInstance().showTakeTurnMessage(78, "", "", "");
+            int auctionRound = 0;
+            highestBid = 0;
+            numberOfHighestBidders = 0;
+            auctionWonByPlayerNum = 0;
+            String playerName;
+            do { // auction to continue as long as there is no winner of the auction
+                auctionRound++;
+                if (auctionRound == 1) { // display the rules of the auction if this is round 1
+                    for (int i = 0; i < bids.length; i++) {
+                        if (!GameController.getInstance().getPlayerObject(i + 1).getIsBankrupt()) {
+                            playerName = GameController.getInstance().getPlayerName(i + 1);
+                            currentBid = ViewController_GUIMessages.getInstance().auctionBidding(fieldName, PRICE, playerName);
+                            bids[i] = currentBid;
+                            if (currentBid > highestBid)
+                                highestBid = currentBid;
+                        }
+                    }
+                } else { // hold the auction without displaying rules
+                    highestBid = 0;
+                    numberOfHighestBidders = 0;
+                    auctionWonByPlayerNum = 0;
+                    ViewController_GUIMessages.getInstance().showTakeTurnMessage(80, "", "", "");
+                    for (int i = 0; i < bids.length; i++) {
+                        if (bids[i] > 0) {
+                            playerName = GameController.getInstance().getPlayerName(i + 1);
+                            currentBid = ViewController_GUIMessages.getInstance().auctionBidding(fieldName, PRICE, playerName);
+                            bids[i] = currentBid;
+                            if (currentBid > highestBid)
+                                highestBid = currentBid;
+                        }
                     }
                 }
-            } else {
-                highestBid = 0;
-                numberOfHighestBidders = 0;
-                auctionWonByPlayerNum = 0;
-                ViewController_GUIMessages.getInstance().showTakeTurnMessage(80,"","","");
-                for (int i = 0; i < bids.length; i++) {
-                    if (bids[i] > 0) {
-                        playerName = GameController.getInstance().getPlayerName(i+1);
-                        currentBid = ViewController_GUIMessages.getInstance().auctionBidding(fieldName, PRICE, playerName);
-                        bids[i] = currentBid;
-                        if (currentBid > highestBid)
-                            highestBid = currentBid;
-                    }
+                if (highestBid == 0) { // if there are no bids, end the auction
+                    ViewController_GUIMessages.getInstance().showTakeTurnMessage(81, "", "", "");
+                    return;
                 }
+                for (int i = 0; i < bids.length; i++) {
+                    if (bids[i] == highestBid) {
+                        numberOfHighestBidders++;
+                        auctionWonByPlayerNum = i + 1;
+                    } else
+                        bids[i] = 0; // resets the bids of all other bids except those with winning bids
+                }
+                playerName = GameController.getInstance().getPlayerName(auctionWonByPlayerNum);
             }
-            if (highestBid == 0) {
-                ViewController_GUIMessages.getInstance().showTakeTurnMessage(81,"","","");
-                return; }
-            for (int i = 0; i < bids.length; i++) {
-                if (bids[i] == highestBid) {
-                    numberOfHighestBidders++;
-                    auctionWonByPlayerNum = i + 1; }
-                else
-                    bids[i] = 0; // resets the bids of all other bids except those with winning bids
-            }
-            playerName = GameController.getInstance().getPlayerName(auctionWonByPlayerNum);
+            while (numberOfHighestBidders != 1);
+            ViewController_GUIMessages.getInstance().showTakeTurnMessage(79, playerName, "" + highestBid, "");
+            buyFieldTransaction(auctionWonByPlayerNum, highestBid);
         }
-        while (numberOfHighestBidders != 1);
-        ViewController_GUIMessages.getInstance().showTakeTurnMessage(79,playerName,""+highestBid,"");
-        buyFieldTransaction(auctionWonByPlayerNum,highestBid);
     }
 
+    // displays a message that the player needs to pay rent. Explain that rent may be higher if the owner owns several fields
     private void showGUIPayRentMessage(String ownerName) {
         // gui message to pay rent
         Board board = GameController.getInstance().getBoard();
         int lineArray = -1; // pass in -1 to method if no extra message needs to be displayed
         String str = "";
+
         // if owner owns several shipping fields, display message that rent is higher
         if (this.isShippingField() && 1 < board.numOfShippingFieldsOwned(ownerNum))
             lineArray = 21;
-            // if owner owns several brewery fields, display message that rent is higher
+
+        // if owner owns several brewery fields, display message that rent is higher
         else if (this.isBreweryField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)))
             lineArray = 22;
-            // if owner can collect higher rent from street fields
+
+        // if owner can collect higher rent from street fields
         else if (this.isStreetField()) {
             boolean unBuilt = !((StreetField) this).hasHotel() && ((StreetField) this).getNumOfHouses() == 0;
             // if streetField is unbuilt and player owns all of same color
@@ -159,16 +169,20 @@ public abstract class OwnableField extends Field {
         ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(19, lineArray, 28, ownerName, str, "" + currentRent);
     }
 
+    // shows a gui message that the player has bought field. Explain if rent is now higher
     private void sendGUIPurchaseMessage(String playerName, int purchasePrice) {
         Board board = GameController.getInstance().getBoard();
         String message1 = String.format(ViewController_GUIMessages.getInstance().getTakeTurnGUIMessages(14), fieldName, "" + purchasePrice);
+
         // if owner owns several shipping fields, display message that rent is higher
         if (this.isShippingField() && 1 < board.numOfShippingFieldsOwned(ownerNum))
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(playerName,message1, 39);
-            // if owner owns several brewery fields, display message that rent is higher
+
+        // if owner owns several brewery fields, display message that rent is higher
         else if (this.isBreweryField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName)))
             ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(playerName,message1, 40);
-            // if owner can collect higher rent from street fields
+
+        // if owner can collect higher rent from street fields
         else if (this.isStreetField() && board.ownsAllFieldsOfSameType(board.getFieldArrayNumber(fieldName))) {
             String str1, str2, str3;
             str1 = ((StreetField) this).getStreetColor();

@@ -24,10 +24,12 @@ public class Player {
         throwTwoOfSameDiceInARow = 0;
     }
 
+    // moves the player's location stepsToMove steps forward
     public int moveSteps(int stepsToMove) {
         onField = (onField+stepsToMove) % GameController.getInstance().getBoard().getTotalNumOfFields();
         return onField; }
 
+    // checks if a player is eligible for a start bonus, and deposits the money if they are eligible
     public void collectStartBonus(int diceThrow) {
         // only applies to regular turns/ passing START by throwing the dice, not chance card situations
         if (onField < diceThrow) {
@@ -37,6 +39,7 @@ public class Player {
         }
     }
 
+    // moves player to a specified field num
     public void moveToField(int fieldArrayNum) {
         if(fieldArrayNum >= 0)
             onField = fieldArrayNum % GameController.getInstance().getBoard().getTotalNumOfFields();

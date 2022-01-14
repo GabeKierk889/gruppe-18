@@ -25,6 +25,7 @@ public class ViewController_GameSetup {
     }
 
     public GUI setupGUIBoard(GUI_Field[] guiFields, GUI_Street[] guiStreets) {
+        // sets up and formats the GUI board, shows a welcome message with the game rules
         GUIBoardCreator service = new GUIBoardCreator(guiFields,guiStreets);
         service.setUpAndFormatGUIBoard();
         GUI gui = new GUI(guiFields, Color.WHITE);
@@ -32,10 +33,7 @@ public class ViewController_GameSetup {
         return gui;
     }
 
-    public void showGameRules(GUI gui) {
-        if(gui.getUserLeftButtonPressed(setupGameGUIMessages[0] +" "+setupGameGUIMessages[9],setupGameGUIMessages[10],setupGameGUIMessages[11]))
-            gui.showMessage(setupGameGUIMessages[12]);}
-
+    // asks the players to enter the player names, checks for errors, then returns the player names
     public String[] getPlayerNames(GUI gui) {
         String str = gui.getUserString(setupGameGUIMessages[1]);
         String[] strarray = str.split(" ");
@@ -68,6 +66,7 @@ public class ViewController_GameSetup {
         return getPlayerNames(gui);
     }
 
+    // sets up the number of gui cars needed - note there is intentional run-through in switch statement
     public void setupGUICars(int players, GUI_Car[] guiCars) {
         switch (players) {
             case 6:
@@ -90,4 +89,8 @@ public class ViewController_GameSetup {
                 break;
         }
     }
+
+    public void showGameRules(GUI gui) {
+        if(gui.getUserLeftButtonPressed(setupGameGUIMessages[0] +" "+setupGameGUIMessages[9],setupGameGUIMessages[10],setupGameGUIMessages[11]))
+            gui.showMessage(setupGameGUIMessages[12]);}
 }

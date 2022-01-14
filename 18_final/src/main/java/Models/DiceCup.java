@@ -31,7 +31,7 @@ public class DiceCup {
         return die1.getFaceValue() == die2.getFaceValue();
     }
 
-    public void setDiceNotSameFaceValue () {
+    public void setDiceNotSameFaceValue () { // scrambles the dice so that sameFaceValue is false
         die1.setFaceValue(1);
         die2.setFaceValue(2);
     }

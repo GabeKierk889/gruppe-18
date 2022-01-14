@@ -38,14 +38,15 @@ public class ChanceCardsDataReader {
     }
 
     private void readFieldNames(){
+        // extracts any field names that occur in the chance card text file
         FieldsDataReader read = new FieldsDataReader("Fields.csv");
         String[] fieldName = read.getFieldNamesArray();
         fieldNameWithinText = new String[rawStringsData.length];
 
         for (int i = 0; i < rawStringsData.length; i++) {
-            for (int j = 0; j < fieldName.length; j++) {
-                if((rawStringsData[i]).toLowerCase().contains(fieldName[j].toLowerCase())){
-                    fieldNameWithinText[i] = fieldName[j];
+            for (String s : fieldName) {
+                if ((rawStringsData[i]).toLowerCase().contains(s.toLowerCase())) {
+                    fieldNameWithinText[i] = s;
                 }
             }
         }

@@ -20,6 +20,8 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
         Board board = GameController.getInstance().getBoard();
         int nearestShippingFieldNum = 0;
         int onField = currentplayerobject.OnField();
+
+        // finds the nearest shipping field
         for (int i = onField; i < onField + board.getTotalNumOfFields(); i++) {
             int arrayNum = i % board.getTotalNumOfFields();
             if (board.getFieldObject(arrayNum).isShippingField()) {
@@ -37,6 +39,7 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
             ViewController.getInstance().updateGUIBalance();
             ViewController_GUIMessages.getInstance().startBonusMessage();
         }
+
         // if double rent is needed, then transfer an additional portion of rent prior to landOnField method being called
         int ownerNum = ((ShippingField) board.getFieldObject(nearestShippingFieldNum)).getOwnerNum();
         int extraRentFactor = rentMultiplier - 1;
@@ -44,6 +47,7 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
         if (ownerNum != 0 && ownerNum != GameController.getInstance().getCurrentPlayerNum()) {
             boolean isFieldMortgaged = ((OwnableField)board.getFieldObject(nearestShippingFieldNum)).getIsMortgaged();
             if (extraRentFactor > 0 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail() && !isFieldMortgaged) {
+                // collects extra rent
                 extraRentAmount = ((OwnableField) board.getFieldObject(nearestShippingFieldNum)).getRent() * extraRentFactor;
                 ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(48,""+extraRentAmount,"","");
                 currentplayerobject.getAccount().transferMoney(extraRentAmount, ownerNum);

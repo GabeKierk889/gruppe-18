@@ -18,7 +18,8 @@ public class Die {
     }
 
     public void setFaceValue(int facevalue) {
-        if (facevalue > 0 && facevalue <= NUMOFSIDES) this.faceValue = facevalue;
+        if (facevalue > 0 && facevalue <= NUMOFSIDES)
+            this.faceValue = facevalue;
     }
 
     public String toString () {

@@ -16,20 +16,20 @@ public class Account {
 
     // Withdraws money.
     public void withdrawMoney (int withdrawal) {
-        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
         if (balance < 0) {
+        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
             GameController.getInstance().sellAssets(NAME,withdrawal,0);
         }
     }
 
     // method overloading - this method is called in transferMoney(), keeps track of creditorPlayerNum
     public void withdrawMoney (int withdrawal, int creditorPlayerNum) {
-        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
         if (withdrawal > 0) {
             this.balance -= withdrawal; }
         if (balance < 0) {
+        //  allowing a negative balance - if balance is negative, player is asked to sell assets / go bankrupt
             GameController.getInstance().sellAssets(NAME,withdrawal,creditorPlayerNum);
         }
     }

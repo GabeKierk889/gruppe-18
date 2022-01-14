@@ -67,6 +67,7 @@ public class ChanceField extends Field {
     }
 
     public static void putAllNullCardsinBottom() {
+        // algorithm to put any null cards in the bottom of the deck of cards
         // gets rid of gaps / empty slots in the array and puts them all in the bottom / toward index 0
         int nulls = 0; int nullsInARow;
         for (int i = chanceCards.length - 1; i > nulls-1; i--) {

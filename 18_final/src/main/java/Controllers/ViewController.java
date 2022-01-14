@@ -14,7 +14,7 @@ public class ViewController {
     private static ViewController single_instance;
     private final int totalNumOfFields = GameController.getInstance().getBoard().getTotalNumOfFields();
     private GUI_Field[] guiFields = new GUI_Field[totalNumOfFields];
-    private GUI_Street[] guiStreets= new GUI_Street[totalNumOfFields];
+    private GUI_Street[] guiStreets = new GUI_Street[totalNumOfFields];
 
     public static ViewController getInstance() {
         if (single_instance == null)
@@ -23,7 +23,7 @@ public class ViewController {
     }
 
     public void setupGUIBoard() {
-        gui = ViewController_GameSetup.getInstance().setupGUIBoard(guiFields,guiStreets);
+        gui = ViewController_GameSetup.getInstance().setupGUIBoard(guiFields, guiStreets);
     }
 
     public String[] getPlayerNames() {
@@ -31,12 +31,13 @@ public class ViewController {
     }
 
     public void putPlayersOnBoard() {
+        // sets up the gui players and the cars, puts the cars on START
         int totalPlayers = GameController.getInstance().getTotalPlayers();
         GUI_Car[] guiCars = new GUI_Car[totalPlayers];
         ViewController_GameSetup.getInstance().setupGUICars(totalPlayers, guiCars);
         guiPlayers = new GUI_Player[totalPlayers];
         for (int i = totalPlayers - 1; i >= 0; i--) {
-            guiPlayers[i] = new GUI_Player(getPlayerName(i+1), GameSettings.STARTINGBALANCE, guiCars[i]);
+            guiPlayers[i] = new GUI_Player(getPlayerName(i + 1), GameSettings.STARTINGBALANCE, guiCars[i]);
             gui.addPlayer(guiPlayers[i]);
             guiFields[0].setCar(guiPlayers[i], true);
         }
@@ -49,11 +50,11 @@ public class ViewController {
     }
 
     public void removeGUICar(int playerNum, int playerOnFieldNum) {
-        guiFields[playerOnFieldNum].setCar(guiPlayers[playerNum-1], false);
+        guiFields[playerOnFieldNum].setCar(guiPlayers[playerNum - 1], false);
     }
 
-    public void updateGUIDice(int die1,int die2) {
-        gui.setDice(die1,(int) (Math.random() * 359),(int) (Math.random() * 3 + 1),
+    public void updateGUIDice(int die1, int die2) {
+        gui.setDice(die1, (int) (Math.random() * 359), (int) (Math.random() * 3 + 1),
                 (int) (Math.random() * 6 + 3), die2,
                 (int) (Math.random() * 359),
                 (int) (Math.random() * 3 + 4),
@@ -71,6 +72,7 @@ public class ViewController {
     }
 
     public void formatFieldBorder(int fieldArrayNum) {
+        // when a field is purchased by a player, format the field according to the player's color
         boolean isShippingField = GameController.getInstance().getBoard().getFieldObject(fieldArrayNum).isShippingField();
         boolean isBreweryField = GameController.getInstance().getBoard().getFieldObject(fieldArrayNum).isBreweryField();
         int ownerNum = ((OwnableField) GameController.getInstance().getBoard().getFieldObject(fieldArrayNum)).getOwnerNum();

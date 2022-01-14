@@ -11,6 +11,7 @@ public class BreweryField extends OwnableField {
 
     @Override
     public void updateRent() {
+        // rent of a brewery field is 100 or 200 times the dice sum
         int diceSum = GameController.getInstance().getDiceCup().getSum();
         Board board = GameController.getInstance().getBoard();
         int fieldArrayNum = board.getFieldArrayNumber(fieldName);

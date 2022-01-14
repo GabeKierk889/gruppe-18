@@ -10,6 +10,7 @@ public class FileImporter {
     public String[] readAllLinesInFile(String filename) {
         String[] array = null;
         try {
+            // checks how may lines there are in the file, and store each line in an array
             int linesInFile = getLinesInFile(filename);
             reader = new BufferedReader(new FileReader(filename));
             array = new String[linesInFile];
