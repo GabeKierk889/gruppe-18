@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+
+package FieldSubTypes {
+
+
+abstract class OwnableField {
+
+}
+
+class StreetField {
+
+}
+
+class BreweryField {
+
+}
+
+class ShippingField {
+
+}
+
+
+class JailField {
+
+}
+
+abstract class TaxField {
+   }
+
+class StateTaxField {
+
+}
+
+class IncomeTaxField {
+
+}
+class ChanceField {
+}
+
+}
+
+
+OwnableField <|-- StreetField
+Field <|-- ChanceField
+Field <|-- JailField
+Field <|-- TaxField
+Field <|-- OwnableField
+OwnableField <|-- BreweryField
+OwnableField <|-- ShippingField
+TaxField <|-- StateTaxField
+TaxField <|-- IncomeTaxField
+
+@enduml
