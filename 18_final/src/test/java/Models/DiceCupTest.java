@@ -1,13 +1,13 @@
-/**
- * TC 09
- */
-
 package Models;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * TC 09
+
+ */
 public class DiceCupTest { // tested by Xiao 6 Jan 22
 
     @Test

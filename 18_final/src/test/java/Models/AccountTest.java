@@ -1,9 +1,3 @@
-/**
- * TC 11
- * This test class test for the following methods:
- *      withdrawMoney();
- *      depositMoney();
- */
 
 package Models;
 
@@ -11,13 +5,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * TC 11
+ * This test class test for the following methods:
+ *      withdrawMoney();
+ *      depositMoney();
+ */
 class AccountTest {
     Account account = new Account("GTAbriel");
     int startingBalance = GameSettings.STARTINGBALANCE;
 
     // Tested by Gabriel & Deniz 13-01-2022.
     @Test
-    void withdrawMoney() {;
+    void withdrawMoney() {
         for (int i = 0; i <= 1000; i++) {
             account.setBalance(startingBalance);
             account.withdrawMoney(i);

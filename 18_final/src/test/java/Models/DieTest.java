@@ -1,11 +1,11 @@
-/**
- * TC 10
- */
 package Models;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * TC 10
+ */
 public class DieTest {
     //This code is from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 

@@ -1,6 +1,3 @@
-/**
- * TC 04
- */
 
 package Models;
 
@@ -9,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * TC 04
+ */
 class PlayerTest {
     Player player = new Player("Xiao");
     Board board = new Board();

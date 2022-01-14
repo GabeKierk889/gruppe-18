@@ -21,7 +21,6 @@ public class GUIBoardCreator {
     private String[] takeTurnMessages = fileImporter.readAllLinesInFile("GameMessages_takeTurn.txt");
     private String[] fieldDescriptions = fileImporter.readAllLinesInFile("FieldDescriptions.txt");
 
-    // TODO: Lave descriptions til felter som beskriver leje, huspriser, pantsætningsværdi osv
     public GUIBoardCreator(GUI_Field[] guiFields, GUI_Street[] guiStreets) {
         this.guiFields = guiFields;
         this.guiStreets = guiStreets;
