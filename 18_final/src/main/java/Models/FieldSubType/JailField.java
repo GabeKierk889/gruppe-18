@@ -1,8 +1,10 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.GameController;
 import Controllers.ViewController;
 import Controllers.ViewController_GUIMessages;
+import Models.Field;
+import Models.Player;
 
 public class JailField extends Field {
 
