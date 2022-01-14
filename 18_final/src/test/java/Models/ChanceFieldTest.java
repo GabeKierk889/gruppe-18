@@ -1,6 +1,3 @@
-/**
- * TC 08
- */
 
 package Models;
 
@@ -11,6 +8,9 @@ import Models.FieldSubType.ChanceField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * TC 08
+ */
 class ChanceFieldTest { // tested by Xiao 7 Jan 22
     //This code is from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
