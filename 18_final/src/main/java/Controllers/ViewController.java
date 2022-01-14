@@ -1,7 +1,7 @@
 package Controllers;
 
 import Models.GameSettings;
-import Models.OwnableField;
+import Models.FieldSubType.OwnableField;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;

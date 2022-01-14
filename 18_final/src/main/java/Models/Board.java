@@ -2,7 +2,8 @@ package Models;
 
 import Controllers.GameController;
 import Controllers.ViewController;
-import Controllers.ViewController_GUIMessages;
+import Models.FieldSubType.OwnableField;
+import Models.FieldSubType.StreetField;
 import Services.BuildSellBuildingsHandler;
 import Services.FieldsCreator;
 
@@ -145,7 +146,7 @@ public class Board {
         for (Field field : fields) {
             // checks for fields owned by player and calculates total asset value of ownable fields
             if (field.isOwnableField() && ((OwnableField) field).getOwnerNum() == playerNum) {
-                if (((OwnableField) field).isMortgaged)
+                if (((OwnableField) field).getIsMortgaged())
                     totalValue += ((OwnableField) field).MORTGAGEVALUE;
                 else
                     totalValue += ((OwnableField) field).getFieldPrice();

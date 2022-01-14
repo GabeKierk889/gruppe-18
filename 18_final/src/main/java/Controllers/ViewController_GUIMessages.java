@@ -1,7 +1,7 @@
 package Controllers;
 
 import Models.GameSettings;
-import Models.StreetField;
+import Models.FieldSubType.StreetField;
 import Services.*;
 import gui_fields.*;
 import gui_main.GUI;

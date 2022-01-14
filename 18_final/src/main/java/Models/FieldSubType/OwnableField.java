@@ -1,8 +1,11 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.GameController;
 import Controllers.ViewController;
 import Controllers.ViewController_GUIMessages;
+import Models.Board;
+import Models.Field;
+import Models.Player;
 
 public abstract class OwnableField extends Field {
     protected final int PRICE;
@@ -10,7 +13,7 @@ public abstract class OwnableField extends Field {
     protected boolean isMortgaged;
     protected int currentRent;
     protected final int[] RENTARRAY;
-    protected final int MORTGAGEVALUE;
+    public final int MORTGAGEVALUE;
     private final double MORTGAGE_PRICE_RATIO = 0.5;
 
     public OwnableField(String fieldName, int price, int[] rentArray) {
@@ -187,6 +190,6 @@ public abstract class OwnableField extends Field {
     public abstract void updateRent();
     public int getOwnerNum() { return ownerNum; }
     public int getFieldPrice() { return PRICE;  }
-    protected void setMortgageStatus(boolean status) { this.isMortgaged = status; }
-    public boolean isMortgaged() { return isMortgaged; }
+    public void setMortgageStatus(boolean status) { this.isMortgaged = status; }
+    public boolean getIsMortgaged() { return isMortgaged; }
 }

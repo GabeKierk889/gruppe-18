@@ -1,6 +1,7 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.GameController;
+import Models.Board;
 
 public class BreweryField extends OwnableField {
 

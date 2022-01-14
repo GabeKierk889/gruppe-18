@@ -1,7 +1,6 @@
 package Services;
 
-import Models.StreetField;
-import com.sun.source.doctree.SeeTree;
+import Models.FieldSubType.StreetField;
 
 import java.util.Scanner;
 

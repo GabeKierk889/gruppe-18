@@ -1,7 +1,9 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.GameController;
 import Controllers.ViewController_GUIMessages;
+import Models.GameSettings;
+import Models.Player;
 
 public class IncomeTaxField extends TaxField {
     double taxrate;

@@ -2,6 +2,9 @@ package Services;
 
 import Controllers.GameController;
 import Models.*;
+import Models.FieldSubType.ChanceField;
+import Models.FieldSubType.OwnableField;
+import Models.FieldSubType.ShippingField;
 import gui_fields.*;
 
 import java.awt.*;
