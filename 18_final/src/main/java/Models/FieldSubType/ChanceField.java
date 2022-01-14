@@ -1,12 +1,15 @@
-package Models;
+package Models.FieldSubType;
 
 //This code has been modified from previous assignment CDIO 3 by Maj Kyllesbech, Gabriel H, Kierkegaard, Mark Bidstrup & Xiao Chen handed in 26. November 2021
 
 import Controllers.ViewController_GUIMessages;
+import Models.ChanceCard;
 import Models.ChanceCardSubType.JailReleaseCard;
+import Models.Field;
+import Models.Player;
 import Services.ChanceCardsCreator;
 
-public class ChanceField extends Field{
+public class ChanceField extends Field {
     private static ChanceCard currentCard;
     private static ChanceCard[] chanceCards;
 

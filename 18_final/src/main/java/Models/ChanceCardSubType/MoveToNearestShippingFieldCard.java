@@ -4,6 +4,8 @@ import Controllers.GameController;
 import Controllers.ViewController;
 import Controllers.ViewController_GUIMessages;
 import Models.*;
+import Models.FieldSubType.OwnableField;
+import Models.FieldSubType.ShippingField;
 
 public class MoveToNearestShippingFieldCard extends ChanceCard {
     int rentMultiplier;
@@ -40,7 +42,7 @@ public class MoveToNearestShippingFieldCard extends ChanceCard {
         int extraRentFactor = rentMultiplier - 1;
         int extraRentAmount;
         if (ownerNum != 0 && ownerNum != GameController.getInstance().getCurrentPlayerNum()) {
-            boolean isFieldMortgaged = ((OwnableField)board.getFieldObject(nearestShippingFieldNum)).isMortgaged();
+            boolean isFieldMortgaged = ((OwnableField)board.getFieldObject(nearestShippingFieldNum)).getIsMortgaged();
             if (extraRentFactor > 0 && !GameController.getInstance().getPlayerObject(ownerNum).getIsInJail() && !isFieldMortgaged) {
                 extraRentAmount = ((OwnableField) board.getFieldObject(nearestShippingFieldNum)).getRent() * extraRentFactor;
                 ViewController_GUIMessages.getInstance().showTakeTurnMessageWithPlayerName(48,""+extraRentAmount,"","");

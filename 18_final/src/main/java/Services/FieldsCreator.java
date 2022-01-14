@@ -1,6 +1,7 @@
 package Services;
 
 import Models.*;
+import Models.FieldSubType.*;
 
 public class FieldsCreator {
     // sets up the fields in an array using data pulled from external file

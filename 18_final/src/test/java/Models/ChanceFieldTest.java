@@ -7,6 +7,7 @@ package Models;
 import static org.junit.jupiter.api.Assertions.*;
 
 import Models.ChanceCardSubType.JailReleaseCard;
+import Models.FieldSubType.ChanceField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

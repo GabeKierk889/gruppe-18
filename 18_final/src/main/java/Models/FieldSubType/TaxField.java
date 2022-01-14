@@ -1,7 +1,9 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.ViewController;
 import Controllers.ViewController_GUIMessages;
+import Models.Field;
+import Models.Player;
 
 public abstract class TaxField extends Field {
     protected final int FIXEDTAX;

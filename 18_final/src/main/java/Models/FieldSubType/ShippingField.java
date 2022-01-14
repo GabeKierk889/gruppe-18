@@ -1,4 +1,4 @@
-package Models;
+package Models.FieldSubType;
 
 import Controllers.GameController;
 

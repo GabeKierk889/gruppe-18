@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.*;
+import Models.FieldSubType.ChanceField;
 import Services.BuildSellBuildingsHandler;
 
 public class GameController {
