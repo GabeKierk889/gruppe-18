@@ -14,7 +14,7 @@ package  services #DDDDDD {
 package models {
 () Field
 
-package FieldSubTypes <<Rectangle>> {
+package FieldSubTypes {
 
 
 class ChanceField {

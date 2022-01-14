@@ -97,7 +97,7 @@ class Die {
     +roll() : void
 }
 
-package FieldSubTypes <<Rectangle>> {
+package FieldSubTypes #DDDDDD {
 
 () FieldSubType
 
